@@ -1,3 +1,5 @@
+import 'package:es3fny_user_app/modules/test_components/test_components.dart';
+import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,10 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'ES3FNY USER APP',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: lightTheme,
+      themeMode: ThemeMode.light,
+      home: const TestComponents(),
     );
   }
 }
