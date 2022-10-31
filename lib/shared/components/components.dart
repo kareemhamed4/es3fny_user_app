@@ -1,5 +1,6 @@
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Widget myTextFormField({
   required BuildContext context,
@@ -37,6 +38,7 @@ Widget myTextFormField({
     textAlign: TextAlign.right,
     textDirection: TextDirection.rtl,
     maxLength: maxLength,
+    inputFormatters: [LengthLimitingTextInputFormatter(11)],
     style: Theme.of(context).textTheme.bodyText1,
     decoration: InputDecoration(
       border: OutlineInputBorder(
