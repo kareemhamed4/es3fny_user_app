@@ -69,7 +69,7 @@ Widget myMaterialButton({
   String? label,
 }) => MaterialButton(
   onPressed: () {
-    onPressed;
+    onPressed();
   },
   color: myFavColor,
   minWidth: double.infinity,
@@ -92,7 +92,7 @@ Widget myTextButton({
   required Function onPressed,
 }) => TextButton(
     onPressed: (){
-      onPressed;
+      onPressed();
     },
     child: Text(
       label,
@@ -108,7 +108,7 @@ Widget onBoardingMaterialButton({
   width: 264,
   child:   MaterialButton(
     onPressed: () {
-      onPressed;
+      onPressed();
     },
     color: myFavColor,
     height: 40,
@@ -133,6 +133,30 @@ Widget onBoardingMaterialButton({
         ],
       ),
     ),
+  ),
+);
+
+// ignore: non_constant_identifier_names
+Future NavigateToReb({
+  required BuildContext context,
+  required Widget widget,
+}) =>
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => widget));
+
+// ignore: non_constant_identifier_names
+Future NavigateTo({
+  required BuildContext context,
+  required Widget widget,
+}) =>
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+
+Widget myDivider() => Padding(
+  padding: const EdgeInsets.only(right: 0,left: 0,top: 10,bottom: 10,),
+  child: Container(
+    width: double.infinity,
+    color: Colors.grey[300],
+    height: 1,
   ),
 );
 

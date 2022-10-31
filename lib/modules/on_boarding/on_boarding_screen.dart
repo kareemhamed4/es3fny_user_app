@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       appBar: AppBar(
           leading:
-              myTextButton(context: context, label: "تخطي", onPressed: () {})),
+              myTextButton(context: context, label: "تخطي", onPressed: () {
+                NavigateTo(context: context, widget: LoginScreen());
+              })),
       body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(
@@ -107,6 +110,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     /*CacheHelper.saveData(key: "onBoarding", value: true).then((value){
                       NavigateToReb(context: context, widget: LoginScreen());
                     });*/
+                    NavigateTo(context: context, widget: LoginScreen());
                   } else {
                     pageController.nextPage(
                       duration: const Duration(
