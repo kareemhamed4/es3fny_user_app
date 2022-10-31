@@ -12,54 +12,54 @@ Widget myTextFormField({
   Function? onSubmit,
   Widget? suffixIcon,
   Widget? prefixIcon,
+  Widget? icon,
   int? maxLength,
-}) => Directionality(
+  int? maxLength2,
+}) => TextFormField(
+  controller: controller,
+  cursorColor: Colors.black54,
+  keyboardType: type,
+  obscureText: isPassword ?? false,
+  onTap: (){
+    onTap;
+  },
+  onChanged: (value){
+    onChange;
+  },
+  onFieldSubmitted: (value){
+    onSubmit;
+  },
+  validator: (value){
+    if(value!.isEmpty){
+      return "value must not be empty";
+    }
+    return null;
+  },
+  textAlign: TextAlign.right,
   textDirection: TextDirection.rtl,
-  child: TextFormField(
-    controller: controller,
-    cursorColor: Colors.black54,
-    keyboardType: type,
-    obscureText: isPassword ?? false,
-    onTap: (){
-      onTap;
-    },
-    onChanged: (value){
-      onChange;
-    },
-    onFieldSubmitted: (value){
-      onSubmit;
-    },
-    validator: (value){
-      if(value!.isEmpty){
-        return "value must not be empty";
-      }
-      return null;
-    },
-    textAlign: TextAlign.right,
-    textDirection: TextDirection.rtl,
-    maxLength: maxLength,
-    inputFormatters: [LengthLimitingTextInputFormatter(11)],
-    style: Theme.of(context).textTheme.bodyText1,
-    decoration: InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide: BorderSide(
-          width: 1,
-          color: myFavColor,
-        ),
+  maxLength: maxLength,
+  inputFormatters: [LengthLimitingTextInputFormatter(maxLength2)],
+  style: Theme.of(context).textTheme.bodyText1,
+  decoration: InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(
+        width: 1,
+        color: myFavColor,
       ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide: BorderSide(
-          width: 1,
-          color: myFavColor.withOpacity(0.5),
-        ),
-      ),
-      suffixIcon: suffixIcon,
-      prefixIcon: prefixIcon,
-      prefixIconColor: Colors.grey,
-      suffixIconColor: Colors.grey,
     ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(
+        width: 1,
+        color: myFavColor.withOpacity(0.5),
+      ),
+    ),
+    suffixIcon: suffixIcon,
+    prefixIcon: prefixIcon,
+    prefixIconColor: Colors.grey,
+    suffixIconColor: Colors.grey,
+    icon: icon,
   ),
 );
 
