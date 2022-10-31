@@ -21,8 +21,8 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Text("تسجيل الدخول",
                       style: Theme.of(context).textTheme.headline5!.copyWith(
-                        fontSize: 32,
-                      )),
+                            fontSize: 32,
+                          )),
                   const SizedBox(
                     height: 56,
                   ),

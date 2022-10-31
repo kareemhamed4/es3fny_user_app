@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.white,
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: myFavColor
   ),
@@ -21,7 +22,7 @@ ThemeData lightTheme = ThemeData(
     bodyText1: TextStyle(fontFamily: "KareemR",color: myFavColor4),
     bodyText2: TextStyle(fontFamily: "KareemR",color: myFavColor4),
     subtitle1: TextStyle(fontFamily: "KareemB",color: myFavColor4),
-    headline5: TextStyle(fontFamily: "KareemB",color: myFavColor4),
+    headline5: TextStyle(fontFamily: "KareemB",color: myFavColor),
     headline6: TextStyle(fontFamily: "KareemB",color: myFavColor4),
     caption: TextStyle(fontFamily: "KareemB",color: myFavColor2),
     button: const TextStyle(fontFamily: "InterB",color: Colors.white),
