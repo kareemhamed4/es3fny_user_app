@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
 //ignore: must_be_immutable
@@ -7,6 +8,7 @@ class LoginScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
@@ -23,14 +25,18 @@ class LoginScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline5!.copyWith(
                             fontSize: 32,
                           )),
-                  const SizedBox(
-                    height: 56,
+                  SizedBox(
+                    height: size.height*0.064,
                   ),
                   const Image(
                       image: AssetImage(
-                          "assets/images/juicy-online-doctor-consultation 1.png")),
-                  const SizedBox(
-                    height: 57,
+                          "assets/images/juicy-online-doctor-consultation 1.png",
+                      ),
+                    width: 180,
+                    height: 180,
+                  ),
+                  SizedBox(
+                    height: size.height*0.065,
                   ),
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
@@ -65,7 +71,8 @@ class LoginScreen extends StatelessWidget {
                       suffixIcon: const Icon(Icons.visibility_off_outlined),
                       context: context,
                       controller: passwordController,
-                      onSubmit: () {}),
+                      onSubmit: () {},
+                  ),
                   const SizedBox(
                     height: 6,
                   ),
@@ -74,9 +81,11 @@ class LoginScreen extends StatelessWidget {
                       child: myTextButton(
                           context: context,
                           label: "هل نسيت كلمة المرور؟",
-                          onPressed: () {})),
-                  const SizedBox(
-                    height: 20,
+                          onPressed: () {
+                            NavigateTo(context: context, widget: const ForgetPasswordScreen());
+                          })),
+                  SizedBox(
+                    height: size.height*0.042,
                   ),
                   myMaterialButton(
                     context: context,
