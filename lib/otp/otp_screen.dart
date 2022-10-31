@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/modules/create_new_password/newpassword.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
@@ -111,6 +112,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 myMaterialButton(
                   context: context,
                   onPressed: () {
+                    NavigateTo(context: context, widget: NewPassword());
                   },
                   label: "تأكيد",
                 )

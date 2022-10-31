@@ -1,17 +1,24 @@
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class NewPassword extends StatelessWidget {
+  NewPassword({Key? key}) : super(key: key);
 
-   NewPassword({Key? key}) : super(key: key);
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_circle_left_outlined),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_circle_left_outlined),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -74,7 +81,6 @@ class NewPassword extends StatelessWidget {
                   label: "تأكيد",
                 )
               ],
-
             ),
           ),
         ),
