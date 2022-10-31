@@ -49,6 +49,7 @@ class LoginScreen extends StatelessWidget {
                     height: 7,
                   ),
                   myTextFormField(
+                      textAlign: TextAlign.right,
                       maxLength2: 11,
                       type: TextInputType.number,
                       context: context,
@@ -67,6 +68,7 @@ class LoginScreen extends StatelessWidget {
                     height: 7,
                   ),
                   myTextFormField(
+                    textAlign: TextAlign.right,
                       type: TextInputType.visiblePassword,
                       isPassword: true,
                       prefixIcon: const Icon(Icons.visibility_off_outlined),

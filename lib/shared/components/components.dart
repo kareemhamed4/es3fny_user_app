@@ -15,6 +15,7 @@ Widget myTextFormField({
   Widget? icon,
   int? maxLength,
   int? maxLength2,
+  required TextAlign textAlign,
 }) => TextFormField(
   controller: controller,
   cursorColor: Colors.black54,
@@ -35,8 +36,7 @@ Widget myTextFormField({
     }
     return null;
   },
-  textAlign: TextAlign.right,
-  textDirection: TextDirection.rtl,
+  textAlign: textAlign,
   maxLength: maxLength,
   inputFormatters: [LengthLimitingTextInputFormatter(maxLength2)],
   style: Theme.of(context).textTheme.bodyText1,

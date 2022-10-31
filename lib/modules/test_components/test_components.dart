@@ -23,7 +23,10 @@ class TestComponents extends StatelessWidget {
             const SizedBox(
               height: 7,
             ),
-            myTextFormField(context: context),
+            myTextFormField(
+                context: context,
+              textAlign: TextAlign.right,
+            ),
             const SizedBox(
               height: 20,
             ),

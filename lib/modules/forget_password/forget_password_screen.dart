@@ -57,6 +57,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                   ),
                   SizedBox(height: size.height*0.00922,),
                   myTextFormField(
+                    textAlign: TextAlign.left,
                     context: context,
                     /*suffixIcon: Padding(
                       padding: const EdgeInsetsDirectional.only(end: 16),

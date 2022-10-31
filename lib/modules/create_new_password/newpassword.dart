@@ -6,6 +6,7 @@ class NewPassword extends StatelessWidget {
   NewPassword({Key? key}) : super(key: key);
 
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class NewPassword extends StatelessWidget {
                   height: size.height * 0.016,
                 ),
                 myTextFormField(
+                  textAlign: TextAlign.right,
                   type: TextInputType.visiblePassword,
                   isPassword: true,
                   prefixIcon: const Icon(Icons.visibility_off_outlined),
@@ -65,11 +67,12 @@ class NewPassword extends StatelessWidget {
                   height: size.height * 0.016,
                 ),
                 myTextFormField(
+                  textAlign: TextAlign.right,
                   type: TextInputType.visiblePassword,
                   isPassword: true,
                   prefixIcon: const Icon(Icons.visibility_off_outlined),
                   context: context,
-                  controller: passwordController,
+                  controller: passwordConfirmController,
                   onSubmit: () {},
                 ),
                 SizedBox(
