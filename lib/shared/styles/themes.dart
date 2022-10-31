@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData(
-  primarySwatch: Colors.red,
+  colorScheme: ColorScheme.fromSwatch().copyWith(
+    primary: myFavColor
+  ),
   appBarTheme: AppBarTheme(
     iconTheme: IconThemeData(
       color: myFavColor,
@@ -22,7 +24,7 @@ ThemeData lightTheme = ThemeData(
     headline5: TextStyle(fontFamily: "KareemB",color: myFavColor4),
     headline6: TextStyle(fontFamily: "KareemB",color: myFavColor4),
     caption: TextStyle(fontFamily: "KareemB",color: myFavColor2),
-    button: const TextStyle(fontFamily: "KareemB",color: Colors.white),
+    button: const TextStyle(fontFamily: "InterB",color: Colors.white),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.white,
