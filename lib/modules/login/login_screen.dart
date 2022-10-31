@@ -49,6 +49,7 @@ class LoginScreen extends StatelessWidget {
                     height: 7,
                   ),
                   myTextFormField(
+                      maxLength2: 11,
                       type: TextInputType.number,
                       context: context,
                       controller: phoneController,
@@ -68,10 +69,10 @@ class LoginScreen extends StatelessWidget {
                   myTextFormField(
                       type: TextInputType.visiblePassword,
                       isPassword: true,
-                      suffixIcon: const Icon(Icons.visibility_off_outlined),
+                      prefixIcon: const Icon(Icons.visibility_off_outlined),
                       context: context,
                       controller: passwordController,
-                      onSubmit: () {},
+                      onSubmit: (){},
                   ),
                   const SizedBox(
                     height: 6,
@@ -82,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                           context: context,
                           label: "هل نسيت كلمة المرور؟",
                           onPressed: () {
-                            NavigateTo(context: context, widget: const ForgetPasswordScreen());
+                            NavigateTo(context: context, widget: ForgetPasswordScreen());
                           })),
                   SizedBox(
                     height: size.height*0.042,

@@ -1,10 +1,13 @@
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
+import 'package:es3fny_user_app/otp/otp_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class ForgetPasswordScreen extends StatelessWidget{
-  const ForgetPasswordScreen({super.key});
+  ForgetPasswordScreen({super.key});
+  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +57,19 @@ class ForgetPasswordScreen extends StatelessWidget{
                   ),
                   SizedBox(height: size.height*0.00922,),
                   myTextFormField(
-                      context: context,
-                    suffixIcon: Padding(
+                    context: context,
+                    /*suffixIcon: Padding(
                       padding: const EdgeInsetsDirectional.only(end: 16),
                       child: Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 20),
                         ),
                       ),
-                    ),
+                    ),*/
+                    maxLength2: 10,
+                    icon: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 20),),
+                    type: TextInputType.number,
+                    controller: phoneController,
                   ),
                   SizedBox(height: size.height*0.023,),
                   InkWell(
@@ -77,7 +84,10 @@ class ForgetPasswordScreen extends StatelessWidget{
                   SizedBox(height: size.height*0.101,),
                   myMaterialButton(
                       context: context,
-                      onPressed: (){},
+                      onPressed: (){
+                        NavigateTo(context: context, widget: OTPScreen()
+                        );
+                      },
                     label: "إرسال الرمز"
                   ),
                 ],
