@@ -1,4 +1,7 @@
+import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
+import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/modules/register/register_screen.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'ES3FNY USER APP',
       theme: lightTheme,
       themeMode: ThemeMode.light,
-      home: const OnBoardingScreen(),
+      home:Register(),
     );
   }
 }
