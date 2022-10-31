@@ -25,22 +25,22 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
-      image: 'assets/images/shopping.png',
+      image: 'assets/images/applogo.png',
       header: 'Welcome to Market El Market',
       body: 'Everything u need is here !',
     ),
     BoardingModel(
-      image: 'assets/images/billing.png',
+      image: 'assets/images/tracking.png',
       header: 'Easy Payment',
       body: 'all ways for payment are available !',
     ),
     BoardingModel(
-      image: 'assets/images/cashback2.png',
+      image: 'assets/images/friends.jpg',
       header: 'CashBack',
       body: 'cashBack is available always and forever',
     ),
     BoardingModel(
-      image: 'assets/images/delivery.png',
+      image: 'assets/images/findout.png',
       header: 'Super Fast Delivery',
       body: 'Delivery is now free !',
     ),
