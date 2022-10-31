@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -26,23 +27,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/images/applogo.png',
-      header: 'Welcome to Market El Market',
-      body: 'Everything u need is here !',
+      header: 'اسعفني',
+      body: 'نقرة واحدة يمكن أن تنقذ حياتك!',
     ),
     BoardingModel(
       image: 'assets/images/tracking.png',
-      header: 'Easy Payment',
-      body: 'all ways for payment are available !',
+      header: 'تتبع مباشر',
+      body: 'اسعفني يوفر خدمة معرفة مكان المريض والمسعف بشكل مباشر',
     ),
     BoardingModel(
       image: 'assets/images/friends.jpg',
-      header: 'CashBack',
-      body: 'cashBack is available always and forever',
+      header: 'إبلاغ العائلة',
+      body: 'اسعفني يقوم بإبلاغ عائلة المصاب بتفاصيل الحادث ومكان المستشفي الناقلة للمريض',
     ),
     BoardingModel(
       image: 'assets/images/findout.png',
-      header: 'Super Fast Delivery',
-      body: 'Delivery is now free !',
+      header: 'الخدمات المساعدة',
+      body: 'اسعفني يوفر الكثير من الخدمات المساعدة (التنبؤ بالأمراض الخطيرة، الإسعافات الأولية، أقرب مستشفى، التذكير بموعد العلاج، ...)',
     ),
   ];
 
@@ -55,29 +56,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          myTextButton(
-              context: context,
-              onPressed: () {
-                /*CacheHelper.saveData(key: "onBoarding", value: true).then((value){
-                  NavigateTo(context: context, widget: LoginScreen());
-                });*/
-              },
-              label: "SKIP"),
-        ],
-      ),
-      body: Container(
-        color: Colors.white,
-        child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              children: [
-                Expanded(
+          leading:
+              myTextButton(context: context, label: "تخطي", onPressed: () {})),
+      body: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
                   child: PageView.builder(
                     physics: const BouncingScrollPhysics(),
                     controller: pageController,
-                    itemBuilder: (context, index) =>
-                        buildPageViewScreen(context:context,size: size, model: boarding[index]),
+                    itemBuilder: (context, index) => buildPageViewScreen(
+                        context: context, size: size, model: boarding[index]),
                     itemCount: boarding.length,
                     onPageChanged: (index) {
                       if (index == (boarding.length - 1)) {
@@ -92,59 +84,42 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     },
                   ),
                 ),
-                SmoothPageIndicator(
-                  controller: pageController,
-                  count: boarding.length,
-                  effect: const ExpandingDotsEffect(
-                    expansionFactor: 5,
-                    activeDotColor: Colors.redAccent,
-                    dotColor: Colors.grey,
-                    dotHeight: 5,
-                    dotWidth: 5,
-                  ),
+              ),
+              SmoothPageIndicator(
+                textDirection: TextDirection.rtl,
+                controller: pageController,
+                count: boarding.length,
+                effect: ExpandingDotsEffect(
+                  expansionFactor: 5,
+                  activeDotColor: myFavColor,
+                  dotColor: Colors.grey,
+                  dotHeight: 5,
+                  dotWidth: 5,
                 ),
-                SizedBox(
-                  height: size.height * 0.04,
-                ),
-                Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  height: size.height * 0.05,
-                  width: double.infinity,
-                  child: MaterialButton(
-                    onPressed: () {
-                      if (isLast) {
-                        /*CacheHelper.saveData(key: "onBoarding", value: true).then((value){
-                          NavigateToReb(context: context, widget: LoginScreen());
-                        });*/
-                      } else {
-                        pageController.nextPage(
-                          duration: const Duration(
-                            milliseconds: 750,
-                          ),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                        );
-                      }
-                    },
-                    color: Colors.redAccent,
-                    child: !isLast
-                        ? const Text(
-                      'التالي',
-                      style: TextStyle(
-                          fontFamily: "KareemB", color: Colors.white),
-                    )
-                        : const Text(
-                      'البداية',
-                      style: TextStyle(
-                          fontFamily: "KareemB", color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ),
+              ),
+              SizedBox(
+                height: size.height * 0.04,
+              ),
+              onBoardingMaterialButton(
+                context: context,
+                onPressed: () {
+                  if (isLast) {
+                    /*CacheHelper.saveData(key: "onBoarding", value: true).then((value){
+                      NavigateToReb(context: context, widget: LoginScreen());
+                    });*/
+                  } else {
+                    pageController.nextPage(
+                      duration: const Duration(
+                        milliseconds: 750,
+                      ),
+                      curve: Curves.fastLinearToSlowEaseIn,
+                    );
+                  }
+                },
+                label: !isLast ? 'التالي' : 'البداية',
+              ),
+            ],
+          )),
     );
   }
 }
@@ -169,6 +144,7 @@ Widget buildPageViewScreen({
         ),
         Text(
           model.body,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.subtitle2,
         ),
         SizedBox(
