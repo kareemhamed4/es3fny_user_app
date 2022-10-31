@@ -36,7 +36,7 @@ class NewPassword extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: Text(
-                    'إدخل كلمة المرور الجديده',
+                    'إدخل كلمة المرور الجديدة',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -46,7 +46,7 @@ class NewPassword extends StatelessWidget {
                 myTextFormField(
                   type: TextInputType.visiblePassword,
                   isPassword: true,
-                  suffixIcon: const Icon(Icons.visibility_off_outlined),
+                  prefixIcon: const Icon(Icons.visibility_off_outlined),
                   context: context,
                   controller: passwordController,
                   onSubmit: () {},
@@ -67,7 +67,7 @@ class NewPassword extends StatelessWidget {
                 myTextFormField(
                   type: TextInputType.visiblePassword,
                   isPassword: true,
-                  suffixIcon: const Icon(Icons.visibility_off_outlined),
+                  prefixIcon: const Icon(Icons.visibility_off_outlined),
                   context: context,
                   controller: passwordController,
                   onSubmit: () {},
