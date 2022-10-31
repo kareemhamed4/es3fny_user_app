@@ -1,10 +1,11 @@
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
-  OTPScreen({Key? key}) : super(key: key);
+  const OTPScreen({Key? key}) : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -73,15 +74,19 @@ class _OTPScreenState extends State<OTPScreen> {
                     selectedColor: myFavColor,
                     selectedFillColor: Colors.white,
                   ),
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                   backgroundColor: Colors.white,
                   enableActiveFill: true,
-                  onCompleted: (submitedCode) {
-                    otpCode = submitedCode;
-                    print("Completed");
+                  onCompleted: (value) {
+                    otpCode = value;
+                    if (kDebugMode) {
+                      print("Completed");
+                    }
                   },
                   onChanged: (value) {
-                    print(value);
+                    if (kDebugMode) {
+                      print(value);
+                    }
                   },
                 ),
                 SizedBox(
@@ -105,7 +110,8 @@ class _OTPScreenState extends State<OTPScreen> {
                 ),
                 myMaterialButton(
                   context: context,
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   label: "تأكيد",
                 )
 

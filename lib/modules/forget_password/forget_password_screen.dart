@@ -85,7 +85,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                   myMaterialButton(
                       context: context,
                       onPressed: (){
-                        NavigateTo(context: context, widget: OTPScreen()
+                        NavigateTo(context: context, widget: const OTPScreen()
                         );
                       },
                     label: "إرسال الرمز"
