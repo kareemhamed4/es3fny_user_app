@@ -20,7 +20,14 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_circle_left_outlined),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+              Icons.arrow_circle_left_outlined,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

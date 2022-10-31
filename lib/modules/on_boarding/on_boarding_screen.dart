@@ -57,10 +57,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          leading:
+          actions : [
               myTextButton(context: context, label: "تخطي", onPressed: () {
                 NavigateTo(context: context, widget: LoginScreen());
-              })),
+              }),
+      ]
+    ),
       body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: Column(

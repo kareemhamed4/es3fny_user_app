@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'ES3FNY USER APP',
       theme: lightTheme,
       themeMode: ThemeMode.light,
-      home: OTPScreen(),
+      home: const OnBoardingScreen(),
     );
   }
 }
