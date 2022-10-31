@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData(
+  scaffoldBackgroundColor: Colors.white,
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: myFavColor
   ),
