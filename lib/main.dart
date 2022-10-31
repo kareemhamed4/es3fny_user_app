@@ -1,5 +1,6 @@
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/otp/otp_screen.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 //siko
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'ES3FNY USER APP',
       theme: lightTheme,
       themeMode: ThemeMode.light,
-      home: OnBoardingScreen(),
+      home: OTPScreen(),
     );
   }
 }
