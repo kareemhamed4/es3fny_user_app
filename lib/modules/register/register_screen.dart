@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -13,8 +14,10 @@ class _RegisterState extends State<Register> {
   TextEditingController phoneController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: Center(
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -70,14 +74,19 @@ class _RegisterState extends State<Register> {
                   height: size.height * 0.008,
                 ),
                 myTextFormField(
-                  textAlign: TextAlign.left,
-                  context: context,
-                  maxLength2: 10,
-                  icon: Text(
-                    "${generateCountryFlag()}  +20",
-                    style: const TextStyle(fontSize: 20),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                        start: 8,
+                      top: 7,
+                      end: 8
+                    ),
+                    child: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 18),),
                   ),
+                  context: context,
+                  textAlign: TextAlign.left,
                   type: TextInputType.number,
+                  onSubmit: () {},
+                  maxLength2: 10,
                   controller: phoneController,
                 ),
                 SizedBox(
@@ -138,12 +147,33 @@ class _RegisterState extends State<Register> {
                     context: context,
                     textAlign: TextAlign.right,
                     onSubmit: () {},
-                    controller: passwordController,
+                    controller: passwordConfirmController,
                     type: TextInputType.visiblePassword,
                     isPassword: true,
                     prefixIcon: const Icon(Icons.remove_red_eye)),
                 SizedBox(
-                  height: size.height * 0.126,
+                  height: size.height * 0.02,
+                ),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Row(
+                    children: [
+                      Text("أوافق على ", style: Theme.of(context).textTheme.bodyText1,),
+                      myTextButton(context: context, label: "الشروط", onPressed: (){}),
+                      Text("و ", style: Theme.of(context).textTheme.bodyText1,),
+                      myTextButton(context: context, label: "الأحكام", onPressed: (){}),
+                      Checkbox(value: isChecked, onChanged: (value){
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                        activeColor: myFavColor,
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.02,
                 ),
                 myMaterialButton(
                     context: context, onPressed: () {}, label: 'إنشاء')

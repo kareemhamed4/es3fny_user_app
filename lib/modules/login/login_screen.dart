@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
+import 'package:es3fny_user_app/modules/register/register_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
 //ignore: must_be_immutable
@@ -92,7 +93,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                   myMaterialButton(
                     context: context,
-                    onPressed: () {},
+                    onPressed: () {
+
+                    },
                     label: "دخول",
                   ),
                   const SizedBox(
@@ -106,7 +109,12 @@ class LoginScreen extends StatelessWidget {
                         myTextButton(
                             context: context,
                             label: "إنشاء حساب",
-                            onPressed: () {}),
+                            onPressed: () {
+                              NavigateTo(
+                                context: context,
+                                widget: const Register(),
+                              );
+                            }),
                       ],
                     ),
                   )

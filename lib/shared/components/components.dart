@@ -39,7 +39,7 @@ Widget myTextFormField({
   textAlign: textAlign,
   maxLength: maxLength,
   inputFormatters: [LengthLimitingTextInputFormatter(maxLength2)],
-  style: Theme.of(context).textTheme.bodyText1,
+  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
   decoration: InputDecoration(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
@@ -57,7 +57,6 @@ Widget myTextFormField({
     ),
     suffixIcon: suffixIcon,
     prefixIcon: prefixIcon,
-    prefixIconColor: Colors.grey,
     suffixIconColor: Colors.grey,
     icon: icon,
   ),

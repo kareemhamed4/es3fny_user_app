@@ -57,19 +57,19 @@ class ForgetPasswordScreen extends StatelessWidget{
                   ),
                   SizedBox(height: size.height*0.00922,),
                   myTextFormField(
-                    textAlign: TextAlign.left,
-                    context: context,
-                    /*suffixIcon: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 16),
-                      child: Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 20),
-                        ),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                          start: 8,
+                          top: 7,
+                          end: 8
                       ),
-                    ),*/
-                    maxLength2: 10,
-                    icon: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 20),),
+                      child: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 18),),
+                    ),
+                    context: context,
+                    textAlign: TextAlign.left,
                     type: TextInputType.number,
+                    onSubmit: () {},
+                    maxLength2: 10,
                     controller: phoneController,
                   ),
                   SizedBox(height: size.height*0.023,),
