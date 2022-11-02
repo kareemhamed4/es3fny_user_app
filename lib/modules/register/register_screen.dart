@@ -18,6 +18,11 @@ class _RegisterState extends State<Register> {
   TextEditingController emailController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   bool isChecked = false;
+  List<String> list = <String>[
+    'ذكر',
+    'انثي',
+  ];
+  String? dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +130,63 @@ class _RegisterState extends State<Register> {
                     onSubmit: () {},
                     maxLength2: 10,
                     controller: phoneController,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.0219,
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: Text(
+                      'النوع',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.008,
+                  ),
+                  Container(
+                    height: 47,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: myFavColor.withOpacity(0.5)),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: DropdownButton<String>(
+                          borderRadius: BorderRadius.circular(20),
+                          isExpanded: true,
+                          hint: Text(
+                            "اختر",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(color: myFavColor2),
+                          ),
+                          value: dropdownValue,
+                          underline: const SizedBox(),
+                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                          style: TextStyle(
+                            color: myFavColor,
+                          ),
+                          onChanged: (String? value) {
+                            setState(() {
+                              dropdownValue = value!;
+                            });
+                          },
+                          items: list
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Align(
+                                alignment: AlignmentDirectional.centerStart,
+                                  child: Text(value)),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: size.height * 0.0219,
