@@ -53,7 +53,7 @@ class _RegisterState extends State<Register> {
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsetsDirectional.only(start: 16.0,end: 16.0,bottom: 16.0),
                     child: Form(
                       key: formKey,
                       child: Column(
