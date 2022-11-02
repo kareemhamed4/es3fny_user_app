@@ -59,7 +59,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                       ),
                     ),
                     SizedBox(height: size.height*0.00922,),
-                    myTextFormField(
+                    phoneTextFormField(
                       validate: (value){
                         if(value!.isEmpty){
                           return "هذا الحقل مطلوب";

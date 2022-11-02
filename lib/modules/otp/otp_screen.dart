@@ -3,6 +3,7 @@ import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -59,6 +60,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   autoFocus: true,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                  ],
                   length: 6,
                   obscureText: false,
                   animationType: AnimationType.scale,

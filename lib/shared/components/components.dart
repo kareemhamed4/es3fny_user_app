@@ -20,7 +20,6 @@ Widget myTextFormField({
   required TextAlign textAlign,
 }) =>
     TextFormField(
-      textAlignVertical: TextAlignVertical.center,
       controller: controller,
       cursorColor: Colors.black54,
       keyboardType: type,
@@ -37,7 +36,9 @@ Widget myTextFormField({
       validator: validate,
       textAlign: textAlign,
       maxLength: maxLength,
-      inputFormatters: [LengthLimitingTextInputFormatter(maxLength2)],
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(maxLength2),
+      ],
       style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
@@ -208,3 +209,65 @@ Color chooseToastColor(ToastStates state) {
 
   return color;
 }
+
+Widget phoneTextFormField({
+  required BuildContext context,
+  TextEditingController? controller,
+  TextInputType? type,
+  bool? isPassword,
+  Function? onTap,
+  Function? onChange,
+  required String? Function(String?) validate,
+  Function? onSubmit,
+  Widget? suffixIcon,
+  Widget? prefixIcon,
+  Widget? icon,
+  int? maxLength,
+  int? maxLength2,
+  required TextAlign textAlign,
+}) =>
+    TextFormField(
+      textAlignVertical: TextAlignVertical.center,
+      controller: controller,
+      cursorColor: Colors.black54,
+      keyboardType: type,
+      obscureText: isPassword ?? false,
+      onTap: () {
+        onTap;
+      },
+      onChanged: (value) {
+        onChange;
+      },
+      onFieldSubmitted: (value) {
+        onSubmit;
+      },
+      validator: validate,
+      textAlign: textAlign,
+      maxLength: maxLength,
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(maxLength2),
+        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+      ],
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18,),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),
+          borderSide: BorderSide(
+            width: 1,
+            color: myFavColor,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),
+          borderSide: BorderSide(
+            width: 1,
+            color: myFavColor.withOpacity(0.5),
+          ),
+        ),
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+        suffixIconColor: Colors.grey,
+        icon: icon,
+      ),
+    );

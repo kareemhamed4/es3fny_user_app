@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 7,
                     ),
-                    myTextFormField(
+                    phoneTextFormField(
                         validate: (value){
                           if(value!.length < 10){
                             return "رقم هاتف غير صحيح";

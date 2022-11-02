@@ -96,7 +96,7 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: size.height * 0.008,
                   ),
-                  myTextFormField(
+                  phoneTextFormField(
                     validate: (value) {
                       if (value!.length < 10) {
                         return "رقم هاتف غير صحيح";
@@ -112,14 +112,14 @@ class _RegisterState extends State<Register> {
                         children: [
                           Text(
                             generateCountryFlag(),
-                            style: const TextStyle(fontSize: 18),
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                           ),
                           const SizedBox(
                             width: 6,
                           ),
-                          const Text(
+                          Text(
                             "+20",
-                            style: TextStyle(fontSize: 18),
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                           ),
                         ],
                       ),
@@ -285,7 +285,7 @@ class _RegisterState extends State<Register> {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: Text(
-                      "من خلال إنشاء حساب، فإنك توافق على",
+                      "من خلال إنشاء حساب، فأنت توافق على",
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ),
