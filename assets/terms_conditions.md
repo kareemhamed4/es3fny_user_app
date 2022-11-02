@@ -31,4 +31,4 @@ These terms and conditions are effective as of 2022-11-02
 
 **Contact Us**
 
-If you have any questions or suggestions about our Terms and Conditions, do not hesitate to contact us at ES3FNY@gamil.com.
+If you have any questions or suggestions about our Terms and Conditions, do not hesitate to contact us at es3fny.edu.eg@gamil.com.
