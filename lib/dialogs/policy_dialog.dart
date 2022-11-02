@@ -60,7 +60,7 @@ class PolicyDialog extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.center,
-              height: 50,
+              height: 40,
               width: double.infinity,
               child: Text(
                 "اغلاق",

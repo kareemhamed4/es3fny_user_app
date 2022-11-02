@@ -313,7 +313,14 @@ class _RegisterState extends State<Register> {
                                    text: "الشروط & الأحكام ",
                                    style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
                                    recognizer: TapGestureRecognizer()..onTap = (){
-
+                                     showDialog(
+                                       context: context,
+                                       builder: (context){
+                                         return PolicyDialog(
+                                           mdFileName: "terms_conditions.md",
+                                         );
+                                       },
+                                     );
                                    }
                                  ),
                                  TextSpan(
@@ -328,7 +335,7 @@ class _RegisterState extends State<Register> {
                                          context: context,
                                          builder: (context){
                                            return PolicyDialog(
-                                               mdFileName: "assets/privacy_policy.md",
+                                               mdFileName: "privacy_policy.md",
                                            );
                                          },
                                      );
