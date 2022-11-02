@@ -313,7 +313,6 @@ class _RegisterState extends State<Register> {
                                    text: "الشروط & الأحكام ",
                                    style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
                                    recognizer: TapGestureRecognizer()..onTap = (){
-
                                      showDialog(
                                        context: context,
                                        builder: (context){
@@ -322,7 +321,6 @@ class _RegisterState extends State<Register> {
                                          );
                                        },
                                      );
-
                                    }
                                  ),
                                  TextSpan(
