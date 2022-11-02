@@ -84,8 +84,7 @@ class LoginScreen extends StatelessWidget {
                               alignment: AlignmentDirectional.centerEnd,
                               child: Text(
                                 'كلمة المرور',
-                                style:
-                                    Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyText1,
                               )),
                           const SizedBox(
                             height: 7,
@@ -130,9 +129,16 @@ class LoginScreen extends StatelessWidget {
                             context: context,
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Text('تم تسجيل دخولك بنجاح'),
+                                    ),
+                                  ),
+                                );
                                 NavigateTo(
-                                    context: context,
-                                    widget: const Register());
+                                    context: context, widget: const Register());
                               }
                             },
                             label: "دخول",
