@@ -24,6 +24,12 @@ class TestComponents extends StatelessWidget {
               height: 7,
             ),
             myTextFormField(
+              validate: (value){
+                if(value!.isEmpty){
+                  return "Password must not be empty!";
+                }
+                return null;
+              },
                 context: context,
               textAlign: TextAlign.right,
             ),

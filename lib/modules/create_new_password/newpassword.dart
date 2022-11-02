@@ -45,6 +45,12 @@ class NewPassword extends StatelessWidget {
                   height: size.height * 0.016,
                 ),
                 myTextFormField(
+                  validate: (value){
+                    if(value!.isEmpty){
+                      return "هذا الحقل مطلوب";
+                    }
+                    return null;
+                  },
                   textAlign: TextAlign.right,
                   type: TextInputType.visiblePassword,
                   isPassword: true,
@@ -67,6 +73,12 @@ class NewPassword extends StatelessWidget {
                   height: size.height * 0.016,
                 ),
                 myTextFormField(
+                  validate: (value){
+                    if(value!.isEmpty){
+                      return "هذا الحقل مطلوب";
+                    }
+                    return null;
+                  },
                   textAlign: TextAlign.right,
                   type: TextInputType.visiblePassword,
                   isPassword: true,

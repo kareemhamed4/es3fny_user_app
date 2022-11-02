@@ -1,6 +1,7 @@
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget myTextFormField({
   required BuildContext context,
@@ -9,6 +10,7 @@ Widget myTextFormField({
   bool? isPassword,
   Function? onTap,
   Function? onChange,
+  required String? Function(String?) validate,
   Function? onSubmit,
   Widget? suffixIcon,
   Widget? prefixIcon,
@@ -30,12 +32,7 @@ Widget myTextFormField({
   onFieldSubmitted: (value){
     onSubmit;
   },
-  validator: (value){
-    if(value!.isEmpty){
-      return "value must not be empty";
-    }
-    return null;
-  },
+  validator: validate,
   textAlign: textAlign,
   maxLength: maxLength,
   inputFormatters: [LengthLimitingTextInputFormatter(maxLength2)],
@@ -158,4 +155,40 @@ Widget myDivider() => Padding(
     height: 1,
   ),
 );
+
+void showToast({
+  required String text,
+  required ToastStates state,
+}) =>
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+
+// enum
+enum ToastStates { success, error, warning }
+
+Color chooseToastColor(ToastStates state) {
+  Color color;
+
+  switch (state) {
+    case ToastStates.success:
+      color = Colors.green;
+      break;
+    case ToastStates.error:
+      color = Colors.red;
+      break;
+    case ToastStates.warning:
+      color = Colors.amber;
+      break;
+  }
+
+  return color;
+}
+
 

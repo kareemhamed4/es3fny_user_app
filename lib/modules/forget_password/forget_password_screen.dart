@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class ForgetPasswordScreen extends StatelessWidget{
   ForgetPasswordScreen({super.key});
   TextEditingController phoneController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,72 +27,86 @@ class ForgetPasswordScreen extends StatelessWidget{
           width: double.infinity,
           child: Center(
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "نسيت كلمة المرور؟",
-                    style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor,fontSize: 32),
-                  ),
-                  SizedBox(height: size.height*0.084,),
-                  Text(
-                    "ادخل رقم الهاتف",
-                    style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor4),
-                  ),
-                  SizedBox(height: size.height*0.002,),
-                  Text(
-                    "سوف تصلك رسالة برمز التحقق لاعادة",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
-                  ),
-                  Text(
-                    "تعيين كلمة المرور",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
-                  ),
-                  SizedBox(height: size.height*0.0703,),
-                  Align(
-                    alignment: AlignmentDirectional.centerEnd,
-                    child: Text(
-                      "رقم الهاتف",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "نسيت كلمة المرور؟",
+                      style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor,fontSize: 32),
                     ),
-                  ),
-                  SizedBox(height: size.height*0.00922,),
-                  myTextFormField(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                          start: 8,
-                          top: 7,
-                          end: 8
-                      ),
-                      child: Text("${generateCountryFlag()}  +20",style: const TextStyle(fontSize: 18),),
+                    SizedBox(height: size.height*0.084,),
+                    Text(
+                      "ادخل رقم الهاتف",
+                      style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor4),
                     ),
-                    context: context,
-                    textAlign: TextAlign.left,
-                    type: TextInputType.number,
-                    onSubmit: () {},
-                    maxLength2: 10,
-                    controller: phoneController,
-                  ),
-                  SizedBox(height: size.height*0.023,),
-                  InkWell(
-                    onTap: (){
-                      NavigateTo(context: context, widget: LoginScreen());
-                    },
-                    child: Text(
-                      "الرجوع الي تسجيل الدخول",
+                    SizedBox(height: size.height*0.002,),
+                    Text(
+                      "سوف تصلك رسالة برمز التحقق لاعادة",
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
                     ),
-                  ),
-                  SizedBox(height: size.height*0.101,),
-                  myMaterialButton(
-                      context: context,
-                      onPressed: (){
-                        NavigateTo(context: context, widget: const OTPScreen()
-                        );
+                    Text(
+                      "تعيين كلمة المرور",
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
+                    ),
+                    SizedBox(height: size.height*0.0703,),
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Text(
+                        "رقم الهاتف",
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                      ),
+                    ),
+                    SizedBox(height: size.height*0.00922,),
+                    myTextFormField(
+                      validate: (value){
+                        if(value!.isEmpty){
+                          return "هذا الحقل مطلوب";
+                        }
+                        return null;
                       },
-                    label: "إرسال الرمز"
-                  ),
-                ],
+                      prefixIcon: Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 10, end: 6),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(generateCountryFlag(),style: const TextStyle(fontSize: 18),),
+                            const SizedBox(width: 6,),
+                            const Text("+20",style: TextStyle(fontSize: 18),),
+                          ],
+                        ),
+                      ),
+                      context: context,
+                      textAlign: TextAlign.left,
+                      type: TextInputType.number,
+                      onSubmit: () {},
+                      maxLength2: 10,
+                      controller: phoneController,
+                    ),
+                    SizedBox(height: size.height*0.023,),
+                    InkWell(
+                      onTap: (){
+                        NavigateTo(context: context, widget: LoginScreen());
+                      },
+                      child: Text(
+                        "الرجوع الي تسجيل الدخول",
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
+                      ),
+                    ),
+                    SizedBox(height: size.height*0.101,),
+                    myMaterialButton(
+                        context: context,
+                        onPressed: (){
+                          if(formKey.currentState!.validate()){
+                            NavigateTo(context: context, widget: const OTPScreen());
+                          }
+                        },
+                      label: "إرسال الرمز"
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
