@@ -1,5 +1,5 @@
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
-import 'package:es3fny_user_app/otp/otp_screen.dart';
+import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
