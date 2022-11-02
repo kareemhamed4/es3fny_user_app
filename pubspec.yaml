@@ -36,6 +36,9 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   pin_code_fields: ^7.4.0
   fluttertoast: ^8.1.1
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  flutter_markdown: ^0.6.12
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -71,6 +74,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/
 
   fonts:
     - family: KareemR
