@@ -13,10 +13,8 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
-
   TextEditingController emailController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   bool isChecked = false;
@@ -25,13 +23,23 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_circle_left_outlined,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Center(
             child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Form(
               key: formKey,
               child: Column(

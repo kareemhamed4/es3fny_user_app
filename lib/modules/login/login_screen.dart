@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -55,8 +55,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                     myTextFormField(
                         validate: (value){
-                          if(value!.isEmpty){
-                            return "هذا الحقل مطلوب";
+                          if(value!.length < 10){
+                            return "رقم هاتف غير صحيح";
                           }
                           return null;
                         },
