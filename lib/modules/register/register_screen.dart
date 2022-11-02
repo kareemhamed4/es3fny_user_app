@@ -1,8 +1,10 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
+import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -301,7 +303,42 @@ class _RegisterState extends State<Register> {
                           SizedBox(
                             height: size.height * 0.02,
                           ),
-                          Directionality(
+                         RichText(
+                           textAlign: TextAlign.center,
+                             text: TextSpan(
+                           text: "من خلال إنشاء حساب، فأنت توافق على\n",
+                               style: Theme.of(context).textTheme.caption,
+                               children: [
+                                 TextSpan(
+                                   text: "الشروط & الأحكام ",
+                                   style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
+                                   recognizer: TapGestureRecognizer()..onTap = (){
+
+                                   }
+                                 ),
+                                 TextSpan(
+                                   text: "و ",
+                                   style: Theme.of(context).textTheme.caption,
+                                 ),
+                                 TextSpan(
+                                   text: "وسياسة الخصوصية",
+                                   style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
+                                   recognizer: TapGestureRecognizer()..onTap = (){
+                                     showDialog(
+                                         context: context,
+                                         builder: (context){
+                                           return PolicyDialog(
+                                               mdFileName: "assets/privacy_policy.md",
+                                           );
+                                         },
+                                     );
+                                   }
+                                 ),
+                               ],
+                         ),
+
+                         )
+                         /* Directionality(
                             textDirection: TextDirection.rtl,
                             child: Text(
                               "من خلال إنشاء حساب، فأنت توافق على",
@@ -365,7 +402,7 @@ class _RegisterState extends State<Register> {
                                     onPressed: () {}),
                               ],
                             ),
-                          ),
+                          ),*/
                         ],
                       ),
                     ),
