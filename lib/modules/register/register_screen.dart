@@ -177,7 +177,7 @@ class _RegisterState extends State<Register> {
                                   underline: const SizedBox(),
                                   icon: const Icon(Icons.keyboard_arrow_down_outlined),
                                   style: TextStyle(
-                                    color: myFavColor,
+                                    color: myFavColor4,
                                   ),
                                   onChanged: (String? value) {
                                     setState(() {
