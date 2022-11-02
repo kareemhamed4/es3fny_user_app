@@ -10,7 +10,6 @@ The app does use third-party services that declare their Terms and Conditions.
 
 Link to Terms and Conditions of third-party service providers used by the app
 
-*   [Google Play Services](https://policies.google.com/terms)
 *   [Google Analytics for Firebase](https://firebase.google.com/terms/analytics)
 *   [Firebase Crashlytics](https://firebase.google.com/terms/crashlytics)
 
