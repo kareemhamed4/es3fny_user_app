@@ -20,6 +20,7 @@ Widget myTextFormField({
   required TextAlign textAlign,
 }) =>
     TextFormField(
+      obscuringCharacter: '●',
       controller: controller,
       cursorColor: Colors.black54,
       keyboardType: type,

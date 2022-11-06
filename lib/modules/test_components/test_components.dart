@@ -2,6 +2,7 @@ import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class TestComponents extends StatelessWidget {
   TestComponents({super.key});
 
