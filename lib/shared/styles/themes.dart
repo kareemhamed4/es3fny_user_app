@@ -32,8 +32,7 @@ ThemeData lightTheme = ThemeData(
     elevation: 0,
     selectedIconTheme: IconThemeData(color: myFavColor),
     type: BottomNavigationBarType.fixed,
-    selectedLabelStyle: const TextStyle(fontFamily: "KareemB"),
-    unselectedLabelStyle: const TextStyle(fontFamily: "KareemR"),
-    showUnselectedLabels: true,
+    selectedLabelStyle: const TextStyle(fontFamily: "KareemB",fontSize: 12),
+    unselectedLabelStyle: const TextStyle(fontFamily: "KareemR",fontSize: 12),
   ),
 );
