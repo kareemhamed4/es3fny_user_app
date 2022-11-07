@@ -55,54 +55,79 @@ class LoadingButtonState extends State<LoadingButton>
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
-        child: Container(
+        child: /*Container(
           decoration: BoxDecoration(
               shape: BoxShape.circle, color: myFavColor.withOpacity(0.9)),
-          child: GestureDetector(
+          child: */GestureDetector(
             onTapDown: (_) => controller.forward(),
             onTapUp: (_) {
               if (controller.status == AnimationStatus.forward) {
                 controller.reverse();
               }
             },
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: size.height * 0.32,
-                  width: size.width * 0.7,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 9,
-                    value: 1.0,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+            child: Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle, color: myFavColor.withOpacity(0.9),
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: size.height * 0.3,
+                    width: size.width * 0.65,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 17,
+                      value: 1.0,
+                      valueColor:
+                      AlwaysStoppedAnimation<Color>(Theme.of(context).scaffoldBackgroundColor),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.32,
-                  width: size.width * 0.7,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 9,
-                    value: controller.value,
-                    valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+                  Container(
+                    height: size.height * 0.3,
+                    width: size.width * 0.65,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: myFavColor4,
+                          spreadRadius: 6,
+                          blurRadius: 9,
+                          blurStyle: BlurStyle.outer,
+                        ),
+                      ],
+                    ),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 15,
+                      value: 1.0,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+                    ),
                   ),
-                ),
-                if (controller.status == AnimationStatus.dismissed)
-                  SvgPicture.asset("assets/images/semilogo.svg")
-                else if (controller.status == AnimationStatus.forward)
-                  Text(
-                    secondsRemaining.toString(),
-                    style: Theme.of(context).textTheme.button!.copyWith(fontSize: 25),
-                  )
-                else if (controller.status == AnimationStatus.reverse)
-                  SvgPicture.asset("assets/images/semilogo.svg")
-                else if (controller.status == AnimationStatus.completed)
-                  SvgPicture.asset('assets/images/semilogo.svg')
-              ],
+                  SizedBox(
+                    height: size.height * 0.3,
+                    width: size.width * 0.65,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 15,
+                      value: controller.value,
+                      valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+                    ),
+                  ),
+                  if (controller.status == AnimationStatus.dismissed)
+                    SvgPicture.asset("assets/images/semilogo.svg")
+                  else if (controller.status == AnimationStatus.forward)
+                    Text(
+                      secondsRemaining.toString(),
+                      style: Theme.of(context).textTheme.button!.copyWith(fontSize: 25),
+                    )
+                  else if (controller.status == AnimationStatus.reverse)
+                    SvgPicture.asset("assets/images/semilogo.svg")
+                  else if (controller.status == AnimationStatus.completed)
+                    SvgPicture.asset('assets/images/semilogo.svg')
+                ],
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 
