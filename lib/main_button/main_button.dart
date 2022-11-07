@@ -55,10 +55,7 @@ class LoadingButtonState extends State<LoadingButton>
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
-        child: /*Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle, color: myFavColor.withOpacity(0.9)),
-          child: */GestureDetector(
+        child: GestureDetector(
             onTapDown: (_) => controller.forward(),
             onTapUp: (_) {
               if (controller.status == AnimationStatus.forward) {
