@@ -1,6 +1,6 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
-import 'package:es3fny_user_app/main_button/main_button.dart';
+import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             title: 'ES3FNY USER APP',
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            home: const LoadingButton(),
+            home: const LayoutScreen(),
           );
         },
       ),

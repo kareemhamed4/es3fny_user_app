@@ -17,6 +17,7 @@ class LayoutScreen extends StatelessWidget {
         builder: (context,state) {
           LayoutCubit cubit = BlocProvider.of(context);
           return Scaffold(
+            body: cubit.screens[cubit.currentIndex],
             bottomNavigationBar: Directionality(
               textDirection: TextDirection.rtl,
               child: BottomNavigationBar(
