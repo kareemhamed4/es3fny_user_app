@@ -1,5 +1,6 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
+import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
 import 'package:es3fny_user_app/modules/register/register_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -137,8 +138,9 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                 );
-                                NavigateTo(
-                                    context: context, widget: const Register());
+                                Navigator.of(context).popUntil((route) => route.isFirst);
+                                NavigateToReb(
+                                    context: context, widget: const LayoutScreen());
                               }
                             },
                             label: "دخول",
