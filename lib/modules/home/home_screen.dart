@@ -1,5 +1,6 @@
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       TextSpan(
                                         text: "فتح ملفك الشخصي",
                                         style: Theme.of(context).textTheme.caption,
+                                        recognizer: TapGestureRecognizer()..onTap = (){}
                                       ),
                                     ]
                                   ),
@@ -64,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       TextSpan(
                                         text: "تعديل موقعك الحالي",
                                         style: Theme.of(context).textTheme.caption,
+                                        recognizer: TapGestureRecognizer()..onTap = (){}
                                       ),
                                     ]
                                 ),
