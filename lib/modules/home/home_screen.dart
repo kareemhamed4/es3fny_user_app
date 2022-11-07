@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: size.height * 0.105,
                       width: size.width * 0.36,
                       child: Card(
-                        color: Colors.white,
+                        color: Colors.grey.shade200,
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -167,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: size.height * 0.105,
                       width: size.width * 0.36,
                       child: Card(
-                        color: Colors.white,
+                        color: Colors.grey.shade200,
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
