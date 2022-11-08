@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16),
         child: Directionality(
           textDirection: TextDirection.rtl,
-          child: SingleChildScrollView(
+          child: Center(
             child: Column(
               children: [
                 Row(
@@ -93,32 +93,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: size.height * 0.050,
+                  height: size.height * 0.06,
                 ),
                 Text(
-                  'هل تحتاج مساعدة\n طوارئ ؟',
+                  'هل تحتاج مساعدة طوارئ ؟',
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
-                      .copyWith(fontSize: 32, color: Colors.black),
+                      .copyWith(fontSize: 26, color: Colors.black,fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: size.height * 0.0233,
+                  height: size.height * 0.02,
                 ),
                 Text(
                   'فقط قم بالضغط بإستمرار لمده ثلاث ثوانٍ',
                   style: Theme.of(context).textTheme.caption!.copyWith(
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: size.height * 0.0784,
+                  height: size.height * 0.06,
                 ),
                 const LoadingButton(),
                 SizedBox(
-                  height: size.height * 0.0784,
+                  height: size.height * 0.07,
                 ),
                 Text(
                   'تحتاج إلي المساعده السريعة ؟',
@@ -128,70 +128,74 @@ class _HomeScreenState extends State<HomeScreen> {
                       .copyWith(fontSize: 16),
                 ),
                 SizedBox(
-                  height: size.height * 0.039,
+                  height: size.height * 0.05,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.105,
-                      width: size.width * 0.36,
-                      child: Card(
-                        color: Colors.grey.shade200,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'تعرضت لحادث ؟',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 18, color: Colors.red),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: size.height * 0.105,
+                          width: size.width * 0.36,
+                          child: Card(
+                            color: Colors.grey.shade200,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            const Icon(
-                              (Icons.arrow_forward),
-                              color: Colors.red,
-                            )
-                          ],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "تعرضت لحادث ؟",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontSize: 18, color: myFavColor),
+                                ),
+                                Icon(
+                                  (Icons.arrow_forward),
+                                  color: myFavColor,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.1013,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.105,
-                      width: size.width * 0.36,
-                      child: Card(
-                        color: Colors.grey.shade200,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'تعرضت لحادث ؟',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 18, color: Colors.red),
+                      SizedBox(width: size.width * 0.077),
+                      Expanded(
+                        child: SizedBox(
+                          height: size.height * 0.105,
+                          width: size.width * 0.36,
+                          child: Card(
+                            color: Colors.grey.shade200,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            const Icon(
-                              (Icons.arrow_forward),
-                              color: Colors.red,
-                            )
-                          ],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "الإسعافات الأولية",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontSize: 18, color: myFavColor),
+                                ),
+                                Icon(
+                                  (Icons.arrow_forward),
+                                  color: myFavColor,
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                )
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

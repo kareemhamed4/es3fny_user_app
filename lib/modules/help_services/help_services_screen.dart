@@ -83,7 +83,7 @@ class HelpServicesScreen extends StatelessWidget {
               height: size.height * 0.11,
               child: Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: Colors.white,
+                color: Colors.grey.shade200,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
