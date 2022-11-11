@@ -81,7 +81,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                       context: context,
                       textAlign: TextAlign.left,
                       type: TextInputType.number,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                       maxLength2: 10,
                       controller: phoneController,
                     ),
