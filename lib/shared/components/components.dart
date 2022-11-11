@@ -9,15 +9,16 @@ Widget myTextFormField({
   TextInputType? type,
   bool? isPassword,
   Function? onTap,
-  Function? onChange,
-  required String? Function(String?) validate,
-  Function? onSubmit,
+  ValueChanged<String>? onChange,
+  String? Function(String?)? validate,
+  ValueChanged<String>? onSubmit,
   Widget? suffixIcon,
   Widget? prefixIcon,
   Widget? icon,
   int? maxLength,
   int? maxLength2,
-  required TextAlign textAlign,
+  TextAlign? textAlign,
+  String? hint,
 }) =>
     TextFormField(
       obscuringCharacter: '●',
@@ -28,20 +29,17 @@ Widget myTextFormField({
       onTap: () {
         onTap;
       },
-      onChanged: (value) {
-        onChange;
-      },
-      onFieldSubmitted: (value) {
-        onSubmit;
-      },
+      onChanged: onChange,
+      onFieldSubmitted: onSubmit,
       validator: validate,
-      textAlign: textAlign,
+      textAlign: textAlign ?? TextAlign.end,
       maxLength: maxLength,
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),
       ],
       style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
       decoration: InputDecoration(
+        hintText: hint ?? '',
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
@@ -217,9 +215,9 @@ Widget phoneTextFormField({
   TextInputType? type,
   bool? isPassword,
   Function? onTap,
-  Function? onChange,
   required String? Function(String?) validate,
-  Function? onSubmit,
+  ValueChanged<String>? onSubmit,
+  ValueChanged<String>? onChange,
   Widget? suffixIcon,
   Widget? prefixIcon,
   Widget? icon,
@@ -236,12 +234,8 @@ Widget phoneTextFormField({
       onTap: () {
         onTap;
       },
-      onChanged: (value) {
-        onChange;
-      },
-      onFieldSubmitted: (value) {
-        onSubmit;
-      },
+      onChanged: onChange,
+      onFieldSubmitted: onSubmit,
       validator: validate,
       textAlign: textAlign,
       maxLength: maxLength,

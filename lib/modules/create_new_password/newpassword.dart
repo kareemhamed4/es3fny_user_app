@@ -73,7 +73,7 @@ class NewPassword extends StatelessWidget {
                         ),
                         context: context,
                         controller: passwordController,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                       ),
                       SizedBox(
                         height: size.height * 0.0123,
@@ -105,7 +105,7 @@ class NewPassword extends StatelessWidget {
                             icon: Icon(cubit.suffixIconConfirmCreate)),
                         context: context,
                         controller: passwordConfirmController,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                       ),
                       SizedBox(
                         height: size.height * 0.123,

@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                               type: TextInputType.number,
                               context: context,
                               controller: phoneController,
-                              onSubmit: () {}),
+                              onSubmit: (value) {}),
                           const SizedBox(
                             height: 7,
                           ),
@@ -108,7 +108,23 @@ class LoginScreen extends StatelessWidget {
                             ),
                             context: context,
                             controller: passwordController,
-                            onSubmit: () {},
+                            onSubmit: (value) {
+                              if (formKey.currentState!.validate()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Text('تم تسجيل دخولك بنجاح'),
+                                    ),
+                                  ),
+                                );
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                NavigateToReb(
+                                    context: context,
+                                    widget: const LayoutScreen());
+                              }
+                            },
                           ),
                           const SizedBox(
                             height: 6,
@@ -138,9 +154,11 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                 );
-                                Navigator.of(context).popUntil((route) => route.isFirst);
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
                                 NavigateToReb(
-                                    context: context, widget: const LayoutScreen());
+                                    context: context,
+                                    widget: const LayoutScreen());
                               }
                             },
                             label: "دخول",
