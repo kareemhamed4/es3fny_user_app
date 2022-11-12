@@ -41,10 +41,30 @@ class TrackingInfoScreen extends StatelessWidget {
                     SizedBox(
                       height: size.height*0.039,
                     ) ,
-                    CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/308888645_3298435880403234_8809857619090350383_n.jpeg'),
-                      radius: 30,
-                    )
+                   Row(
+                     children: [
+                       const CircleAvatar(
+                         backgroundImage: AssetImage('assets/images/308888645_3298435880403234_8809857619090350383_n.jpeg'),
+                         radius: 30,
+                       ),
+                       Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Text(
+                             'محمد عبد الغني' ,
+                             style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                               fontSize: 16
+                             ),
+                           ),
+                           Text(
+                             'السائق',
+                             style: Theme.of(context).textTheme.caption,
+                           ),
+                         ],
+                       )
+                     ],
+                   ),
+
 
                   ],
                 ),
