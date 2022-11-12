@@ -1,7 +1,7 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
-import 'package:es3fny_user_app/modules/login/login_screen.dart';
+import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/gestures.dart';
@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
                         context: context,
                         textAlign: TextAlign.right,
                         type: TextInputType.text,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                         controller: nameController,
                       ),
                       SizedBox(
@@ -144,7 +144,7 @@ class _RegisterState extends State<Register> {
                         context: context,
                         textAlign: TextAlign.left,
                         type: TextInputType.number,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                         maxLength2: 10,
                         controller: phoneController,
                       ),
@@ -232,7 +232,7 @@ class _RegisterState extends State<Register> {
                         maxLength2: 2,
                         textAlign: TextAlign.right,
                         type: TextInputType.number,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                         controller: ageController,
                       ),
                       SizedBox(
@@ -257,7 +257,7 @@ class _RegisterState extends State<Register> {
                         },
                         context: context,
                         textAlign: TextAlign.left,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                         controller: emailController,
                         type: TextInputType.emailAddress,
                       ),
@@ -283,7 +283,7 @@ class _RegisterState extends State<Register> {
                         },
                         context: context,
                         textAlign: TextAlign.right,
-                        onSubmit: () {},
+                        onSubmit: (value) {},
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
                         isPassword: cubit.isPasswordRegister,
@@ -316,7 +316,7 @@ class _RegisterState extends State<Register> {
                           },
                           context: context,
                           textAlign: TextAlign.right,
-                          onSubmit: () {},
+                          onSubmit: (value) {},
                           controller: passwordConfirmController,
                           type: TextInputType.visiblePassword,
                           isPassword: cubit.isPasswordConfirmRegister,
@@ -339,8 +339,9 @@ class _RegisterState extends State<Register> {
                                           textDirection: TextDirection.rtl,
                                           child:
                                               Text('تم انشاء حسابك بنجاح'))));
-                              NavigateTo(
-                                  context: context, widget: LoginScreen());
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              NavigateToReb(
+                                  context: context, widget: const LayoutScreen());
                             }
                           },
                           label: 'إنشاء'),
@@ -350,7 +351,7 @@ class _RegisterState extends State<Register> {
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          text: "من خلال إنشاء حساب، فأنت توافق على\n",
+                          text: "من خلال إنشاء حساب، فإنك توافق على\n",
                           style: Theme.of(context).textTheme.caption,
                           children: [
                             TextSpan(

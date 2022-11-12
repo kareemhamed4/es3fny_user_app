@@ -25,7 +25,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
 
                     SizedBox(
@@ -41,7 +41,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -56,7 +56,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -71,23 +71,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -103,7 +87,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -119,7 +103,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -135,7 +119,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -151,7 +135,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -167,7 +151,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -183,7 +167,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -199,7 +183,7 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
@@ -215,7 +199,23 @@ class Test extends StatelessWidget {
                       context: context,
                       textAlign: TextAlign.right,
                       type: TextInputType.text,
-                      onSubmit: () {},
+                      onSubmit: (value) {},
+                    ),
+                    SizedBox(
+                      height: size.height * 0.0219,
+                    ),
+
+                    myTextFormField(
+                      validate: (value) {
+                        if (value!.length < 8) {
+                          return "برجاء ادخال الاسم رباعي";
+                        }
+                        return null;
+                      },
+                      context: context,
+                      textAlign: TextAlign.right,
+                      type: TextInputType.text,
+                      onSubmit: (value) {},
                     ),
                     SizedBox(
                       height: size.height * 0.0219,
