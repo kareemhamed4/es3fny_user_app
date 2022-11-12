@@ -75,10 +75,12 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  #   - images/308888645_3298435880403234_8809857619090350383_n.jpeg
   assets:
     - assets/images/
     - assets/icons/
     - assets/
+
 
   fonts:
     - family: KareemR
@@ -95,6 +97,14 @@ flutter:
     - family: InterB
       fonts:
         - asset: assets/fonts/Inter-Bold.ttf
+
+    - family: 3b8nyR
+      fonts:
+        - asset: assets/fonts/DMSans-Regular.ttf
+
+    - family: 3b8nyB
+      fonts:
+        - asset: assets/fonts/DMSans-Bold.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
