@@ -23,7 +23,10 @@ class _RegisterState extends State<Register> {
   TextEditingController emailController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   bool isChecked = false;
+
+  String typeValidate = "";
   List<String> list = <String>[
     'ذكر',
     'انثي',
@@ -38,6 +41,7 @@ class _RegisterState extends State<Register> {
       builder: (context, states) {
         MainCubit cubit = BlocProvider.of(context);
         return Scaffold(
+          key: scaffoldKey,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             leading: IconButton(
@@ -209,7 +213,18 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       SizedBox(
-                        height: size.height * 0.0219,
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.only(top: 8.0,start: 9.0),
+                          child: Text(
+                            typeValidate,
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(color: Colors.red[700]),
+                          ),
+                        ),
                       ),
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
@@ -316,7 +331,9 @@ class _RegisterState extends State<Register> {
                           },
                           context: context,
                           textAlign: TextAlign.right,
-                          onSubmit: (value) {},
+                          onSubmit: (value) {
+                            registerSubmit();
+                          },
                           controller: passwordConfirmController,
                           type: TextInputType.visiblePassword,
                           isPassword: cubit.isPasswordConfirmRegister,
@@ -332,17 +349,7 @@ class _RegisterState extends State<Register> {
                       myMaterialButton(
                           context: context,
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child:
-                                              Text('تم انشاء حسابك بنجاح'))));
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                              NavigateToReb(
-                                  context: context, widget: const LayoutScreen());
-                            }
+                            registerSubmit();
                           },
                           label: 'إنشاء'),
                       SizedBox(
@@ -395,71 +402,6 @@ class _RegisterState extends State<Register> {
                           ],
                         ),
                       )
-                      /* Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Text(
-                              "من خلال إنشاء حساب، فأنت توافق على",
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ),
-                          Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                        minimumSize: const Size(40, 20),
-                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        alignment: Alignment.center),
-                                    onPressed: () {},
-                                    child: Text(
-                                      "الشروط",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(color: myFavColor),
-                                    )),
-                                Text(
-                                  "و ",
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                        minimumSize: const Size(40, 20),
-                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        alignment: Alignment.center),
-                                    child: Text(
-                                      "الأحكام",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(color: myFavColor),
-                                    ),
-                                    onPressed: () {}),
-                                Text(
-                                  "و ",
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                        minimumSize: const Size(40, 20),
-                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        alignment: Alignment.center),
-                                    child: Text(
-                                      "سياسة الخصوصية",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(color: myFavColor),
-                                    ),
-                                    onPressed: () {}),
-                              ],
-                            ),
-                          ),*/
                     ],
                   ),
                 ),
@@ -476,5 +418,29 @@ class _RegisterState extends State<Register> {
     String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
     return flag;
+  }
+
+  void registerSubmit(){
+    if(dropdownValue == null){
+      setState(() {
+        typeValidate = "برجاء اختيار النوع";
+      });
+    }
+    if(dropdownValue != null){
+      setState(() {
+        typeValidate = "";
+      });
+    }
+    if (formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child:
+                  Text('تم انشاء حسابك بنجاح'))));
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      NavigateToReb(
+          context: context, widget: const LayoutScreen());
+    }
   }
 }
