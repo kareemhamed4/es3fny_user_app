@@ -109,21 +109,7 @@ class LoginScreen extends StatelessWidget {
                             context: context,
                             controller: passwordController,
                             onSubmit: (value) {
-                              if (formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Text('تم تسجيل دخولك بنجاح'),
-                                    ),
-                                  ),
-                                );
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                NavigateToReb(
-                                    context: context,
-                                    widget: const LayoutScreen());
-                              }
+                              loginSubmit(context: context);
                             },
                           ),
                           const SizedBox(
@@ -145,21 +131,7 @@ class LoginScreen extends StatelessWidget {
                           myMaterialButton(
                             context: context,
                             onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Text('تم تسجيل دخولك بنجاح'),
-                                    ),
-                                  ),
-                                );
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                NavigateToReb(
-                                    context: context,
-                                    widget: const LayoutScreen());
-                              }
+                              loginSubmit(context: context);
                             },
                             label: "دخول",
                           ),
@@ -192,5 +164,22 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         });
+  }
+  void loginSubmit({required BuildContext context,}){
+    if (formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Text('تم تسجيل دخولك بنجاح'),
+          ),
+        ),
+      );
+      Navigator.of(context)
+          .popUntil((route) => route.isFirst);
+      NavigateToReb(
+          context: context,
+          widget: const LayoutScreen());
+    }
   }
 }
