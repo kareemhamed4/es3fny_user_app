@@ -13,13 +13,13 @@ class TrackingInfoScreen extends StatelessWidget {
           return Container(
             width: double.infinity,
             height: 353,
-           decoration: const BoxDecoration(
-             color: Colors.white,
-             borderRadius: BorderRadius.only(
-               topLeft: Radius.circular(20),
-               topRight: Radius.circular(20),
-             )
-           ),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  )
+              ),
             child: Padding(
               padding: const EdgeInsets.only(right: 13),
               child: Directionality(
