@@ -1,6 +1,5 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
-import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
             title: 'ES3FNY USER APP',
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            home:  TrackingInfoScreen(),
+            home: TrackingInfoScreen(),
           );
         },
       ),

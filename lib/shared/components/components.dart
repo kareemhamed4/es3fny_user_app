@@ -162,10 +162,10 @@ Future NavigateTo({
 
 Widget myDivider() => Padding(
       padding: const EdgeInsets.only(
-        right: 0,
-        left: 0,
-        top: 10,
-        bottom: 10,
+        right: 12,
+        left: 12,
+        top: 0,
+        bottom: 0,
       ),
       child: Container(
         width: double.infinity,
