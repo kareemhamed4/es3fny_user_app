@@ -22,7 +22,7 @@ ThemeData lightTheme = ThemeData(
     bodyText1: TextStyle(fontFamily: "3b8nyR",color: myFavColor4),
     bodyText2: TextStyle(fontFamily: "3b8nyR",color: myFavColor4),
     subtitle1: TextStyle(fontFamily: "3b8nyB",color: myFavColor4),
-    headline5: TextStyle(fontFamily: "3b8nyB",color: myFavColor),
+    headline5: TextStyle(fontFamily: "3b8nyB",color: myFavColor4),
     headline6: TextStyle(fontFamily: "3b8nyB",color: myFavColor4),
     caption: TextStyle(fontFamily: "3b8nyB",color: myFavColor2),
     button: const TextStyle(fontFamily: "3b8nyB",color: Colors.white),
