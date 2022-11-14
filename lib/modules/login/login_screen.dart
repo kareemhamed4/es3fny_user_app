@@ -4,6 +4,7 @@ import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
 import 'package:es3fny_user_app/modules/register/register_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,6 +42,7 @@ class LoginScreen extends StatelessWidget {
                                   .headline5!
                                   .copyWith(
                                     fontSize: 32,
+                                color: myFavColor
                                   )),
                           SizedBox(
                             height: size.height * 0.064,

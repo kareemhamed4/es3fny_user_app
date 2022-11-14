@@ -105,6 +105,18 @@ flutter:
     - family: 3b8nyB
       fonts:
         - asset: assets/fonts/DMSans-Bold.ttf
+
+    - family: FinalR
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+
+    - family: FinalB
+      fonts:
+        - asset: assets/fonts/Cairo-Bold.ttf
+
+    - family: FinalBL
+      fonts:
+        - asset: assets/fonts/Cairo-Black.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

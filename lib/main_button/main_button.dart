@@ -22,9 +22,6 @@ class LoadingButtonState extends State<LoadingButton>
   @override
   void initState() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (secondsRemaining == 0) {
-        secondsRemaining = 3;
-      }
       setState(() {
         secondsRemaining -= 1;
         progressFraction = (totalSeconds - secondsRemaining) / totalSeconds;
@@ -37,6 +34,62 @@ class LoadingButtonState extends State<LoadingButton>
       }
       if (controller.status == AnimationStatus.dismissed) {
         setState(() {
+          secondsRemaining = 3;
+        });
+      }
+      if (controller.status == AnimationStatus.completed) {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => Directionality(
+            textDirection: TextDirection.rtl,
+            child: AlertDialog(
+              icon: Icon(Icons.info_outline,color: myFavColor,),
+              backgroundColor: myFavColor5,
+              shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide.none,
+              ),
+              title: Text('تأكيد',style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor4),),
+              content: Text(
+                  'هل تريد بالفعل طلب الاسعاف ؟',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2,fontSize: 18),
+              ),
+              actions: <Widget>[
+                MaterialButton(
+                  color: Colors.white,
+                  shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                    onPressed: (){
+                      Navigator.pop(context, 'Cancel');
+                    },
+                  child: Text(
+                    "الغاء",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor,fontSize: 20),
+                  ),
+                ),
+                MaterialButton(
+                  color: myFavColor,
+                  shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  onPressed: (){
+                    Navigator.pop(context, 'Ok');
+                  },
+                  child: Text(
+                    "تأكيد",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white,fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+        setState(() {
+          controller.reset();
           secondsRemaining = 3;
         });
       }
@@ -112,7 +165,7 @@ class LoadingButtonState extends State<LoadingButton>
             else if (controller.status == AnimationStatus.forward)
               Text(
                 secondsRemaining.toString(),
-                style: Theme.of(context).textTheme.button!.copyWith(fontSize: 25),
+                style: Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
               )
             else if (controller.status == AnimationStatus.reverse)
                 SvgPicture.asset("assets/images/semilogo.svg")

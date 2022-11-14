@@ -266,7 +266,7 @@ class TrackingInfoScreen extends StatelessWidget {
                                       decoration: InputDecoration(
                                           filled: true,
                                           fillColor:
-                                          myFavColor2.withOpacity(0.2),
+                                          myFavColor2.withOpacity(0.1),
                                           contentPadding: const EdgeInsets.only(right: 5),
                                           label: Text(
                                             "اسم المستشفي المقصودة (اختياري)",
@@ -278,14 +278,9 @@ class TrackingInfoScreen extends StatelessWidget {
                                           border: OutlineInputBorder(
                                             borderRadius:
                                             BorderRadius.circular(5),
+                                              borderSide: BorderSide.none
                                           ),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(5),
-                                              borderSide: BorderSide(
-                                                color: myFavColor2
-                                                    .withOpacity(0.5),
-                                              ))),
+                                          ),
                                     ),
                                   ),
                                 ],

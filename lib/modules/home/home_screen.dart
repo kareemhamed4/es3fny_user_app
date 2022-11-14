@@ -1,4 +1,6 @@
 import 'package:es3fny_user_app/main_button/main_button.dart';
+import 'package:es3fny_user_app/modules/edit_location/edit_location_screen.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/gestures.dart';
@@ -84,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style:
                                               Theme.of(context).textTheme.caption,
                                           recognizer: TapGestureRecognizer()
-                                            ..onTap = () {}),
+                                            ..onTap = () {
+                                            NavigateTo(context: context, widget: EditLocationScreen());
+                                            }),
                                     ]),
                               )
                             ],
@@ -97,15 +101,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: size.height * 0.06,
                   ),
                   Text(
-                    'هل تحتاج مساعدة طوارئ ؟',
+                    'هل تحتاج مساعدة الطوارئ ؟',
                     style: Theme.of(context)
                         .textTheme
                         .headline5!
-                        .copyWith(fontSize: 26, color: Colors.black,fontWeight: FontWeight.bold),
+                        .copyWith(fontSize: 26, color: Colors.black),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: size.height * 0.02,
+                    height: size.height * 0.01,
                   ),
                   Text(
                     'فقط قم بالضغط بإستمرار لمده ثلاث ثوانٍ',
@@ -115,11 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: size.height * 0.06,
+                    height: size.height * 0.05,
                   ),
                   const LoadingButton(),
                   SizedBox(
-                    height: size.height * 0.07,
+                    height: size.height * 0.06,
                   ),
                   Text(
                     'تحتاج إلي المساعدة السريعة ؟',

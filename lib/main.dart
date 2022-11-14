@@ -1,6 +1,6 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
-import 'package:es3fny_user_app/layout/layout_screen.dart';
+import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
+      statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
     return BlocProvider(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             title: 'ES3FNY USER APP',
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            home: const LayoutScreen(),
+            home: const OnBoardingScreen(),
           );
         },
       ),

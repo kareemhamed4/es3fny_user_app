@@ -70,6 +70,7 @@ class _RegisterState extends State<Register> {
                         'إنشاء حساب',
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               fontSize: 32,
+                          color: myFavColor
                             ),
                       ),
                       SizedBox(
