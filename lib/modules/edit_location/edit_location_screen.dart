@@ -30,7 +30,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        /*showMyBottomSheet(context: context, size: size);*/
+
       },
       child: Scaffold(
         key: scaffoldKey,
@@ -122,7 +122,21 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
+                      const  SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          width: 80,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: myFavColor2.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      const  SizedBox(
                         height: 20,
                       ),
                       Text(

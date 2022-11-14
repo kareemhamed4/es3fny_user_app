@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       TextSpan(
                                           text: "فتح ملفك الشخصي",
                                           style:
-                                              Theme.of(context).textTheme.caption,
+                                              Theme.of(context).textTheme.caption!.copyWith(fontSize: 10),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {}),
                                     ]),
@@ -84,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       TextSpan(
                                           text: "تعديل موقعك الحالي",
                                           style:
-                                              Theme.of(context).textTheme.caption,
+                                              Theme.of(context).textTheme.caption!.copyWith(fontSize: 10),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                            NavigateTo(context: context, widget: EditLocationScreen());
+                                            NavigateTo(context: context, widget: const EditLocationScreen());
                                             }),
                                     ]),
                               )

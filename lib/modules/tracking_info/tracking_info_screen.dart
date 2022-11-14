@@ -30,7 +30,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        /*showMyBottomSheet(context: context, size: size);*/
+
       },
       child: SafeArea(
         child: Scaffold(
