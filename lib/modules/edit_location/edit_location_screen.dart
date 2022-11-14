@@ -1,18 +1,33 @@
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-//ignore: must_be_immutable
-class EditLocationScreen extends StatelessWidget {
-  EditLocationScreen({Key? key}) : super(key: key);
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var formKey = GlobalKey<FormState>();
-  TextEditingController hospitalController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  String label = "تأكيد";
+class EditLocationScreen extends StatefulWidget {
+  const EditLocationScreen({Key? key}) : super(key: key);
 
   @override
+  State<EditLocationScreen> createState() => _EditLocationScreenState();
+}
+
+class _EditLocationScreenState extends State<EditLocationScreen> {
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var formKey = GlobalKey<FormState>();
+
+  TextEditingController hospitalController = TextEditingController();
+
+  TextEditingController locationController = TextEditingController();
+
+  String label = "تأكيد";
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 0)).then((_) {
+      showMyBottomSheet(context: context);
+    });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         /*showMyBottomSheet(context: context, size: size);*/
@@ -43,10 +58,10 @@ class EditLocationScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: GestureDetector(
                   onVerticalDragStart: (start) {
-                    showMyBottomSheet(context: context, size: size);
+                    showMyBottomSheet(context: context);
                   },
                   onTap: () {
-                    showMyBottomSheet(context: context, size: size);
+                    showMyBottomSheet(context: context);
                   },
                   child: Stack(
                     alignment: Alignment.bottomCenter,
@@ -76,9 +91,10 @@ class EditLocationScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
 
-  void showMyBottomSheet({required BuildContext context, required Size size}) {
+  void showMyBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -106,8 +122,8 @@ class EditLocationScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: size.height * 0.03,
+                      const SizedBox(
+                        height: 20,
                       ),
                       Text(
                         "اختر مكانك",
@@ -116,8 +132,8 @@ class EditLocationScreen extends StatelessWidget {
                             .bodyText1!
                             .copyWith(fontSize: 20),
                       ),
-                      SizedBox(
-                        height: size.height * 0.01,
+                      const SizedBox(
+                        height: 8,
                       ),
                       TextFormField(
                         controller: locationController,
@@ -143,8 +159,8 @@ class EditLocationScreen extends StatelessWidget {
                               borderSide: BorderSide.none),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.01,
+                      const SizedBox(
+                        height: 8,
                       ),
                       Text(
                         "المكان المقصود (اختياري)",
@@ -153,8 +169,8 @@ class EditLocationScreen extends StatelessWidget {
                             .bodyText1!
                             .copyWith(fontSize: 20),
                       ),
-                      SizedBox(
-                        height: size.height * 0.01,
+                      const SizedBox(
+                        height: 8,
                       ),
                       TextFormField(
                         controller: hospitalController,
@@ -174,8 +190,8 @@ class EditLocationScreen extends StatelessWidget {
                               borderSide: BorderSide.none),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.03,
+                      const SizedBox(
+                        height: 20,
                       ),
                       Align(
                         alignment: Alignment.center,
@@ -184,20 +200,19 @@ class EditLocationScreen extends StatelessWidget {
                           minWidth: 178,
                           color: myFavColor,
                           onPressed: () {
-                            if(formKey.currentState!.validate()){
+                            if (formKey.currentState!.validate()) {
                               hospitalController.text = hospitalController.text;
                               locationController.text = locationController.text;
                             }
                           },
                           child: Text(
                             "تغيير",
-                            style:
-                            Theme.of(context).textTheme.button,
+                            style: Theme.of(context).textTheme.button,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.03,
+                      const SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),

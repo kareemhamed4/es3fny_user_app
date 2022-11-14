@@ -4,16 +4,30 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
-class TrackingInfoScreen extends StatelessWidget {
-  TrackingInfoScreen({Key? key}) : super(key: key);
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var formKey = GlobalKey<FormState>();
-  TextEditingController hospitalController = TextEditingController();
-  String label = "تأكيد";
+class TrackingInfoScreen extends StatefulWidget {
+  const TrackingInfoScreen({Key? key}) : super(key: key);
 
   @override
+  State<TrackingInfoScreen> createState() => _TrackingInfoScreenState();
+}
+
+class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var formKey = GlobalKey<FormState>();
+
+  TextEditingController hospitalController = TextEditingController();
+
+  String label = "تأكيد";
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 0)).then((_) {
+      showMyBottomSheet(context: context);
+    });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         /*showMyBottomSheet(context: context, size: size);*/
@@ -36,10 +50,10 @@ class TrackingInfoScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 12),
                   child: GestureDetector(
                     onVerticalDragStart: (start){
-                      showMyBottomSheet(context: context, size: size);
+                      showMyBottomSheet(context: context);
                     },
                     onTap: (){
-                      showMyBottomSheet(context: context, size: size);
+                      showMyBottomSheet(context: context);
                     },
                     child: Stack(
                       alignment: Alignment.bottomCenter,
@@ -79,7 +93,8 @@ class TrackingInfoScreen extends StatelessWidget {
       ),
     );
   }
-  void showMyBottomSheet({required BuildContext context,required Size size}){
+
+  void showMyBottomSheet({required BuildContext context}){
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -95,6 +110,7 @@ class TrackingInfoScreen extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.only(
               right: 13,
+              left: 13,
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: Directionality(
@@ -106,8 +122,8 @@ class TrackingInfoScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: size.height * 0.0172,
+                      const  SizedBox(
+                        height: 20,
                       ),
                       Align(
                         alignment: Alignment.center,
@@ -120,34 +136,30 @@ class TrackingInfoScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.0172,
+                      const  SizedBox(
+                        height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'تتبع الإسعاف',
-                              style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                fontSize: 22,
-                              ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'تتبع الإسعاف',
+                            style:
+                            Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 22,
                             ),
-                            Text(
-                              '(22 دقيقة)',
-                              style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                fontSize: 14,
-                                color: myFavColor,
-                              ),
+                          ),
+                          Text(
+                            '(22 دقيقة)',
+                            style:
+                            Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: myFavColor,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: size.height * 0.039,
+                      const  SizedBox(
+                        height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,8 +171,8 @@ class TrackingInfoScreen extends StatelessWidget {
                                     'assets/images/308888645_3298435880403234_8809857619090350383_n.jpeg'),
                                 radius: 30,
                               ),
-                              SizedBox(
-                                width: size.width * 0.03733,
+                              const  SizedBox(
+                                width: 12,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,12 +201,12 @@ class TrackingInfoScreen extends StatelessWidget {
                               )),
                         ],
                       ),
-                      SizedBox(
-                        height: size.height * 0.0301,
+                      const  SizedBox(
+                        height: 20,
                       ),
                       myDivider(),
-                      SizedBox(
-                        height: size.height * 0.0178,
+                      const  SizedBox(
+                        height: 20,
                       ),
                       Row(
                         children: [
@@ -207,8 +219,8 @@ class TrackingInfoScreen extends StatelessWidget {
                               size: 16,
                             ),
                           ),
-                          SizedBox(
-                            width: size.width * 0.0293,
+                          const  SizedBox(
+                            width: 12,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,86 +240,83 @@ class TrackingInfoScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: size.height * 0.0178,
+                      const  SizedBox(
+                        height: 12,
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(end: 12),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 15,
-                              backgroundColor: myFavColor.withOpacity(0.1),
-                              child: Icon(
-                                Icons.add_home_outlined,
-                                color: myFavColor,
-                                size: 16,
-                              ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundColor: myFavColor.withOpacity(0.1),
+                            child: Icon(
+                              Icons.add_home_outlined,
+                              color: myFavColor,
+                              size: 16,
                             ),
-                            SizedBox(
-                              width: size.width * 0.0293,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.only(
-                                        end: 16),
-                                    child: TextFormField(
-                                      controller: hospitalController,
-                                      validator: (value){
-                                        if(value!.isEmpty){
-                                          return "يجب ادخال اسم المستشفي للتأكيد";
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor:
-                                          myFavColor2.withOpacity(0.1),
-                                          contentPadding: const EdgeInsets.only(right: 5),
-                                          label: Text(
-                                            "اسم المستشفي المقصودة (اختياري)",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(fontSize: 12),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(5),
-                                              borderSide: BorderSide.none
-                                          ),
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: SizedBox(
-                                  child: MaterialButton(
-                                    height: 32,
-                                    color: myFavColor,
-                                    onPressed: () {
-                                      if(formKey.currentState!.validate()){
-                                        hospitalController.text = hospitalController.text;
+                          ),
+                          const  SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      end: 16),
+                                  child: TextFormField(
+                                    controller: hospitalController,
+                                    validator: (value){
+                                      if(value!.isEmpty){
+                                        return "يجب ادخال اسم المستشفي للتأكيد";
                                       }
+                                      return null;
                                     },
-                                    child: Text(
-                                      "تأكيد",
-                                      style:
-                                      Theme.of(context).textTheme.button,
-                                    ),
+                                    decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor:
+                                        myFavColor2.withOpacity(0.1),
+                                        contentPadding: const EdgeInsets.only(right: 5),
+                                        label: Text(
+                                          "اسم المستشفي المقصودة (اختياري)",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption!
+                                              .copyWith(fontSize: 12),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(5),
+                                            borderSide: BorderSide.none
+                                        ),
+                                        ),
                                   ),
-                                )),
-                          ],
-                        ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                                child: MaterialButton(
+                                  height: 32,
+                                  color: myFavColor,
+                                  onPressed: () {
+                                    if(formKey.currentState!.validate()){
+                                      hospitalController.text = hospitalController.text;
+                                    }
+                                  },
+                                  child: Text(
+                                    "تأكيد",
+                                    style:
+                                    Theme.of(context).textTheme.button,
+                                  ),
+                                ),
+                              )),
+                        ],
                       ),
-                      const SizedBox(height: 6,),
+                      const SizedBox(height: 12,),
                       SizedBox(
                         child: Align(
                           alignment: Alignment.center,
