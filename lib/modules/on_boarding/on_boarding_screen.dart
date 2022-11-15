@@ -51,7 +51,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   PageController pageController = PageController();
 
   bool isLast = false;
-
+  /*@override
+  void initState() {
+    disableCapture();
+    super.initState();
+  }*/
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -128,6 +132,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           )),
     );
   }
+  /*Future<void> disableCapture() async {
+    //disable screenshots and record screen in current screen
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }*/
 }
 
 Widget buildPageViewScreen({
