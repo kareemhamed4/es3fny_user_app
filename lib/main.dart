@@ -1,5 +1,6 @@
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
+import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
@@ -43,8 +44,11 @@ class MyApp extends StatelessWidget {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
-    return BlocProvider(
-      create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark),),
+        BlocProvider(create: (BuildContext context) => LayoutCubit()),
+        ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},
         builder: (context,state){

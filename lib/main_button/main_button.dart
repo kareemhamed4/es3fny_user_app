@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'package:es3fny_user_app/layout/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LoadingButton extends StatefulWidget {
@@ -92,7 +96,9 @@ class LoadingButtonState extends State<LoadingButton>
                     borderSide: BorderSide.none,
                   ),
                   onPressed: () {
-                    Navigator.pop(context,'Ok');
+                    Navigator.pop(context, "Ok");
+                    context.read<LayoutCubit>().changeIndex(1);
+                    NavigateTo(context: context, widget: const TrackingInfoScreen());
                   },
                   child: Text(
                     "تأكيد",
