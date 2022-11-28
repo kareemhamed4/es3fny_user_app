@@ -3,10 +3,12 @@ import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
 import 'package:es3fny_user_app/modules/register/register_screen.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 //ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
@@ -67,7 +69,39 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(
                             height: 7,
                           ),
-                          phoneTextFormField(
+                          InternationalPhoneNumberInput(
+                            countries: const ["EG"],
+                            spaceBetweenSelectorAndTextField: 20,
+                            selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                            textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                            maxLength: 12,
+                            validator: (value) {
+                              if (value!.length < 12) {
+                                return "رقم هاتف غير صحيح";
+                              }
+                              return null;
+                            },
+                            hintText: "1X-XXXX-XXXX",
+                            onInputChanged: (PhoneNumber value) {},
+                            inputDecoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide: BorderSide(
+                                    color: myFavColor.withOpacity(0.5),
+                                  )),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide: BorderSide(
+                                    color: myFavColor.withOpacity(0.5),
+                                  )),
+                            ),
+                            selectorConfig: const SelectorConfig(
+                              setSelectorButtonAsPrefixIcon: true,
+                              leadingPadding: 16,
+                            ),
+                          ),
+                          /*phoneTextFormField(
                               validate: (value) {
                                 if (value!.length < 10) {
                                   return "رقم هاتف غير صحيح";
@@ -82,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                               onSubmit: (value) {}),
                           const SizedBox(
                             height: 7,
-                          ),
+                          ),*/
                           Align(
                               alignment: AlignmentDirectional.centerEnd,
                               child: Text(
@@ -169,19 +203,21 @@ class LoginScreen extends StatelessWidget {
   }
   void loginSubmit({required BuildContext context,}){
     if (formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Text('تم تسجيل دخولك بنجاح'),
+      CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text('تم تسجيل دخولك بنجاح'),
+            ),
           ),
-        ),
-      );
-      Navigator.of(context)
-          .popUntil((route) => route.isFirst);
-      NavigateToReb(
-          context: context,
-          widget: const LayoutScreen());
+        );
+        Navigator.of(context)
+            .popUntil((route) => route.isFirst);
+        NavigateToReb(
+            context: context,
+            widget: const LayoutScreen());
+      });
     }
   }
 }

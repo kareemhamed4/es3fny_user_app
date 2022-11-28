@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       appBar: AppBar(
           actions : [
               myTextButton(context: context, label: "تخطي", onPressed: () {
-                NavigateTo(context: context, widget: LoginScreen());
+                CacheHelper.saveData(key: "onBoarding", value: true).then((value){
+                  NavigateTo(context: context, widget: LoginScreen());
+                });
               }),
       ]
     ),
@@ -113,9 +116,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 context: context,
                 onPressed: () {
                   if (isLast) {
-                    /*CacheHelper.saveData(key: "onBoarding", value: true).then((value){
+                     CacheHelper.saveData(key: "onBoarding", value: true).then((value){
                       NavigateToReb(context: context, widget: LoginScreen());
-                    });*/
+                    });
                     NavigateTo(context: context, widget: LoginScreen());
                   } else {
                     pageController.nextPage(

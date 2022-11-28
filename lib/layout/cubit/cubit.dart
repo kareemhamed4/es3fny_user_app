@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LayoutCubit extends Cubit<LayoutStates> {
   LayoutCubit() : super(LayoutInitialState());
-  LayoutCubit get(context) => BlocProvider.of(context);
+  static LayoutCubit get(context) => BlocProvider.of(context);
 
   List<Widget> screens = [
     const HomeScreen(),
