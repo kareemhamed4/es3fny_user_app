@@ -34,7 +34,7 @@ class TrackingScreen extends StatelessWidget {
                       Expanded(
                         child: MaterialButton(
                           onPressed: (){
-                            NavigateTo(context: context, widget: TrackingInfoScreen());
+                            NavigateTo(context: context, widget: const TrackingInfoScreen());
                           },
                           color: myFavColor,
                           height: 68,

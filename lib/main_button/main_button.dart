@@ -43,17 +43,29 @@ class LoadingButtonState extends State<LoadingButton>
           builder: (BuildContext context) => Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
-              icon: Icon(Icons.info_outline,color: myFavColor,),
+              icon: Icon(
+                Icons.info_outline,
+                color: myFavColor,
+              ),
               backgroundColor: myFavColor5,
               shape: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide.none,
               ),
-              title: Text('تأكيد',style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor4),),
+              title: Text(
+                'تأكيد',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(color: myFavColor4),
+              ),
               content: Text(
-                  'هل تريد بالفعل طلب الاسعاف ؟',
+                'هل تريد بالفعل طلب الاسعاف ؟',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2,fontSize: 18),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: myFavColor2, fontSize: 18),
               ),
               actions: <Widget>[
                 MaterialButton(
@@ -62,12 +74,15 @@ class LoadingButtonState extends State<LoadingButton>
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
                   ),
-                    onPressed: (){
-                      Navigator.pop(context, 'Cancel');
-                    },
+                  onPressed: () {
+                    Navigator.pop(context, 'Cancel');
+                  },
                   child: Text(
                     "الغاء",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor,fontSize: 20),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: myFavColor, fontSize: 20),
                   ),
                 ),
                 MaterialButton(
@@ -76,18 +91,20 @@ class LoadingButtonState extends State<LoadingButton>
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
                   ),
-                  onPressed: (){
-                    Navigator.pop(context, 'Ok');
+                  onPressed: () {
+                    Navigator.pop(context,'Ok');
                   },
                   child: Text(
                     "تأكيد",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.white,fontSize: 20),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: Colors.white, fontSize: 20),
                   ),
                 ),
               ],
             ),
-          ),
-        );
+          ),);
         setState(() {
           controller.reset();
           secondsRemaining = 3;
@@ -115,7 +132,8 @@ class LoadingButtonState extends State<LoadingButton>
       },
       child: Container(
         decoration: BoxDecoration(
-          shape: BoxShape.circle, color: myFavColor.withOpacity(0.9),
+          shape: BoxShape.circle,
+          color: myFavColor.withOpacity(0.9),
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -126,8 +144,8 @@ class LoadingButtonState extends State<LoadingButton>
               child: CircularProgressIndicator(
                 strokeWidth: 17,
                 value: 1.0,
-                valueColor:
-                AlwaysStoppedAnimation<Color>(Theme.of(context).scaffoldBackgroundColor),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).scaffoldBackgroundColor),
               ),
             ),
             Container(
@@ -147,8 +165,7 @@ class LoadingButtonState extends State<LoadingButton>
               child: CircularProgressIndicator(
                 strokeWidth: 15,
                 value: 1.0,
-                valueColor:
-                AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
               ),
             ),
             SizedBox(
@@ -165,12 +182,13 @@ class LoadingButtonState extends State<LoadingButton>
             else if (controller.status == AnimationStatus.forward)
               Text(
                 secondsRemaining.toString(),
-                style: Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
+                style:
+                    Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
               )
             else if (controller.status == AnimationStatus.reverse)
-                SvgPicture.asset("assets/images/semilogo.svg")
-              else if (controller.status == AnimationStatus.completed)
-                  SvgPicture.asset('assets/images/semilogo.svg')
+              SvgPicture.asset("assets/images/semilogo.svg")
+            else if (controller.status == AnimationStatus.completed)
+              SvgPicture.asset('assets/images/semilogo.svg')
           ],
         ),
       ),

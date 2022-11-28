@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                 child: OutlinedButton(
                     onPressed: (){
                        CacheHelper.clearData().then((value){
-                        NavigateTo(context: context, widget: const OnBoardingScreen());
+                        NavigateToReb(context: context, widget: const OnBoardingScreen());
                       });
                     },
                     child: Row(
@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                 child: OutlinedButton(
                     onPressed: (){
                       MainCubit.get(context).signOut();
-                      NavigateTo(context: context, widget: LoginScreen());
+                      NavigateToReb(context: context, widget: LoginScreen());
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
