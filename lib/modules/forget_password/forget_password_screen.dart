@@ -3,6 +3,7 @@ import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 //ignore: must_be_immutable
 class ForgetPasswordScreen extends StatelessWidget{
@@ -59,7 +60,39 @@ class ForgetPasswordScreen extends StatelessWidget{
                       ),
                     ),
                     SizedBox(height: size.height*0.00922,),
-                    phoneTextFormField(
+                    InternationalPhoneNumberInput(
+                      countries: const ["EG"],
+                      spaceBetweenSelectorAndTextField: 20,
+                      selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                      textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                      maxLength: 12,
+                      validator: (value) {
+                        if (value!.length < 12) {
+                          return "رقم هاتف غير صحيح";
+                        }
+                        return null;
+                      },
+                      hintText: "1X-XXXX-XXXX",
+                      onInputChanged: (PhoneNumber value) {},
+                      inputDecoration: InputDecoration(
+                        contentPadding: EdgeInsets.zero,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: myFavColor.withOpacity(0.5),
+                            )),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: myFavColor.withOpacity(0.5),
+                            )),
+                      ),
+                      selectorConfig: const SelectorConfig(
+                        setSelectorButtonAsPrefixIcon: true,
+                        leadingPadding: 16,
+                      ),
+                    ),
+                    /*phoneTextFormField(
                       validate: (value){
                         if(value!.isEmpty){
                           return "هذا الحقل مطلوب";
@@ -84,7 +117,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                       onSubmit: (value) {},
                       maxLength2: 10,
                       controller: phoneController,
-                    ),
+                    ),*/
                     SizedBox(height: size.height*0.023,),
                     InkWell(
                       onTap: (){

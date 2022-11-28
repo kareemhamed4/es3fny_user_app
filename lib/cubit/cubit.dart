@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/cubit/states.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,4 +53,21 @@ class MainCubit extends Cubit<MainStates> {
     emit(ChangeSuffixState());
   }
 
+  bool isDark = false;
+
+  void changeAppMode({bool? fromShared}) {
+    if(fromShared != null){
+      isDark = fromShared;
+    }else{
+      isDark = !isDark;
+    }
+    CacheHelper.saveData(key: 'isDark', value: isDark).then((value){
+      emit(ChangeAppModeState());
+    });
+  }
+
+  void signOut(){
+    CacheHelper.removeData(key: "uId");
+    emit(SignOutState());
+  }
 }
