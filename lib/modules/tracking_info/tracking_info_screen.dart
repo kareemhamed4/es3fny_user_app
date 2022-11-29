@@ -99,7 +99,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
         isScrollControlled: true,
         context: context,
         barrierColor: Colors.transparent,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),

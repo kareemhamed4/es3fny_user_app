@@ -38,36 +38,38 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  scaffoldBackgroundColor: myFavColor4,
+  scaffoldBackgroundColor: myFavColor10,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: myFavColor
+      primary: myFavColor6
   ),
   appBarTheme: AppBarTheme(
     iconTheme: IconThemeData(
-      color: myFavColor,
+      color: myFavColor6,
     ),
-    color: Colors.white,
-    systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
+    color: myFavColor10,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: myFavColor10,
+      statusBarIconBrightness: Brightness.light,
     ),
     elevation: 0,
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor4),
-    bodyText2: TextStyle(fontFamily: "FinalR",color: myFavColor4),
-    subtitle1: TextStyle(fontFamily: "FinalB",color: myFavColor4),
-    headline5: TextStyle(fontFamily: "FinalR",color: myFavColor4),
-    headline6: TextStyle(fontFamily: "FinalBL",color: myFavColor4),
+    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor7),
+    bodyText2: TextStyle(fontFamily: "FinalR",color: myFavColor7),
+    subtitle1: TextStyle(fontFamily: "FinalB",color: myFavColor7),
+    headline5: TextStyle(fontFamily: "FinalR",color: myFavColor7),
+    headline6: TextStyle(fontFamily: "FinalBL",color: myFavColor7),
     caption: TextStyle(fontFamily: "FinalB",color: myFavColor2),
     button: const TextStyle(fontFamily: "FinalB",color: Colors.white),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Colors.white,
+    backgroundColor: myFavColor10,
     elevation: 0,
-    selectedIconTheme: IconThemeData(color: myFavColor),
+    selectedIconTheme: IconThemeData(color: myFavColor6),
+    unselectedIconTheme: IconThemeData(color: myFavColor2),
     type: BottomNavigationBarType.fixed,
-    selectedLabelStyle: const TextStyle(fontFamily: "KareemB",fontSize: 12),
-    unselectedLabelStyle: const TextStyle(fontFamily: "KareemR",fontSize: 12),
+    selectedLabelStyle: const TextStyle(fontFamily: "FinalB"),
+    unselectedItemColor: myFavColor2,
+    unselectedLabelStyle: const TextStyle(fontFamily: "FinalR"),
   ),
 );

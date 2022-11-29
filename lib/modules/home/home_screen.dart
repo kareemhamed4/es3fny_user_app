@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
-                                .copyWith(fontSize: 26, color: Colors.black),
+                                .copyWith(fontSize: 26),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(
