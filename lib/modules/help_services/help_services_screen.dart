@@ -38,14 +38,13 @@ class HelpServicesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
               "الخدمات",
               style: Theme.of(context)
                   .textTheme
-                  .headline5!
-                  .copyWith(color: myFavColor),
+                  .bodyText2!
+                  .copyWith(color: myFavColor,fontSize: 20),
             ),
           ],
         ),
@@ -71,51 +70,48 @@ class HelpServicesScreen extends StatelessWidget {
     required BuildContext context,
     required Size size,
   }) =>
-      Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            highlightColor: myFavColor.withOpacity(0.5),
-            onTap: () {},
-            child: SizedBox(
-              height: size.height * 0.11,
-              child: Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: Colors.grey.shade200,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                elevation: 5,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Image.asset(
-                            model.imagePath,
-                            width: 50,
-                            height: 50,
-                          ),
-                          const SizedBox(width: 25,),
-                          Text(
-                            model.label,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(fontSize: 18),
-                          ),
-                        ],
-                      ),
-                      Icon(
-                        Icons.arrow_forward_outlined,
-                        color: myFavColor,
-                      ),
-                    ],
-                  ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          highlightColor: myFavColor.withOpacity(0.5),
+          onTap: () {},
+          child: SizedBox(
+            height: size.height * 0.11,
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              color: Theme.of(context).cardColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          model.imagePath,
+                          width: 50,
+                          height: 50,
+                        ),
+                        const SizedBox(width: 25,),
+                        Text(
+                          model.label,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    Icon(
+                      Icons.arrow_forward_outlined,
+                      color: myFavColor,
+                    ),
+                  ],
                 ),
               ),
             ),

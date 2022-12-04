@@ -15,13 +15,7 @@ class ForgetPasswordScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: (){
-          Navigator.pop(context);
-        },
-            icon: const Icon(Icons.arrow_circle_left_outlined)),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SizedBox(
@@ -35,61 +29,64 @@ class ForgetPasswordScreen extends StatelessWidget{
                   children: [
                     Text(
                       "نسيت كلمة المرور؟",
-                      style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor,fontSize: 32),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor,fontSize: 32),
                     ),
                     SizedBox(height: size.height*0.084,),
                     Text(
                       "ادخل رقم الهاتف",
-                      style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor4),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor4,fontSize: 20),
                     ),
                     SizedBox(height: size.height*0.002,),
                     Text(
-                      "سوف تصلك رسالة برمز التحقق لاعادة",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
+                      "سوف تصلك رسالة برمز التحقق لإعادة",
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16),
                     ),
                     Text(
                       "تعيين كلمة المرور",
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16),
                     ),
                     SizedBox(height: size.height*0.0703,),
                     Align(
-                      alignment: AlignmentDirectional.centerEnd,
+                      alignment: AlignmentDirectional.centerStart,
                       child: Text(
                         "رقم الهاتف",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
                       ),
                     ),
                     SizedBox(height: size.height*0.00922,),
-                    InternationalPhoneNumberInput(
-                      countries: const ["EG"],
-                      spaceBetweenSelectorAndTextField: 20,
-                      selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                      textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                      maxLength: 12,
-                      validator: (value) {
-                        if (value!.length < 12) {
-                          return "رقم هاتف غير صحيح";
-                        }
-                        return null;
-                      },
-                      hintText: "1X-XXXX-XXXX",
-                      onInputChanged: (PhoneNumber value) {},
-                      inputDecoration: InputDecoration(
-                        contentPadding: EdgeInsets.zero,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: myFavColor.withOpacity(0.5),
-                            )),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: myFavColor.withOpacity(0.5),
-                            )),
-                      ),
-                      selectorConfig: const SelectorConfig(
-                        setSelectorButtonAsPrefixIcon: true,
-                        leadingPadding: 16,
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: InternationalPhoneNumberInput(
+                        countries: const ["EG"],
+                        spaceBetweenSelectorAndTextField: 20,
+                        selectorTextStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                        textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                        maxLength: 12,
+                        validator: (value) {
+                          if (value!.length < 12) {
+                            return "رقم هاتف غير صحيح";
+                          }
+                          return null;
+                        },
+                        hintText: "1X-XXXX-XXXX",
+                        onInputChanged: (PhoneNumber value) {},
+                        inputDecoration: InputDecoration(
+                          contentPadding: EdgeInsets.zero,
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: myFavColor.withOpacity(0.5),
+                              )),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                color: myFavColor.withOpacity(0.5),
+                              )),
+                        ),
+                        selectorConfig: const SelectorConfig(
+                          setSelectorButtonAsPrefixIcon: true,
+                          leadingPadding: 16,
+                        ),
                       ),
                     ),
                     /*phoneTextFormField(
@@ -125,7 +122,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                       },
                       child: Text(
                         "الرجوع الي تسجيل الدخول",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2),
                       ),
                     ),
                     SizedBox(height: size.height*0.101,),

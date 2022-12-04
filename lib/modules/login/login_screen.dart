@@ -41,9 +41,9 @@ class LoginScreen extends StatelessWidget {
                           Text("تسجيل الدخول",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline5!
+                                  .bodyText2!
                                   .copyWith(
-                                    fontSize: 32,
+                                    fontSize: 30,
                                 color: myFavColor
                                   )),
                           SizedBox(
@@ -60,45 +60,48 @@ class LoginScreen extends StatelessWidget {
                             height: size.height * 0.065,
                           ),
                           Align(
-                            alignment: AlignmentDirectional.centerEnd,
+                            alignment: AlignmentDirectional.centerStart,
                             child: Text(
                               'رقم الهاتف',
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyText2,
                             ),
                           ),
                           const SizedBox(
                             height: 7,
                           ),
-                          InternationalPhoneNumberInput(
-                            countries: const ["EG"],
-                            spaceBetweenSelectorAndTextField: 20,
-                            selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                            textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                            maxLength: 12,
-                            validator: (value) {
-                              if (value!.length < 12) {
-                                return "رقم هاتف غير صحيح";
-                              }
-                              return null;
-                            },
-                            hintText: "1X-XXXX-XXXX",
-                            onInputChanged: (PhoneNumber value) {},
-                            inputDecoration: InputDecoration(
-                              contentPadding: EdgeInsets.zero,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide: BorderSide(
-                                    color: myFavColor.withOpacity(0.5),
-                                  )),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide: BorderSide(
-                                    color: myFavColor.withOpacity(0.5),
-                                  )),
-                            ),
-                            selectorConfig: const SelectorConfig(
-                              setSelectorButtonAsPrefixIcon: true,
-                              leadingPadding: 16,
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: InternationalPhoneNumberInput(
+                              countries: const ["EG"],
+                              spaceBetweenSelectorAndTextField: 20,
+                              selectorTextStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                              textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                              maxLength: 12,
+                              validator: (value) {
+                                if (value!.length < 12) {
+                                  return "رقم هاتف غير صحيح";
+                                }
+                                return null;
+                              },
+                              hintText: "1X-XXXX-XXXX",
+                              onInputChanged: (PhoneNumber value) {},
+                              inputDecoration: InputDecoration(
+                                contentPadding: EdgeInsets.zero,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                      color: myFavColor.withOpacity(0.5),
+                                    )),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(
+                                      color: myFavColor.withOpacity(0.5),
+                                    )),
+                              ),
+                              selectorConfig: const SelectorConfig(
+                                setSelectorButtonAsPrefixIcon: true,
+                                leadingPadding: 16,
+                              ),
                             ),
                           ),
                           /*phoneTextFormField(
@@ -117,11 +120,14 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(
                             height: 7,
                           ),*/
+                          const SizedBox(
+                            height: 7,
+                          ),
                           Align(
-                              alignment: AlignmentDirectional.centerEnd,
+                              alignment: AlignmentDirectional.centerStart,
                               child: Text(
                                 'كلمة المرور',
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.bodyText2,
                               )),
                           const SizedBox(
                             height: 7,
@@ -133,10 +139,9 @@ class LoginScreen extends StatelessWidget {
                               }
                               return null;
                             },
-                            textAlign: TextAlign.right,
                             type: TextInputType.visiblePassword,
                             isPassword: cubit.isPasswordLogin,
-                            prefixIcon: IconButton(
+                            suffixIcon: IconButton(
                               onPressed: () {
                                 cubit.changeSuffixIconLogin();
                               },
@@ -152,7 +157,7 @@ class LoginScreen extends StatelessWidget {
                             height: 6,
                           ),
                           Align(
-                              alignment: AlignmentDirectional.centerEnd,
+                              alignment: AlignmentDirectional.centerStart,
                               child: myTextButton(
                                   context: context,
                                   label: "هل نسيت كلمة المرور؟",
@@ -174,22 +179,19 @@ class LoginScreen extends StatelessWidget {
                           const SizedBox(
                             height: 11,
                           ),
-                          Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Row(
-                              children: [
-                                const Text("هل لديك حساب؟"),
-                                myTextButton(
-                                    context: context,
-                                    label: "إنشاء حساب",
-                                    onPressed: () {
-                                      NavigateTo(
-                                        context: context,
-                                        widget: const Register(),
-                                      );
-                                    }),
-                              ],
-                            ),
+                          Row(
+                            children: [
+                              const Text("هل لديك حساب؟"),
+                              myTextButton(
+                                  context: context,
+                                  label: "إنشاء حساب",
+                                  onPressed: () {
+                                    NavigateTo(
+                                      context: context,
+                                      widget: const Register(),
+                                    );
+                                  }),
+                            ],
                           )
                         ],
                       ),

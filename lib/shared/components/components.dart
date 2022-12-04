@@ -32,7 +32,7 @@ Widget myTextFormField({
       onChanged: onChange,
       onFieldSubmitted: onSubmit,
       validator: validate,
-      textAlign: textAlign ?? TextAlign.end,
+      textAlign: textAlign ?? TextAlign.start,
       maxLength: maxLength,
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),
@@ -99,7 +99,7 @@ Widget myTextButton({
           label,
           style: Theme.of(context)
               .textTheme
-              .bodyText1!
+              .bodyText2!
               .copyWith(color: myFavColor),
         ));
 
@@ -223,7 +223,7 @@ Widget phoneTextFormField({
   Widget? icon,
   int? maxLength,
   int? maxLength2,
-  required TextAlign textAlign,
+  TextAlign? textAlign,
 }) =>
     TextFormField(
       textAlignVertical: TextAlignVertical.center,
@@ -237,7 +237,7 @@ Widget phoneTextFormField({
       onChanged: onChange,
       onFieldSubmitted: onSubmit,
       validator: validate,
-      textAlign: textAlign,
+      textAlign: textAlign ?? TextAlign.start,
       maxLength: maxLength,
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),

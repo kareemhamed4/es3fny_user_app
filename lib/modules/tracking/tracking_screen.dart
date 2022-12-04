@@ -11,11 +11,10 @@ class TrackingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
               "التتبع",
-              style: Theme.of(context).textTheme.headline5!.copyWith(color: myFavColor),),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor,fontSize: 20),),
           ],
         ),
       ),
@@ -27,66 +26,57 @@ class TrackingScreen extends StatelessWidget {
               const Image(image: AssetImage("assets/images/Map2.png"),fit: BoxFit.cover,),
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: MaterialButton(
-                          onPressed: (){
-                            NavigateTo(context: context, widget: const TrackingInfoScreen());
-                          },
-                          color: myFavColor,
-                          height: 68,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("اضغط للتتبع",style: Theme.of(context).textTheme.button!.copyWith(fontSize: 18),),
-                                const Icon(Icons.arrow_forward,color: Colors.white,),
-                              ],
-                            ),
-                          ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: (){
+                          NavigateTo(context: context, widget: const TrackingInfoScreen());
+                        },
+                        color: myFavColor,
+                        height: 68,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("اضغط للتتبع",style: Theme.of(context).textTheme.button!.copyWith(fontSize: 18),),
+                            const Icon(Icons.arrow_forward,color: Colors.white,),
+                          ],
                         ),
                       ),
-                      const SizedBox(width: 12,),
-                      Expanded(
-                        child: MaterialButton(
-                          onPressed: (){},
-                          color: myFavColor,
-                          height: 68,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                    const SizedBox(width: 12,),
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: (){},
+                        color: myFavColor,
+                        height: 68,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                              text: " طنطا، الغربية\n",
+                              style: Theme.of(context).textTheme.button!.copyWith(fontSize: 16),
                               children: [
-                                RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(
-                                  text: " طنطا، الغربية\n",
-                                  style: Theme.of(context).textTheme.button!.copyWith(fontSize: 16),
-                                  children: [
-                                    TextSpan(
-                                      text: "منذ 4 دقائق",
-                                      style: Theme.of(context).textTheme.button!.copyWith(fontSize: 14)
-                                    ),
-                                  ],
-                                )),
-                                const Icon(Icons.location_on_outlined,color: Colors.white,),
+                                TextSpan(
+                                  text: "منذ 4 دقائق",
+                                  style: Theme.of(context).textTheme.button!.copyWith(fontSize: 14)
+                                ),
                               ],
-                            ),
-                          ),
+                            )),
+                            const Icon(Icons.location_on_outlined,color: Colors.white,),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -95,11 +85,10 @@ class TrackingScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     "العمليات السابقة",
-                    style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 21),
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
                   ),
                   const SizedBox(height: 8,),
                   Expanded(

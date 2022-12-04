@@ -22,16 +22,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-              Icons.arrow_circle_left_outlined,
-          ),
-        ),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -39,8 +30,9 @@ class _OTPScreenState extends State<OTPScreen> {
             child: Column(
               children: [
                 Text("تحقق من الهاتف",
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
-                          fontSize: 32,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: 30,
+                      color: myFavColor
                         )),
                 SizedBox(
                   height: size.height * 0.184,
@@ -49,66 +41,66 @@ class _OTPScreenState extends State<OTPScreen> {
                   "ادخل رمز التأكيد",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 24, color: myFavColor4),
+                      .bodyText2!
+                      .copyWith(fontSize: 22, color: myFavColor4),
                 ),
                 SizedBox(
                   height: size.height * 0.063,
                 ),
-                PinCodeTextField(
-                  appContext: context,
-                  autoFocus: true,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-                  ],
-                  length: 6,
-                  obscureText: false,
-                  animationType: AnimationType.scale,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 50,
-                    fieldWidth: 40,
-                    borderWidth: 1,
-                    activeColor: myFavColor,
-                    inactiveColor: myFavColor,
-                    inactiveFillColor: Colors.white,
-                    activeFillColor: myFavColor.withOpacity(0.2),
-                    selectedColor: myFavColor,
-                    selectedFillColor: Colors.white,
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: PinCodeTextField(
+                    appContext: context,
+                    autoFocus: true,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                    ],
+                    length: 6,
+                    obscureText: false,
+                    animationType: AnimationType.scale,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 50,
+                      fieldWidth: 40,
+                      borderWidth: 1,
+                      activeColor: myFavColor,
+                      inactiveColor: myFavColor,
+                      inactiveFillColor: Colors.white,
+                      activeFillColor: myFavColor.withOpacity(0.2),
+                      selectedColor: myFavColor,
+                      selectedFillColor: Colors.white,
+                    ),
+                    animationDuration: const Duration(milliseconds: 300),
+                    backgroundColor: Colors.white,
+                    enableActiveFill: true,
+                    onCompleted: (value) {
+                      otpCode = value;
+                      if (kDebugMode) {
+                        print("Completed");
+                      }
+                    },
+                    onChanged: (value) {
+                      if (kDebugMode) {
+                        print(value);
+                      }
+                    },
                   ),
-                  animationDuration: const Duration(milliseconds: 300),
-                  backgroundColor: Colors.white,
-                  enableActiveFill: true,
-                  onCompleted: (value) {
-                    otpCode = value;
-                    if (kDebugMode) {
-                      print("Completed");
-                    }
-                  },
-                  onChanged: (value) {
-                    if (kDebugMode) {
-                      print(value);
-                    }
-                  },
                 ),
                 SizedBox(
                   height: size.height * 0.087,
                 ),
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("اذا لم يتم ارسال لك الرمز!"),
-                      myTextButton(
-                          context: context,
-                          label: "إعادة ارسال",
-                          onPressed: () {}),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("اذا لم يتم ارسال لك الرمز!"),
+                    myTextButton(
+                        context: context,
+                        label: "إعادة ارسال",
+                        onPressed: () {}),
+                  ],
                 ),
                 SizedBox(
                   height: size.height * 0.029,
@@ -120,8 +112,6 @@ class _OTPScreenState extends State<OTPScreen> {
                   },
                   label: "تأكيد",
                 )
-
-
               ],
             ),
           ),

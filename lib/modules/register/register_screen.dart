@@ -51,7 +51,7 @@ class _RegisterState extends State<Register> {
                 Navigator.pop(context);
               },
               icon: const Icon(
-                Icons.arrow_circle_left_outlined,
+                Icons.arrow_back_outlined,
               ),
             ),
           ),
@@ -72,17 +72,17 @@ class _RegisterState extends State<Register> {
                         'إنشاء حساب',
                         style: Theme.of(context)
                             .textTheme
-                            .headline5!
-                            .copyWith(fontSize: 32, color: myFavColor),
+                            .bodyText2!
+                            .copyWith(fontSize: 30, color: myFavColor),
                       ),
                       SizedBox(
                         height: size.height * 0.0346,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'الإسم بالكامل',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -96,7 +96,6 @@ class _RegisterState extends State<Register> {
                           return null;
                         },
                         context: context,
-                        textAlign: TextAlign.right,
                         type: TextInputType.text,
                         onSubmit: (value) {},
                         controller: nameController,
@@ -105,45 +104,48 @@ class _RegisterState extends State<Register> {
                         height: size.height * 0.0219,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'رقم الهاتف',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
                         height: size.height * 0.008,
                       ),
-                      InternationalPhoneNumberInput(
-                        countries: const ["EG"],
-                        spaceBetweenSelectorAndTextField: 20,
-                        selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                        textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                        maxLength: 12,
-                        validator: (value) {
-                          if (value!.length < 12) {
-                            return "رقم هاتف غير صحيح";
-                          }
-                          return null;
-                        },
-                        hintText: "1X-XXXX-XXXX",
-                        onInputChanged: (PhoneNumber value) {},
-                        inputDecoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                color: myFavColor.withOpacity(0.5),
-                              )),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                color: myFavColor.withOpacity(0.5),
-                              )),
-                        ),
-                        selectorConfig: const SelectorConfig(
-                          setSelectorButtonAsPrefixIcon: true,
-                          leadingPadding: 16,
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: InternationalPhoneNumberInput(
+                          countries: const ["EG"],
+                          spaceBetweenSelectorAndTextField: 20,
+                          selectorTextStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                          textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                          maxLength: 12,
+                          validator: (value) {
+                            if (value!.length < 12) {
+                              return "رقم هاتف غير صحيح";
+                            }
+                            return null;
+                          },
+                          hintText: "1X-XXXX-XXXX",
+                          onInputChanged: (PhoneNumber value) {},
+                          inputDecoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide(
+                                  color: myFavColor.withOpacity(0.5),
+                                )),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide(
+                                  color: myFavColor.withOpacity(0.5),
+                                )),
+                          ),
+                          selectorConfig: const SelectorConfig(
+                            setSelectorButtonAsPrefixIcon: true,
+                            leadingPadding: 16,
+                          ),
                         ),
                       ),
                       /*phoneTextFormField(
@@ -191,10 +193,10 @@ class _RegisterState extends State<Register> {
                         height: size.height * 0.0219,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'النوع',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -209,41 +211,38 @@ class _RegisterState extends State<Register> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: DropdownButton<String>(
-                              borderRadius: BorderRadius.circular(20),
-                              isExpanded: true,
-                              hint: Text(
-                                "اختر",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(color: myFavColor2),
-                              ),
-                              value: dropdownValue,
-                              underline: const SizedBox(),
-                              icon: const Icon(
-                                  Icons.keyboard_arrow_down_outlined),
-                              style: TextStyle(
-                                color: myFavColor4,
-                              ),
-                              onChanged: (String? value) {
-                                setState(() {
-                                  dropdownValue = value!;
-                                });
-                              },
-                              items: list.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                      alignment:
-                                          AlignmentDirectional.centerStart,
-                                      child: Text(value)),
-                                );
-                              }).toList(),
+                          child: DropdownButton<String>(
+                            borderRadius: BorderRadius.circular(20),
+                            isExpanded: true,
+                            hint: Text(
+                              "اختر",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: myFavColor2),
                             ),
+                            value: dropdownValue,
+                            underline: const SizedBox(),
+                            icon: const Icon(
+                                Icons.keyboard_arrow_down_outlined),
+                            style: TextStyle(
+                              color: myFavColor4,
+                            ),
+                            onChanged: (String? value) {
+                              setState(() {
+                                dropdownValue = value!;
+                              });
+                            },
+                            items: list.map<DropdownMenuItem<String>>(
+                                (String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Align(
+                                    alignment:
+                                        AlignmentDirectional.centerStart,
+                                    child: Text(value)),
+                              );
+                            }).toList(),
                           ),
                         ),
                       ),
@@ -254,7 +253,7 @@ class _RegisterState extends State<Register> {
                               top: 8.0, start: 9.0),
                           child: Text(
                             typeValidate,
-                            textAlign: TextAlign.start,
+                            /*textAlign: TextAlign.start,*/
                             style: Theme.of(context)
                                 .textTheme
                                 .caption!
@@ -263,10 +262,10 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'العمر',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -281,7 +280,6 @@ class _RegisterState extends State<Register> {
                         },
                         context: context,
                         maxLength2: 2,
-                        textAlign: TextAlign.right,
                         type: TextInputType.number,
                         onSubmit: (value) {},
                         controller: ageController,
@@ -290,10 +288,10 @@ class _RegisterState extends State<Register> {
                         height: size.height * 0.0219,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'البريد الإكتروني',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -307,8 +305,8 @@ class _RegisterState extends State<Register> {
                           return null;
                         },
                         context: context,
-                        textAlign: TextAlign.left,
                         onSubmit: (value) {},
+                        textAlign: TextAlign.left,
                         controller: emailController,
                         type: TextInputType.emailAddress,
                       ),
@@ -316,10 +314,10 @@ class _RegisterState extends State<Register> {
                         height: size.height * 0.0219,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'كلمة المرور',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -333,12 +331,11 @@ class _RegisterState extends State<Register> {
                           return null;
                         },
                         context: context,
-                        textAlign: TextAlign.right,
                         onSubmit: (value) {},
                         controller: passwordController,
                         type: TextInputType.visiblePassword,
                         isPassword: cubit.isPasswordRegister,
-                        prefixIcon: IconButton(
+                        suffixIcon: IconButton(
                           onPressed: () {
                             cubit.changeSuffixIconRegister();
                           },
@@ -349,10 +346,10 @@ class _RegisterState extends State<Register> {
                         height: size.height * 0.0219,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'تأكيد كلمة المرور',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -366,14 +363,13 @@ class _RegisterState extends State<Register> {
                             return null;
                           },
                           context: context,
-                          textAlign: TextAlign.right,
                           onSubmit: (value) {
                             registerSubmit();
                           },
                           controller: passwordConfirmController,
                           type: TextInputType.visiblePassword,
                           isPassword: cubit.isPasswordConfirmRegister,
-                          prefixIcon: IconButton(
+                          suffixIcon: IconButton(
                             onPressed: () {
                               cubit.changeSuffixIconConfirmRegister();
                             },

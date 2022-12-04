@@ -75,30 +75,26 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           child: Column(
             children: [
               Expanded(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: PageView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    controller: pageController,
-                    itemBuilder: (context, index) => buildPageViewScreen(
-                        context: context, size: size, model: boarding[index]),
-                    itemCount: boarding.length,
-                    onPageChanged: (index) {
-                      if (index == (boarding.length - 1)) {
-                        setState(() {
-                          isLast = true;
-                        });
-                      } else {
-                        setState(() {
-                          isLast = false;
-                        });
-                      }
-                    },
-                  ),
+                child: PageView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  controller: pageController,
+                  itemBuilder: (context, index) => buildPageViewScreen(
+                      context: context, size: size, model: boarding[index]),
+                  itemCount: boarding.length,
+                  onPageChanged: (index) {
+                    if (index == (boarding.length - 1)) {
+                      setState(() {
+                        isLast = true;
+                      });
+                    } else {
+                      setState(() {
+                        isLast = false;
+                      });
+                    }
+                  },
                 ),
               ),
               SmoothPageIndicator(
-                textDirection: TextDirection.rtl,
                 controller: pageController,
                 count: boarding.length,
                 effect: ExpandingDotsEffect(

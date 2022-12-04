@@ -39,8 +39,8 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
             "تغيير الموقع",
             style: Theme.of(context)
                 .textTheme
-                .headline5!
-                .copyWith(color: myFavColor),
+                .bodyText2!
+                .copyWith(color: myFavColor,fontSize: 20),
           ),
           centerTitle: true,
         ),
@@ -113,123 +113,120 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
               left: 13,
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const  SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          width: 80,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            color: myFavColor2.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const  SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: 80,
+                        height: 5,
+                        decoration: BoxDecoration(
+                          color: myFavColor2.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      const  SizedBox(
-                        height: 20,
+                    ),
+                    const  SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "اختر مكانك",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 18),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFormField(
+                      controller: locationController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "يجب ادخال موقعك الحالي";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: myFavColor2.withOpacity(0.1),
+                        contentPadding: const EdgeInsets.only(right: 8,left: 8),
+                        label: Text(
+                          "ادخل موقعك الحالي",
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontSize: 14),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide.none),
                       ),
-                      Text(
-                        "اختر مكانك",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 20),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "المكان المقصود (اختياري)",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 18),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFormField(
+                      controller: hospitalController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: myFavColor2.withOpacity(0.1),
+                        contentPadding: const EdgeInsets.only(right: 8,left: 8),
+                        label: Text(
+                          "اسم المستشفي",
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontSize: 14),
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide.none),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      TextFormField(
-                        controller: locationController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "يجب ادخال موقعك الحالي";
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: MaterialButton(
+                        height: 40,
+                        minWidth: 178,
+                        color: myFavColor,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            hospitalController.text = hospitalController.text;
+                            locationController.text = locationController.text;
                           }
-                          return null;
                         },
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: myFavColor2.withOpacity(0.1),
-                          contentPadding: const EdgeInsets.only(right: 8),
-                          label: Text(
-                            "ادخل موقعك الحالي",
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(fontSize: 14),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide.none),
+                        child: Text(
+                          "تغيير",
+                          style: Theme.of(context).textTheme.button,
                         ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        "المكان المقصود (اختياري)",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      TextFormField(
-                        controller: hospitalController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: myFavColor2.withOpacity(0.1),
-                          contentPadding: const EdgeInsets.only(right: 8),
-                          label: Text(
-                            "اسم المستشفي",
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(fontSize: 14),
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide.none),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: MaterialButton(
-                          height: 40,
-                          minWidth: 178,
-                          color: myFavColor,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              hospitalController.text = hospitalController.text;
-                              locationController.text = locationController.text;
-                            }
-                          },
-                          child: Text(
-                            "تغيير",
-                            style: Theme.of(context).textTheme.button,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
               ),
             ),

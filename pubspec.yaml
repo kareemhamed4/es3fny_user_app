@@ -89,29 +89,6 @@ flutter:
 
 
   fonts:
-    - family: KareemR
-      fonts:
-        - asset: assets/fonts/ElMessiri-Regular.ttf
-
-    - family: KareemB
-      fonts:
-        - asset: assets/fonts/ElMessiri-Bold.ttf
-    - family: InterR
-      fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
-
-    - family: InterB
-      fonts:
-        - asset: assets/fonts/Inter-Bold.ttf
-
-    - family: 3b8nyR
-      fonts:
-        - asset: assets/fonts/DMSans-Regular.ttf
-
-    - family: 3b8nyB
-      fonts:
-        - asset: assets/fonts/DMSans-Bold.ttf
-
     - family: FinalR
       fonts:
         - asset: assets/fonts/Cairo-Regular.ttf
@@ -120,9 +97,13 @@ flutter:
       fonts:
         - asset: assets/fonts/Cairo-Bold.ttf
 
+    - family: FinalL
+      fonts:
+        - asset: assets/fonts/Cairo-Light.ttf
+
     - family: FinalBL
       fonts:
-        - asset: assets/fonts/Cairo-Black.ttf
+        - asset: assets/fonts/Cairo-ExtraBold.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

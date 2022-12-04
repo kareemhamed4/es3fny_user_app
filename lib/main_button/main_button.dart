@@ -60,15 +60,15 @@ class LoadingButtonState extends State<LoadingButton>
                 'تأكيد',
                 style: Theme.of(context)
                     .textTheme
-                    .headline5!
-                    .copyWith(color: myFavColor4),
+                    .bodyText2!
+                    .copyWith(color: myFavColor4,fontSize: 18),
               ),
               content: Text(
                 'هل تريد بالفعل طلب الاسعاف ؟',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyText2!
                     .copyWith(color: myFavColor2, fontSize: 18),
               ),
               actions: <Widget>[
@@ -85,7 +85,7 @@ class LoadingButtonState extends State<LoadingButton>
                     "الغاء",
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyText2!
                         .copyWith(color: myFavColor, fontSize: 20),
                   ),
                 ),
@@ -104,7 +104,7 @@ class LoadingButtonState extends State<LoadingButton>
                     "تأكيد",
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1!
+                        .bodyText2!
                         .copyWith(color: Colors.white, fontSize: 20),
                   ),
                 ),

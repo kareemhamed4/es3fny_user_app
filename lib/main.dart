@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         builder: (context,state){
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            supportedLocales: const [Locale('en'), Locale('ar')],
+            supportedLocales: const [Locale('ar'), Locale('en')],
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
               for (var locale in supportedLocales) {
                 if (deviceLocale != null &&
                     deviceLocale.languageCode == locale.languageCode) {
-                  return deviceLocale;
+                  return /*deviceLocale*/ supportedLocales.first;
                 }
               }
               return supportedLocales.first;
