@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
@@ -42,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context.read<MainCubit>().changeLang(context, "ar");
                       }
                   ),
-                  Text("العربية",style: Theme.of(context).textTheme.bodyText2,),
+                  Text("arabic".tr(context),style: Theme.of(context).textTheme.bodyText2,),
                   Radio<LanguageSelectEnum>(
                       value: LanguageSelectEnum.english,
                       groupValue: _languageSelectEnum,
@@ -53,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context.read<MainCubit>().changeLang(context, "en");
                       }
                   ),
-                  Text("الإنجليزية",style: Theme.of(context).textTheme.bodyText2,),
+                  Text("english".tr(context),style: Theme.of(context).textTheme.bodyText2,),
                 ],
               ),
             ),
@@ -68,20 +69,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Icon(
+                          Icons.brightness_4_outlined,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Text(
-                          "Change App Mode",
+                          "change_app_mode".tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
                               .copyWith(color: Colors.blue),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Icon(
-                          Icons.brightness_4_outlined,
-                          color: Colors.blue,
-                        )
                       ],
                     )),
               ),
@@ -103,20 +104,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Icon(
+                          Icons.delete_outline,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Text(
-                          "Clear Data",
+                          "clear_data".tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
                               .copyWith(color: Colors.blue),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Icon(
-                          Icons.delete_outline,
-                          color: Colors.blue,
-                        )
                       ],
                     )),
               ),
@@ -133,20 +134,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Icon(
+                          Icons.logout_outlined,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Text(
-                          "Log Out",
+                          "logout".tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
                               .copyWith(color: Colors.blue),
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const Icon(
-                          Icons.logout_outlined,
-                          color: Colors.blue,
-                        )
                       ],
                     )),
               ),

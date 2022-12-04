@@ -1,3 +1,28 @@
 {
-  "need help?" : "Need Ems help?"
+  "Home":"Home",
+  "Tracking":"Tracking",
+  "Services":"Services",
+  "Profile":"Profile",
+
+  "card_home_1":"Have an accident ?",
+  "card_home_2":"First aid",
+
+  "fast_help": "Need for fast help ?",
+  "fast_help_caption": "Talk to your smart doctor",
+
+  "need_ems": "EMS required ?",
+  "need_ems_caption": "Just hold the button for only 3 seconds",
+
+  "welcome": "Welcome, أسامة",
+  "welcome_caption": "Open your profile",
+
+  "address":"Taha-El-hakim,Tanta",
+  "address_caption":"Edit your current location",
+
+  "arabic":"Arabic",
+  "english":"English",
+
+  "change_app_mode": "Change App Mode",
+  "clear_data": "Clear Data",
+  "logout": "Logout"
 }

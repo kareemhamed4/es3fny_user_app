@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/states.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -33,7 +34,7 @@ class LayoutScreen extends StatelessWidget {
                       Icon(FluentIcons.home_24_regular),
                     ],
                   ),
-              ),label: "الرئيسية"),
+              ),label: "Home".tr(context)),
               BottomNavigationBarItem(icon: Container(
                   decoration: (cubit.currentIndex == 1) ? BoxDecoration(
                       border: Border(
@@ -48,7 +49,7 @@ class LayoutScreen extends StatelessWidget {
                       SizedBox(height: 14,),
                       Icon(FluentIcons.location_24_regular),
                     ],
-                  )),label: "التتبع"),
+                  )),label: "Tracking".tr(context)),
               BottomNavigationBarItem(icon: Container(
                   decoration: (cubit.currentIndex == 2) ? BoxDecoration(
                       border: Border(
@@ -63,7 +64,7 @@ class LayoutScreen extends StatelessWidget {
                       SizedBox(height: 14,),
                       Icon(FluentIcons.glance_24_regular),
                     ],
-                  )),label: "الخدمات"),
+                  )),label: "Services".tr(context)),
               BottomNavigationBarItem(icon: Container(
                   decoration: (cubit.currentIndex == 3) ? BoxDecoration(
                       border: Border(
@@ -78,7 +79,7 @@ class LayoutScreen extends StatelessWidget {
                       SizedBox(height: 14,),
                       Icon(FluentIcons.person_24_regular),
                     ],
-                  )),label: "الملف الشخصي"),
+                  )),label: "Profile".tr(context)),
             ],
             currentIndex: cubit.currentIndex,
             onTap: (index){

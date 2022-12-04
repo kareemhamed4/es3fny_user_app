@@ -2,11 +2,8 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/states.dart';
 import 'package:es3fny_user_app/main_button/main_button.dart';
-import 'package:es3fny_user_app/modules/edit_location/edit_location_screen.dart';
-import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,22 +44,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 5,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    RichText(
-                                      text: TextSpan(
-                                          text: "مرحباً، أسامة\n",
-                                          style: Theme.of(context).textTheme.bodyText2,
-                                          children: [
-                                            TextSpan(
-                                                text: "فتح ملفك الشخصي",
-                                                style:
-                                                Theme.of(context).textTheme.caption!.copyWith(fontSize: 10),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () {
-                                                  LayoutCubit.get(context).changeIndex(3);
-                                                  }),
-                                          ]),
-                                    )
+                                    Text(
+                                        "welcome".tr(context),
+                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16),
+                                    ),
+                                    InkWell(
+                                      onTap: (){
+                                        LayoutCubit.get(context).changeIndex(3);
+                                      },
+                                      child: Text(
+                                        "welcome_caption".tr(context),
+                                        style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 12),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -78,24 +74,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 5,
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      text: TextSpan(
-                                          text: "طه الحكيم، طنطا\n",
-                                          style: Theme.of(context).textTheme.bodyText2,
-                                          children: [
-                                            TextSpan(
-                                                text: "تعديل موقعك الحالي",
-                                                style:
-                                                Theme.of(context).textTheme.caption!.copyWith(fontSize: 10),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () {
-                                                    NavigateTo(context: context, widget: const EditLocationScreen());
-                                                  }),
-                                          ]),
-                                    )
+                                    Text(
+                                      "address".tr(context),
+                                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16),
+                                    ),
+                                    InkWell(
+                                      onTap: (){
+                                        LayoutCubit.get(context).changeIndex(3);
+                                      },
+                                      child: Text(
+                                        "address_caption".tr(context),
+                                        style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 12),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -106,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: size.height * 0.06,
                         ),
                         Text(
-                          "need help?".tr(context),
+                          "need_ems".tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!
@@ -117,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: size.height * 0.01,
                         ),
                         Text(
-                          'فقط قم بالضغط بإستمرار لمده ثلاث ثوانٍ',
+                          'need_ems_caption'.tr(context),
                           style: Theme.of(context).textTheme.caption!.copyWith(
                             fontSize: 14,
                           ),
@@ -131,16 +124,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: size.height * 0.05,
                         ),
                         Text(
-                          'تحتاج إلي المساعدة السريعة ؟',
+                          'fast_help'.tr(context),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2,
+                              .bodyText2!.copyWith(fontSize: 16),
                         ),
                         SizedBox(
                           height: size.height * 0.006,
                         ),
                         Text(
-                          'تحدث مع طبيبك الذكي',
+                          'fast_help_caption'.tr(context),
                           style: Theme.of(context).textTheme.caption!.copyWith(
                             fontSize: 12,
                           ),
@@ -167,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "تعرضت لحادث ؟",
+                                          "card_home_1".tr(context),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2!
@@ -197,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "الإسعافات الأولية",
+                                          "card_home_2".tr(context),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2!
