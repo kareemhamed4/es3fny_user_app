@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/bloc_observer.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/force_restart.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   uId = CacheHelper.getData(key: 'uId');
   langCode = CacheHelper.getData(key: 'lang');
