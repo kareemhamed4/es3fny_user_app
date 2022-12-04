@@ -7,36 +7,54 @@ import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileScreen extends StatelessWidget {
+enum LanguageSelectEnum {arabic,english}
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  LanguageSelectEnum? _languageSelectEnum;
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MainCubit,MainStates>(
-      listener: (context,state){},
-      builder: (context,state){
+    return BlocConsumer<MainCubit, MainStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         return Column(
           children: [
             const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                    onPressed: (){
-                          MainCubit.get(context).changeAppMode();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Change App Mode",
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue),),
-                        const SizedBox(width: 10,),
-                        const Icon(Icons.brightness_4_outlined,color: Colors.blue,)
-                      ],
-                    )
-                ),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Radio<LanguageSelectEnum>(
+                      value: LanguageSelectEnum.arabic,
+                      groupValue: _languageSelectEnum,
+                      onChanged: (value){
+                        setState((){
+                          _languageSelectEnum = value;
+                        });
+                        context.read<MainCubit>().changeLang(context, "ar");
+                      }
+                  ),
+                  Text("العربية",style: Theme.of(context).textTheme.bodyText2,),
+                  Radio<LanguageSelectEnum>(
+                      value: LanguageSelectEnum.english,
+                      groupValue: _languageSelectEnum,
+                      onChanged: (value){
+                        setState(() {
+                          _languageSelectEnum = value;
+                        });
+                        context.read<MainCubit>().changeLang(context, "en");
+                      }
+                  ),
+                  Text("الإنجليزية",style: Theme.of(context).textTheme.bodyText2,),
+                ],
               ),
             ),
             Padding(
@@ -44,9 +62,42 @@ class ProfileScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                    onPressed: (){
-                       CacheHelper.clearData().then((value){
-                        NavigateToReb(context: context, widget: const OnBoardingScreen());
+                    onPressed: () {
+                      MainCubit.get(context).changeAppMode();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Change App Mode",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.blue),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Icon(
+                          Icons.brightness_4_outlined,
+                          color: Colors.blue,
+                        )
+                      ],
+                    )),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                    onPressed: () {
+                      CacheHelper.clearData().then((value) {
+                        /*Timer(const Duration(seconds: 3), () {
+                          RestartWidget.restartApp(context);
+                        });*/
+                        NavigateToReb(
+                            context: context, widget: const OnBoardingScreen());
                       });
                     },
                     child: Row(
@@ -54,12 +105,20 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Clear Data",
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue),),
-                        const SizedBox(width: 10,),
-                        const Icon(Icons.delete_outline,color: Colors.blue,)
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.blue),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Icon(
+                          Icons.delete_outline,
+                          color: Colors.blue,
+                        )
                       ],
-                    )
-                ),
+                    )),
               ),
             ),
             Padding(
@@ -67,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                    onPressed: (){
+                    onPressed: () {
                       MainCubit.get(context).signOut();
                       NavigateToReb(context: context, widget: LoginScreen());
                     },
@@ -76,12 +135,20 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Log Out",
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.blue),),
-                        const SizedBox(width: 10,),
-                        const Icon(Icons.logout_outlined,color: Colors.blue,)
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.blue),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Icon(
+                          Icons.logout_outlined,
+                          color: Colors.blue,
+                        )
                       ],
-                    )
-                ),
+                    )),
               ),
             ),
           ],

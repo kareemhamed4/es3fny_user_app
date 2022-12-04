@@ -12,3 +12,10 @@ class MainErrorState extends MainStates {}
 class ChangeSuffixState extends MainStates {}
 class SignOutState extends MainStates {}
 class ChangeAppModeState extends MainStates {}
+
+class ChangeLanguageState extends MainStates {
+  final String langCode;
+
+  ChangeLanguageState(this.langCode);
+}
+class ChangeStartLanguageState extends MainStates {}

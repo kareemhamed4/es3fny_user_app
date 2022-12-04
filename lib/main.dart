@@ -1,6 +1,7 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
+import 'package:es3fny_user_app/force_restart.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
@@ -16,6 +17,7 @@ void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   uId = CacheHelper.getData(key: 'uId');
+  langCode = CacheHelper.getData(key: 'lang');
   bool isDark = CacheHelper.getData(key: "isDark") ?? false ;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
   Widget widget;
@@ -43,37 +45,40 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark),),
+        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang(),),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},
         builder: (context,state){
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            supportedLocales: const [Locale('ar'), Locale('en')],
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            localeResolutionCallback: (deviceLocale, supportedLocales) {
-              for (var locale in supportedLocales) {
-                if (deviceLocale != null &&
-                    deviceLocale.languageCode == locale.languageCode) {
-                  return /*deviceLocale*/ supportedLocales.first;
+          return RestartWidget(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              locale: Locale(langCode ?? "ar"),
+              supportedLocales: const [Locale('ar'), Locale('en')],
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              localeResolutionCallback: (deviceLocale, supportedLocales) {
+                for (var locale in supportedLocales) {
+                  if (deviceLocale != null &&
+                      deviceLocale.languageCode == locale.languageCode) {
+                    return deviceLocale;
+                  }
                 }
-              }
-              return supportedLocales.first;
-            },
-            title: 'ES3FNY USER APP',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: MainCubit.get(context).isDark
-                ? ThemeMode.dark
-                : ThemeMode.light,
-            home: startWidget,
+                return supportedLocales.first;
+              },
+              title: 'ES3FNY USER APP',
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: MainCubit.get(context).isDark
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+              home: startWidget,
+            ),
           );
         },
       ),
