@@ -2,6 +2,8 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/states.dart';
 import 'package:es3fny_user_app/main_button/main_button.dart';
+import 'package:es3fny_user_app/modules/edit_location/edit_location_screen.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     InkWell(
                                       onTap: (){
-                                        LayoutCubit.get(context).changeIndex(3);
+                                        NavigateTo(context: context, widget: const EditLocationScreen());
                                       },
                                       child: Text(
                                         "address_caption".tr(context),
@@ -96,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: size.height * 0.06,
+                          height: size.height * 0.05,
                         ),
                         Text(
                           "need_ems".tr(context),
@@ -164,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2!
-                                              .copyWith(fontSize: 18, color: myFavColor),
+                                              .copyWith(fontSize: 16, color: myFavColor),
                                         ),
                                         Icon(
                                           (Icons.arrow_forward),
@@ -194,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2!
-                                              .copyWith(fontSize: 18, color: myFavColor),
+                                              .copyWith(fontSize: 16, color: myFavColor),
                                         ),
                                         Icon(
                                           (Icons.arrow_forward),
