@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,25 +20,27 @@ class PolicyDialog extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
-
       ),
       child: Column(
         children: [
           Expanded(
-            child: FutureBuilder(
-              future: Future.delayed(const Duration(milliseconds: 150)).then((value){
-                return rootBundle.loadString("assets/$mdFileName");
-              }),
-              builder: (context,snapshot){
-                if(snapshot.hasData){
-                  return Markdown(
-                    data: snapshot.data.toString(),
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: FutureBuilder(
+                future: Future.delayed(const Duration(milliseconds: 150)).then((value){
+                  return rootBundle.loadString("assets/$mdFileName");
+                }),
+                builder: (context,snapshot){
+                  if(snapshot.hasData){
+                    return Markdown(
+                      data: snapshot.data.toString(),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
-                }
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
+                },
+              ),
             ),
           ),
           MaterialButton(
@@ -63,10 +66,9 @@ class PolicyDialog extends StatelessWidget {
               height: 40,
               width: double.infinity,
               child: Text(
-                "اغلاق",
+                "close_alert".tr(context),
                 style: Theme.of(context).textTheme.button!.copyWith(
                     fontSize: 20,
-
                 ),
               ),
             ),

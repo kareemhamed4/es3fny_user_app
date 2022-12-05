@@ -37,7 +37,7 @@ Widget myTextFormField({
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),
       ],
-      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
       decoration: InputDecoration(
         hintText: hint ?? '',
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
@@ -119,28 +119,25 @@ Widget onBoardingMaterialButton({
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: Colors.white),
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              const Icon(
-                Icons.arrow_circle_left_outlined,
-                color: Colors.white,
-                size: 20,
-              )
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              label,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(color: Colors.white),
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            const Icon(
+              Icons.arrow_forward_outlined,
+              color: Colors.white,
+              size: 20,
+            ),
+          ],
         ),
       ),
     );
@@ -243,7 +240,7 @@ Widget phoneTextFormField({
         LengthLimitingTextInputFormatter(maxLength2),
         FilteringTextInputFormatter.allow(RegExp("[0-9]")),
       ],
-      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18,),
+      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         border: OutlineInputBorder(

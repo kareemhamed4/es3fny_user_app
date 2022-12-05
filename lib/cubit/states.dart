@@ -19,3 +19,4 @@ class ChangeLanguageState extends MainStates {
   ChangeLanguageState(this.langCode);
 }
 class ChangeStartLanguageState extends MainStates {}
+class ChangeRadioState extends MainStates {}

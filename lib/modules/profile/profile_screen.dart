@@ -5,20 +5,12 @@ import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum LanguageSelectEnum {arabic,english}
-
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  LanguageSelectEnum? _languageSelectEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +25,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Radio<LanguageSelectEnum>(
-                      value: LanguageSelectEnum.arabic,
-                      groupValue: _languageSelectEnum,
+                  Radio(
+                      value: radioValue,
+                      groupValue: 1,
                       onChanged: (value){
-                        setState((){
-                          _languageSelectEnum = value;
-                        });
+                        MainCubit.get(context).changeRadioValue(1);
                         context.read<MainCubit>().changeLang(context, "ar");
                       }
                   ),
                   Text("arabic".tr(context),style: Theme.of(context).textTheme.bodyText2,),
-                  Radio<LanguageSelectEnum>(
-                      value: LanguageSelectEnum.english,
-                      groupValue: _languageSelectEnum,
+                  Radio(
+                      value: radioValue,
+                      groupValue: 2,
                       onChanged: (value){
-                        setState(() {
-                          _languageSelectEnum = value;
-                        });
+                        MainCubit.get(context).changeRadioValue(2);
                         context.read<MainCubit>().changeLang(context, "en");
                       }
                   ),

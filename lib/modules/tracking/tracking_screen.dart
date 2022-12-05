@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -31,7 +32,7 @@ class TrackingScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "العمليات السابقة",
+                    "history".tr(context),
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
                   ),
                 ),
@@ -60,7 +61,7 @@ class TrackingScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("اضغط للتتبع",style: Theme.of(context).textTheme.button!.copyWith(fontSize: 18),),
+                                Text("tap_for_tracking".tr(context),style: Theme.of(context).textTheme.button!.copyWith(fontSize: 18),),
                                 const Icon(Icons.arrow_forward,color: Colors.white,),
                               ],
                             ),
@@ -78,18 +79,19 @@ class TrackingScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                RichText(
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(
-                                      text: " طنطا، الغربية\n",
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                        "tracking_address".tr(context),
                                       style: Theme.of(context).textTheme.button!.copyWith(fontSize: 16),
-                                      children: [
-                                        TextSpan(
-                                            text: "منذ 4 دقائق",
-                                            style: Theme.of(context).textTheme.button!.copyWith(fontSize: 14)
-                                        ),
-                                      ],
-                                    )),
+                                    ),
+                                    Text(
+                                        "time_remaining".tr(context),
+                                        style: Theme.of(context).textTheme.button!.copyWith(fontSize: 14)
+                                    ),
+                                  ],
+                                ),
                                 const Icon(Icons.location_on_outlined,color: Colors.white,),
                               ],
                             ),

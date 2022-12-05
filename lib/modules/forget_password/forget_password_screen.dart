@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -28,28 +29,28 @@ class ForgetPasswordScreen extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "نسيت كلمة المرور؟",
+                      "forget_password".tr(context),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor,fontSize: 32),
                     ),
                     SizedBox(height: size.height*0.084,),
                     Text(
-                      "ادخل رقم الهاتف",
+                      "enter_phone".tr(context),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor4,fontSize: 20),
                     ),
                     SizedBox(height: size.height*0.002,),
                     Text(
-                      "سوف تصلك رسالة برمز التحقق لإعادة",
+                      "enter_phone_caption_1".tr(context),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16),
                     ),
                     Text(
-                      "تعيين كلمة المرور",
+                      "enter_phone_caption_2".tr(context),
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16),
                     ),
                     SizedBox(height: size.height*0.0703,),
                     Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
-                        "رقم الهاتف",
+                        "forget_phone".tr(context),
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
                       ),
                     ),
@@ -64,7 +65,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                         maxLength: 12,
                         validator: (value) {
                           if (value!.length < 12) {
-                            return "رقم هاتف غير صحيح";
+                            return "forget_phone_valid".tr(context);
                           }
                           return null;
                         },
@@ -121,7 +122,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                         NavigateTo(context: context, widget: LoginScreen());
                       },
                       child: Text(
-                        "الرجوع الي تسجيل الدخول",
+                        "forget_phone_caption".tr(context),
                         style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2),
                       ),
                     ),
@@ -133,7 +134,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                             NavigateTo(context: context, widget: const OTPScreen());
                           }
                         },
-                      label: "إرسال الرمز"
+                      label: "send_button".tr(context)
                     ),
                   ],
                 ),

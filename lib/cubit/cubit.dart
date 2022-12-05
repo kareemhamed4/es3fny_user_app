@@ -89,4 +89,10 @@ class MainCubit extends Cubit<MainStates> {
     emit(ChangeLanguageState(data));
     CacheHelper.saveData(key: "lang", value: data);
   }
+
+  void changeRadioValue(int value){
+    radioValue = value;
+    CacheHelper.saveData(key: "RadioValue", value: value);
+    emit(ChangeRadioState());
+  }
 }

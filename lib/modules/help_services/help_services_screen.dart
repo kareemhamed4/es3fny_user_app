@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/models/services_model.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -9,27 +10,27 @@ class HelpServicesScreen extends StatelessWidget {
   List<ServicesModel> services = [
     ServicesModel(
       imagePath: "assets/images/predict 1.png",
-      label: "التنبؤ ببعض الأمراض",
+      label: "prediction",
     ),
     ServicesModel(
       imagePath: "assets/images/notification-bell 1.png",
-      label: "ذَكّرني",
+      label: "notify",
     ),
     ServicesModel(
       imagePath: "assets/images/first-aid-box 1.png",
-      label: "الإسعافات الأولية",
+      label: "first_aid",
     ),
     ServicesModel(
       imagePath: "assets/images/hospital 1.png",
-      label: "أقرب مستشفي",
+      label: "hospital",
     ),
     ServicesModel(
       imagePath: "assets/images/clipboard 1.png",
-      label: "أقرب عيادة",
+      label: "clinic",
     ),
     ServicesModel(
       imagePath: "assets/images/medicine 1.png",
-      label: "أقرب صيدلية",
+      label: "pharmacy",
     ),
   ];
   @override
@@ -40,7 +41,7 @@ class HelpServicesScreen extends StatelessWidget {
         title: Row(
           children: [
             Text(
-              "الخدمات",
+              "services".tr(context),
               style: Theme.of(context)
                   .textTheme
                   .bodyText2!
@@ -99,7 +100,7 @@ class HelpServicesScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 25,),
                         Text(
-                          model.label,
+                          model.label.tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2!

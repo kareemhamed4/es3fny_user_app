@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,6 +11,7 @@ class AppLocalizations {
   static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
+  static AppLocalizations get instance => _AppLocalizationsDelegate.instance!;
 
   static const LocalizationsDelegate<AppLocalizations> delegate =
   _AppLocalizationsDelegate();
@@ -34,6 +34,7 @@ class AppLocalizations {
 class _AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
+  static AppLocalizations? instance;
   @override
   bool isSupported(Locale locale) {
     return ['ar', 'en'].contains(locale.languageCode);
@@ -43,6 +44,7 @@ class _AppLocalizationsDelegate
   Future<AppLocalizations> load(Locale locale) async {
     AppLocalizations localizations = AppLocalizations(locale: locale);
     await localizations.loadJsonLanguage();
+    instance = localizations;
     return localizations;
   }
 
@@ -54,5 +56,11 @@ class _AppLocalizationsDelegate
 extension TranslateX on String {
   String tr(BuildContext context) {
     return AppLocalizations.of(context)!.translate(this);
+  }
+}
+
+extension TranslateY on String {
+  String tr2() {
+    return AppLocalizations.instance.translate(this);
   }
 }

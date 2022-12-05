@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -63,7 +64,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       appBar: AppBar(
           actions : [
-              myTextButton(context: context, label: "تخطي", onPressed: () {
+              myTextButton(context: context, label: "onboarding_skip".tr(context), onPressed: () {
                 CacheHelper.saveData(key: "onBoarding", value: true).then((value){
                   NavigateTo(context: context, widget: LoginScreen());
                 });
@@ -125,7 +126,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     );
                   }
                 },
-                label: !isLast ? 'التالي' : 'البداية',
+                label: !isLast ? 'onboarding_next'.tr(context) : 'onboarding_finish'.tr(context),
               ),
             ],
           )),

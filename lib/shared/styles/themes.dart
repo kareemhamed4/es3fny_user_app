@@ -22,7 +22,7 @@ ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(
     bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor4,fontSize: 14),
     bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor4),
-    subtitle1: TextStyle(fontFamily: "FinalB",color: myFavColor4),
+    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor4,fontSize: 16),
     headline5: TextStyle(fontFamily: "kareemR",color: myFavColor4),
     headline6: TextStyle(fontFamily: "FinalB",color: myFavColor4),
     caption: TextStyle(fontFamily: "FinalB",color: myFavColor2),
@@ -58,7 +58,7 @@ ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(
     bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor7,fontSize: 14),
     bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor7),
-    subtitle1: TextStyle(fontFamily: "FinalB",color: myFavColor7),
+    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor7,fontSize: 16),
     headline5: TextStyle(fontFamily: "FinalR",color: myFavColor7),
     headline6: TextStyle(fontFamily: "FinalB",color: myFavColor7),
     caption: TextStyle(fontFamily: "FinalB",color: myFavColor2),

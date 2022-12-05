@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
@@ -30,8 +31,8 @@ class _RegisterState extends State<Register> {
 
   String typeValidate = "";
   List<String> list = <String>[
-    'ذكر',
-    'انثي',
+    'male',
+    'female',
   ];
   String? dropdownValue;
 
@@ -69,7 +70,7 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'إنشاء حساب',
+                        'register_label'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -81,7 +82,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'الإسم بالكامل',
+                          'register_name'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -91,7 +92,7 @@ class _RegisterState extends State<Register> {
                       myTextFormField(
                         validate: (value) {
                           if (value!.length < 8) {
-                            return "برجاء ادخال الاسم رباعي";
+                            return "register_name_valid".tr(context);
                           }
                           return null;
                         },
@@ -106,7 +107,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'رقم الهاتف',
+                          'register_phone'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -118,12 +119,18 @@ class _RegisterState extends State<Register> {
                         child: InternationalPhoneNumberInput(
                           countries: const ["EG"],
                           spaceBetweenSelectorAndTextField: 20,
-                          selectorTextStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
-                          textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                          selectorTextStyle: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 18),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 18),
                           maxLength: 12,
                           validator: (value) {
                             if (value!.length < 12) {
-                              return "رقم هاتف غير صحيح";
+                              return "register_phone_valid".tr(context);
                             }
                             return null;
                           },
@@ -195,7 +202,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'النوع',
+                          'register_gender'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -215,16 +222,16 @@ class _RegisterState extends State<Register> {
                             borderRadius: BorderRadius.circular(20),
                             isExpanded: true,
                             hint: Text(
-                              "اختر",
+                              "register_age_choose".tr(context),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
-                                  .copyWith(color: myFavColor2),
+                                  .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),
                             ),
                             value: dropdownValue,
                             underline: const SizedBox(),
-                            icon: const Icon(
-                                Icons.keyboard_arrow_down_outlined),
+                            icon:
+                                const Icon(Icons.keyboard_arrow_down_outlined),
                             style: TextStyle(
                               color: myFavColor4,
                             ),
@@ -233,14 +240,16 @@ class _RegisterState extends State<Register> {
                                 dropdownValue = value!;
                               });
                             },
-                            items: list.map<DropdownMenuItem<String>>(
-                                (String value) {
+                            items: list
+                                .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
-                                value: value,
+                                value: value.tr(context),
                                 child: Align(
-                                    alignment:
-                                        AlignmentDirectional.centerStart,
-                                    child: Text(value)),
+                                    alignment: AlignmentDirectional.centerStart,
+                                    child: Text(value.tr(context),style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),)),
                               );
                             }).toList(),
                           ),
@@ -250,7 +259,7 @@ class _RegisterState extends State<Register> {
                         width: double.infinity,
                         child: Padding(
                           padding: const EdgeInsetsDirectional.only(
-                              top: 8.0, start: 9.0),
+                              top: 8.0, start: 7.0),
                           child: Text(
                             typeValidate,
                             /*textAlign: TextAlign.start,*/
@@ -264,7 +273,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'العمر',
+                          'register_age'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -274,7 +283,7 @@ class _RegisterState extends State<Register> {
                       phoneTextFormField(
                         validate: (value) {
                           if (value!.isEmpty) {
-                            return "برجاء ادخال عمرك";
+                            return "register_age_valid".tr(context);
                           }
                           return null;
                         },
@@ -290,7 +299,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'البريد الإكتروني',
+                          'register_email'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -300,7 +309,7 @@ class _RegisterState extends State<Register> {
                       myTextFormField(
                         validate: (value) {
                           if (!value!.contains("@")) {
-                            return "بريد الكتروني غير صالح";
+                            return "register_email_valid".tr(context);
                           }
                           return null;
                         },
@@ -316,7 +325,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'كلمة المرور',
+                          'register_password'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -326,7 +335,7 @@ class _RegisterState extends State<Register> {
                       myTextFormField(
                         validate: (value) {
                           if (value!.length < 8) {
-                            return "يجب الا تقل كلمة المرور عن 8 أحرف";
+                            return "register_password_valid".tr(context);
                           }
                           return null;
                         },
@@ -348,7 +357,7 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'تأكيد كلمة المرور',
+                          'register_confirm_password'.tr(context),
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -358,7 +367,8 @@ class _RegisterState extends State<Register> {
                       myTextFormField(
                           validate: (value) {
                             if (value != passwordController.text) {
-                              return "يجب ان تطابق كلمتي المرور";
+                              return "register_confirm_password_valid"
+                                  .tr(context);
                             }
                             return null;
                           },
@@ -383,18 +393,21 @@ class _RegisterState extends State<Register> {
                           onPressed: () {
                             registerSubmit();
                           },
-                          label: 'إنشاء'),
+                          label: 'register_button'.tr(context)),
                       SizedBox(
                         height: size.height * 0.02,
+                      ),
+                      Text(
+                        "rules".tr(context),
+                        style: Theme.of(context).textTheme.caption,
                       ),
                       RichText(
                         textAlign: TextAlign.center,
                         text: TextSpan(
-                          text: "من خلال إنشاء حساب، فإنك توافق على\n",
-                          style: Theme.of(context).textTheme.caption,
+                          text: "",
                           children: [
                             TextSpan(
-                                text: "الشروط & الأحكام ",
+                                text: "terms".tr(context),
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -411,11 +424,11 @@ class _RegisterState extends State<Register> {
                                     );
                                   }),
                             TextSpan(
-                              text: "و ",
+                              text: "and".tr(context),
                               style: Theme.of(context).textTheme.caption,
                             ),
                             TextSpan(
-                                text: "وسياسة الخصوصية",
+                                text: "privacy".tr(context),
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -455,7 +468,7 @@ class _RegisterState extends State<Register> {
   void registerSubmit() {
     if (dropdownValue == null) {
       setState(() {
-        typeValidate = "برجاء اختيار النوع";
+        typeValidate = "register_gender_valid".tr(context);
       });
     }
     if (dropdownValue != null) {
@@ -464,7 +477,7 @@ class _RegisterState extends State<Register> {
       });
     }
     if (formKey.currentState!.validate()) {
-      CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value){
+      CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Directionality(
                 textDirection: TextDirection.rtl,

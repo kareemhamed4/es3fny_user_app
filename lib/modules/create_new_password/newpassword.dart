@@ -1,7 +1,9 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +26,7 @@ class NewPassword extends StatelessWidget {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             leading: IconButton(
-              icon: const Icon(Icons.arrow_circle_left_outlined),
+              icon: const Icon(Icons.arrow_back_outlined),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -38,18 +40,19 @@ class NewPassword extends StatelessWidget {
                   key: formKey,
                   child: Column(
                     children: [
-                      Text("إنشاء كلمة مرور جديدة",
-                          style: Theme.of(context).textTheme.headline5!.copyWith(
+                      Text("create_password".tr(context),
+                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontSize: 32,
+                            color: myFavColor
                           )),
                       SizedBox(
                         height: size.height * 0.201,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'إدخل كلمة المرور الجديدة',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          'create_password_enter'.tr(context),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -58,14 +61,14 @@ class NewPassword extends StatelessWidget {
                       myTextFormField(
                         validate: (value){
                           if(value!.length < 8){
-                            return "كلمة المرور يجب الا تقل عن 8 أحرف";
+                            return "create_password_valid".tr(context);
                           }
                           return null;
                         },
                         textAlign: TextAlign.right,
                         type: TextInputType.visiblePassword,
                         isPassword: cubit.isPasswordCreate,
-                        prefixIcon: IconButton(
+                        suffixIcon: IconButton(
                           onPressed: (){
                             cubit.changeSuffixIconCreate();
                           },
@@ -79,10 +82,10 @@ class NewPassword extends StatelessWidget {
                         height: size.height * 0.0123,
                       ),
                       Align(
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'تأكيد كلمة المرور',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          'create_confirm_password_enter'.tr(context),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
                       SizedBox(
@@ -91,14 +94,14 @@ class NewPassword extends StatelessWidget {
                       myTextFormField(
                         validate: (value){
                           if(value != passwordController.text){
-                            return "يجب ان تطابق كلمتي المرور";
+                            return "create_confirm_password_valid".tr(context);
                           }
                           return null;
                         },
                         textAlign: TextAlign.right,
                         type: TextInputType.visiblePassword,
                         isPassword: cubit.isPasswordConfirmCreate,
-                        prefixIcon: IconButton(
+                        suffixIcon: IconButton(
                             onPressed: (){
                               cubit.changeSuffixIconConfirmCreate();
                             },
@@ -117,7 +120,7 @@ class NewPassword extends StatelessWidget {
                             NavigateTo(context: context, widget: const OnBoardingScreen());
                           }
                         },
-                        label: "تأكيد",
+                        label: "create_password_button".tr(context),
                       )
                     ],
                   ),

@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/layout/layout_screen.dart';
@@ -38,7 +39,8 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("تسجيل الدخول",
+                          Text(
+                              "login_label".tr(context),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -62,7 +64,7 @@ class LoginScreen extends StatelessWidget {
                           Align(
                             alignment: AlignmentDirectional.centerStart,
                             child: Text(
-                              'رقم الهاتف',
+                              'login_phone'.tr(context),
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
                           ),
@@ -79,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                               maxLength: 12,
                               validator: (value) {
                                 if (value!.length < 12) {
-                                  return "رقم هاتف غير صحيح";
+                                  return "login_phone_valid".tr(context);
                                 }
                                 return null;
                               },
@@ -126,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                           Align(
                               alignment: AlignmentDirectional.centerStart,
                               child: Text(
-                                'كلمة المرور',
+                                'login_password'.tr(context),
                                 style: Theme.of(context).textTheme.bodyText2,
                               )),
                           const SizedBox(
@@ -135,7 +137,7 @@ class LoginScreen extends StatelessWidget {
                           myTextFormField(
                             validate: (value) {
                               if (value!.isEmpty) {
-                                return "هذا الحقل مطلوب";
+                                return "login_password_valid".tr(context);
                               }
                               return null;
                             },
@@ -160,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                               alignment: AlignmentDirectional.centerStart,
                               child: myTextButton(
                                   context: context,
-                                  label: "هل نسيت كلمة المرور؟",
+                                  label: "login_forget_password".tr(context),
                                   onPressed: () {
                                     NavigateTo(
                                         context: context,
@@ -174,17 +176,17 @@ class LoginScreen extends StatelessWidget {
                             onPressed: () {
                               loginSubmit(context: context);
                             },
-                            label: "دخول",
+                            label: "login_button".tr(context),
                           ),
                           const SizedBox(
                             height: 11,
                           ),
                           Row(
                             children: [
-                              const Text("هل لديك حساب؟"),
+                              Text("have_account".tr(context)),
                               myTextButton(
                                   context: context,
-                                  label: "إنشاء حساب",
+                                  label: "have_account_button".tr(context),
                                   onPressed: () {
                                     NavigateTo(
                                       context: context,

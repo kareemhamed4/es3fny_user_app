@@ -19,6 +19,7 @@ void main()async{
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   uId = CacheHelper.getData(key: 'uId');
+  radioValue = CacheHelper.getData(key: 'RadioValue');
   langCode = CacheHelper.getData(key: 'lang');
   bool isDark = CacheHelper.getData(key: "isDark") ?? false ;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang(),),
+        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1),),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(

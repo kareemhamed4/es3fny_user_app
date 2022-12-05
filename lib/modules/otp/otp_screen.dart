@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/create_new_password/newpassword.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -29,7 +30,8 @@ class _OTPScreenState extends State<OTPScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text("تحقق من الهاتف",
+                Text(
+                    "otp".tr(context),
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 30,
                       color: myFavColor
@@ -38,7 +40,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   height: size.height * 0.184,
                 ),
                 Text(
-                  "ادخل رمز التأكيد",
+                  "enter_otp".tr(context),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -95,10 +97,10 @@ class _OTPScreenState extends State<OTPScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("اذا لم يتم ارسال لك الرمز!"),
+                    Text("have_sent".tr(context)),
                     myTextButton(
                         context: context,
-                        label: "إعادة ارسال",
+                        label: "have_sent_button".tr(context),
                         onPressed: () {}),
                   ],
                 ),
@@ -110,7 +112,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   onPressed: () {
                     NavigateTo(context: context, widget: NewPassword());
                   },
-                  label: "تأكيد",
+                  label: "otp_button".tr(context),
                 )
               ],
             ),
