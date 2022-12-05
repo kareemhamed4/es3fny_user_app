@@ -40,7 +40,7 @@ Widget myTextFormField({
       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
       decoration: InputDecoration(
         hintText: hint ?? '',
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
@@ -242,7 +242,7 @@ Widget phoneTextFormField({
       ],
       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(

@@ -39,7 +39,7 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  cardColor: myFavColor10.withOpacity(0.5),
+  cardColor: myFavColor2.withOpacity(0.5),
   scaffoldBackgroundColor: myFavColor10,
   colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: myFavColor6
@@ -55,14 +55,14 @@ ThemeData darkTheme = ThemeData(
     ),
     elevation: 0,
   ),
-  textTheme: TextTheme(
-    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor7,fontSize: 14),
-    bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor7),
-    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor7,fontSize: 16),
-    headline5: TextStyle(fontFamily: "FinalR",color: myFavColor7),
-    headline6: TextStyle(fontFamily: "FinalB",color: myFavColor7),
-    caption: TextStyle(fontFamily: "FinalB",color: myFavColor2),
-    button: const TextStyle(fontFamily: "FinalB",color: Colors.white),
+  textTheme: const TextTheme(
+    bodyText1: TextStyle(fontFamily: "FinalR",color: Colors.white,fontSize: 14),
+    bodyText2: TextStyle(fontFamily: "FinalB",color: Colors.white),
+    subtitle1: TextStyle(fontFamily: "FinalL",color: Colors.white,fontSize: 16),
+    headline5: TextStyle(fontFamily: "FinalR",color: Colors.white),
+    headline6: TextStyle(fontFamily: "FinalB",color: Colors.white),
+    caption: TextStyle(fontFamily: "FinalB",color: Colors.grey),
+    button: TextStyle(fontFamily: "FinalB",color: Colors.white),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: myFavColor10,
