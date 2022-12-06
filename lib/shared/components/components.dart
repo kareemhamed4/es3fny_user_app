@@ -2,6 +2,8 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 
 Widget myTextFormField({
   required BuildContext context,
@@ -263,3 +265,60 @@ Widget phoneTextFormField({
         icon: icon,
       ),
     );
+
+void displaySuccessMotionToast({
+  required BuildContext context,
+  String? title,
+  String? description,
+}) => MotionToast.success(
+  title: Text(title ??"",
+    style: const TextStyle(fontWeight: FontWeight.bold),
+  ),
+  description: Text(
+    description ?? "",
+    style: const TextStyle(fontSize: 12),
+  ),
+  layoutOrientation: ToastOrientation.ltr,
+  animationType: AnimationType.fromTop,
+  position: MotionToastPosition.top,
+  dismissable: true,
+).show(context);
+
+void displayErrorMotionToast({
+  required BuildContext context,
+  String? title,
+  String? description,
+}) => MotionToast.error(
+  title: Text(title ??"",
+    style: const TextStyle(fontWeight: FontWeight.bold),
+  ),
+  description: Text(
+    description ?? "",
+    style: const TextStyle(fontSize: 12),
+  ),
+  layoutOrientation: ToastOrientation.ltr,
+  position: MotionToastPosition.top,
+  barrierColor: Colors.black.withOpacity(0.3),
+  width: 300,
+  height: 80,
+  dismissable: true,
+).show(context);
+
+void displayWarningMotionToast({
+  required BuildContext context,
+  String? title,
+  String? description,
+}) => MotionToast.warning(
+  title: Text(title ??"",
+    style: const TextStyle(fontWeight: FontWeight.bold),
+  ),
+  description: Text(
+    description ?? "",
+    style: const TextStyle(fontSize: 12),
+  ),
+  layoutOrientation: ToastOrientation.ltr,
+  position: MotionToastPosition.top,
+  animationCurve: Curves.bounceIn,
+  borderRadius: 0,
+  animationDuration: const Duration(milliseconds: 1000),
+).show(context);

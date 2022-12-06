@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -273,7 +274,11 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                   controller: hospitalController,
                                   validator: (value){
                                     if(value!.isEmpty){
-                                      return "يجب ادخال اسم المستشفي للتأكيد";
+                                       displayErrorMotionToast(
+                                        context: context,
+                                        title: langCode == "en" ? "Error" : "خطأ",
+                                        description: langCode == "en" ? "Please enter hospital name" : "برجاء ادخال اسم المستشفي للتأكيد",
+                                      );
                                     }
                                     return null;
                                   },

@@ -1,7 +1,7 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
-import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +117,9 @@ class NewPassword extends StatelessWidget {
                         context: context,
                         onPressed: () {
                           if(formKey.currentState!.validate()){
-                            NavigateTo(context: context, widget: const OnBoardingScreen());
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('password_changed_snackBar'.tr(context))));
+                            NavigateTo(context: context, widget: const SplashScreen());
                           }
                         },
                         label: "create_password_button".tr(context),

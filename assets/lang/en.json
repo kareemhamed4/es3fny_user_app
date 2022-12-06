@@ -99,5 +99,14 @@
 
   "onboarding_skip": "SKIP",
   "onboarding_next": "Next",
-  "onboarding_finish": "START"
+  "onboarding_finish": "START",
+
+  "register_snackBar": "Account created successfully",
+  "otp_snackBar": "Verification code was sent",
+  "password_changed_snackBar": "Password changed successfully",
+
+  "alert": "Confirm",
+  "alert_content": "Want to request EMS really ?",
+  "alert_confirm": "Confirm",
+  "alert_cancel": "Cancel"
 }

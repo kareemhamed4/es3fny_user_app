@@ -131,6 +131,8 @@ class ForgetPasswordScreen extends StatelessWidget{
                         context: context,
                         onPressed: (){
                           if(formKey.currentState!.validate()){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('otp_snackBar'.tr(context))));
                             NavigateTo(context: context, widget: const OTPScreen());
                           }
                         },

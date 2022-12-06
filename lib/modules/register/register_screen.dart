@@ -2,7 +2,7 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
-import 'package:es3fny_user_app/layout/layout_screen.dart';
+import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -473,17 +473,15 @@ class _RegisterState extends State<Register> {
     }
     if (dropdownValue != null) {
       setState(() {
-        typeValidate = "";
+        typeValidate = " ";
       });
     }
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate() && dropdownValue != null) {
       CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Text('تم انشاء حسابك بنجاح'))));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('register_snackBar'.tr(context))));
         Navigator.of(context).popUntil((route) => route.isFirst);
-        NavigateToReb(context: context, widget: const LayoutScreen());
+        NavigateToReb(context: context, widget: const SplashScreen());
       });
     }
   }

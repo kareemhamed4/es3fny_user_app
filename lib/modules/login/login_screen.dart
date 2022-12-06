@@ -1,9 +1,9 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
-import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
 import 'package:es3fny_user_app/modules/register/register_screen.dart';
+import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -208,19 +208,11 @@ class LoginScreen extends StatelessWidget {
   void loginSubmit({required BuildContext context,}){
     if (formKey.currentState!.validate()) {
       CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value){
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Text('تم تسجيل دخولك بنجاح'),
-            ),
-          ),
-        );
         Navigator.of(context)
             .popUntil((route) => route.isFirst);
         NavigateToReb(
             context: context,
-            widget: const LayoutScreen());
+            widget: const SplashScreen());
       });
     }
   }

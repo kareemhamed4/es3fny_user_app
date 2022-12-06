@@ -4,9 +4,9 @@ import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/force_restart.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
-import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
@@ -26,7 +26,7 @@ void main()async{
   Widget widget;
   if(onBoarding != null){
     if(uId != null){
-      widget = const LayoutScreen();
+      widget = const SplashScreen();
     }else{
       widget = LoginScreen();
     }

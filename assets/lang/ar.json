@@ -99,5 +99,14 @@
 
   "onboarding_skip": "تخطي",
   "onboarding_next": "التالي",
-  "onboarding_finish": "البداية"
+  "onboarding_finish": "البداية",
+
+  "register_snackBar": "تم انشاء حسابك بنجاح",
+  "otp_snackBar": "تم ارسال رمز التحقق",
+  "password_changed_snackBar": "تم تغيير كلمة المرور",
+
+  "alert": "تأكيد",
+  "alert_content": "هل تريد بالفعل طلب الإسعاف ؟",
+  "alert_confirm": "تأكيد",
+  "alert_cancel": "الغاء"
 }

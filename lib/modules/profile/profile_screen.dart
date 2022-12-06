@@ -31,6 +31,11 @@ class ProfileScreen extends StatelessWidget {
                       onChanged: (value){
                         MainCubit.get(context).changeRadioValue(1);
                         context.read<MainCubit>().changeLang(context, "ar");
+                        displaySuccessMotionToast(
+                            context: context,
+                          title: "تم تغيير اللغة",
+                          description: "اللغة المستخدمة حالياً اللغة العربية"
+                        );
                       }
                   ),
                   Text("arabic".tr(context),style: Theme.of(context).textTheme.bodyText2,),
@@ -40,6 +45,11 @@ class ProfileScreen extends StatelessWidget {
                       onChanged: (value){
                         MainCubit.get(context).changeRadioValue(2);
                         context.read<MainCubit>().changeLang(context, "en");
+                        displaySuccessMotionToast(
+                            context: context,
+                            title: "Language is changed",
+                            description: "The current language is English"
+                        );
                       }
                   ),
                   Text("english".tr(context),style: Theme.of(context).textTheme.bodyText2,),
