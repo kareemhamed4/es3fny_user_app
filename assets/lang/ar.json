@@ -108,5 +108,26 @@
   "alert": "تأكيد",
   "alert_content": "هل تريد بالفعل طلب الإسعاف ؟",
   "alert_confirm": "تأكيد",
-  "alert_cancel": "الغاء"
+  "alert_cancel": "الغاء",
+
+  "track_info_title": "تتبع مباشر",
+  "track_ambulance": "تتبع الإسعاف",
+  "ambulance_time_remaining": "(22 دقيقة)",
+  "driver": "المسعف",
+  "track_address": "العنوان",
+  "track_destination": "اسم المستشفي المقصودة (اختياري)",
+  "track_confirm": "تأكيد",
+  "track_cancel_request": "الغاء الطلب",
+
+  "track_alert": "الغاء الطلب",
+  "track_alert_content": "هل تريد بالفعل الغاء الطلب ؟",
+
+  "app_language": "لغة التطبيق",
+
+  "edit_location": "تغيير الموقع",
+  "pick_location": "اختر مكانك",
+  "pick_location_2": "ادخل موقعك الحالي",
+  "destination_location": "المكان المقصود (اختياري)",
+  "destination_location_2": "اسم المستشفي",
+  "edit_location_button": "تغيير"
 }

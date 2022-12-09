@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -322,3 +323,76 @@ void displayWarningMotionToast({
   borderRadius: 0,
   animationDuration: const Duration(milliseconds: 1000),
 ).show(context);
+
+void showMyDialog({
+  required BuildContext context,
+  String? title,
+  String? content,
+  IconData? icon,
+  required Function onConfirm,
+}){
+  showDialog<String>(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      icon: Icon(
+        icon ?? Icons.info_outline,
+        color: myFavColor,
+      ),
+      backgroundColor: myFavColor5,
+      shape: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: BorderSide.none,
+      ),
+      title: Text(
+        title!.tr(context),
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(color: myFavColor4,fontSize: 18),
+      ),
+      content: Text(
+        content!.tr(context),
+        textAlign: TextAlign.center,
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(color: myFavColor2, fontSize: 18),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          color: Colors.white,
+          shape: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          onPressed: () {
+            Navigator.pop(context, 'Cancel');
+          },
+          child: Text(
+            "alert_cancel".tr(context),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(color: myFavColor, fontSize: 20),
+          ),
+        ),
+        MaterialButton(
+          color: myFavColor,
+          shape: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          onPressed: () {
+            onConfirm();
+          },
+          child: Text(
+            "alert_confirm".tr(context),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(color: Colors.white, fontSize: 20),
+          ),
+        ),
+      ],
+    ),);
+}

@@ -1,3 +1,5 @@
+import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/layout/layout_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -40,7 +42,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             centerTitle: true,
             title: Text(
-                "تتبع مباشر",
+                "track_info_title".tr(context),
               style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20,color: myFavColor),
             ),
           ),
@@ -148,14 +150,14 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'تتبع الإسعاف',
+                          'track_ambulance'.tr(context),
                           style:
                           Theme.of(context).textTheme.bodyText2!.copyWith(
                             fontSize: 22,
                           ),
                         ),
                         Text(
-                          '(22 دقيقة)',
+                          'ambulance_time_remaining'.tr(context),
                           style:
                           Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: myFavColor,
@@ -190,7 +192,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                       .copyWith(fontSize: 16),
                                 ),
                                 Text(
-                                  'السائق',
+                                  'driver'.tr(context),
                                   style:
                                   Theme.of(context).textTheme.caption,
                                 ),
@@ -231,7 +233,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "العنوان",
+                              "track_address".tr(context),
                               style: Theme.of(context).textTheme.caption,
                             ),
                             const SizedBox(
@@ -288,7 +290,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                       myFavColor2.withOpacity(0.1),
                                       contentPadding: const EdgeInsets.only(right: 5,left: 5),
                                       label: Text(
-                                        "اسم المستشفي المقصودة (اختياري)",
+                                        "track_destination".tr(context),
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption!
@@ -317,7 +319,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                   }
                                 },
                                 child: Text(
-                                  "تأكيد",
+                                  "track_confirm".tr(context),
                                   style:
                                   Theme.of(context).textTheme.button,
                                 ),
@@ -332,9 +334,25 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                         child: MaterialButton(
                           height: 32,
                           color: myFavColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            showMyDialog(
+                                context: context,
+                                icon: Icons.info_outline,
+                                title: "track_alert",
+                                content: "track_alert_content",
+                                onConfirm: (){
+                                  Navigator.of(context).popUntil((route) => route.isFirst);
+                                  NavigateToReb(context: context, widget: const LayoutScreen());
+                                  displayWarningMotionToast(
+                                    context: context,
+                                    title: langCode == "en" ? "Warning" : "تحذير",
+                                    description: langCode == "en" ? "Your request is being processed" : "طلبك قيد التنفيذ",
+                                  );
+                                },
+                            );
+                          },
                           child: Text(
-                            "الغاء الطلب",
+                            "track_cancel_request".tr(context),
                             style:
                             Theme.of(context).textTheme.button,
                           ),

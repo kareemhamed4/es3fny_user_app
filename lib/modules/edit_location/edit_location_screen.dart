@@ -1,3 +1,5 @@
+import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +38,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            "تغيير الموقع",
+            "edit_location".tr(context),
             style: Theme.of(context)
                 .textTheme
                 .bodyText2!
@@ -138,7 +140,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       height: 20,
                     ),
                     Text(
-                      "اختر مكانك",
+                      "pick_location".tr(context),
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
@@ -151,7 +153,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       controller: locationController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "يجب ادخال موقعك الحالي";
+                          return langCode == "ar" ? "يجب ادخال موقعك الحالي" : "Required";
                         }
                         return null;
                       },
@@ -160,7 +162,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         fillColor: myFavColor2.withOpacity(0.1),
                         contentPadding: const EdgeInsets.only(right: 8,left: 8),
                         label: Text(
-                          "ادخل موقعك الحالي",
+                          "pick_location_2".tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .caption!
@@ -175,7 +177,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       height: 8,
                     ),
                     Text(
-                      "المكان المقصود (اختياري)",
+                      "destination_location".tr(context),
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
@@ -191,7 +193,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         fillColor: myFavColor2.withOpacity(0.1),
                         contentPadding: const EdgeInsets.only(right: 8,left: 8),
                         label: Text(
-                          "اسم المستشفي",
+                          "destination_location_2".tr(context),
                           style: Theme.of(context)
                               .textTheme
                               .caption!
@@ -218,7 +220,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                           }
                         },
                         child: Text(
-                          "تغيير",
+                          "edit_location_button".tr(context),
                           style: Theme.of(context).textTheme.button,
                         ),
                       ),

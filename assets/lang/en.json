@@ -108,5 +108,26 @@
   "alert": "Confirm",
   "alert_content": "Want to request EMS really ?",
   "alert_confirm": "Confirm",
-  "alert_cancel": "Cancel"
+  "alert_cancel": "Cancel",
+
+  "track_info_title": "Live Tracking",
+  "track_ambulance": "Ambulance Tracking",
+  "ambulance_time_remaining": "(22 mins)",
+  "driver": "Paramedic",
+  "track_address": "address",
+  "track_destination": "Name of destination hospital (Optional)",
+  "track_confirm": "Confirm",
+  "track_cancel_request": "Cancel request",
+
+  "track_alert": "Cancel Request",
+  "track_alert_content": "Do you really want to cancel the request ?",
+
+  "app_language": "App Language",
+
+  "edit_location": "Edit Location",
+  "pick_location": "Pick your location",
+  "pick_location_2": "Enter your current location",
+  "destination_location": "Destination Location (Optional)",
+  "destination_location_2": "Name of hospital",
+  "edit_location_button": "CHANGE"
 }

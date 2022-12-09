@@ -8,6 +8,9 @@ ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: myFavColor
   ),
+  iconTheme: IconThemeData(
+    color: myFavColor,
+  ),
   appBarTheme: AppBarTheme(
     iconTheme: IconThemeData(
       color: myFavColor,
@@ -15,6 +18,8 @@ ThemeData lightTheme = ThemeData(
     color: Colors.white,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.white,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,
     ),
     elevation: 0,
@@ -39,19 +44,24 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  cardColor: myFavColor2.withOpacity(0.5),
+  cardColor: Colors.grey[400],
   scaffoldBackgroundColor: myFavColor10,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: myFavColor6
+      primary: myFavColor
+  ),
+  iconTheme: IconThemeData(
+    color: myFavColor2,
   ),
   appBarTheme: AppBarTheme(
     iconTheme: IconThemeData(
-      color: myFavColor6,
+      color: myFavColor,
     ),
     color: myFavColor10,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: myFavColor10,
       statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: myFavColor10,
+      systemNavigationBarIconBrightness: Brightness.light,
     ),
     elevation: 0,
   ),
@@ -67,11 +77,11 @@ ThemeData darkTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: myFavColor10,
     elevation: 0,
-    selectedIconTheme: IconThemeData(color: myFavColor6),
+    selectedIconTheme: IconThemeData(color: myFavColor),
     unselectedIconTheme: IconThemeData(color: myFavColor2),
     type: BottomNavigationBarType.fixed,
-    selectedLabelStyle: const TextStyle(fontFamily: "FinalB"),
+    selectedLabelStyle: const TextStyle(fontFamily: "FinalB",fontSize: 12),
     unselectedItemColor: myFavColor2,
-    unselectedLabelStyle: const TextStyle(fontFamily: "FinalR"),
+    unselectedLabelStyle: const TextStyle(fontFamily: "FinalR",fontSize: 12),
   ),
 );

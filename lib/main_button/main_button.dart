@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -43,72 +42,17 @@ class LoadingButtonState extends State<LoadingButton>
         });
       }
       if (controller.status == AnimationStatus.completed) {
-        showDialog<String>(
+        showMyDialog(
           context: context,
-          builder: (BuildContext context) => AlertDialog(
-            icon: Icon(
-              Icons.info_outline,
-              color: myFavColor,
-            ),
-            backgroundColor: myFavColor5,
-            shape: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide.none,
-            ),
-            title: Text(
-              'alert'.tr(context),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(color: myFavColor4,fontSize: 18),
-            ),
-            content: Text(
-              'alert_content'.tr(context),
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(color: myFavColor2, fontSize: 18),
-            ),
-            actions: <Widget>[
-              MaterialButton(
-                color: Colors.white,
-                shape: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-                onPressed: () {
-                  Navigator.pop(context, 'Cancel');
-                },
-                child: Text(
-                  "alert_cancel".tr(context),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: myFavColor, fontSize: 20),
-                ),
-              ),
-              MaterialButton(
-                color: myFavColor,
-                shape: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-                onPressed: () {
-                  Navigator.pop(context, "Ok");
-                  context.read<LayoutCubit>().changeIndex(1);
-                  NavigateTo(context: context, widget: const TrackingInfoScreen());
-                },
-                child: Text(
-                  "alert_confirm".tr(context),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ],
-          ),);
+          icon: Icons.info_outline,
+          title: "alert",
+          content: "alert_content",
+          onConfirm: (){
+            Navigator.pop(context, "Ok");
+            context.read<LayoutCubit>().changeIndex(1);
+            NavigateTo(context: context, widget: const TrackingInfoScreen());
+          }
+        );
         setState(() {
           controller.reset();
           secondsRemaining = 3;
