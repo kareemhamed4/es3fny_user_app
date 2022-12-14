@@ -487,6 +487,7 @@ class _RegisterState extends State<Register> {
       });
     }
     if (formKey.currentState!.validate() && dropdownValue != null) {
+      formKey.currentState!.save();
       CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('register_snackBar'.tr(context))));
