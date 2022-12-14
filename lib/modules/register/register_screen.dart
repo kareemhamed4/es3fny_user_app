@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
@@ -28,20 +27,26 @@ class _RegisterState extends State<Register> {
   TextEditingController ageController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  bool isChecked = false;
-
-  String typeValidate = "";
-  List<String> list = <String>[
-    'male',
-    'female',
-  ];
-  String? dropdownValue;
 
   final List<String> genderItems = [
     'male',
     'female',
   ];
   String? selectedValue;
+
+  final List<String> searchItems = [
+    'A_Item1',
+    'A_Item2',
+    'A_Item3',
+    'A_Item4',
+    'B_Item1',
+    'B_Item2',
+    'B_Item3',
+    'B_Item4',
+  ];
+
+  String? selectedSearchValue;
+  final TextEditingController searchTextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -162,47 +167,6 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                       ),
-                      /*phoneTextFormField(
-                        validate: (value) {
-                          if (value!.length < 10) {
-                            return "رقم هاتف غير صحيح";
-                          }
-                          return null;
-                        },
-                        prefixIcon: Padding(
-                          padding: const EdgeInsetsDirectional.only(
-                              start: 10, end: 6),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                generateCountryFlag(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(fontSize: 18),
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                "+20",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(fontSize: 18),
-                              ),
-                            ],
-                          ),
-                        ),
-                        context: context,
-                        textAlign: TextAlign.left,
-                        type: TextInputType.phone,
-                        onSubmit: (value) {},
-                        maxLength2: 10,
-                        controller: phoneController,
-                      ),*/
                       SizedBox(
                         height: size.height * 0.0219,
                       ),
@@ -216,64 +180,12 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         height: size.height * 0.008,
                       ),
-                      DropdownButtonFormField2(
-                        decoration: InputDecoration(
-                          //Add isDense true and zero Padding.
-                          //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-                          isDense: true,
-                          contentPadding: EdgeInsets.zero,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: myFavColor.withOpacity(0.5),
-                        ),
-                      ),
-                          //Add more decoration as you want here
-                          //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-                        ),
-                        isExpanded: true,
-                        hint: Text(
-                          "register_age_choose".tr(context),
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        icon: const Icon(
-                          Icons.keyboard_arrow_down_outlined,
-                          color: Colors.black45,
-                        ),
-                        iconSize: 30,
-                        buttonHeight: 48,
-                        buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                        dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        items: genderItems
-                            .map((item) =>
-                            DropdownMenuItem<String>(
-                              value: item.tr(context),
-                              child: Text(
-                                item.tr(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),
-                              ),
-                            ))
-                            .toList(),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'register_gender_valid'.tr(context);
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          //Do something when changing the item if you want.
-                        },
-                        onSaved: (value) {
-                          selectedValue = value.toString();
-                        },
+                      myDropDownButton(
+                          context: context,
+                          dropMenuItems: genderItems,
+                          selectedValue: selectedValue,
+                          validateText: "register_gender_valid",
+                          hintText: "register_gender_choose"
                       ),
                       SizedBox(
                         height: size.height * 0.0219,
@@ -476,17 +388,8 @@ class _RegisterState extends State<Register> {
   }
 
   void registerSubmit() {
-    if (dropdownValue == null) {
-      setState(() {
-        typeValidate = "register_gender_valid".tr(context);
-      });
-    }
-    if (dropdownValue != null) {
-      setState(() {
-        typeValidate = " ";
-      });
-    }
-    if (formKey.currentState!.validate() && dropdownValue != null) {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
       CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('register_snackBar'.tr(context))));

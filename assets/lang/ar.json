@@ -20,7 +20,7 @@
   "address_caption":"تعديل موقعك الحالي",
 
   "arabic":"العربية",
-  "english":"الإنجليزية",
+  "english":"English",
 
   "change_app_mode": "الوضع الليلي",
   "clear_data": "مسح البيانات",
@@ -54,7 +54,7 @@
   "register_phone": "رقم الهاتف",
   "register_gender": "النوع",
   "register_age": "العمر",
-  "register_age_choose": "اختر",
+  "register_gender_choose": "اختر",
   "register_email": "البريد الإلكتروني",
   "register_password": "كلمة المرور",
   "register_confirm_password": "تأكيد كلمة المرور",

@@ -206,8 +206,9 @@ class LoginScreen extends StatelessWidget {
           );
         });
   }
-  void loginSubmit({required BuildContext context,}){
+  void loginSubmit({required BuildContext context}){
     if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
       CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value){
         Navigator.of(context)
             .popUntil((route) => route.isFirst);

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -47,14 +48,12 @@ Widget myTextFormField({
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            width: 1,
             color: myFavColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
           borderSide: BorderSide(
-            width: 1,
             color: myFavColor.withOpacity(0.5),
           ),
         ),
@@ -396,3 +395,152 @@ void showMyDialog({
       ],
     ),);
 }
+
+Widget myDropDownButton({
+
+  required BuildContext context,
+  required List<String> dropMenuItems,
+  String? selectedValue,
+  required String validateText,
+  required String hintText,
+
+}) => DropdownButtonFormField2(
+  decoration: InputDecoration(
+    //Add isDense true and zero Padding.
+    //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+    isDense: true,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(
+        color: myFavColor.withOpacity(0.5),
+      ),
+    ),
+    //Add more decoration as you want here
+    //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+  ),
+  isExpanded: true,
+  hint: Text(
+    hintText.tr(context),
+    style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16,fontFamily: "FinalR"),
+  ),
+  icon: const Icon(
+    Icons.keyboard_arrow_down_outlined,
+    color: Colors.black45,
+  ),
+  iconSize: 30,
+  buttonHeight: 48,
+  dropdownDecoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(15),
+  ),
+  items: dropMenuItems
+      .map((item) =>
+      DropdownMenuItem<String>(
+        value: item.tr(context),
+        child: Text(
+          item.tr(context),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),
+        ),
+      ))
+      .toList(),
+  validator: (value) {
+    if (value == null) {
+      return validateText.tr(context);
+    }
+    return null;
+  },
+  onChanged: (value) {
+    //Do something when changing the item if you want.
+  },
+  onSaved: (value) {
+    selectedValue = value.toString();
+  },
+);
+
+Widget mySearchDropDownButton({
+  required BuildContext context,
+  required String hintText,
+  required List<String> searchItems,
+  String? selectedSearchValue,
+  required TextEditingController searchTextEditingController,
+
+}) => DropdownButtonHideUnderline(
+  child: Container(
+    decoration: BoxDecoration(
+      border: Border.all(color: myFavColor.withOpacity(0.5)),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: DropdownButton2(
+      icon: const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black45,),
+      iconSize: 30,
+      buttonPadding: const EdgeInsets.symmetric(horizontal: 16),
+      isExpanded: true,
+      hint: Text(
+        hintText.tr(context),
+        style: TextStyle(
+          fontSize: 14,
+          color: Theme.of(context).hintColor,
+        ),
+      ),
+      items: searchItems
+          .map((item) => DropdownMenuItem<String>(
+        value: item,
+        child: Text(
+          item,
+          style: const TextStyle(
+            fontSize: 14,
+          ),
+        ),
+      ))
+          .toList(),
+      value: selectedSearchValue,
+      onChanged: (value) {
+        // set state required to change
+          selectedSearchValue = value as String;
+      },
+      buttonHeight: 48,
+      buttonWidth: double.infinity,
+      itemHeight: 48,
+      dropdownMaxHeight: 250,
+      searchController: searchTextEditingController,
+      searchInnerWidget: Padding(
+        padding: const EdgeInsets.only(
+          top: 8,
+          bottom: 4,
+          right: 8,
+          left: 8,
+        ),
+        child: TextFormField(
+          controller: searchTextEditingController,
+          decoration: InputDecoration(
+            isDense: true,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 8,
+            ),
+            hintText: 'Search for an item...',
+            hintStyle: const TextStyle(fontSize: 12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ),
+      searchMatchFn: (item, searchValue) {
+        return (item.value.toString().contains(searchValue));
+      },
+      //This to clear the search value when you close the menu
+      onMenuStateChange: (isOpen) {
+        if (!isOpen) {
+          searchTextEditingController.clear();
+        }
+      },
+    ),
+  ),
+);
