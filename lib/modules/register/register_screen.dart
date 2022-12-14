@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
@@ -35,6 +36,12 @@ class _RegisterState extends State<Register> {
     'female',
   ];
   String? dropdownValue;
+
+  final List<String> genderItems = [
+    'male',
+    'female',
+  ];
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -209,66 +216,67 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         height: size.height * 0.008,
                       ),
-                      Container(
-                        height: 47,
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: myFavColor.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: DropdownButton<String>(
-                            borderRadius: BorderRadius.circular(20),
-                            isExpanded: true,
-                            hint: Text(
-                              "register_age_choose".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),
-                            ),
-                            value: dropdownValue,
-                            underline: const SizedBox(),
-                            icon:
-                                const Icon(Icons.keyboard_arrow_down_outlined),
-                            style: TextStyle(
-                              color: myFavColor4,
-                            ),
-                            onChanged: (String? value) {
-                              setState(() {
-                                dropdownValue = value!;
-                              });
-                            },
-                            items: list
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value.tr(context),
-                                child: Align(
-                                    alignment: AlignmentDirectional.centerStart,
-                                    child: Text(value.tr(context),style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),)),
-                              );
-                            }).toList(),
+                      DropdownButtonFormField2(
+                        decoration: InputDecoration(
+                          //Add isDense true and zero Padding.
+                          //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                          isDense: true,
+                          contentPadding: EdgeInsets.zero,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: myFavColor.withOpacity(0.5),
                         ),
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.only(
-                              top: 8.0, start: 7.0),
-                          child: Text(
-                            typeValidate,
-                            /*textAlign: TextAlign.start,*/
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(color: Colors.red[700]),
-                          ),
+                          //Add more decoration as you want here
+                          //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                         ),
+                        isExpanded: true,
+                        hint: Text(
+                          "register_age_choose".tr(context),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down_outlined,
+                          color: Colors.black45,
+                        ),
+                        iconSize: 30,
+                        buttonHeight: 48,
+                        buttonPadding: const EdgeInsets.only(left: 20, right: 10),
+                        dropdownDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        items: genderItems
+                            .map((item) =>
+                            DropdownMenuItem<String>(
+                              value: item.tr(context),
+                              child: Text(
+                                item.tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),
+                              ),
+                            ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select gender.';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          //Do something when changing the item if you want.
+                        },
+                        onSaved: (value) {
+                          selectedValue = value.toString();
+                        },
+                      ),
+                      SizedBox(
+                        height: size.height * 0.0219,
                       ),
                       Align(
                         alignment: AlignmentDirectional.centerStart,
