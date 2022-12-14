@@ -264,7 +264,7 @@ class _RegisterState extends State<Register> {
                             .toList(),
                         validator: (value) {
                           if (value == null) {
-                            return 'Please select gender.';
+                            return 'register_gender_valid'.tr(context);
                           }
                           return null;
                         },
@@ -347,6 +347,7 @@ class _RegisterState extends State<Register> {
                           }
                           return null;
                         },
+                        hint: '● ● ● ● ● ● ● ●',
                         context: context,
                         onSubmit: (value) {},
                         controller: passwordController,
@@ -380,6 +381,7 @@ class _RegisterState extends State<Register> {
                             }
                             return null;
                           },
+                          hint: '● ● ● ● ● ● ● ●',
                           context: context,
                           onSubmit: (value) {
                             registerSubmit();

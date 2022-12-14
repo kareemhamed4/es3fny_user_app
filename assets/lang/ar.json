@@ -61,7 +61,7 @@
   "register_button": "إنشاء",
   "register_name_valid": "برجاء ادخال الاسم رباعي",
   "register_phone_valid": "رقم هاتف غير صحيح",
-  "register_gender_valid": "هذا الحقل مطلوب",
+  "register_gender_valid": "برجاء اختيار النوع",
   "register_age_valid": "برجاء ادخال عمرك",
   "register_email_valid": "بريد الكتروني غير صالح",
   "register_password_valid": "يجب الا تقل كلمة المرور عن 8 أحرف",

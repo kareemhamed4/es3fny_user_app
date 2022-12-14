@@ -141,6 +141,7 @@ class LoginScreen extends StatelessWidget {
                               }
                               return null;
                             },
+                            hint: '● ● ● ● ● ● ● ●',
                             type: TextInputType.visiblePassword,
                             isPassword: cubit.isPasswordLogin,
                             suffixIcon: IconButton(

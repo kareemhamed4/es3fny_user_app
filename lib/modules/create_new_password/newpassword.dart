@@ -65,6 +65,7 @@ class NewPassword extends StatelessWidget {
                           }
                           return null;
                         },
+                        hint: '● ● ● ● ● ● ● ●',
                         textAlign: TextAlign.right,
                         type: TextInputType.visiblePassword,
                         isPassword: cubit.isPasswordCreate,
@@ -98,6 +99,7 @@ class NewPassword extends StatelessWidget {
                           }
                           return null;
                         },
+                        hint: '● ● ● ● ● ● ● ●',
                         textAlign: TextAlign.right,
                         type: TextInputType.visiblePassword,
                         isPassword: cubit.isPasswordConfirmCreate,
