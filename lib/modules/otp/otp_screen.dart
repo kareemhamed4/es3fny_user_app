@@ -44,7 +44,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
-                      .copyWith(fontSize: 22, color: myFavColor4),
+                      .copyWith(fontSize: 22),
                 ),
                 SizedBox(
                   height: size.height * 0.063,
@@ -76,7 +76,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       selectedFillColor: Colors.white,
                     ),
                     animationDuration: const Duration(milliseconds: 300),
-                    backgroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     enableActiveFill: true,
                     onCompleted: (value) {
                       otpCode = value;

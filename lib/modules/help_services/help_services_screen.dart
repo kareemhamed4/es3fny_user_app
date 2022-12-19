@@ -45,7 +45,7 @@ class HelpServicesScreen extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .bodyText2!
-                  .copyWith(color: myFavColor,fontSize: 20),
+                  .copyWith(fontSize: 20),
             ),
           ],
         ),
@@ -108,9 +108,8 @@ class HelpServicesScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_outlined,
-                      color: myFavColor,
                     ),
                   ],
                 ),

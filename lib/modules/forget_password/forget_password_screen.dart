@@ -35,16 +35,16 @@ class ForgetPasswordScreen extends StatelessWidget{
                     SizedBox(height: size.height*0.084,),
                     Text(
                       "enter_phone".tr(context),
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor4,fontSize: 20),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20),
                     ),
                     SizedBox(height: size.height*0.002,),
                     Text(
                       "enter_phone_caption_1".tr(context),
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16),
+                      style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
                     ),
                     Text(
                       "enter_phone_caption_2".tr(context),
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16),
+                      style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
                     ),
                     SizedBox(height: size.height*0.0703,),
                     Align(
@@ -71,18 +71,8 @@ class ForgetPasswordScreen extends StatelessWidget{
                         },
                         hintText: "1X-XXXX-XXXX",
                         onInputChanged: (PhoneNumber value) {},
-                        inputDecoration: InputDecoration(
+                        inputDecoration: const InputDecoration(
                           contentPadding: EdgeInsets.zero,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                color: myFavColor.withOpacity(0.5),
-                              )),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
-                                color: myFavColor.withOpacity(0.5),
-                              )),
                         ),
                         selectorConfig: const SelectorConfig(
                           setSelectorButtonAsPrefixIcon: true,
@@ -123,7 +113,7 @@ class ForgetPasswordScreen extends StatelessWidget{
                       },
                       child: Text(
                         "forget_phone_caption".tr(context),
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2),
+                        style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 14),
                       ),
                     ),
                     SizedBox(height: size.height*0.101,),

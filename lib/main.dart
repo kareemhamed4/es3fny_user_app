@@ -21,7 +21,7 @@ void main()async{
   uId = CacheHelper.getData(key: 'uId');
   radioValue = CacheHelper.getData(key: 'RadioValue');
   langCode = CacheHelper.getData(key: 'lang');
-  bool isDark = CacheHelper.getData(key: "isDark") ?? false ;
+  isDark = CacheHelper.getData(key: "isDark") ?? false;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
   Widget widget;
   if(onBoarding != null){

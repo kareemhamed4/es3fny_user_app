@@ -87,18 +87,8 @@ class LoginScreen extends StatelessWidget {
                               },
                               hintText: "1X-XXXX-XXXX",
                               onInputChanged: (PhoneNumber value) {},
-                              inputDecoration: InputDecoration(
+                              inputDecoration: const InputDecoration(
                                 contentPadding: EdgeInsets.zero,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: myFavColor.withOpacity(0.5),
-                                    )),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                    borderSide: BorderSide(
-                                      color: myFavColor.withOpacity(0.5),
-                                    )),
                               ),
                               selectorConfig: const SelectorConfig(
                                 setSelectorButtonAsPrefixIcon: true,
@@ -148,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () {
                                 cubit.changeSuffixIconLogin();
                               },
-                              icon: Icon(cubit.suffixIconLogin),
+                              icon: Icon(cubit.suffixIconLogin,color: Theme.of(context).iconTheme.color,),
                             ),
                             context: context,
                             controller: passwordController,

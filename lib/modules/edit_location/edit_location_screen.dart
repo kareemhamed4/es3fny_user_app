@@ -42,7 +42,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
             style: Theme.of(context)
                 .textTheme
                 .bodyText2!
-                .copyWith(color: myFavColor,fontSize: 20),
+                .copyWith(fontSize: 20),
           ),
           centerTitle: true,
         ),

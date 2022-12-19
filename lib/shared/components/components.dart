@@ -27,7 +27,6 @@ Widget myTextFormField({
     TextFormField(
       obscuringCharacter: '●',
       controller: controller,
-      cursorColor: Colors.black54,
       keyboardType: type,
       obscureText: isPassword ?? false,
       onTap: () {
@@ -44,23 +43,10 @@ Widget myTextFormField({
       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
       decoration: InputDecoration(
         hintText: hint ?? '',
+        hintStyle: Theme.of(context).textTheme.caption,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(
-            color: myFavColor,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(
-            color: myFavColor.withOpacity(0.5),
-          ),
-        ),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
-        suffixIconColor: Colors.grey,
-        icon: icon,
       ),
     );
 
@@ -245,20 +231,6 @@ Widget phoneTextFormField({
       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(
-            width: 1,
-            color: myFavColor,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(
-            width: 1,
-            color: myFavColor.withOpacity(0.5),
-          ),
-        ),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         suffixIconColor: Colors.grey,
@@ -405,36 +377,27 @@ Widget myDropDownButton({
   required String hintText,
 
 }) => DropdownButtonFormField2(
-  decoration: InputDecoration(
+  decoration: const InputDecoration(
     //Add isDense true and zero Padding.
     //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
     isDense: true,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5),
-      borderSide: BorderSide(
-        color: myFavColor.withOpacity(0.5),
-      ),
-    ),
+    contentPadding: EdgeInsets.symmetric(horizontal: 16),
     //Add more decoration as you want here
     //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
   ),
   isExpanded: true,
   hint: Text(
     hintText.tr(context),
-    style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor2,fontSize: 16,fontFamily: "FinalR"),
+    style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor11,fontSize: 16,fontFamily: "FinalR"),
   ),
   icon: const Icon(
     Icons.keyboard_arrow_down_outlined,
-    color: Colors.black45,
   ),
   iconSize: 30,
   buttonHeight: 48,
   dropdownDecoration: BoxDecoration(
     borderRadius: BorderRadius.circular(15),
+    color: Theme.of(context).cardColor
   ),
   items: dropMenuItems
       .map((item) =>
@@ -445,7 +408,7 @@ Widget myDropDownButton({
           style: Theme.of(context)
               .textTheme
               .bodyText2!
-              .copyWith(color: myFavColor4,fontSize: 18,fontFamily: "FinalR"),
+              .copyWith(fontSize: 18,fontFamily: "FinalR"),
         ),
       ))
       .toList(),

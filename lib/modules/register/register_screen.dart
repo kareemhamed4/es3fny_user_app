@@ -148,18 +148,8 @@ class _RegisterState extends State<Register> {
                           },
                           hintText: "1X-XXXX-XXXX",
                           onInputChanged: (PhoneNumber value) {},
-                          inputDecoration: InputDecoration(
+                          inputDecoration:const InputDecoration(
                             contentPadding: EdgeInsets.zero,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: myFavColor.withOpacity(0.5),
-                                )),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: myFavColor.withOpacity(0.5),
-                                )),
                           ),
                           selectorConfig: const SelectorConfig(
                             setSelectorButtonAsPrefixIcon: true,
@@ -269,7 +259,7 @@ class _RegisterState extends State<Register> {
                           onPressed: () {
                             cubit.changeSuffixIconRegister();
                           },
-                          icon: Icon(cubit.suffixIconRegister),
+                          icon: Icon(cubit.suffixIconRegister,color: Theme.of(context).iconTheme.color,),
                         ),
                       ),
                       SizedBox(
@@ -305,7 +295,7 @@ class _RegisterState extends State<Register> {
                             onPressed: () {
                               cubit.changeSuffixIconConfirmRegister();
                             },
-                            icon: Icon(cubit.suffixIconConfirmRegister),
+                            icon: Icon(cubit.suffixIconConfirmRegister,color: Theme.of(context).iconTheme.color,),
                           )),
                       SizedBox(
                         height: size.height * 0.02,

@@ -43,7 +43,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
             centerTitle: true,
             title: Text(
                 "track_info_title".tr(context),
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20,color: myFavColor),
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20),
             ),
           ),
           body: Stack(

@@ -73,7 +73,7 @@ class NewPassword extends StatelessWidget {
                           onPressed: (){
                             cubit.changeSuffixIconCreate();
                           },
-                            icon: Icon(cubit.suffixIconCreate),
+                            icon: Icon(cubit.suffixIconCreate,color: Theme.of(context).iconTheme.color,),
                         ),
                         context: context,
                         controller: passwordController,
@@ -107,7 +107,7 @@ class NewPassword extends StatelessWidget {
                             onPressed: (){
                               cubit.changeSuffixIconConfirmCreate();
                             },
-                            icon: Icon(cubit.suffixIconConfirmCreate)),
+                            icon: Icon(cubit.suffixIconConfirmCreate,color: Theme.of(context).iconTheme.color,)),
                         context: context,
                         controller: passwordConfirmController,
                         onSubmit: (value) {},
