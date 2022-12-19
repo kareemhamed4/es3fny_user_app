@@ -1,5 +1,4 @@
 import 'package:es3fny_user_app/app_localization.dart';
-import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -153,7 +152,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       controller: locationController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return langCode == "ar" ? "يجب ادخال موقعك الحالي" : "Required";
+                          return "pick_location_validate".tr(context);
                         }
                         return null;
                       },

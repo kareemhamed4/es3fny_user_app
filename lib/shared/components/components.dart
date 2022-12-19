@@ -213,7 +213,6 @@ Widget phoneTextFormField({
     TextFormField(
       textAlignVertical: TextAlignVertical.center,
       controller: controller,
-      cursorColor: Colors.black54,
       keyboardType: type,
       obscureText: isPassword ?? false,
       onTap: () {
@@ -244,11 +243,11 @@ void displaySuccessMotionToast({
   String? description,
 }) => MotionToast.success(
   title: Text(title ??"",
-    style: const TextStyle(fontWeight: FontWeight.bold),
+    style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
   ),
   description: Text(
     description ?? "",
-    style: const TextStyle(fontSize: 12),
+    style: TextStyle(color: myFavColor4, fontSize: 12),
   ),
   layoutOrientation: ToastOrientation.ltr,
   animationType: AnimationType.fromTop,
@@ -262,11 +261,11 @@ void displayErrorMotionToast({
   String? description,
 }) => MotionToast.error(
   title: Text(title ??"",
-    style: const TextStyle(fontWeight: FontWeight.bold),
+    style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
   ),
   description: Text(
     description ?? "",
-    style: const TextStyle(fontSize: 12),
+    style: TextStyle(color: myFavColor4, fontSize: 12),
   ),
   layoutOrientation: ToastOrientation.ltr,
   position: MotionToastPosition.top,
@@ -282,11 +281,11 @@ void displayWarningMotionToast({
   String? description,
 }) => MotionToast.warning(
   title: Text(title ??"",
-    style: const TextStyle(fontWeight: FontWeight.bold),
+    style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
   ),
   description: Text(
     description ?? "",
-    style: const TextStyle(fontSize: 12),
+    style: TextStyle(color: myFavColor4, fontSize: 12),
   ),
   layoutOrientation: ToastOrientation.ltr,
   position: MotionToastPosition.top,
@@ -309,7 +308,7 @@ void showMyDialog({
         icon ?? Icons.info_outline,
         color: myFavColor,
       ),
-      backgroundColor: myFavColor5,
+      backgroundColor: Theme.of(context).cardColor,
       shape: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
         borderSide: BorderSide.none,
@@ -319,15 +318,15 @@ void showMyDialog({
         style: Theme.of(context)
             .textTheme
             .bodyText2!
-            .copyWith(color: myFavColor4,fontSize: 18),
+            .copyWith(fontSize: 18),
       ),
       content: Text(
         content!.tr(context),
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
-            .bodyText2!
-            .copyWith(color: myFavColor2, fontSize: 18),
+            .caption!
+            .copyWith(fontSize: 18),
       ),
       actions: <Widget>[
         MaterialButton(

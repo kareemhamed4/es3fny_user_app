@@ -154,7 +154,7 @@ class ProfileScreen extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         barrierColor: Colors.black38,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).cardColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),

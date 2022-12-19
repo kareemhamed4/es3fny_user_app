@@ -127,6 +127,7 @@
   "edit_location": "Edit Location",
   "pick_location": "Pick your location",
   "pick_location_2": "Enter your current location",
+  "pick_location_validate": "Required",
   "destination_location": "Destination Location (Optional)",
   "destination_location_2": "Name of hospital",
   "edit_location_button": "CHANGE"

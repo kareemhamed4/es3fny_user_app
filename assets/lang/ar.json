@@ -127,6 +127,7 @@
   "edit_location": "تغيير الموقع",
   "pick_location": "اختر مكانك",
   "pick_location_2": "ادخل موقعك الحالي",
+  "pick_location_validate": "يجب ادخال موقعك الحالي",
   "destination_location": "المكان المقصود (اختياري)",
   "destination_location_2": "اسم المستشفي",
   "edit_location_button": "تغيير"

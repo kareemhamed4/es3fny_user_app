@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "card_home_1".tr(context),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText2!
+                                              .labelMedium!
                                               .copyWith(fontSize: 16),
                                         ),
                                         const Icon(
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "card_home_2".tr(context),
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyText2!
+                                              .labelMedium!
                                               .copyWith(fontSize: 16),
                                         ),
                                         const Icon(

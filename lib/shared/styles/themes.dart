@@ -20,6 +20,18 @@ ThemeData lightTheme = ThemeData(
         )
     ),
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      side: BorderSide(color: myFavColor4),
+    ),
+  ),
+  buttonTheme: ButtonThemeData(
+      shape: OutlineInputBorder(
+          borderSide: BorderSide(
+              color: myFavColor4
+          )
+      )
+  ),
   iconTheme: IconThemeData(
     color: myFavColor,
   ),
@@ -36,6 +48,7 @@ ThemeData lightTheme = ThemeData(
     ),
     elevation: 0,
   ),
+  unselectedWidgetColor: myFavColor4,
   textTheme: TextTheme(
     bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor4,fontSize: 14),
     bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor4),
@@ -43,6 +56,7 @@ ThemeData lightTheme = ThemeData(
     headline5: TextStyle(fontFamily: "kareemR",color: myFavColor4),
     headline6: TextStyle(fontFamily: "FinalB",color: myFavColor4),
     caption: TextStyle(fontFamily: "FinalB",color: myFavColor2),
+    labelMedium: TextStyle(fontFamily: "FinalB",color: myFavColor),
     button: const TextStyle(fontFamily: "FinalB",color: Colors.white),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -60,6 +74,18 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: myFavColor14,
   colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: myFavColor11
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: myFavColor11),
+      ),
+  ),
+  buttonTheme: ButtonThemeData(
+    shape: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: myFavColor11
+      )
+    )
   ),
   inputDecorationTheme: InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
@@ -89,6 +115,7 @@ ThemeData darkTheme = ThemeData(
     ),
     elevation: 0,
   ),
+  unselectedWidgetColor: myFavColor11,
   textTheme: TextTheme(
     bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor12,fontSize: 14),
     bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor12),
@@ -96,6 +123,7 @@ ThemeData darkTheme = ThemeData(
     headline5: TextStyle(fontFamily: "FinalR",color: myFavColor12),
     headline6: TextStyle(fontFamily: "FinalB",color: myFavColor12),
     caption: TextStyle(fontFamily: "FinalB",color: myFavColor11),
+    labelMedium: TextStyle(fontFamily: "FinalB",color: myFavColor12),
     button: TextStyle(fontFamily: "FinalB",color: myFavColor12),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(

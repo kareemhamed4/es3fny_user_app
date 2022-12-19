@@ -112,7 +112,7 @@ class TrackingScreen extends StatelessWidget {
                   ListView.separated(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context,index) => buildHistoryItem(),
+                    itemBuilder: (context,index) => buildHistoryItem(context: context),
                     separatorBuilder: (context,index) => const SizedBox(height: 8,),
                     itemCount: 8,
                   )
@@ -124,11 +124,11 @@ class TrackingScreen extends StatelessWidget {
       )
     ) ;
   }
-  Widget buildHistoryItem() => Container(
+  Widget buildHistoryItem({required BuildContext context}) => Container(
     height: 94,
     width: double.infinity,
     decoration: BoxDecoration(
-      color: myFavColor2.withOpacity(0.2),
+      color: Theme.of(context).cardColor,
       borderRadius: BorderRadius.circular(20),
     ),
   );
