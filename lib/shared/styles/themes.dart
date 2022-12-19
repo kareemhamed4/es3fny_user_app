@@ -22,13 +22,13 @@ ThemeData lightTheme = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      side: BorderSide(color: myFavColor4),
+      side: BorderSide(color: myFavColor2),
     ),
   ),
   buttonTheme: ButtonThemeData(
       shape: OutlineInputBorder(
           borderSide: BorderSide(
-              color: myFavColor4
+              color: myFavColor2
           )
       )
   ),
