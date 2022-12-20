@@ -44,7 +44,7 @@
   "login_password": "Password",
   "login_forget_password": "Forget Password ?",
   "login_button": "LOGIN",
-  "have_account": "Have an account ?",
+  "have_account": "Haven't an account ?",
   "have_account_button": "Register",
   "login_phone_valid": "Incorrect phone number",
   "login_password_valid": "Required",
