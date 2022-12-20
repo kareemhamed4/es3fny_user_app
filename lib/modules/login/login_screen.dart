@@ -96,22 +96,6 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          /*phoneTextFormField(
-                              validate: (value) {
-                                if (value!.length < 10) {
-                                  return "رقم هاتف غير صحيح";
-                                }
-                                return null;
-                              },
-                              textAlign: TextAlign.right,
-                              maxLength2: 11,
-                              type: TextInputType.number,
-                              context: context,
-                              controller: phoneController,
-                              onSubmit: (value) {}),
-                          const SizedBox(
-                            height: 7,
-                          ),*/
                           const SizedBox(
                             height: 7,
                           ),
