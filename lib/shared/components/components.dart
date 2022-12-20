@@ -40,10 +40,10 @@ Widget myTextFormField({
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),
       ],
-      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontFamily: "FinalR",letterSpacing: 2),
+      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontFamily: "FinalR",fontSize: 18),
       decoration: InputDecoration(
         hintText: hint ?? '',
-        hintStyle: Theme.of(context).textTheme.caption,
+        hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 18),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
