@@ -6,6 +6,7 @@ import 'package:es3fny_user_app/force_restart.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1),),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
+        BlocProvider(create: (BuildContext context) => ProfileCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},
