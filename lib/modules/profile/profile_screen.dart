@@ -5,15 +5,88 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+class PersonalModel {
+  final String label;
+  final Widget widget;
+
+  PersonalModel({
+    required this.label,
+    required this.widget,
+  });
+}
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     PageController pageController = PageController();
+    TextEditingController nameController = TextEditingController();
+    TextEditingController nIDController = TextEditingController();
+    TextEditingController phoneController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController ageController = TextEditingController();
+    nameController.text = "محمد أحمد عبد الغني دومه";
+    nIDController.text = "30004011601693";
+    phoneController.text = "01157567842";
+    emailController.text = "mohamed.abdelghany@gmail.com";
+    ageController.text = "22";
+    List<PersonalModel> personalInfo = [
+      PersonalModel(
+          label: "الإسم",
+          widget: TextFormField(
+            controller: nameController,
+            decoration: const InputDecoration(
+              enabled: false,
+              contentPadding: EdgeInsets.zero,
+            ),
+          )
+      ),
+      PersonalModel(
+          label: "الرقم القومي",
+          widget: TextFormField(
+            controller: nIDController,
+            decoration: const InputDecoration(
+              enabled: false,
+              contentPadding: EdgeInsets.zero,
+            ),
+          )
+      ),
+      PersonalModel(
+          label: "رقم الهاتف",
+          widget: TextFormField(
+            controller: phoneController,
+            decoration: const InputDecoration(
+              enabled: false,
+              contentPadding: EdgeInsets.zero,
+            ),
+          )
+      ),
+      PersonalModel(
+          label: "البريد الإلكتروني",
+          widget: TextFormField(
+            controller: emailController,
+            decoration: const InputDecoration(
+              enabled: false,
+              contentPadding: EdgeInsets.zero,
+            ),
+          )
+      ),
+      PersonalModel(
+          label: "العمر",
+          widget: TextFormField(
+            controller: ageController,
+            decoration: const InputDecoration(
+              enabled: false,
+              contentPadding: EdgeInsets.zero,
+            ),
+          )
+      ),
+    ];
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        Size size = MediaQuery.of(context).size;
         ProfileCubit cubit = BlocProvider.of(context);
         return Scaffold(
           backgroundColor: myFavColor,
@@ -196,14 +269,26 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 4,
                       ),
                       Expanded(
-                        child: PageView.builder(
+                        child: PageView(
                           physics: const BouncingScrollPhysics(),
                           controller: pageController,
-                          itemBuilder: (context, index) => Container(),
-                          itemCount: 2,
+                          children: [
+                            Column(
+                              children: [
+                                Expanded(
+                                  child: ListView.separated(
+                                      itemBuilder: (context,index) => buildPageViewScreen(context: context, size: size,model: personalInfo[index]),
+                                      separatorBuilder: (context,index) => const SizedBox(height: 12,),
+                                      itemCount: personalInfo.length
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(),
+                          ],
                           onPageChanged: (index){
                             cubit.changePageIndex(index);
                           },
@@ -220,6 +305,46 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+ Widget buildPageViewScreen({
+  required BuildContext context,
+  required Size size,
+  required PersonalModel model,
+}) => Padding(
+   padding: const EdgeInsets.symmetric(horizontal: 16),
+   child: InkWell(
+     borderRadius: BorderRadius.circular(20),
+     highlightColor: myFavColor.withOpacity(0.5),
+     onTap: () {},
+     child: SizedBox(
+       height: size.height * 0.14,
+       child: Card(
+         clipBehavior: Clip.antiAliasWithSaveLayer,
+         color: Theme.of(context).cardColor,
+         shape: RoundedRectangleBorder(
+           borderRadius: BorderRadius.circular(20),
+         ),
+         elevation: 5,
+         child: Padding(
+           padding: const EdgeInsets.symmetric(horizontal: 16),
+           child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: [
+               Align(
+                 alignment: AlignmentDirectional.centerStart,
+                 child: Text(
+                   model.label,
+                   style: Theme.of(context).textTheme.bodyText2,
+                 ),
+               ),
+               const SizedBox(height: 8,),
+               model.widget,
+             ],
+           ),
+         ),
+       ),
+     ),
+   ),
+ );
 
 /*class CustomClipPath extends CustomClipper<Path>{
   @override
