@@ -11,4 +11,5 @@ class ProfileCubit extends Cubit<ProfileStates>{
     currentPageIndex = index;
     emit(ProfileChangePageIndexState());
   }
+  bool isEnabled = false;
 }
