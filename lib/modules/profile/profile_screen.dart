@@ -42,8 +42,7 @@ class ProfileScreen extends StatelessWidget {
               enabled: context.read<ProfileCubit>().isEnabled,
               contentPadding: EdgeInsets.zero,
             ),
-          )
-      ),
+          )),
       PersonalModel(
           label: "الرقم القومي",
           widget: TextFormField(
@@ -52,8 +51,7 @@ class ProfileScreen extends StatelessWidget {
               enabled: false,
               contentPadding: EdgeInsets.zero,
             ),
-          )
-      ),
+          )),
       PersonalModel(
           label: "رقم الهاتف",
           widget: TextFormField(
@@ -62,8 +60,7 @@ class ProfileScreen extends StatelessWidget {
               enabled: false,
               contentPadding: EdgeInsets.zero,
             ),
-          )
-      ),
+          )),
       PersonalModel(
           label: "البريد الإلكتروني",
           widget: TextFormField(
@@ -72,8 +69,7 @@ class ProfileScreen extends StatelessWidget {
               enabled: false,
               contentPadding: EdgeInsets.zero,
             ),
-          )
-      ),
+          )),
       PersonalModel(
           label: "العمر",
           widget: TextFormField(
@@ -82,8 +78,7 @@ class ProfileScreen extends StatelessWidget {
               enabled: false,
               contentPadding: EdgeInsets.zero,
             ),
-          )
-      ),
+          )),
     ];
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
@@ -123,7 +118,8 @@ class ProfileScreen extends StatelessWidget {
                                       child: Container(
                                         height: 95,
                                         width: double.infinity,
-                                        color: Theme.of(context).scaffoldBackgroundColor,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                       ),
                                     ),
                                   ],
@@ -131,12 +127,16 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.only(bottom: 140,start: 16),
+                              padding: const EdgeInsetsDirectional.only(
+                                  bottom: 140, start: 16),
                               child: Text(
                                 "الحساب\n   الشخصي",
-                                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                  fontSize: 20,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                      fontSize: 20,
+                                    ),
                               ),
                             ),
                           ],
@@ -144,10 +144,10 @@ class ProfileScreen extends StatelessWidget {
                         Row(
                           children: [
                             IconButton(
-                                onPressed: (){
+                                onPressed: () {
                                   NavigateTo(
-                                      context: context,
-                                      widget: const SettingsScreen(),
+                                    context: context,
+                                    widget: const SettingsScreen(),
                                   );
                                 },
                                 icon: Icon(
@@ -155,7 +155,12 @@ class ProfileScreen extends StatelessWidget {
                                   color: myFavColor12,
                                 )),
                             const Spacer(),
-                            IconButton(onPressed: (){}, icon: Icon(Icons.notifications_none_outlined,color: myFavColor12,)),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.notifications_none_outlined,
+                                  color: myFavColor12,
+                                )),
                           ],
                         )
                       ],
@@ -188,13 +193,28 @@ class ProfileScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 Expanded(
-                                    flex: 2,
-                                    child: Center(
-                                        child: Text(
-                                      "محمد عبد الغني",
-                                      style:
-                                          Theme.of(context).textTheme.bodyText2,
-                                    ))),
+                                  flex: 2,
+                                  child: Center(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "محمد عبد الغني",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                      ),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.mode_edit_outlined,
+                                          color: myFavColor11,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                                ),
                                 Divider(
                                   color: myFavColor11,
                                 ),
@@ -204,7 +224,8 @@ class ProfileScreen extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Expanded(
                                           child: GestureDetector(
@@ -294,7 +315,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 10,
+                          height: 6,
                         ),
                         SmoothPageIndicator(
                           controller: pageController,
@@ -308,7 +329,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                          height: 4,
+                          height: 6,
                         ),
                         Expanded(
                           child: PageView(
@@ -319,16 +340,22 @@ class ProfileScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: ListView.separated(
-                                        itemBuilder: (context,index) => buildPageViewScreen(context: context, size: size,model: personalInfo[index]),
-                                        separatorBuilder: (context,index) => const SizedBox(height: 12,),
-                                        itemCount: personalInfo.length
-                                    ),
+                                        itemBuilder: (context, index) =>
+                                            buildPageViewScreen(
+                                                context: context,
+                                                size: size,
+                                                model: personalInfo[index]),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                        itemCount: personalInfo.length),
                                   ),
                                 ],
                               ),
                               Column(),
                             ],
-                            onPageChanged: (index){
+                            onPageChanged: (index) {
                               cubit.changePageIndex(index);
                             },
                           ),
@@ -345,46 +372,50 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
- Widget buildPageViewScreen({
+
+Widget buildPageViewScreen({
   required BuildContext context,
   required Size size,
   required PersonalModel model,
-}) => Padding(
-   padding: const EdgeInsets.symmetric(horizontal: 16),
-   child: InkWell(
-     borderRadius: BorderRadius.circular(20),
-     highlightColor: myFavColor.withOpacity(0.5),
-     onTap: () {},
-     child: SizedBox(
-       height: size.height * 0.14,
-       child: Card(
-         clipBehavior: Clip.antiAliasWithSaveLayer,
-         color: Theme.of(context).cardColor,
-         shape: RoundedRectangleBorder(
-           borderRadius: BorderRadius.circular(20),
-         ),
-         elevation: 5,
-         child: Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 16),
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Align(
-                 alignment: AlignmentDirectional.centerStart,
-                 child: Text(
-                   model.label,
-                   style: Theme.of(context).textTheme.bodyText2,
-                 ),
-               ),
-               const SizedBox(height: 8,),
-               model.widget,
-             ],
-           ),
-         ),
-       ),
-     ),
-   ),
- );
+}) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        highlightColor: myFavColor.withOpacity(0.5),
+        onTap: () {},
+        child: SizedBox(
+          height: size.height * 0.14,
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Theme.of(context).cardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      model.label,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  model.widget,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
 
 /*class CustomClipPath extends CustomClipper<Path>{
   @override
