@@ -61,53 +61,7 @@ class ProfileScreen extends StatelessWidget {
     familyPhoneController3.text = "01281165611";
     familyNameController4.text = "أسامة علاء بسيوني خليل";
     familyPhoneController4.text = "01157224685";
-    List<PersonalModel> personalInfo = [
-      PersonalModel(
-          label: "الإسم",
-          widget: TextFormField(
-            controller: nameController,
-            decoration: InputDecoration(
-              enabled: context.read<ProfileCubit>().isEnabled,
-              contentPadding: EdgeInsets.zero,
-            ),
-          )),
-      PersonalModel(
-          label: "الرقم القومي",
-          widget: TextFormField(
-            controller: nIDController,
-            decoration: const InputDecoration(
-              enabled: false,
-              contentPadding: EdgeInsets.zero,
-            ),
-          )),
-      PersonalModel(
-          label: "رقم الهاتف",
-          widget: TextFormField(
-            controller: phoneController,
-            decoration: const InputDecoration(
-              enabled: false,
-              contentPadding: EdgeInsets.zero,
-            ),
-          )),
-      PersonalModel(
-          label: "البريد الإلكتروني",
-          widget: TextFormField(
-            controller: emailController,
-            decoration: const InputDecoration(
-              enabled: false,
-              contentPadding: EdgeInsets.zero,
-            ),
-          )),
-      PersonalModel(
-          label: "العمر",
-          widget: TextFormField(
-            controller: ageController,
-            decoration: const InputDecoration(
-              enabled: false,
-              contentPadding: EdgeInsets.zero,
-            ),
-          )),
-    ];
+
     List<FamilyModel> family = [
       FamilyModel(
         name: familyNameController1.text,
@@ -280,9 +234,11 @@ class ProfileScreen extends StatelessWidget {
                                             .bodyText2,
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          cubit.changeEditingState();
+                                        },
                                         icon: Icon(
-                                          Icons.mode_edit_outlined,
+                                          cubit.editIcon,
                                           color: myFavColor11,
                                           size: 24,
                                         ),
@@ -411,22 +367,71 @@ class ProfileScreen extends StatelessWidget {
                             physics: const BouncingScrollPhysics(),
                             controller: pageController,
                             children: [
-                              Column(
-                                children: [
-                                  Expanded(
-                                    child: ListView.separated(
-                                        itemBuilder: (context, index) =>
-                                            buildPageViewScreen(
-                                                context: context,
-                                                size: size,
-                                                model: personalInfo[index]),
-                                        separatorBuilder: (context, index) =>
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                        itemCount: personalInfo.length),
-                                  ),
-                                ],
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "الإسم",
+                                        widget: TextFormField(
+                                          controller: nameController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
+                                        ),
+                                    ),
+                                    buildPersonalInfoItem(
+                                      context: context,
+                                      size: size,
+                                      label: "الرقم القومي",
+                                      widget: TextFormField(
+                                        controller: nIDController,
+                                        decoration: InputDecoration(
+                                          enabled: cubit.isEnabled,
+                                          contentPadding: EdgeInsets.zero,
+                                        ),
+                                      ),
+                                    ),
+                                    buildPersonalInfoItem(
+                                      context: context,
+                                      size: size,
+                                      label: "رقم الهاتف",
+                                      widget: TextFormField(
+                                        controller: phoneController,
+                                        decoration: InputDecoration(
+                                          enabled: cubit.isEnabled,
+                                          contentPadding: EdgeInsets.zero,
+                                        ),
+                                      ),
+                                    ),
+                                    buildPersonalInfoItem(
+                                      context: context,
+                                      size: size,
+                                      label: "البريد الإلكتروني",
+                                      widget: TextFormField(
+                                        controller: emailController,
+                                        decoration: InputDecoration(
+                                          enabled: cubit.isEnabled,
+                                          contentPadding: EdgeInsets.zero,
+                                        ),
+                                      ),
+                                    ),
+                                    buildPersonalInfoItem(
+                                      context: context,
+                                      size: size,
+                                      label: "العمر",
+                                      widget: TextFormField(
+                                        controller: ageController,
+                                        decoration: InputDecoration(
+                                          enabled: cubit.isEnabled,
+                                          contentPadding: EdgeInsets.zero,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               Column(
                                 children: [
@@ -464,49 +469,50 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-Widget buildPageViewScreen({
+Widget buildPersonalInfoItem({
   required BuildContext context,
   required Size size,
-  required PersonalModel model,
-}) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        highlightColor: myFavColor.withOpacity(0.5),
-        onTap: () {},
-        child: SizedBox(
-          height: size.height * 0.14,
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            color: Theme.of(context).cardColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      model.label,
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  model.widget,
-                ],
+  required String label,
+  required Widget widget,
+}) => Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: InkWell(
+    borderRadius: BorderRadius.circular(20),
+    highlightColor: myFavColor.withOpacity(0.5),
+    onTap: () {},
+    child: SizedBox(
+      height: size.height * 0.14,
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        color: Theme.of(context).cardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  label,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ),
-            ),
+              const SizedBox(
+                height: 8,
+              ),
+              widget,
+            ],
           ),
         ),
       ),
-    );
+    ),
+  ),
+);
+
 
 Widget buildFamilyPageViewScreen({
   required BuildContext context,

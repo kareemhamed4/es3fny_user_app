@@ -19,133 +19,136 @@ class SettingsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          body: Column(
-            children: [
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                      onPressed: () {
-                        showMyBottomSheet(context: context);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.language_outlined,
-                            color: Colors.blue,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "app_language".tr(context),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: Colors.blue),
-                          ),
-                        ],
-                      )),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                        onPressed: () {
+                          showMyBottomSheet(context: context);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.language_outlined,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "app_language".tr(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.blue),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                      onPressed: () {
-                        MainCubit.get(context).changeAppMode();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.brightness_4_outlined,
-                            color: Colors.blue,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "change_app_mode".tr(context),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: Colors.blue),
-                          ),
-                        ],
-                      )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                        onPressed: () {
+                          MainCubit.get(context).changeAppMode();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.brightness_4_outlined,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "change_app_mode".tr(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.blue),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                      onPressed: () {
-                        CacheHelper.clearData().then((value) {
-                          /*Timer(const Duration(seconds: 3), () {
-                            RestartWidget.restartApp(context);
-                          });*/
-                          NavigateToReb(
-                              context: context, widget: const OnBoardingScreen());
-                        });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.delete_outline,
-                            color: Colors.blue,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "clear_data".tr(context),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: Colors.blue),
-                          ),
-                        ],
-                      )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                        onPressed: () {
+                          CacheHelper.clearData().then((value) {
+                            /*Timer(const Duration(seconds: 3), () {
+                              RestartWidget.restartApp(context);
+                            });*/
+                            NavigateToReb(
+                                context: context, widget: const OnBoardingScreen());
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.delete_outline,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "clear_data".tr(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.blue),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                      onPressed: () {
-                        MainCubit.get(context).signOut();
-                        NavigateToReb(context: context, widget: LoginScreen());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.logout_outlined,
-                            color: Colors.blue,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "logout".tr(context),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(color: Colors.blue),
-                          ),
-                        ],
-                      )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                        onPressed: () {
+                          MainCubit.get(context).signOut();
+                          NavigateToReb(context: context, widget: LoginScreen());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.logout_outlined,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "logout".tr(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.blue),
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
