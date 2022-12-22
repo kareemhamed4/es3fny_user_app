@@ -17,6 +17,18 @@ class PersonalModel {
   });
 }
 
+class FamilyModel {
+  final String name;
+  final String label;
+  final Widget widget;
+
+  FamilyModel({
+    required this.name,
+    required this.label,
+    required this.widget,
+  });
+}
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -33,6 +45,22 @@ class ProfileScreen extends StatelessWidget {
     phoneController.text = "01157567842";
     emailController.text = "mohamed.abdelghany@gmail.com";
     ageController.text = "22";
+    TextEditingController familyNameController1 = TextEditingController();
+    TextEditingController familyPhoneController1 = TextEditingController();
+    TextEditingController familyNameController2 = TextEditingController();
+    TextEditingController familyPhoneController2 = TextEditingController();
+    TextEditingController familyNameController3 = TextEditingController();
+    TextEditingController familyPhoneController3 = TextEditingController();
+    TextEditingController familyNameController4 = TextEditingController();
+    TextEditingController familyPhoneController4 = TextEditingController();
+    familyNameController1.text = "كريم محمد عبد الرؤف حامد";
+    familyPhoneController1.text = "01021136352";
+    familyNameController2.text = "ابراهيم محمد امين عتلم";
+    familyPhoneController2.text = "01554848535";
+    familyNameController3.text = "مصطفي محمد النجار";
+    familyPhoneController3.text = "01281165611";
+    familyNameController4.text = "أسامة علاء بسيوني خليل";
+    familyPhoneController4.text = "01157224685";
     List<PersonalModel> personalInfo = [
       PersonalModel(
           label: "الإسم",
@@ -79,6 +107,52 @@ class ProfileScreen extends StatelessWidget {
               contentPadding: EdgeInsets.zero,
             ),
           )),
+    ];
+    List<FamilyModel> family = [
+      FamilyModel(
+        name: familyNameController1.text,
+        label: "صديق",
+        widget: TextFormField(
+          controller: familyPhoneController1,
+          decoration: InputDecoration(
+            enabled: context.read<ProfileCubit>().isEnabled,
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+      ),
+      FamilyModel(
+        name: familyNameController2.text,
+        label: "صديق",
+        widget: TextFormField(
+          controller: familyPhoneController2,
+          decoration: InputDecoration(
+            enabled: context.read<ProfileCubit>().isEnabled,
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+      ),
+      FamilyModel(
+        name: familyNameController3.text,
+        label: "صديق",
+        widget: TextFormField(
+          controller: familyPhoneController3,
+          decoration: InputDecoration(
+            enabled: context.read<ProfileCubit>().isEnabled,
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+      ),
+      FamilyModel(
+        name: familyNameController4.text,
+        label: "صديق",
+        widget: TextFormField(
+          controller: familyPhoneController4,
+          decoration: InputDecoration(
+            enabled: context.read<ProfileCubit>().isEnabled,
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+      ),
     ];
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
@@ -136,6 +210,7 @@ class ProfileScreen extends StatelessWidget {
                                     .bodyText2!
                                     .copyWith(
                                       fontSize: 20,
+                                      color: Colors.white,
                                     ),
                               ),
                             ),
@@ -353,7 +428,23 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Column(),
+                              Column(
+                                children: [
+                                  Expanded(
+                                    child: ListView.separated(
+                                        itemBuilder: (context, index) =>
+                                            buildFamilyPageViewScreen(
+                                                context: context,
+                                                size: size,
+                                                model: family[index]),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                        itemCount: family.length),
+                                  ),
+                                ],
+                              ),
                             ],
                             onPageChanged: (index) {
                               cubit.changePageIndex(index);
@@ -417,32 +508,55 @@ Widget buildPageViewScreen({
       ),
     );
 
-/*class CustomClipPath extends CustomClipper<Path>{
-  @override
-  Path getClip(Size size) {
-    double w = size.width;
-    double h = size.height;
-    final path = Path();
-    path.lineTo(0,h);
-    path.quadraticBezierTo(
-      w*0.08,
-      h-100,
-      w*0.2,
-      h-100,
+Widget buildFamilyPageViewScreen({
+  required BuildContext context,
+  required Size size,
+  required FamilyModel model,
+}) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        highlightColor: myFavColor.withOpacity(0.5),
+        onTap: () {},
+        child: SizedBox(
+          height: size.height * 0.14,
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Theme.of(context).cardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Row(
+                      children: [
+                        Text(
+                          model.name,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        const SizedBox(width: 6,),
+                        Text(
+                          "(${model.label})",
+                          style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  model.widget,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
-    path.quadraticBezierTo(
-      w*0.8,
-      h-100,
-      w,
-      h,
-    );
-    path.lineTo(w,0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}*/
