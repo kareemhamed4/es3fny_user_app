@@ -371,16 +371,16 @@ class ProfileScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     buildPersonalInfoItem(
-                                        context: context,
-                                        size: size,
-                                        label: "الإسم",
-                                        widget: TextFormField(
-                                          controller: nameController,
-                                          decoration: InputDecoration(
-                                            enabled: cubit.isEnabled,
-                                            contentPadding: EdgeInsets.zero,
-                                          ),
+                                      context: context,
+                                      size: size,
+                                      label: "الإسم",
+                                      widget: TextFormField(
+                                        controller: nameController,
+                                        decoration: InputDecoration(
+                                          enabled: cubit.isEnabled,
+                                          contentPadding: EdgeInsets.zero,
                                         ),
+                                      ),
                                     ),
                                     buildPersonalInfoItem(
                                       context: context,
@@ -474,45 +474,45 @@ Widget buildPersonalInfoItem({
   required Size size,
   required String label,
   required Widget widget,
-}) => Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16),
-  child: InkWell(
-    borderRadius: BorderRadius.circular(20),
-    highlightColor: myFavColor.withOpacity(0.5),
-    onTap: () {},
-    child: SizedBox(
-      height: size.height * 0.14,
-      child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: Theme.of(context).cardColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 5,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+}) =>
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        highlightColor: myFavColor.withOpacity(0.5),
+        onTap: () {},
+        child: SizedBox(
+          height: size.height * 0.14,
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Theme.of(context).cardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      label,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  widget,
+                ],
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              widget,
-            ],
+            ),
           ),
         ),
       ),
-    ),
-  ),
-);
-
+    );
 
 Widget buildFamilyPageViewScreen({
   required BuildContext context,
@@ -547,10 +547,15 @@ Widget buildFamilyPageViewScreen({
                           model.name,
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
-                        const SizedBox(width: 6,),
+                        const SizedBox(
+                          width: 6,
+                        ),
                         Text(
                           "(${model.label})",
-                          style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 16),
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontSize: 16),
                         ),
                       ],
                     ),
