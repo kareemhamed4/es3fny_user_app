@@ -1,240 +1,72 @@
-import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
-class Test extends StatelessWidget {
-  const Test({Key? key}) : super(key: key);
+class TestPage extends StatefulWidget {
+  const TestPage({super.key});
+
+  @override
+  _TestPageState createState() => _TestPageState();
+}
+
+class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  double? _progress;
+  int _remainingTime = 3;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+    _animationController.addListener(() {
+      setState(() {
+        _progress = _animationController.value;
+        _remainingTime = (_animationController.duration! * (1 - _progress!)).inSeconds;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: (
-                Column(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+           const Text('Hold the button to start the progress'),
+            const SizedBox(height: 16),
+            InkWell(
+              onLongPress: _startProgress,
+              onTapUp: (va){
+                _stopProgress();
+              },
+              child: SizedBox(
+                width: 200,
+                height: 200,
+                child: Stack(
                   children: [
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
+                    CircularProgressIndicator(
+                      value: _progress,
                     ),
-
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-
-                    myTextFormField(
-                      validate: (value) {
-                        if (value!.length < 8) {
-                          return "برجاء ادخال الاسم رباعي";
-                        }
-                        return null;
-                      },
-                      context: context,
-                      textAlign: TextAlign.right,
-                      type: TextInputType.text,
-                      onSubmit: (value) {},
-                    ),
-                    SizedBox(
-                      height: size.height * 0.0219,
-                    ),
-                    myMaterialButton(
-                      context: context,
-                      onPressed: () {
-
-                      },
-                      label: "دخول",
+                    Center(
+                      child: Text(_remainingTime.toString()),
                     ),
                   ],
-                )
-
-
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
+  }
+
+  void _startProgress() {
+    _animationController.forward();
+  }
+
+  void _stopProgress() {
+    _animationController.stop();
   }
 }
