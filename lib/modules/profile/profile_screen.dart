@@ -20,12 +20,12 @@ class PersonalModel {
 class FamilyModel {
   final String name;
   final String label;
-  final Widget widget;
+  final String phone;
 
   FamilyModel({
     required this.name,
     required this.label,
-    required this.widget,
+    required this.phone,
   });
 }
 
@@ -45,67 +45,27 @@ class ProfileScreen extends StatelessWidget {
     phoneController.text = "01157567842";
     emailController.text = "mohamed.abdelghany@gmail.com";
     ageController.text = "22";
-    TextEditingController familyNameController1 = TextEditingController();
-    TextEditingController familyPhoneController1 = TextEditingController();
-    TextEditingController familyNameController2 = TextEditingController();
-    TextEditingController familyPhoneController2 = TextEditingController();
-    TextEditingController familyNameController3 = TextEditingController();
-    TextEditingController familyPhoneController3 = TextEditingController();
-    TextEditingController familyNameController4 = TextEditingController();
-    TextEditingController familyPhoneController4 = TextEditingController();
-    familyNameController1.text = "كريم محمد عبد الرؤف حامد";
-    familyPhoneController1.text = "01021136352";
-    familyNameController2.text = "ابراهيم محمد امين عتلم";
-    familyPhoneController2.text = "01554848535";
-    familyNameController3.text = "مصطفي محمد النجار";
-    familyPhoneController3.text = "01281165611";
-    familyNameController4.text = "أسامة علاء بسيوني خليل";
-    familyPhoneController4.text = "01157224685";
 
     List<FamilyModel> family = [
       FamilyModel(
-        name: familyNameController1.text,
-        label: "صديق",
-        widget: TextFormField(
-          controller: familyPhoneController1,
-          decoration: InputDecoration(
-            enabled: context.read<ProfileCubit>().isEnabled,
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
+        name: "كريم محمد عبد الرؤف حامد",
+        label: "(صديق)",
+        phone: "01021136352",
       ),
       FamilyModel(
-        name: familyNameController2.text,
-        label: "صديق",
-        widget: TextFormField(
-          controller: familyPhoneController2,
-          decoration: InputDecoration(
-            enabled: context.read<ProfileCubit>().isEnabled,
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
+        name: "ابراهيم محمد امين عتلم",
+        label: "(صديق)",
+        phone: "01554848535",
       ),
       FamilyModel(
-        name: familyNameController3.text,
-        label: "صديق",
-        widget: TextFormField(
-          controller: familyPhoneController3,
-          decoration: InputDecoration(
-            enabled: context.read<ProfileCubit>().isEnabled,
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
+        name: "مصطفي محمد النجار",
+        label: "(صديق)",
+        phone: "01281165611",
       ),
       FamilyModel(
-        name: familyNameController4.text,
-        label: "صديق",
-        widget: TextFormField(
-          controller: familyPhoneController4,
-          decoration: InputDecoration(
-            enabled: context.read<ProfileCubit>().isEnabled,
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
+        name: "أسامة علاء بسيوني خليل",
+        label: "(صديق)",
+        phone: "01157224685",
       ),
     ];
     return BlocConsumer<ProfileCubit, ProfileStates>(
@@ -233,7 +193,8 @@ class ProfileScreen extends StatelessWidget {
                                             .textTheme
                                             .bodyText2,
                                       ),
-                                      IconButton(
+                                      if(cubit.currentPageIndex == 0)
+                                        IconButton(
                                         onPressed: () {
                                           cubit.changeEditingState();
                                         },
@@ -382,6 +343,9 @@ class ProfileScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     buildPersonalInfoItem(
                                       context: context,
                                       size: size,
@@ -393,6 +357,9 @@ class ProfileScreen extends StatelessWidget {
                                           contentPadding: EdgeInsets.zero,
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
                                     ),
                                     buildPersonalInfoItem(
                                       context: context,
@@ -406,6 +373,9 @@ class ProfileScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     buildPersonalInfoItem(
                                       context: context,
                                       size: size,
@@ -418,6 +388,9 @@ class ProfileScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     buildPersonalInfoItem(
                                       context: context,
                                       size: size,
@@ -429,6 +402,9 @@ class ProfileScreen extends StatelessWidget {
                                           contentPadding: EdgeInsets.zero,
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
                                     ),
                                   ],
                                 ),
@@ -463,6 +439,16 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+          floatingActionButton: cubit.currentPageIndex == 1
+              ? FloatingActionButton(
+                  onPressed: () {},
+                  backgroundColor: myFavColor,
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                )
+              : const SizedBox(),
         );
       },
     );
@@ -525,47 +511,40 @@ Widget buildFamilyPageViewScreen({
         borderRadius: BorderRadius.circular(20),
         highlightColor: myFavColor.withOpacity(0.5),
         onTap: () {},
-        child: SizedBox(
-          height: size.height * 0.14,
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            color: Theme.of(context).cardColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: Theme.of(context).cardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListTile(
+              title: Row(
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Row(
-                      children: [
-                        Text(
-                          model.name,
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        Text(
-                          "(${model.label})",
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(fontSize: 16),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    model.name,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                   const SizedBox(
-                    height: 8,
+                    width: 6,
                   ),
-                  model.widget,
+                  Text(
+                    model.label,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption!
+                        .copyWith(fontSize: 14),
+                  ),
                 ],
               ),
+              subtitle: Text(model.phone),
+              leading: Icon(
+                Icons.person_outline_sharp,
+                color: myFavColor11,
+              ),
+              contentPadding: EdgeInsets.zero,
             ),
           ),
         ),
