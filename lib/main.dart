@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1),),
+        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1)),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
-        BlocProvider(create: (BuildContext context) => ProfileCubit()),
+        BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},

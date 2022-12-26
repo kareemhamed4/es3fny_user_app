@@ -3,6 +3,7 @@ import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/modules/setting/settings_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -17,23 +18,14 @@ class PersonalModel {
   });
 }
 
-class FamilyModel {
-  final String name;
-  final String label;
-  final String phone;
-
-  FamilyModel({
-    required this.name,
-    required this.label,
-    required this.phone,
-  });
-}
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+    var formKey = GlobalKey<FormState>();
     PageController pageController = PageController();
     TextEditingController nameController = TextEditingController();
     TextEditingController nIDController = TextEditingController();
@@ -45,35 +37,18 @@ class ProfileScreen extends StatelessWidget {
     phoneController.text = "01157567842";
     emailController.text = "mohamed.abdelghany@gmail.com";
     ageController.text = "22";
+    TextEditingController familyNameController = TextEditingController();
+    TextEditingController familyPhoneController = TextEditingController();
+    TextEditingController familyNicknameController = TextEditingController();
 
-    List<FamilyModel> family = [
-      FamilyModel(
-        name: "كريم محمد عبد الرؤف حامد",
-        label: "(صديق)",
-        phone: "01021136352",
-      ),
-      FamilyModel(
-        name: "ابراهيم محمد امين عتلم",
-        label: "(صديق)",
-        phone: "01554848535",
-      ),
-      FamilyModel(
-        name: "مصطفي محمد النجار",
-        label: "(صديق)",
-        phone: "01281165611",
-      ),
-      FamilyModel(
-        name: "أسامة علاء بسيوني خليل",
-        label: "(صديق)",
-        phone: "01157224685",
-      ),
-    ];
+
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
       builder: (context, state) {
         Size size = MediaQuery.of(context).size;
         ProfileCubit cubit = BlocProvider.of(context);
         return Scaffold(
+          key: scaffoldKey,
           backgroundColor: myFavColor,
           body: SafeArea(
             child: Column(
@@ -193,17 +168,17 @@ class ProfileScreen extends StatelessWidget {
                                             .textTheme
                                             .bodyText2,
                                       ),
-                                      if(cubit.currentPageIndex == 0)
+                                      if (cubit.currentPageIndex == 0)
                                         IconButton(
-                                        onPressed: () {
-                                          cubit.changeEditingState();
-                                        },
-                                        icon: Icon(
-                                          cubit.editIcon,
-                                          color: myFavColor11,
-                                          size: 24,
+                                          onPressed: () {
+                                            cubit.changeEditingState();
+                                          },
+                                          icon: Icon(
+                                            cubit.editIcon,
+                                            color: myFavColor11,
+                                            size: 24,
+                                          ),
                                         ),
-                                      ),
                                     ],
                                   )),
                                 ),
@@ -325,7 +300,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         Expanded(
                           child: PageView(
-                            physics: const BouncingScrollPhysics(),
+                            physics: cubit.scrollPhysics,
                             controller: pageController,
                             children: [
                               SingleChildScrollView(
@@ -417,12 +392,13 @@ class ProfileScreen extends StatelessWidget {
                                             buildFamilyPageViewScreen(
                                                 context: context,
                                                 size: size,
-                                                model: family[index]),
+                                                model: cubit.family[index],
+                                            ),
                                         separatorBuilder: (context, index) =>
                                             const SizedBox(
                                               height: 12,
                                             ),
-                                        itemCount: family.length),
+                                        itemCount: cubit.family.length),
                                   ),
                                 ],
                               ),
@@ -441,10 +417,85 @@ class ProfileScreen extends StatelessWidget {
           ),
           floatingActionButton: cubit.currentPageIndex == 1
               ? FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (cubit.isBottomSheetShown) {
+                      if(formKey.currentState!.validate()){
+                        cubit.insertToDatabase(
+                            name: familyNameController.text,
+                            phone: familyPhoneController.text,
+                            nickname: familyNicknameController.text
+                        );
+                        cubit.getFamilyDataFromDatabase(cubit.database).then((value) {
+                          cubit.family = value;
+                          if (kDebugMode) {
+                            print(cubit.family);
+                          }
+                          Navigator.pop(context);
+                        });
+                      }
+                    } else {
+                      cubit.changeFabIcon();
+                      cubit.changeScrollPhysics();
+                      scaffoldKey.currentState!.showBottomSheet((context) {
+                        return Container(
+                          color: myFavColor.withOpacity(0.1),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Form(
+                              key: formKey,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  myTextFormField(
+                                      context: context,
+                                      controller: familyNameController,
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return "برجاء ادخال الإسم";
+                                        }
+                                        return null;
+                                      },
+                                      prefixIcon: const Icon(Icons.title),
+                                      hint: "الإسم"),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  myTextFormField(
+                                    context: context,
+                                    controller: familyPhoneController,
+                                    prefixIcon:
+                                        const Icon(Icons.dialpad_outlined),
+                                    hint: "رقم الهاتف",
+                                    validate: (value) {
+                                      if (value!.length < 11) {
+                                        return "برجاء ادخال رقم هاتف صحيح";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  myTextFormField(
+                                      context: context,
+                                      controller: familyNicknameController,
+                                      prefixIcon: const Icon(
+                                          Icons.label_important_outline),
+                                      hint: "الكنية"),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      }).closed.then((value){
+                        cubit.changeFabIcon();
+                        cubit.changeScrollPhysics();
+                      });
+                    }
+                  },
                   backgroundColor: myFavColor,
-                  child: const Icon(
-                    Icons.add,
+                  child: Icon(
+                    cubit.fabIcon,
                     color: Colors.white,
                   ),
                 )
@@ -453,100 +504,123 @@ class ProfileScreen extends StatelessWidget {
       },
     );
   }
-}
-
-Widget buildPersonalInfoItem({
-  required BuildContext context,
-  required Size size,
-  required String label,
-  required Widget widget,
-}) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        highlightColor: myFavColor.withOpacity(0.5),
-        onTap: () {},
-        child: SizedBox(
-          height: size.height * 0.14,
-          child: Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            color: Theme.of(context).cardColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      label,
-                      style: Theme.of(context).textTheme.bodyText2,
+  Widget buildPersonalInfoItem({
+    required BuildContext context,
+    required Size size,
+    required String label,
+    required Widget widget,
+  }) =>
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          highlightColor: myFavColor.withOpacity(0.5),
+          onTap: () {},
+          child: SizedBox(
+            height: size.height * 0.14,
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              color: Theme.of(context).cardColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Text(
+                        label,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  widget,
-                ],
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    widget,
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
 
-Widget buildFamilyPageViewScreen({
-  required BuildContext context,
-  required Size size,
-  required FamilyModel model,
-}) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        highlightColor: myFavColor.withOpacity(0.5),
-        onTap: () {},
-        child: Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: Theme.of(context).cardColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+  Widget buildFamilyPageViewScreen({
+    required BuildContext context,
+    required Size size,
+    required Map model,
+  }) =>
+      Dismissible(
+        background: Container(
+          color: myFavColor,
+          child: const  Padding(
+            padding: EdgeInsetsDirectional.only(start: 16),
+            child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Icon(Icons.delete_outline,color: Colors.white,)),
           ),
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ListTile(
-              title: Row(
-                children: [
-                  Text(
-                    model.name,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  const SizedBox(
-                    width: 6,
-                  ),
-                  Text(
-                    model.label,
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(fontSize: 14),
-                  ),
-                ],
+        ),
+        secondaryBackground: Container(
+          color: myFavColor,
+          child: const Padding(
+            padding: EdgeInsetsDirectional.only(end: 16),
+            child: Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Icon(Icons.delete_outline,color: Colors.white,)),
+          ),
+        ),
+        key: UniqueKey(),
+        onDismissed: (direction){
+          ProfileCubit.get(context).deleteData(id: model["id"]);
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20),
+            highlightColor: myFavColor.withOpacity(0.5),
+            onTap: () {},
+            child: Card(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              color: Theme.of(context).cardColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-              subtitle: Text(model.phone),
-              leading: Icon(
-                Icons.person_outline_sharp,
-                color: myFavColor11,
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ListTile(
+                  title: Row(
+                    children: [
+                      Text(
+                        "${model["name"]}",
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        "${model["nickname"]}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption!
+                            .copyWith(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                  subtitle: Text("${model["phone"]}"),
+                  leading: Icon(
+                    Icons.person_outline_sharp,
+                    color: myFavColor11,
+                  ),
+                  contentPadding: EdgeInsets.zero,
+                ),
               ),
-              contentPadding: EdgeInsets.zero,
             ),
           ),
         ),
-      ),
-    );
+      );
+}
