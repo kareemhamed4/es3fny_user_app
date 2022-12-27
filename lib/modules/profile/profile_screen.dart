@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/modules/setting/settings_screen.dart';
@@ -17,7 +18,6 @@ class PersonalModel {
     required this.widget,
   });
 }
-
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -40,7 +40,6 @@ class ProfileScreen extends StatelessWidget {
     TextEditingController familyNameController = TextEditingController();
     TextEditingController familyPhoneController = TextEditingController();
     TextEditingController familyNicknameController = TextEditingController();
-
 
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
@@ -197,12 +196,18 @@ class ProfileScreen extends StatelessWidget {
                                         Expanded(
                                           child: GestureDetector(
                                             onTap: () {
-                                              cubit.changePageIndex(0);
-                                              pageController.previousPage(
-                                                  duration: const Duration(
-                                                      milliseconds: 750),
-                                                  curve: Curves
-                                                      .fastLinearToSlowEaseIn);
+                                              cubit.isEnabledGesture
+                                                  ? {
+                                                      cubit.changePageIndex(0),
+                                                      pageController.previousPage(
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      750),
+                                                          curve: Curves
+                                                              .fastLinearToSlowEaseIn)
+                                                    }
+                                                  : null;
                                             },
                                             child: SizedBox(
                                               width: double.infinity,
@@ -384,23 +389,33 @@ class ProfileScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Column(
-                                children: [
-                                  Expanded(
-                                    child: ListView.separated(
-                                        itemBuilder: (context, index) =>
-                                            buildFamilyPageViewScreen(
+                              ConditionalBuilder(
+                                condition: cubit.family.isNotEmpty,
+                                builder: (context) => Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: ListView.separated(
+                                          itemBuilder: (context, index) =>
+                                              buildFamilyPageViewScreen(
                                                 context: context,
                                                 size: size,
                                                 model: cubit.family[index],
-                                            ),
-                                        separatorBuilder: (context, index) =>
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                        itemCount: cubit.family.length),
-                                  ),
-                                ],
+                                              ),
+                                          separatorBuilder: (context, index) =>
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          itemCount: cubit.family.length),
+                                    ),
+                                  ],
+                                ),
+                                fallback: (context) => Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("لا توجد أفراد، أضف الآن",style: Theme.of(context).textTheme.caption,),
+                                  ],
+                                ),
                               ),
                             ],
                             onPageChanged: (index) {
@@ -419,13 +434,15 @@ class ProfileScreen extends StatelessWidget {
               ? FloatingActionButton(
                   onPressed: () {
                     if (cubit.isBottomSheetShown) {
-                      if(formKey.currentState!.validate()){
+                      if (formKey.currentState!.validate()) {
+                        cubit.changeIsEnabledGestureState(isEnabled: true);
                         cubit.insertToDatabase(
                             name: familyNameController.text,
                             phone: familyPhoneController.text,
-                            nickname: familyNicknameController.text
-                        );
-                        cubit.getFamilyDataFromDatabase(cubit.database).then((value) {
+                            nickname: familyNicknameController.text);
+                        cubit
+                            .getFamilyDataFromDatabase(cubit.database)
+                            .then((value) {
                           cubit.family = value;
                           if (kDebugMode) {
                             print(cubit.family);
@@ -436,61 +453,63 @@ class ProfileScreen extends StatelessWidget {
                     } else {
                       cubit.changeFabIcon();
                       cubit.changeScrollPhysics();
-                      scaffoldKey.currentState!.showBottomSheet((context) {
-                        return Container(
-                          color: myFavColor.withOpacity(0.1),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Form(
-                              key: formKey,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  myTextFormField(
+                      cubit.changeIsEnabledGestureState(isEnabled: false);
+                      scaffoldKey.currentState!
+                          .showBottomSheet((context) {
+                            return Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Form(
+                                key: formKey,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    myTextFormField(
+                                        context: context,
+                                        controller: familyNameController,
+                                        validate: (value) {
+                                          if (value!.isEmpty) {
+                                            return "برجاء ادخال الإسم";
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: const Icon(Icons.title),
+                                        hint: "الإسم"),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    myTextFormField(
                                       context: context,
-                                      controller: familyNameController,
+                                      controller: familyPhoneController,
+                                      prefixIcon:
+                                          const Icon(Icons.dialpad_outlined),
+                                      hint: "رقم الهاتف",
                                       validate: (value) {
-                                        if (value!.isEmpty) {
-                                          return "برجاء ادخال الإسم";
+                                        if (value!.length < 11) {
+                                          return "برجاء ادخال رقم هاتف صحيح";
                                         }
                                         return null;
                                       },
-                                      prefixIcon: const Icon(Icons.title),
-                                      hint: "الإسم"),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  myTextFormField(
-                                    context: context,
-                                    controller: familyPhoneController,
-                                    prefixIcon:
-                                        const Icon(Icons.dialpad_outlined),
-                                    hint: "رقم الهاتف",
-                                    validate: (value) {
-                                      if (value!.length < 11) {
-                                        return "برجاء ادخال رقم هاتف صحيح";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
-                                  myTextFormField(
-                                      context: context,
-                                      controller: familyNicknameController,
-                                      prefixIcon: const Icon(
-                                          Icons.label_important_outline),
-                                      hint: "الكنية"),
-                                ],
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    myTextFormField(
+                                        context: context,
+                                        controller: familyNicknameController,
+                                        prefixIcon: const Icon(
+                                            Icons.label_important_outline),
+                                        hint: "الكنية"),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      }).closed.then((value){
-                        cubit.changeFabIcon();
-                        cubit.changeScrollPhysics();
-                      });
+                            );
+                          })
+                          .closed
+                          .then((value) {
+                            cubit.changeIsEnabledGestureState(isEnabled: true);
+                            cubit.changeFabIcon();
+                            cubit.changeScrollPhysics();
+                          });
                     }
                   },
                   backgroundColor: myFavColor,
@@ -504,6 +523,7 @@ class ProfileScreen extends StatelessWidget {
       },
     );
   }
+
   Widget buildPersonalInfoItem({
     required BuildContext context,
     required Size size,
@@ -556,25 +576,25 @@ class ProfileScreen extends StatelessWidget {
   }) =>
       Dismissible(
         background: Container(
-          color: myFavColor,
-          child: const  Padding(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: const Padding(
             padding: EdgeInsetsDirectional.only(start: 16),
             child: Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: Icon(Icons.delete_outline,color: Colors.white,)),
+                child: Icon(Icons.delete_outline)),
           ),
         ),
         secondaryBackground: Container(
-          color: myFavColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: const Padding(
             padding: EdgeInsetsDirectional.only(end: 16),
             child: Align(
                 alignment: AlignmentDirectional.centerEnd,
-                child: Icon(Icons.delete_outline,color: Colors.white,)),
+                child: Icon(Icons.delete_outline)),
           ),
         ),
         key: UniqueKey(),
-        onDismissed: (direction){
+        onDismissed: (direction) {
           ProfileCubit.get(context).deleteData(id: model["id"]);
         },
         child: Padding(

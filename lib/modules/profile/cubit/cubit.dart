@@ -107,7 +107,19 @@ class ProfileCubit extends Cubit<ProfileStates> {
     database.rawDelete(
       'DELETE FROM family WHERE id = ?', [id]
     ).then((value){
+      getFamilyDataFromDatabase(database).then((value) {
+        family = value;
+        if (kDebugMode) {
+          print(family);
+        }
+      });
       emit(ProfileDeleteDataFromDatabaseState());
     });
+  }
+
+  bool isEnabledGesture = true;
+  void changeIsEnabledGestureState({required bool isEnabled}){
+    isEnabledGesture = isEnabled;
+    emit(ProfileIsEnabledGestureState());
   }
 }
