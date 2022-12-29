@@ -130,5 +130,7 @@
   "pick_location_validate": "Required",
   "destination_location": "Destination Location (Optional)",
   "destination_location_2": "Name of hospital",
-  "edit_location_button": "CHANGE"
+  "edit_location_button": "CHANGE",
+
+  "edit_dialog_title" : "Update"
 }

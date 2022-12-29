@@ -13,4 +13,3 @@ class ProfileGetDataFromDatabaseState extends ProfileStates{}
 class ProfileDeleteDataFromDatabaseState extends ProfileStates{}
 
 class ProfileIsEnabledGestureState extends ProfileStates{}
-

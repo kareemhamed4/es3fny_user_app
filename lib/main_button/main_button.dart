@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -45,8 +46,21 @@ class LoadingButtonState extends State<LoadingButton>
         showMyDialog(
           context: context,
           icon: Icons.info_outline,
-          title: "alert",
-          content: "alert_content",
+          titleWidget: Text(
+            "alert".tr(context),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(fontSize: 18),
+          ),
+          contentWidget: Text(
+            "alert_content".tr(context),
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .caption!
+                .copyWith(fontSize: 18),
+          ),
           onConfirm: (){
             Navigator.pop(context, "Ok");
             context.read<LayoutCubit>().changeIndex(1);

@@ -130,5 +130,7 @@
   "pick_location_validate": "يجب ادخال موقعك الحالي",
   "destination_location": "المكان المقصود (اختياري)",
   "destination_location_2": "اسم المستشفي",
-  "edit_location_button": "تغيير"
+  "edit_location_button": "تغيير",
+
+  "edit_dialog_title" : "تعديل"
 }

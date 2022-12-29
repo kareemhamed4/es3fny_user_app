@@ -338,8 +338,21 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                             showMyDialog(
                                 context: context,
                                 icon: Icons.info_outline,
-                                title: "track_alert",
-                                content: "track_alert_content",
+                                titleWidget: Text(
+                                  "track_alert".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(fontSize: 18),
+                              ),
+                                contentWidget: Text(
+                                "track_alert_content".tr(context),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .copyWith(fontSize: 18),
+                              ),
                                 onConfirm: (){
                                   Navigator.of(context).popUntil((route) => route.isFirst);
                                   NavigateToReb(context: context, widget: const LayoutScreen());

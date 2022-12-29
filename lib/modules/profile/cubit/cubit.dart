@@ -117,6 +117,13 @@ class ProfileCubit extends Cubit<ProfileStates> {
     });
   }
 
+  void updateData()async{
+    await database.rawUpdate(
+      'UPDATE family SET name = ?, value = ? WHERE name = ?',
+      ['updated name', '9876', 'some name'],
+    );
+  }
+
   bool isEnabledGesture = true;
   void changeIsEnabledGestureState({required bool isEnabled}){
     isEnabledGesture = isEnabled;

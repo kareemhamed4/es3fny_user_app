@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/modules/setting/settings_screen.dart';
@@ -7,6 +8,7 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PersonalModel {
@@ -18,28 +20,29 @@ class PersonalModel {
     required this.widget,
   });
 }
-
+//ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
+  PageController pageController = PageController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController nIDController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+
+  TextEditingController familyNameController = TextEditingController();
+  TextEditingController familyPhoneController = TextEditingController();
+  TextEditingController familyNicknameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var scaffoldKey = GlobalKey<ScaffoldState>();
-    var formKey = GlobalKey<FormState>();
-    PageController pageController = PageController();
-    TextEditingController nameController = TextEditingController();
-    TextEditingController nIDController = TextEditingController();
-    TextEditingController phoneController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController ageController = TextEditingController();
     nameController.text = "محمد أحمد عبد الغني دومه";
     nIDController.text = "30004011601693";
     phoneController.text = "01157567842";
     emailController.text = "mohamed.abdelghany@gmail.com";
     ageController.text = "22";
-    TextEditingController familyNameController = TextEditingController();
-    TextEditingController familyPhoneController = TextEditingController();
-    TextEditingController familyNicknameController = TextEditingController();
 
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
@@ -394,6 +397,7 @@ class ProfileScreen extends StatelessWidget {
                                 builder: (context) => Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
+                                    const SizedBox(height: 5,),
                                     Expanded(
                                       child: ListView.separated(
                                           itemBuilder: (context, index) =>
@@ -574,7 +578,83 @@ class ProfileScreen extends StatelessWidget {
     required Size size,
     required Map model,
   }) =>
-      Dismissible(
+      Slidable(
+        endActionPane: ActionPane(
+            motion: const StretchMotion(),
+            children: [
+              SlidableAction(
+                  onPressed: ((context){
+                    ProfileCubit.get(context).deleteData(id: model["id"]);
+                  }),
+                backgroundColor: myFavColor,
+                icon: Icons.delete_outline,
+              )
+            ]
+        ),
+        startActionPane: ActionPane(
+            motion: const StretchMotion(),
+            children: [
+              SlidableAction(
+                onPressed: ((context){
+                  showMyDialog(
+                      context: context,
+                      onConfirm: (){},
+                      titleWidget: Text(
+                      "edit_dialog_title".tr(context),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 18),
+                    ),
+                      contentWidget: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          myTextFormField(
+                              context: context,
+                              controller: familyNameController,
+                              validate: (value) {
+                                if (value!.isEmpty) {
+                                  return "برجاء ادخال الإسم";
+                                }
+                                return null;
+                              },
+                              prefixIcon: const Icon(Icons.title),
+                              hint: "الإسم"),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          myTextFormField(
+                            context: context,
+                            controller: familyPhoneController,
+                            prefixIcon:
+                            const Icon(Icons.dialpad_outlined),
+                            hint: "رقم الهاتف",
+                            validate: (value) {
+                              if (value!.length < 11) {
+                                return "برجاء ادخال رقم هاتف صحيح";
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          myTextFormField(
+                              context: context,
+                              controller: familyNicknameController,
+                              prefixIcon: const Icon(
+                                  Icons.label_important_outline),
+                              hint: "الكنية"),
+                        ],
+                      ),
+                  );
+                }),
+                backgroundColor: myFavColor11,
+                icon: Icons.edit_outlined,
+              ),
+            ]
+        ),
+        /*direction:  DismissDirection.startToEnd,
         background: Container(
           color: Theme.of(context).scaffoldBackgroundColor,
           child: const Padding(
@@ -596,48 +676,39 @@ class ProfileScreen extends StatelessWidget {
         key: UniqueKey(),
         onDismissed: (direction) {
           ProfileCubit.get(context).deleteData(id: model["id"]);
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            highlightColor: myFavColor.withOpacity(0.5),
-            onTap: () {},
-            child: Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              color: Theme.of(context).cardColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      Text(
-                        "${model["name"]}",
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        "${model["nickname"]}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  subtitle: Text("${model["phone"]}"),
-                  leading: Icon(
-                    Icons.person_outline_sharp,
-                    color: myFavColor11,
-                  ),
-                  contentPadding: EdgeInsets.zero,
+        },*/
+        child: InkWell(
+          highlightColor: myFavColor.withOpacity(0.5),
+          onTap: () {},
+          child: Container(
+            color: Theme.of(context).cardColor,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListTile(
+                title: Row(
+                  children: [
+                    Text(
+                      "${model["name"]}",
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    const SizedBox(
+                      width: 6,
+                    ),
+                    Text(
+                      "${model["nickname"]}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption!
+                          .copyWith(fontSize: 14),
+                    ),
+                  ],
                 ),
+                subtitle: Text("${model["phone"]}"),
+                leading: Icon(
+                  Icons.person_outline_sharp,
+                  color: myFavColor11,
+                ),
+                contentPadding: EdgeInsets.zero,
               ),
             ),
           ),

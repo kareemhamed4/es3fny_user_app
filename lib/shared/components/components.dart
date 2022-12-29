@@ -296,10 +296,10 @@ void displayWarningMotionToast({
 
 void showMyDialog({
   required BuildContext context,
-  String? title,
-  String? content,
   IconData? icon,
   required Function onConfirm,
+  Widget? contentWidget,
+  Widget? titleWidget,
 }){
   showDialog<String>(
     context: context,
@@ -313,21 +313,8 @@ void showMyDialog({
         borderRadius: BorderRadius.circular(20),
         borderSide: BorderSide.none,
       ),
-      title: Text(
-        title!.tr(context),
-        style: Theme.of(context)
-            .textTheme
-            .bodyText2!
-            .copyWith(fontSize: 18),
-      ),
-      content: Text(
-        content!.tr(context),
-        textAlign: TextAlign.center,
-        style: Theme.of(context)
-            .textTheme
-            .caption!
-            .copyWith(fontSize: 18),
-      ),
+      title: titleWidget ?? const SizedBox(),
+      content: contentWidget ?? const SizedBox(),
       actions: <Widget>[
         MaterialButton(
           color: Colors.white,

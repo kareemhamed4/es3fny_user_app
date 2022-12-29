@@ -15,7 +15,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     const HomeScreen(),
     const TrackingScreen(),
     HelpServicesScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
 
   int currentIndex = 0;
