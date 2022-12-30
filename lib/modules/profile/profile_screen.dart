@@ -578,140 +578,148 @@ class ProfileScreen extends StatelessWidget {
     required Size size,
     required Map model,
   }) =>
-      Slidable(
-        endActionPane: ActionPane(
-            motion: const StretchMotion(),
-            children: [
-              SlidableAction(
-                  onPressed: ((context){
-                    ProfileCubit.get(context).deleteData(id: model["id"]);
-                  }),
-                backgroundColor: myFavColor,
-                icon: Icons.delete_outline,
-              )
-            ]
-        ),
-        startActionPane: ActionPane(
-            motion: const StretchMotion(),
-            children: [
-              SlidableAction(
-                onPressed: ((context){
-                  showMyDialog(
-                      context: context,
-                      onConfirm: (){},
-                      titleWidget: Text(
-                      "edit_dialog_title".tr(context),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 18),
-                    ),
-                      contentWidget: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          myTextFormField(
+      BlocConsumer<ProfileCubit,ProfileStates>(
+        listener: (context,state){},
+        builder: (context,state){
+          familyNameController.text = model["name"];
+          familyPhoneController.text = model["phone"];
+          familyNicknameController.text = model["nickname"];
+          return Slidable(
+            endActionPane: ActionPane(
+                motion: const StretchMotion(),
+                children: [
+                  SlidableAction(
+                    onPressed: ((context){
+                      ProfileCubit.get(context).deleteData(id: model["id"]);
+                    }),
+                    backgroundColor: myFavColor,
+                    icon: Icons.delete_outline,
+                  )
+                ]
+            ),
+            startActionPane: ActionPane(
+                motion: const StretchMotion(),
+                children: [
+                  SlidableAction(
+                    onPressed: ((context){
+                      showMyDialog(
+                        context: context,
+                        onConfirm: (){},
+                        titleWidget: Text(
+                          "edit_dialog_title".tr(context),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 18),
+                        ),
+                        contentWidget: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            myTextFormField(
+                                context: context,
+                                controller: familyNameController,
+                                validate: (value) {
+                                  if (value!.isEmpty) {
+                                    return "برجاء ادخال الإسم";
+                                  }
+                                  return null;
+                                },
+                                prefixIcon: const Icon(Icons.title),
+                                hint: "الإسم"),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            myTextFormField(
                               context: context,
-                              controller: familyNameController,
+                              controller: familyPhoneController,
+                              prefixIcon:
+                              const Icon(Icons.dialpad_outlined),
+                              hint: "رقم الهاتف",
                               validate: (value) {
-                                if (value!.isEmpty) {
-                                  return "برجاء ادخال الإسم";
+                                if (value!.length < 11) {
+                                  return "برجاء ادخال رقم هاتف صحيح";
                                 }
                                 return null;
                               },
-                              prefixIcon: const Icon(Icons.title),
-                              hint: "الإسم"),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          myTextFormField(
-                            context: context,
-                            controller: familyPhoneController,
-                            prefixIcon:
-                            const Icon(Icons.dialpad_outlined),
-                            hint: "رقم الهاتف",
-                            validate: (value) {
-                              if (value!.length < 11) {
-                                return "برجاء ادخال رقم هاتف صحيح";
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          myTextFormField(
-                              context: context,
-                              controller: familyNicknameController,
-                              prefixIcon: const Icon(
-                                  Icons.label_important_outline),
-                              hint: "الكنية"),
-                        ],
-                      ),
-                  );
-                }),
-                backgroundColor: myFavColor11,
-                icon: Icons.edit_outlined,
-              ),
-            ]
-        ),
-        /*direction:  DismissDirection.startToEnd,
-        background: Container(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: const Padding(
-            padding: EdgeInsetsDirectional.only(start: 16),
-            child: Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: Icon(Icons.delete_outline)),
-          ),
-        ),
-        secondaryBackground: Container(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: const Padding(
-            padding: EdgeInsetsDirectional.only(end: 16),
-            child: Align(
-                alignment: AlignmentDirectional.centerEnd,
-                child: Icon(Icons.delete_outline)),
-          ),
-        ),
-        key: UniqueKey(),
-        onDismissed: (direction) {
-          ProfileCubit.get(context).deleteData(id: model["id"]);
-        },*/
-        child: InkWell(
-          highlightColor: myFavColor.withOpacity(0.5),
-          onTap: () {},
-          child: Container(
-            color: Theme.of(context).cardColor,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ListTile(
-                title: Row(
-                  children: [
-                    Text(
-                      "${model["name"]}",
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(
-                      "${model["nickname"]}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption!
-                          .copyWith(fontSize: 14),
-                    ),
-                  ],
-                ),
-                subtitle: Text("${model["phone"]}"),
-                leading: Icon(
-                  Icons.person_outline_sharp,
-                  color: myFavColor11,
-                ),
-                contentPadding: EdgeInsets.zero,
-              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            myTextFormField(
+                                context: context,
+                                controller: familyNicknameController,
+                                prefixIcon: const Icon(
+                                    Icons.label_important_outline),
+                                hint: "الكنية"),
+                          ],
+                        ),
+                      );
+                    }),
+                    backgroundColor: myFavColor11,
+                    icon: Icons.edit_outlined,
+                  ),
+                ]
+            ),
+            /*direction:  DismissDirection.startToEnd,
+          background: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: const Padding(
+              padding: EdgeInsetsDirectional.only(start: 16),
+              child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Icon(Icons.delete_outline)),
             ),
           ),
-        ),
+          secondaryBackground: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: const Padding(
+              padding: EdgeInsetsDirectional.only(end: 16),
+              child: Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Icon(Icons.delete_outline)),
+            ),
+          ),
+          key: UniqueKey(),
+          onDismissed: (direction) {
+            ProfileCubit.get(context).deleteData(id: model["id"]);
+          },*/
+            child: InkWell(
+              highlightColor: myFavColor.withOpacity(0.5),
+              onTap: () {},
+              child: Container(
+                color: Theme.of(context).cardColor,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        Text(
+                          "${model["name"]}",
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Text(
+                          "${model["nickname"]}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    subtitle: Text("${model["phone"]}"),
+                    leading: Icon(
+                      Icons.person_outline_sharp,
+                      color: myFavColor11,
+                    ),
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       );
 }
