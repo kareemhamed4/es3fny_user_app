@@ -23,6 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
       listener: (context,state){},
       builder: (context,state){
         return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(0),
+              child: AppBar()
+          ),
           body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(16),

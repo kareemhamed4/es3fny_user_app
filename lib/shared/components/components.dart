@@ -300,57 +300,65 @@ void showMyDialog({
   required Function onConfirm,
   Widget? contentWidget,
   Widget? titleWidget,
+  Key? formKey,
 }){
   showDialog<String>(
     context: context,
-    builder: (BuildContext context) => AlertDialog(
-      icon: Icon(
-        icon ?? Icons.info_outline,
-        color: myFavColor,
-      ),
-      backgroundColor: Theme.of(context).cardColor,
-      shape: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide.none,
-      ),
-      title: titleWidget ?? const SizedBox(),
-      content: contentWidget ?? const SizedBox(),
-      actions: <Widget>[
-        MaterialButton(
-          color: Colors.white,
-          shape: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
-          onPressed: () {
-            Navigator.pop(context, 'Cancel');
-          },
-          child: Text(
-            "alert_cancel".tr(context),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2!
-                .copyWith(color: myFavColor, fontSize: 20),
+    builder: (dialogContext) => Form(
+      key: formKey,
+      child: Center(
+        child: SingleChildScrollView(
+          child: AlertDialog(
+            icon: Icon(
+              icon ?? Icons.info_outline,
+              color: myFavColor,
+            ),
+            backgroundColor: Theme.of(context).cardColor,
+            shape: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            title: titleWidget ?? const SizedBox(),
+            content: contentWidget ?? const SizedBox(),
+            actions: <Widget>[
+              MaterialButton(
+                color: Colors.white,
+                shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                onPressed: () {
+                  Navigator.pop(context, 'Cancel');
+                },
+                child: Text(
+                  "alert_cancel".tr(context),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: myFavColor, fontSize: 20),
+                ),
+              ),
+              MaterialButton(
+                color: myFavColor,
+                shape: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+                onPressed: () {
+                  onConfirm();
+                },
+                child: Text(
+                  "alert_confirm".tr(context),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Colors.white, fontSize: 20),
+                ),
+              ),
+            ],
           ),
         ),
-        MaterialButton(
-          color: myFavColor,
-          shape: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
-          onPressed: () {
-            onConfirm();
-          },
-          child: Text(
-            "alert_confirm".tr(context),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2!
-                .copyWith(color: Colors.white, fontSize: 20),
-          ),
-        ),
-      ],
+      ),
     ),);
 }
 

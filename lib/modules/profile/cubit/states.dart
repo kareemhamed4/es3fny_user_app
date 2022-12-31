@@ -11,5 +11,6 @@ class ProfileInsertToDatabaseState extends ProfileStates{}
 
 class ProfileGetDataFromDatabaseState extends ProfileStates{}
 class ProfileDeleteDataFromDatabaseState extends ProfileStates{}
+class ProfileUpdateDataFromDatabaseState extends ProfileStates{}
 
 class ProfileIsEnabledGestureState extends ProfileStates{}
