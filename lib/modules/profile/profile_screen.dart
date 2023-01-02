@@ -4,6 +4,7 @@ import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/modules/setting/settings_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +135,11 @@ class ProfileScreen extends StatelessWidget {
                                 )),
                             const Spacer(),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (kDebugMode) {
+                                    print(uId);
+                                  }
+                                },
                                 icon: Icon(
                                   Icons.notifications_none_outlined,
                                   color: myFavColor12,

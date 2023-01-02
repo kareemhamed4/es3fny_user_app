@@ -327,7 +327,7 @@ class _RegisterState extends State<Register> {
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
+                              CacheHelper.saveData(key: 'uId', value: cubit.getLoggedInUser().uid).then((value) {
                                 cubit.submitPhoneNumber(phoneNumber);
                               });
                             }
