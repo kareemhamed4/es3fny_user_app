@@ -4,6 +4,7 @@ import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/force_restart.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
@@ -11,12 +12,14 @@ import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
   uId = CacheHelper.getData(key: 'uId');
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1)),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()),
+        BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},
