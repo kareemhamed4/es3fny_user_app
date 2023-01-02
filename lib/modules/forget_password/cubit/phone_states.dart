@@ -9,3 +9,4 @@ class PhoneAuthErrorState extends PhoneAuthStates {
 }
 class PhoneNumberSubmitted extends PhoneAuthStates {}
 class PhoneOTPVerified extends PhoneAuthStates {}
+class ChangeSuffixState extends PhoneAuthStates {}

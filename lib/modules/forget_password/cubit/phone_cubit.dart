@@ -1,6 +1,7 @@
 import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
@@ -12,7 +13,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
   Future<void> submitPhoneNumber(String phoneNumber) async {
     emit(PhoneAuthLoadingState());
     await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+20$phoneNumber',
+        phoneNumber: phoneNumber,
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
         codeSent: codeSent,
@@ -68,8 +69,31 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     await FirebaseAuth.instance.signOut();
   }
 
-  User getLoggedInUser(){
+  User getLoggedInUser() {
     User firebaseUser = FirebaseAuth.instance.currentUser!;
     return firebaseUser;
+  }
+
+  //register cubit functions
+  bool isPasswordRegister = true;
+  IconData suffixIconRegister = Icons.visibility_off_outlined;
+
+  void changeSuffixIconRegister() {
+    isPasswordRegister = !isPasswordRegister;
+    suffixIconRegister = isPasswordRegister
+        ? Icons.visibility_off_outlined
+        : Icons.remove_red_eye;
+    emit(ChangeSuffixState());
+  }
+
+  bool isPasswordConfirmRegister = true;
+  IconData suffixIconConfirmRegister = Icons.visibility_off_outlined;
+
+  void changeSuffixIconConfirmRegister() {
+    isPasswordConfirmRegister = !isPasswordConfirmRegister;
+    suffixIconConfirmRegister = isPasswordConfirmRegister
+        ? Icons.visibility_off_outlined
+        : Icons.remove_red_eye;
+    emit(ChangeSuffixState());
   }
 }

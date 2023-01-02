@@ -1,8 +1,8 @@
 import 'package:es3fny_user_app/app_localization.dart';
-import 'package:es3fny_user_app/cubit/cubit.dart';
-import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
-import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
+import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
+import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -19,8 +19,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  late String phoneNumber;
   TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -51,10 +51,29 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<MainCubit, MainStates>(
-      listener: (context, states) {},
+    return BlocConsumer<PhoneAuthCubit, PhoneAuthStates>(
+      listener: (context, state) {
+        if (state is PhoneAuthLoadingState) {
+          showProgressIndicator(context);
+        }
+        if (state is PhoneNumberSubmitted) {
+          NavigateTo(
+              context: context,
+              widget: OTPScreen(
+                phoneNumber: phoneNumber,
+              ));
+        }
+        if (state is PhoneAuthErrorState) {
+          String errorMsg = (state).errorMsg;
+          displayErrorMotionToast(
+            context: context,
+            title: "error",
+            description: errorMsg,
+          );
+        }
+      },
       builder: (context, states) {
-        MainCubit cubit = BlocProvider.of(context);
+        PhoneAuthCubit cubit = BlocProvider.of(context);
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -155,6 +174,9 @@ class _RegisterState extends State<Register> {
                             setSelectorButtonAsPrefixIcon: true,
                             leadingPadding: 16,
                           ),
+                          onSaved: (phoneNumber){
+                            this.phoneNumber = phoneNumber.phoneNumber!;
+                          },
                         ),
                       ),
                       SizedBox(
@@ -286,7 +308,7 @@ class _RegisterState extends State<Register> {
                           hint: '● ● ● ● ● ● ● ●',
                           context: context,
                           onSubmit: (value) {
-                            registerSubmit();
+
                           },
                           controller: passwordConfirmController,
                           type: TextInputType.visiblePassword,
@@ -303,7 +325,12 @@ class _RegisterState extends State<Register> {
                       myMaterialButton(
                           context: context,
                           onPressed: () {
-                            registerSubmit();
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
+                                cubit.submitPhoneNumber(phoneNumber);
+                              });
+                            }
                           },
                           label: 'register_button'.tr(context)),
                       SizedBox(
@@ -370,22 +397,29 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  void showProgressIndicator(BuildContext context) {
+    AlertDialog alertDialog = AlertDialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+        ),
+      ),
+    );
+    showDialog(
+        context: context,
+        barrierColor: Colors.white.withOpacity(0),
+        barrierDismissible: false,
+        builder: (context) {
+          return alertDialog;
+        });
+  }
+
   String generateCountryFlag() {
     String countryCode = "eg";
     String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
     return flag;
-  }
-
-  void registerSubmit() {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('register_snackBar'.tr(context))));
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        NavigateToReb(context: context, widget: const SplashScreen());
-      });
-    }
   }
 }

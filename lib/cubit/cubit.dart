@@ -19,28 +19,6 @@ class MainCubit extends Cubit<MainStates> {
     emit(ChangeSuffixState());
   }
 
-  bool isPasswordRegister = true;
-  IconData suffixIconRegister = Icons.visibility_off_outlined;
-
-  void changeSuffixIconRegister() {
-    isPasswordRegister = !isPasswordRegister;
-    suffixIconRegister = isPasswordRegister
-        ? Icons.visibility_off_outlined
-        : Icons.remove_red_eye;
-    emit(ChangeSuffixState());
-  }
-
-  bool isPasswordConfirmRegister = true;
-  IconData suffixIconConfirmRegister = Icons.visibility_off_outlined;
-
-  void changeSuffixIconConfirmRegister() {
-    isPasswordConfirmRegister = !isPasswordConfirmRegister;
-    suffixIconConfirmRegister = isPasswordConfirmRegister
-        ? Icons.visibility_off_outlined
-        : Icons.remove_red_eye;
-    emit(ChangeSuffixState());
-  }
-
   bool isPasswordCreate = true;
   IconData suffixIconCreate = Icons.visibility_off_outlined;
 

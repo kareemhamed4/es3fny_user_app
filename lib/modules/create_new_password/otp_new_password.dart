@@ -1,5 +1,5 @@
 import 'package:es3fny_user_app/app_localization.dart';
-import 'package:es3fny_user_app/layout/layout_screen.dart';
+import 'package:es3fny_user_app/modules/create_new_password/newpassword.dart';
 import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
 import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -10,15 +10,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OTPScreen extends StatefulWidget {
+class OTPScreenForNewPassword extends StatefulWidget {
   final String phoneNumber;
-  const OTPScreen({Key? key,required this.phoneNumber}) : super(key: key);
+  const OTPScreenForNewPassword({Key? key,required this.phoneNumber}) : super(key: key);
 
   @override
-  State<OTPScreen> createState() => _OTPScreenState();
+  State<OTPScreenForNewPassword> createState() => _OTPScreenForNewPasswordState();
 }
 
-class _OTPScreenState extends State<OTPScreen> {
+class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
   late String otpCode;
 
   @override
@@ -30,10 +30,8 @@ class _OTPScreenState extends State<OTPScreen> {
           showProgressIndicator(context);
         }
         if (state is PhoneOTPVerified) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('register_snackBar'.tr(context))));
           Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const LayoutScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NewPassword()));
         }
         if (state is PhoneAuthErrorState) {
           Navigator.pop(context);

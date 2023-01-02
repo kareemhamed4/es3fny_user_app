@@ -24,109 +24,104 @@ class NewPassword extends StatelessWidget {
         MainCubit cubit = BlocProvider.of(context);
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back_outlined),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
+          appBar: AppBar(),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      Text("create_password".tr(context),
-                          style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontSize: 32,
-                            color: myFavColor
-                          )),
-                      SizedBox(
-                        height: size.height * 0.201,
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(
-                          'create_password_enter'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        Text("create_password".tr(context),
+                            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              fontSize: 32,
+                              color: myFavColor
+                            )),
+                        SizedBox(
+                          height: size.height * 0.201,
                         ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.016,
-                      ),
-                      myTextFormField(
-                        validate: (value){
-                          if(value!.length < 8){
-                            return "create_password_valid".tr(context);
-                          }
-                          return null;
-                        },
-                        hint: '● ● ● ● ● ● ● ●',
-                        textAlign: TextAlign.right,
-                        type: TextInputType.visiblePassword,
-                        isPassword: cubit.isPasswordCreate,
-                        suffixIcon: IconButton(
-                          onPressed: (){
-                            cubit.changeSuffixIconCreate();
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            'create_password_enter'.tr(context),
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.016,
+                        ),
+                        myTextFormField(
+                          validate: (value){
+                            if(value!.length < 8){
+                              return "create_password_valid".tr(context);
+                            }
+                            return null;
                           },
-                            icon: Icon(cubit.suffixIconCreate,color: Theme.of(context).iconTheme.color,),
-                        ),
-                        context: context,
-                        controller: passwordController,
-                        onSubmit: (value) {},
-                      ),
-                      SizedBox(
-                        height: size.height * 0.0123,
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: Text(
-                          'create_confirm_password_enter'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.016,
-                      ),
-                      myTextFormField(
-                        validate: (value){
-                          if(value != passwordController.text){
-                            return "create_confirm_password_valid".tr(context);
-                          }
-                          return null;
-                        },
-                        hint: '● ● ● ● ● ● ● ●',
-                        textAlign: TextAlign.right,
-                        type: TextInputType.visiblePassword,
-                        isPassword: cubit.isPasswordConfirmCreate,
-                        suffixIcon: IconButton(
+                          hint: '● ● ● ● ● ● ● ●',
+                          textAlign: TextAlign.right,
+                          type: TextInputType.visiblePassword,
+                          isPassword: cubit.isPasswordCreate,
+                          suffixIcon: IconButton(
                             onPressed: (){
-                              cubit.changeSuffixIconConfirmCreate();
+                              cubit.changeSuffixIconCreate();
                             },
-                            icon: Icon(cubit.suffixIconConfirmCreate,color: Theme.of(context).iconTheme.color,)),
-                        context: context,
-                        controller: passwordConfirmController,
-                        onSubmit: (value) {},
-                      ),
-                      SizedBox(
-                        height: size.height * 0.123,
-                      ),
-                      myMaterialButton(
-                        context: context,
-                        onPressed: () {
-                          if(formKey.currentState!.validate()){
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text('password_changed_snackBar'.tr(context))));
-                            NavigateTo(context: context, widget: const SplashScreen());
-                          }
-                        },
-                        label: "create_password_button".tr(context),
-                      )
-                    ],
+                              icon: Icon(cubit.suffixIconCreate,color: Theme.of(context).iconTheme.color,),
+                          ),
+                          context: context,
+                          controller: passwordController,
+                          onSubmit: (value) {},
+                        ),
+                        SizedBox(
+                          height: size.height * 0.0123,
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            'create_confirm_password_enter'.tr(context),
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.016,
+                        ),
+                        myTextFormField(
+                          validate: (value){
+                            if(value != passwordController.text){
+                              return "create_confirm_password_valid".tr(context);
+                            }
+                            return null;
+                          },
+                          hint: '● ● ● ● ● ● ● ●',
+                          textAlign: TextAlign.right,
+                          type: TextInputType.visiblePassword,
+                          isPassword: cubit.isPasswordConfirmCreate,
+                          suffixIcon: IconButton(
+                              onPressed: (){
+                                cubit.changeSuffixIconConfirmCreate();
+                              },
+                              icon: Icon(cubit.suffixIconConfirmCreate,color: Theme.of(context).iconTheme.color,)),
+                          context: context,
+                          controller: passwordConfirmController,
+                          onSubmit: (value) {},
+                        ),
+                        SizedBox(
+                          height: size.height * 0.123,
+                        ),
+                        myMaterialButton(
+                          context: context,
+                          onPressed: () {
+                            if(formKey.currentState!.validate()){
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text('password_changed_snackBar'.tr(context))));
+                              NavigateTo(context: context, widget: const SplashScreen());
+                            }
+                          },
+                          label: "create_password_button".tr(context),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

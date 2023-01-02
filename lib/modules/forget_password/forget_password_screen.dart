@@ -1,17 +1,18 @@
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/modules/create_new_password/otp_new_password.dart';
 import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
 import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
-import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 //ignore: must_be_immutable
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({super.key});
-  TextEditingController phoneController = TextEditingController();
+  late String phoneNumber;
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -25,8 +26,8 @@ class ForgetPasswordScreen extends StatelessWidget {
         if (state is PhoneNumberSubmitted) {
           NavigateTo(
               context: context,
-              widget: OTPScreen(
-                phoneNumber: phoneController.text,
+              widget: OTPScreenForNewPassword(
+                phoneNumber: phoneNumber,
               ));
         }
         if (state is PhoneAuthErrorState) {
@@ -103,7 +104,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                         SizedBox(
                           height: size.height * 0.00922,
                         ),
-                        /*Directionality(
+                        Directionality(
                           textDirection: TextDirection.ltr,
                           child: InternationalPhoneNumberInput(
                             countries: const ["EG"],
@@ -132,9 +133,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                               setSelectorButtonAsPrefixIcon: true,
                               leadingPadding: 16,
                             ),
+                            onSaved: (phoneNumber){
+                              this.phoneNumber = phoneNumber.phoneNumber!;
+                            },
                           ),
-                        ),*/
-                        phoneTextFormField(
+                        ),
+                        /*phoneTextFormField(
                         validate: (value){
                           if(value!.isEmpty){
                             return "هذا الحقل مطلوب";
@@ -158,7 +162,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                         type: TextInputType.number,
                         onSubmit: (value) {},
                         controller: phoneController,
-                      ),
+                      ),*/
                         SizedBox(
                           height: size.height * 0.023,
                         ),
@@ -189,7 +193,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                                     SnackBar(
                                         content: Text(
                                             'otp_snackBar'.tr(context))));
-                                cubit.submitPhoneNumber(phoneController.text);
+                                cubit.submitPhoneNumber(phoneNumber);
                               }
                             },
                             label: "send_button".tr(context)),
