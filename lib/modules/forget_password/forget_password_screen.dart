@@ -1,8 +1,8 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/create_new_password/otp_new_password.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -138,31 +138,6 @@ class ForgetPasswordScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                        /*phoneTextFormField(
-                        validate: (value){
-                          if(value!.isEmpty){
-                            return "هذا الحقل مطلوب";
-                          }
-                          return null;
-                        },
-                        prefixIcon: Padding(
-                          padding: const EdgeInsetsDirectional.only(start: 10, end: 6),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(generateCountryFlag(),style: const TextStyle(fontSize: 18),),
-                              const SizedBox(width: 6,),
-                              const Text("+20",style: TextStyle(fontSize: 18),),
-                            ],
-                          ),
-                        ),
-                        context: context,
-                        textAlign: TextAlign.left,
-                        type: TextInputType.number,
-                        onSubmit: (value) {},
-                        controller: phoneController,
-                      ),*/
                         SizedBox(
                           height: size.height * 0.023,
                         ),
@@ -196,7 +171,14 @@ class ForgetPasswordScreen extends StatelessWidget {
                                 cubit.submitPhoneNumber(phoneNumber);
                               }
                             },
-                            label: "send_button".tr(context)),
+                          labelWidget: Text(
+                            "send_button".tr(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .button!
+                                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
+                            ),
                       ],
                     ),
                   ),

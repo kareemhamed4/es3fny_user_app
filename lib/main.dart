@@ -4,12 +4,14 @@ import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/force_restart.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
+import 'package:es3fny_user_app/modules/login/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,14 +24,15 @@ void main()async{
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
   await CacheHelper.init();
-  uId = CacheHelper.getData(key: 'uId');
+  DioHelper.init();
+  token = CacheHelper.getData(key: 'token');
   radioValue = CacheHelper.getData(key: 'RadioValue');
   langCode = CacheHelper.getData(key: 'lang');
   isDark = CacheHelper.getData(key: "isDark") ?? false;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
   Widget widget;
   if(onBoarding != null){
-    if(uId != null){
+    if(token != null){
       widget = const SplashScreen();
     }else{
       widget = LoginScreen();
@@ -53,6 +56,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1)),
+        BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()),
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),

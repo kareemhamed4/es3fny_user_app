@@ -26,8 +26,9 @@ class PersonalModel {
 //ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var formKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "profileScaffoldKey");
+  GlobalKey<FormState> formKey = GlobalKey<FormState>(debugLabel: "profileFormKey");
+  GlobalKey<FormState> formFamilyKey = GlobalKey<FormState>(debugLabel: "familyFormKey");
   var formAlertKey = GlobalKey<FormState>();
   PageController pageController = PageController();
   TextEditingController nameController = TextEditingController();
@@ -137,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   if (kDebugMode) {
-                                    print(uId);
+                                    print(token);
                                   }
                                 },
                                 icon: Icon(

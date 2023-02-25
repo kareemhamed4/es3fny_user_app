@@ -25,22 +25,28 @@ class TestComponents extends StatelessWidget {
               height: 7,
             ),
             myTextFormField(
-              validate: (value){
-                if(value!.isEmpty){
+              validate: (value) {
+                if (value!.isEmpty) {
                   return "Password must not be empty!";
                 }
                 return null;
               },
-                context: context,
+              context: context,
               textAlign: TextAlign.right,
             ),
             const SizedBox(
               height: 20,
             ),
             myMaterialButton(
-                context: context,
-                onPressed: (){},
-                label: "تأكيد"
+              context: context,
+              onPressed: () {},
+              labelWidget: Text(
+                "تأكيد",
+                style: Theme.of(context)
+                    .textTheme
+                    .button!
+                    .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
             ),
             Directionality(
               textDirection: TextDirection.rtl,
@@ -49,12 +55,15 @@ class TestComponents extends StatelessWidget {
                 children: [
                   Text(
                     "اذا لم يتم ارسال لك الرمز!",
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor2),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: myFavColor2),
                   ),
                   myTextButton(
-                      context: context,
-                      label: "إعادة ارسال",
-                      onPressed: (){},
+                    context: context,
+                    label: "إعادة ارسال",
+                    onPressed: () {},
                   )
                 ],
               ),
@@ -62,7 +71,8 @@ class TestComponents extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            onBoardingMaterialButton(context: context, onPressed: (){}, label: "البداية")
+            onBoardingMaterialButton(
+                context: context, onPressed: () {}, label: "البداية")
           ],
         ),
       )),

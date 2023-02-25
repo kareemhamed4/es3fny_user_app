@@ -40,7 +40,10 @@ Widget myTextFormField({
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),
       ],
-      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontFamily: "FinalR",fontSize: 18),
+      style: Theme.of(context)
+          .textTheme
+          .bodyText2!
+          .copyWith(fontFamily: "FinalR", fontSize: 18),
       decoration: InputDecoration(
         hintText: hint ?? '',
         hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 18),
@@ -53,25 +56,22 @@ Widget myTextFormField({
 Widget myMaterialButton({
   required BuildContext context,
   required Function onPressed,
-  String? label,
+  Widget? labelWidget,
+  bool isEnabled = true,
 }) =>
     MaterialButton(
+
       onPressed: () {
-        onPressed();
+        isEnabled ? onPressed() : null;
       },
-      color: myFavColor,
+      color: isEnabled ? myFavColor : myFavColor.withOpacity(0.4),
       minWidth: double.infinity,
       height: 60,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),
-      child: Text(
-        label ?? '',
-        style: Theme.of(context)
-            .textTheme
-            .button!
-            .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
-      ),
+
+      child: labelWidget,
     );
 
 Widget myTextButton({
@@ -81,7 +81,7 @@ Widget myTextButton({
 }) =>
     TextButton(
         onPressed: () {
-          onPressed();
+         onPressed();
         },
         child: Text(
           label,
@@ -227,7 +227,10 @@ Widget phoneTextFormField({
         LengthLimitingTextInputFormatter(maxLength2),
         FilteringTextInputFormatter.allow(RegExp("[0-9]")),
       ],
-      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18,fontFamily: "FinalR"),
+      style: Theme.of(context)
+          .textTheme
+          .bodyText2!
+          .copyWith(fontSize: 18, fontFamily: "FinalR"),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         suffixIcon: suffixIcon,
@@ -241,58 +244,64 @@ void displaySuccessMotionToast({
   required BuildContext context,
   String? title,
   String? description,
-}) => MotionToast.success(
-  title: Text(title ??"",
-    style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
-  ),
-  description: Text(
-    description ?? "",
-    style: TextStyle(color: myFavColor4, fontSize: 12),
-  ),
-  layoutOrientation: ToastOrientation.ltr,
-  animationType: AnimationType.fromTop,
-  position: MotionToastPosition.top,
-  dismissable: true,
-).show(context);
+}) =>
+    MotionToast.success(
+      title: Text(
+        title ?? "",
+        style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
+      ),
+      description: Text(
+        description ?? "",
+        style: TextStyle(color: myFavColor4, fontSize: 12),
+      ),
+      layoutOrientation: ToastOrientation.ltr,
+      animationType: AnimationType.fromTop,
+      position: MotionToastPosition.top,
+      dismissable: true,
+    ).show(context);
 
 void displayErrorMotionToast({
   required BuildContext context,
   String? title,
   String? description,
-}) => MotionToast.error(
-  title: Text(title ??"",
-    style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
-  ),
-  description: Text(
-    description ?? "",
-    style: TextStyle(color: myFavColor4, fontSize: 12),
-  ),
-  layoutOrientation: ToastOrientation.ltr,
-  position: MotionToastPosition.top,
-  barrierColor: Colors.black.withOpacity(0.3),
-  width: 300,
-  height: 80,
-  dismissable: true,
-).show(context);
+}) =>
+    MotionToast.error(
+      title: Text(
+        title ?? "",
+        style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
+      ),
+      description: Text(
+        description ?? "",
+        style: TextStyle(color: myFavColor4, fontSize: 12),
+      ),
+      layoutOrientation: ToastOrientation.ltr,
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: true,
+    ).show(context);
 
 void displayWarningMotionToast({
   required BuildContext context,
   String? title,
   String? description,
-}) => MotionToast.warning(
-  title: Text(title ??"",
-    style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
-  ),
-  description: Text(
-    description ?? "",
-    style: TextStyle(color: myFavColor4, fontSize: 12),
-  ),
-  layoutOrientation: ToastOrientation.ltr,
-  position: MotionToastPosition.top,
-  animationCurve: Curves.bounceIn,
-  borderRadius: 0,
-  animationDuration: const Duration(milliseconds: 1000),
-).show(context);
+}) =>
+    MotionToast.warning(
+      title: Text(
+        title ?? "",
+        style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
+      ),
+      description: Text(
+        description ?? "",
+        style: TextStyle(color: myFavColor4, fontSize: 12),
+      ),
+      layoutOrientation: ToastOrientation.ltr,
+      position: MotionToastPosition.top,
+      animationCurve: Curves.bounceIn,
+      borderRadius: 0,
+      animationDuration: const Duration(milliseconds: 1000),
+    ).show(context);
 
 void showMyDialog({
   required BuildContext context,
@@ -301,7 +310,7 @@ void showMyDialog({
   Widget? contentWidget,
   Widget? titleWidget,
   Key? formKey,
-}){
+}) {
   showDialog<String>(
     context: context,
     builder: (dialogContext) => Form(
@@ -359,66 +368,70 @@ void showMyDialog({
           ),
         ),
       ),
-    ),);
+    ),
+  );
 }
 
 Widget myDropDownButton({
-
   required BuildContext context,
   required List<String> dropMenuItems,
-  String? selectedValue,
+  required String selectedValue,
   required String validateText,
   required String hintText,
-
-}) => DropdownButtonFormField2(
-  decoration: const InputDecoration(
-    //Add isDense true and zero Padding.
-    //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
-    isDense: true,
-    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-    //Add more decoration as you want here
-    //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
-  ),
-  isExpanded: true,
-  hint: Text(
-    hintText.tr(context),
-    style: Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor11,fontSize: 16,fontFamily: "FinalR"),
-  ),
-  icon: const Icon(
-    Icons.keyboard_arrow_down_outlined,
-  ),
-  iconSize: 30,
-  buttonHeight: 48,
-  dropdownDecoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(15),
-    color: Theme.of(context).cardColor
-  ),
-  items: dropMenuItems
-      .map((item) =>
-      DropdownMenuItem<String>(
-        value: item.tr(context),
-        child: Text(
-          item.tr(context),
-          style: Theme.of(context)
-              .textTheme
-              .bodyText2!
-              .copyWith(fontSize: 18,fontFamily: "FinalR"),
-        ),
-      ))
-      .toList(),
-  validator: (value) {
-    if (value == null) {
-      return validateText.tr(context);
-    }
-    return null;
-  },
-  onChanged: (value) {
-    //Do something when changing the item if you want.
-  },
-  onSaved: (value) {
-    selectedValue = value.toString();
-  },
-);
+}) =>
+    DropdownButtonFormField2(
+      decoration: const InputDecoration(
+        //Add isDense true and zero Padding.
+        //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+        //Add more decoration as you want here
+        //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+      ),
+      isExpanded: true,
+      hint: Text(
+        hintText.tr(context),
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(color: myFavColor11, fontSize: 16, fontFamily: "FinalR"),
+      ),
+      icon: const Icon(
+        Icons.keyboard_arrow_down_outlined,
+      ),
+      iconSize: 30,
+      buttonHeight: 48,
+      dropdownDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Theme.of(context).cardColor),
+      items: dropMenuItems
+          .map((item) => DropdownMenuItem<String>(
+                value: item.tr(context),
+                onTap: (){
+                  selectedValue = item.tr(context);
+                },
+                child: Text(
+                  item.tr(context),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 18, fontFamily: "FinalR"),
+                ),
+              ))
+          .toList(),
+      validator: (value) {
+        if (value == null) {
+          return validateText.tr(context);
+        }
+        return null;
+      },
+      onChanged: (value) {
+        //Do something when changing the item if you want.
+      },
+      onSaved: (value) {
+        selectedValue = value.toString();
+      },
+    );
 
 Widget mySearchDropDownButton({
   required BuildContext context,
@@ -426,78 +439,84 @@ Widget mySearchDropDownButton({
   required List<String> searchItems,
   String? selectedSearchValue,
   required TextEditingController searchTextEditingController,
+}) =>
+    DropdownButtonHideUnderline(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: myFavColor.withOpacity(0.5)),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: DropdownButton2(
+          icon: const Icon(
+            Icons.keyboard_arrow_down_outlined,
+            color: Colors.black45,
+          ),
+          iconSize: 30,
+          buttonPadding: const EdgeInsets.symmetric(horizontal: 16),
+          isExpanded: true,
+          hint: Text(
+            hintText.tr(context),
+            style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).hintColor,
+            ),
+          ),
+          items: searchItems
+              .map((item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ))
+              .toList(),
+          value: selectedSearchValue,
+          onChanged: (value) {
+            // set state required to change
+            selectedSearchValue = value as String;
+          },
+          buttonHeight: 48,
+          buttonWidth: double.infinity,
+          itemHeight: 48,
+          dropdownMaxHeight: 250,
+          searchController: searchTextEditingController,
+          searchInnerWidget: Padding(
+            padding: const EdgeInsets.only(
+              top: 8,
+              bottom: 4,
+              right: 8,
+              left: 8,
+            ),
+            child: TextFormField(
+              controller: searchTextEditingController,
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                hintText: 'Search for an item...',
+                hintStyle: const TextStyle(fontSize: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+          searchMatchFn: (item, searchValue) {
+            return (item.value.toString().contains(searchValue));
+          },
+          //This to clear the search value when you close the menu
+          onMenuStateChange: (isOpen) {
+            if (!isOpen) {
+              searchTextEditingController.clear();
+            }
+          },
+        ),
+      ),
+    );
 
-}) => DropdownButtonHideUnderline(
-  child: Container(
-    decoration: BoxDecoration(
-      border: Border.all(color: myFavColor.withOpacity(0.5)),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: DropdownButton2(
-      icon: const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black45,),
-      iconSize: 30,
-      buttonPadding: const EdgeInsets.symmetric(horizontal: 16),
-      isExpanded: true,
-      hint: Text(
-        hintText.tr(context),
-        style: TextStyle(
-          fontSize: 14,
-          color: Theme.of(context).hintColor,
-        ),
-      ),
-      items: searchItems
-          .map((item) => DropdownMenuItem<String>(
-        value: item,
-        child: Text(
-          item,
-          style: const TextStyle(
-            fontSize: 14,
-          ),
-        ),
-      ))
-          .toList(),
-      value: selectedSearchValue,
-      onChanged: (value) {
-        // set state required to change
-          selectedSearchValue = value as String;
-      },
-      buttonHeight: 48,
-      buttonWidth: double.infinity,
-      itemHeight: 48,
-      dropdownMaxHeight: 250,
-      searchController: searchTextEditingController,
-      searchInnerWidget: Padding(
-        padding: const EdgeInsets.only(
-          top: 8,
-          bottom: 4,
-          right: 8,
-          left: 8,
-        ),
-        child: TextFormField(
-          controller: searchTextEditingController,
-          decoration: InputDecoration(
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 8,
-            ),
-            hintText: 'Search for an item...',
-            hintStyle: const TextStyle(fontSize: 12),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        ),
-      ),
-      searchMatchFn: (item, searchValue) {
-        return (item.value.toString().contains(searchValue));
-      },
-      //This to clear the search value when you close the menu
-      onMenuStateChange: (isOpen) {
-        if (!isOpen) {
-          searchTextEditingController.clear();
-        }
-      },
-    ),
-  ),
-);
+PreferredSizeWidget defaultAppBar() =>
+    PreferredSize(preferredSize: const Size.fromHeight(0.0), child: AppBar());

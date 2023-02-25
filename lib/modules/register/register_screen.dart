@@ -1,10 +1,12 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
 import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class _RegisterState extends State<Register> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController nationalIdController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -32,8 +35,7 @@ class _RegisterState extends State<Register> {
     'male',
     'female',
   ];
-  String? selectedValue;
-
+  String selectedValue = "";
   final List<String> searchItems = [
     'A_Item1',
     'A_Item2',
@@ -46,7 +48,8 @@ class _RegisterState extends State<Register> {
   ];
 
   String? selectedSearchValue;
-  final TextEditingController searchTextEditingController = TextEditingController();
+  final TextEditingController searchTextEditingController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +60,7 @@ class _RegisterState extends State<Register> {
           showProgressIndicator(context);
         }
         if (state is PhoneNumberSubmitted) {
-          NavigateTo(
-              context: context,
-              widget: OTPScreen(
-                phoneNumber: phoneNumber,
-              ));
+
         }
         if (state is PhoneAuthErrorState) {
           String errorMsg = (state).errorMsg;
@@ -71,6 +70,31 @@ class _RegisterState extends State<Register> {
             description: errorMsg,
           );
         }
+        if (state is SignUpSuccessState) {
+            if (state.signup.status!) {
+              CacheHelper.saveData(key: "token", value: state.signup.data!.token)
+                  .then((value) {
+                token = state.signup.data!.token;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "${state.signup.message}",
+                    ),
+                  ),
+                );
+                NavigateTo(context: context, widget: const OTPScreen());
+              });
+            }
+            if(!state.signup.status!){
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "${state.signup.message}",
+                  ),
+                ),
+              );
+            }
+          }
       },
       builder: (context, states) {
         PhoneAuthCubit cubit = BlocProvider.of(context);
@@ -87,9 +111,8 @@ class _RegisterState extends State<Register> {
               ),
             ),
           ),
-          body: SafeArea(
-            child: Center(
-                child: SingleChildScrollView(
+          body: Center(
+            child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(
@@ -138,7 +161,33 @@ class _RegisterState extends State<Register> {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          'register_phone'.tr(context),
+                          'الرقم القومي',
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.008,
+                      ),
+                      phoneTextFormField(
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return "برجاء ادخال الرقم القومي";
+                          }
+                          return null;
+                        },
+                        context: context,
+                        maxLength2: 14,
+                        type: TextInputType.number,
+                        onSubmit: (value) {},
+                        controller: nationalIdController,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.0219,
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: Text(
+                          'رقم الهاتف',
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),
@@ -165,16 +214,23 @@ class _RegisterState extends State<Register> {
                             }
                             return null;
                           },
-                          hintText: "1X-XXXX-XXXX",
-                          onInputChanged: (PhoneNumber value) {},
-                          inputDecoration:const InputDecoration(
+                          autoFocus: true,
+                          onInputChanged: (PhoneNumber value) {
+                            /*if (value.phoneNumber!.length == 13) {
+                              cubit.changeButtonState(1);
+                            } else {
+                              cubit.changeButtonState(0);
+                            }*/
+                          },
+                          inputDecoration: const InputDecoration(
                             contentPadding: EdgeInsets.zero,
+                            hintText: "1X-XXXX-XXXX",
                           ),
                           selectorConfig: const SelectorConfig(
                             setSelectorButtonAsPrefixIcon: true,
                             leadingPadding: 16,
                           ),
-                          onSaved: (phoneNumber){
+                          onSaved: (phoneNumber) {
                             this.phoneNumber = phoneNumber.phoneNumber!;
                           },
                         ),
@@ -192,12 +248,64 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         height: size.height * 0.008,
                       ),
-                      myDropDownButton(
-                          context: context,
-                          dropMenuItems: genderItems,
-                          selectedValue: selectedValue,
-                          validateText: "register_gender_valid",
-                          hintText: "register_gender_choose"
+                      DropdownButtonFormField2(
+                        decoration: const InputDecoration(
+                          //Add isDense true and zero Padding.
+                          //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          //Add more decoration as you want here
+                          //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+                        ),
+                        isExpanded: true,
+                        hint: Text(
+                          "register_gender_choose".tr(context),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(
+                                  color: myFavColor11,
+                                  fontSize: 16,
+                                  fontFamily: "FinalR"),
+                        ),
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down_outlined,
+                        ),
+                        iconSize: 30,
+                        buttonHeight: 48,
+                        dropdownDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Theme.of(context).cardColor),
+                        items: genderItems
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item.tr(context),
+                                  onTap: () {
+                                    setState(() => (){
+                                      selectedValue = item.tr(context);
+                                    },);
+                                  },
+                                  child: Text(
+                                    item.tr(context),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(
+                                            fontSize: 18, fontFamily: "FinalR"),
+                                  ),
+                                ))
+                            .toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return "register_gender_choose".tr(context);
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          //Do something when changing the item if you want.
+                        },
+                        onSaved: (value) {
+                          selectedValue = value.toString();
+                        },
                       ),
                       SizedBox(
                         height: size.height * 0.0219,
@@ -281,7 +389,10 @@ class _RegisterState extends State<Register> {
                           onPressed: () {
                             cubit.changeSuffixIconRegister();
                           },
-                          icon: Icon(cubit.suffixIconRegister,color: Theme.of(context).iconTheme.color,),
+                          icon: Icon(
+                            cubit.suffixIconRegister,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -307,9 +418,7 @@ class _RegisterState extends State<Register> {
                           },
                           hint: '● ● ● ● ● ● ● ●',
                           context: context,
-                          onSubmit: (value) {
-
-                          },
+                          onSubmit: (value) {},
                           controller: passwordConfirmController,
                           type: TextInputType.visiblePassword,
                           isPassword: cubit.isPasswordConfirmRegister,
@@ -317,22 +426,37 @@ class _RegisterState extends State<Register> {
                             onPressed: () {
                               cubit.changeSuffixIconConfirmRegister();
                             },
-                            icon: Icon(cubit.suffixIconConfirmRegister,color: Theme.of(context).iconTheme.color,),
+                            icon: Icon(
+                              cubit.suffixIconConfirmRegister,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
                           )),
                       SizedBox(
                         height: size.height * 0.02,
                       ),
                       myMaterialButton(
-                          context: context,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
-                              CacheHelper.saveData(key: 'uId', value: cubit.getLoggedInUser().uid).then((value) {
-                                cubit.submitPhoneNumber(phoneNumber);
-                              });
-                            }
-                          },
-                          label: 'register_button'.tr(context)),
+                        context: context,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            cubit.userModel(
+                                name: nameController.text,
+                                email: emailController.text,
+                                nationalId: nationalIdController.text,
+                                phone: phoneNumber.substring(phoneNumber.length - 10),
+                                gender: selectedValue,
+                                age: int.parse(ageController.text),
+                                password: passwordController.text,
+                            );
+                            cubit.submitPhoneNumber(phoneNumber);
+                          }
+                        },
+                        labelWidget: Text(
+                          'register_button'.tr(context),
+                          style: Theme.of(context).textTheme.button!.copyWith(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                      ),
                       SizedBox(
                         height: size.height * 0.02,
                       ),
@@ -390,7 +514,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-            )),
+            ),
           ),
         );
       },

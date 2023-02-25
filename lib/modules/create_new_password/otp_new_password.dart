@@ -1,7 +1,7 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/create_new_password/newpassword.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
@@ -136,7 +136,13 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
                       onPressed: () {
                         cubit.submitOTP(otpCode);
                       },
-                      label: "otp_button".tr(context),
+                      labelWidget: Text(
+                        "otp_button".tr(context),
+                        style: Theme.of(context)
+                            .textTheme
+                            .button!
+                            .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
                     )
                   ],
                 ),

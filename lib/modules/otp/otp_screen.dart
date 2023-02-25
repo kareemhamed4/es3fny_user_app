@@ -1,8 +1,10 @@
 import 'package:es3fny_user_app/app_localization.dart';
-import 'package:es3fny_user_app/layout/layout_screen.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
-  final String phoneNumber;
-  const OTPScreen({Key? key,required this.phoneNumber}) : super(key: key);
+  const OTPScreen(
+      {Key? key,}) : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -24,16 +26,13 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<PhoneAuthCubit,PhoneAuthStates>(
-      listener: (context,state){
+    return BlocConsumer<PhoneAuthCubit, PhoneAuthStates>(
+      listener: (context, state) {
         if (state is PhoneAuthLoadingState) {
           showProgressIndicator(context);
         }
-        if (state is PhoneOTPVerified) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('register_snackBar'.tr(context))));
-          Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const LayoutScreen()));
+        if(state is PhoneOTPVerified){
+          NavigateToReb(context: context, widget: const SplashScreen());
         }
         if (state is PhoneAuthErrorState) {
           Navigator.pop(context);
@@ -45,7 +44,7 @@ class _OTPScreenState extends State<OTPScreen> {
           );
         }
       },
-      builder: (context,state){
+      builder: (context, state) {
         PhoneAuthCubit cubit = BlocProvider.of(context);
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -56,12 +55,11 @@ class _OTPScreenState extends State<OTPScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(
-                        "otp".tr(context),
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontSize: 30,
-                            color: myFavColor
-                        )),
+                    Text("otp".tr(context),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontSize: 30, color: myFavColor)),
                     SizedBox(
                       height: size.height * 0.184,
                     ),
@@ -102,7 +100,8 @@ class _OTPScreenState extends State<OTPScreen> {
                           selectedFillColor: Colors.white,
                         ),
                         animationDuration: const Duration(milliseconds: 300),
-                        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
                         enableActiveFill: true,
                         onCompleted: (value) {
                           otpCode = value;
@@ -138,7 +137,11 @@ class _OTPScreenState extends State<OTPScreen> {
                       onPressed: () {
                         cubit.submitOTP(otpCode);
                       },
-                      label: "otp_button".tr(context),
+                      labelWidget: Text(
+                        "otp_button".tr(context),
+                        style: Theme.of(context).textTheme.button!.copyWith(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
                     )
                   ],
                 ),
@@ -149,6 +152,7 @@ class _OTPScreenState extends State<OTPScreen> {
       },
     );
   }
+
   void showProgressIndicator(BuildContext context) {
     AlertDialog alertDialog = AlertDialog(
       backgroundColor: Colors.transparent,

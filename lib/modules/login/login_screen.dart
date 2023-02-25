@@ -1,11 +1,13 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:es3fny_user_app/app_localization.dart';
-import 'package:es3fny_user_app/cubit/cubit.dart';
-import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
+import 'package:es3fny_user_app/modules/login/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/login/cubit/states.dart';
 import 'package:es3fny_user_app/modules/register/register_screen.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,164 +16,232 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 //ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-  TextEditingController phoneController = TextEditingController();
+  late String phoneNumber;
   TextEditingController passwordController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
-
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "loginScaffoldKey");
+  GlobalKey<FormState> formKey = GlobalKey<FormState>(debugLabel: "loginFormKey");
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<MainCubit, MainStates>(
-        listener: (context, state) {},
+    return BlocConsumer<LoginCubit, LoginStates>(
+        listener: (context, state) => {
+              if (state is LoginSuccessState)
+                {
+                  if (state.loginModel.status!)
+                    {
+                      CacheHelper.saveData(
+                              key: "token", value: state.loginModel.data!.token)
+                          .then((value) {
+                        token = state.loginModel.data!.token;
+                        NavigateToReb(
+                            context: context, widget: const SplashScreen());
+                      }),
+                    }
+                  else
+                    {
+                      displayErrorMotionToast(
+                        context: context,
+                        title: "خطأ",
+                        description: "${state.loginModel.message}",
+                      ),
+                    }
+                }
+            },
         builder: (context, state) {
-          MainCubit cubit = BlocProvider.of(context);
+          LoginCubit cubit = BlocProvider.of(context);
           return Scaffold(
+            key: scaffoldKey,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            appBar: defaultAppBar(),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: SafeArea(
-                child: Center(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                              "login_label".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(
-                                    fontSize: 30,
-                                color: myFavColor
-                                  )),
-                          SizedBox(
-                            height: size.height * 0.064,
+              child: Center(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "login_label".tr(context),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 30, color: myFavColor),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.064,
+                        ),
+                        const Image(
+                          image: AssetImage(
+                            "assets/images/juicy-online-doctor-consultation 1.png",
                           ),
-                          const Image(
-                            image: AssetImage(
-                              "assets/images/juicy-online-doctor-consultation 1.png",
-                            ),
-                            width: 180,
-                            height: 180,
+                          width: 180,
+                          height: 180,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.065,
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            'login_phone'.tr(context),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
-                          SizedBox(
-                            height: size.height * 0.065,
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: Text(
-                              'login_phone'.tr(context),
-                              style: Theme.of(context).textTheme.bodyText2,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: InternationalPhoneNumberInput(
-                              countries: const ["EG"],
-                              spaceBetweenSelectorAndTextField: 20,
-                              selectorTextStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
-                              textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
-                              maxLength: 12,
-                              validator: (value) {
-                                if (value!.length < 12) {
-                                  return "login_phone_valid".tr(context);
-                                }
-                                return null;
-                              },
-                              hintText: "1X-XXXX-XXXX",
-                              onInputChanged: (PhoneNumber value) {},
-                              inputDecoration: const InputDecoration(
-                                contentPadding: EdgeInsets.zero,
-                              ),
-                              selectorConfig: const SelectorConfig(
-                                setSelectorButtonAsPrefixIcon: true,
-                                leadingPadding: 16,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          Align(
-                              alignment: AlignmentDirectional.centerStart,
-                              child: Text(
-                                'login_password'.tr(context),
-                                style: Theme.of(context).textTheme.bodyText2,
-                              )),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          myTextFormField(
-                            validate: (value) {
-                              if (value!.isEmpty) {
-                                return "login_password_valid".tr(context);
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: InternationalPhoneNumberInput(
+                            countries: const ["EG"],
+                            spaceBetweenSelectorAndTextField: 20,
+                            selectorTextStyle: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 18),
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 18),
+                            maxLength: 12,
+                            validator: (value) {
+                              if (value!.length < 12) {
+                                return "login_phone_valid".tr(context);
                               }
                               return null;
                             },
-                            hint: '● ● ● ● ● ● ● ●',
-                            type: TextInputType.visiblePassword,
-                            isPassword: cubit.isPasswordLogin,
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                cubit.changeSuffixIconLogin();
-                              },
-                              icon: Icon(cubit.suffixIconLogin,color: Theme.of(context).iconTheme.color,),
+                            hintText: "1X-XXXX-XXXX",
+                            onInputChanged: (PhoneNumber value) {},
+                            inputDecoration: const InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              hintText: "1X-XXXX-XXXX",
                             ),
-                            context: context,
-                            controller: passwordController,
-                            onSubmit: (value) {
-                              loginSubmit(context: context);
+                            selectorConfig: const SelectorConfig(
+                              setSelectorButtonAsPrefixIcon: true,
+                              leadingPadding: 16,
+                            ),
+                            onSaved: (phoneNumber) {
+                              this.phoneNumber = phoneNumber.phoneNumber!
+                                  .substring(
+                                      phoneNumber.phoneNumber!.length - 10);
+                              print(this.phoneNumber);
                             },
                           ),
-                          const SizedBox(
-                            height: 6,
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: Text(
+                              'login_password'.tr(context),
+                              style: Theme.of(context).textTheme.bodyText2,
+                            )),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        myTextFormField(
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return "login_password_valid".tr(context);
+                            }
+                            return null;
+                          },
+                          hint: '● ● ● ● ● ● ● ●',
+                          type: TextInputType.visiblePassword,
+                          isPassword: cubit.isPassword,
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              cubit.changeLoginSuffixIcon();
+                            },
+                            icon: Icon(
+                              cubit.suffixIcon,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
                           ),
-                          Align(
-                              alignment: AlignmentDirectional.centerStart,
-                              child: myTextButton(
-                                  context: context,
-                                  label: "login_forget_password".tr(context),
-                                  onPressed: () {
-                                    NavigateTo(
-                                        context: context,
-                                        widget: ForgetPasswordScreen());
-                                  })),
-                          SizedBox(
-                            height: size.height * 0.042,
-                          ),
-                          myMaterialButton(
+                          context: context,
+                          controller: passwordController,
+                          onSubmit: (value) {
+                            // to do
+                          },
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: myTextButton(
+                                context: context,
+                                label: "login_forget_password".tr(context),
+                                onPressed: () {
+                                  NavigateTo(
+                                      context: context,
+                                      widget: ForgetPasswordScreen());
+                                })),
+                        SizedBox(
+                          height: size.height * 0.042,
+                        ),
+                        ConditionalBuilder(
+                          condition: state is! LoginLoadingState,
+                          builder: (context) => myMaterialButton(
                             context: context,
                             onPressed: () {
-                              loginSubmit(context: context);
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
+                                cubit.userModel(
+                                    phone: phoneNumber,
+                                    password: passwordController.text);
+                              }
                             },
-                            label: "login_button".tr(context),
+                            labelWidget: Text(
+                              "login_button".tr(context),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .button!
+                                  .copyWith(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 11,
+                          fallback: (context) => myMaterialButton(
+                            context: context,
+                            onPressed: () {
+                              null;
+                            },
+                            labelWidget: const Center(
+                              child: SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 3,
+                                ),
+                              ),
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Text("have_account".tr(context)),
-                              myTextButton(
-                                  context: context,
-                                  label: "have_account_button".tr(context),
-                                  onPressed: () {
-                                    NavigateTo(
-                                      context: context,
-                                      widget: const Register(),
-                                    );
-                                  }),
-                            ],
-                          )
-                        ],
-                      ),
+                        ),
+                        const SizedBox(
+                          height: 11,
+                        ),
+                        Row(
+                          children: [
+                            Text("have_account".tr(context)),
+                            myTextButton(
+                                context: context,
+                                label: "have_account_button".tr(context),
+                                onPressed: () {
+                                  NavigateTo(
+                                    context: context,
+                                    widget: const Register(),
+                                  );
+                                }),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -179,17 +249,5 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         });
-  }
-  void loginSubmit({required BuildContext context}){
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      CacheHelper.saveData(key: 'uId', value: "45454545645666").then((value){
-        Navigator.of(context)
-            .popUntil((route) => route.isFirst);
-        NavigateToReb(
-            context: context,
-            widget: const SplashScreen());
-      });
-    }
   }
 }

@@ -58,7 +58,7 @@
   "register_email": "البريد الإلكتروني",
   "register_password": "كلمة المرور",
   "register_confirm_password": "تأكيد كلمة المرور",
-  "register_button": "إنشاء",
+  "register_button": "التالي",
   "register_name_valid": "برجاء ادخال الاسم رباعي",
   "register_phone_valid": "رقم هاتف غير صحيح",
   "register_gender_valid": "برجاء اختيار النوع",

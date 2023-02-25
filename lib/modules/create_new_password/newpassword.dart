@@ -118,7 +118,13 @@ class NewPassword extends StatelessWidget {
                               NavigateTo(context: context, widget: const SplashScreen());
                             }
                           },
-                          label: "create_password_button".tr(context),
+                          labelWidget: Text(
+                            "create_password_button".tr(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .button!
+                                .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
                         )
                       ],
                     ),

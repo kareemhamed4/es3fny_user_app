@@ -1,4 +1,7 @@
-import 'package:es3fny_user_app/modules/forget_password/cubit/phone_states.dart';
+import 'package:es3fny_user_app/models/login_model.dart';
+import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
+import 'package:es3fny_user_app/network/endpoint.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +77,42 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     return firebaseUser;
   }
 
+  LoginModel? signupModel;
+
+  void userModel({
+    required String name,
+    required String email,
+    required String nationalId,
+    required String phone,
+    required String gender,
+    required int age,
+    required String password,
+  }) {
+    emit(SignUpLoadingState());
+    DioHelper.postData(
+      url: REGISTER,
+      data: {
+        'name' : name,
+        'email': email,
+        'national_id': nationalId,
+        'phone_number': phone,
+        'gender': gender,
+        'age': age,
+        'password': password,
+      },
+    ).then((value) {
+      print(value.data);
+      if (kDebugMode) {
+        signupModel = LoginModel.fromJson(value.data);
+      }
+      emit(SignUpSuccessState(signupModel!));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      emit(SignUpErrorState(error.toString()));
+    });
+  }
   //register cubit functions
   bool isPasswordRegister = true;
   IconData suffixIconRegister = Icons.visibility_off_outlined;
@@ -96,4 +135,11 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
         : Icons.remove_red_eye;
     emit(ChangeSuffixState());
   }
+
+  bool isEnabledButton = true;
+  void changeButtonState(int length) {
+    isEnabledButton = length == 1 ? true : false;
+    emit(ChangeButtonState());
+  }
+
 }
