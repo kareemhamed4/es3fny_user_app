@@ -6,7 +6,6 @@ import 'package:es3fny_user_app/modules/setting/settings_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,9 +25,12 @@ class PersonalModel {
 //ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "profileScaffoldKey");
-  GlobalKey<FormState> formKey = GlobalKey<FormState>(debugLabel: "profileFormKey");
-  GlobalKey<FormState> formFamilyKey = GlobalKey<FormState>(debugLabel: "familyFormKey");
+  GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>(debugLabel: "profileScaffoldKey");
+  GlobalKey<FormState> formKey =
+      GlobalKey<FormState>(debugLabel: "profileFormKey");
+  GlobalKey<FormState> formFamilyKey =
+      GlobalKey<FormState>(debugLabel: "familyFormKey");
   var formAlertKey = GlobalKey<FormState>();
   PageController pageController = PageController();
   TextEditingController nameController = TextEditingController();
@@ -139,9 +141,7 @@ class ProfileScreen extends StatelessWidget {
                             const Spacer(),
                             IconButton(
                                 onPressed: () {
-                                  if (kDebugMode) {
-                                    print(token);
-                                  }
+                                  debugPrint(token);
                                 },
                                 icon: Icon(
                                   Icons.notifications_none_outlined,
@@ -154,9 +154,9 @@ class ProfileScreen extends StatelessWidget {
                     Column(
                       children: [
                         CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            model!.data!.image!,
-                          ),
+                          backgroundImage: NetworkImage(cubit.userModel != null
+                              ? model!.data!.image!
+                              : "http://192.168.1.12/images/default/defaultUser.png"),
                           radius: 40,
                         ),
                         Padding(
@@ -185,7 +185,9 @@ class ProfileScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        nameController.text,
+                                        cubit.userModel != null
+                                            ? nameController.text
+                                            : " ",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
@@ -331,101 +333,106 @@ class ProfileScreen extends StatelessWidget {
                             physics: cubit.scrollPhysics,
                             controller: pageController,
                             children: [
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    buildPersonalInfoItem(
-                                      context: context,
-                                      size: size,
-                                      label: "الإسم",
-                                      widget: TextFormField(
-                                        controller: nameController,
-                                        decoration: InputDecoration(
-                                          enabled: cubit.isEnabled,
-                                          contentPadding: EdgeInsets.zero,
+                              ConditionalBuilder(
+                                condition: (cubit.userModel != null),
+                                builder: (context) => SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "الإسم",
+                                        widget: TextFormField(
+                                          controller: nameController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    buildPersonalInfoItem(
-                                      context: context,
-                                      size: size,
-                                      label: "الرقم القومي",
-                                      widget: TextFormField(
-                                        controller: nIDController,
-                                        decoration: InputDecoration(
-                                          enabled: cubit.isEnabled,
-                                          contentPadding: EdgeInsets.zero,
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "الرقم القومي",
+                                        widget: TextFormField(
+                                          controller: nIDController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    buildPersonalInfoItem(
-                                      context: context,
-                                      size: size,
-                                      label: "رقم الهاتف",
-                                      widget: TextFormField(
-                                        controller: phoneController,
-                                        decoration: InputDecoration(
-                                          enabled: cubit.isEnabled,
-                                          contentPadding: EdgeInsets.zero,
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "رقم الهاتف",
+                                        widget: TextFormField(
+                                          controller: phoneController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    buildPersonalInfoItem(
-                                      context: context,
-                                      size: size,
-                                      label: "البريد الإلكتروني",
-                                      widget: TextFormField(
-                                        controller: emailController,
-                                        decoration: InputDecoration(
-                                          enabled: cubit.isEnabled,
-                                          contentPadding: EdgeInsets.zero,
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "البريد الإلكتروني",
+                                        widget: TextFormField(
+                                          controller: emailController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    buildPersonalInfoItem(
-                                      context: context,
-                                      size: size,
-                                      label: "العمر",
-                                      widget: TextFormField(
-                                        controller: ageController,
-                                        decoration: InputDecoration(
-                                          enabled: cubit.isEnabled,
-                                          contentPadding: EdgeInsets.zero,
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "العمر",
+                                        widget: TextFormField(
+                                          controller: ageController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    buildPersonalInfoItem(
-                                      context: context,
-                                      size: size,
-                                      label: "النوع",
-                                      widget: TextFormField(
-                                        controller: genderController,
-                                        decoration: InputDecoration(
-                                          enabled: cubit.isEnabled,
-                                          contentPadding: EdgeInsets.zero,
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      buildPersonalInfoItem(
+                                        context: context,
+                                        size: size,
+                                        label: "النوع",
+                                        widget: TextFormField(
+                                          controller: genderController,
+                                          decoration: InputDecoration(
+                                            enabled: cubit.isEnabled,
+                                            contentPadding: EdgeInsets.zero,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                  ],
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                fallback: (context) => const Center(
+                                    child: CircularProgressIndicator()),
                               ),
                               ConditionalBuilder(
                                 condition: cubit.family.isNotEmpty,
@@ -699,9 +706,7 @@ class ProfileScreen extends StatelessWidget {
                             .getFamilyDataFromDatabase(cubit.database)
                             .then((value) {
                           cubit.family = value;
-                          if (kDebugMode) {
-                            print(cubit.family);
-                          }
+                          debugPrint(cubit.family.toString());
                           Navigator.pop(context);
                         });
                       }

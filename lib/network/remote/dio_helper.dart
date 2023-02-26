@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioHelper {
   static Dio? dio;
@@ -8,6 +9,10 @@ class DioHelper {
       baseUrl: "http://192.168.1.12/api/",
       receiveDataWhenStatusError: true,
     ));
+    // if (!kReleaseMode) {
+    dio!.interceptors.add(PrettyDioLogger(
+        requestHeader: true, requestBody: true, responseHeader: true));
+    //}
   }
   //https://diabetes-802s.onrender.com/
   //http://192.168.1.12/api/

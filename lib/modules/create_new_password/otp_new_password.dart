@@ -4,7 +4,6 @@ import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +11,12 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreenForNewPassword extends StatefulWidget {
   final String phoneNumber;
-  const OTPScreenForNewPassword({Key? key,required this.phoneNumber}) : super(key: key);
+  const OTPScreenForNewPassword({Key? key, required this.phoneNumber})
+      : super(key: key);
 
   @override
-  State<OTPScreenForNewPassword> createState() => _OTPScreenForNewPasswordState();
+  State<OTPScreenForNewPassword> createState() =>
+      _OTPScreenForNewPasswordState();
 }
 
 class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
@@ -24,14 +25,17 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<PhoneAuthCubit,PhoneAuthStates>(
-      listener: (context,state){
+    return BlocConsumer<PhoneAuthCubit, PhoneAuthStates>(
+      listener: (context, state) {
         if (state is PhoneAuthLoadingState) {
           showProgressIndicator(context);
         }
         if (state is PhoneOTPVerified) {
           Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NewPassword()));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => NewPassword()));
         }
         if (state is PhoneAuthErrorState) {
           Navigator.pop(context);
@@ -43,7 +47,7 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
           );
         }
       },
-      builder: (context,state){
+      builder: (context, state) {
         PhoneAuthCubit cubit = BlocProvider.of(context);
         return Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -54,12 +58,11 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(
-                        "otp".tr(context),
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontSize: 30,
-                            color: myFavColor
-                        )),
+                    Text("otp".tr(context),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontSize: 30, color: myFavColor)),
                     SizedBox(
                       height: size.height * 0.184,
                     ),
@@ -100,18 +103,15 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
                           selectedFillColor: Colors.white,
                         ),
                         animationDuration: const Duration(milliseconds: 300),
-                        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
                         enableActiveFill: true,
                         onCompleted: (value) {
                           otpCode = value;
-                          if (kDebugMode) {
-                            print("Completed");
-                          }
+                          debugPrint("Completed");
                         },
                         onChanged: (value) {
-                          if (kDebugMode) {
-                            print(value);
-                          }
+                          debugPrint(value);
                         },
                       ),
                     ),
@@ -138,10 +138,8 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
                       },
                       labelWidget: Text(
                         "otp_button".tr(context),
-                        style: Theme.of(context)
-                            .textTheme
-                            .button!
-                            .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                        style: Theme.of(context).textTheme.button!.copyWith(
+                            fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                     )
                   ],
@@ -153,6 +151,7 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
       },
     );
   }
+
   void showProgressIndicator(BuildContext context) {
     AlertDialog alertDialog = AlertDialog(
       backgroundColor: Colors.transparent,

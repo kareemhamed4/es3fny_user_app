@@ -9,7 +9,6 @@ import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -129,9 +128,7 @@ class LoginScreen extends StatelessWidget {
                               this.phoneNumber = phoneNumber.phoneNumber!
                                   .substring(
                                       phoneNumber.phoneNumber!.length - 10);
-                              if (kDebugMode) {
-                                print(this.phoneNumber);
-                              }
+                              debugPrint(this.phoneNumber);
                             },
                           ),
                         ),

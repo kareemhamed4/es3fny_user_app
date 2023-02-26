@@ -3,7 +3,6 @@ import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
@@ -18,20 +17,14 @@ class ProfileCubit extends Cubit<ProfileStates> {
   void getUserData() {
     emit(UserProfileLoadingState());
 
-    DioHelper.getData(
-        url: PROFILE,
-        token: token,
-        query: {
-          "token": token,
-        }
-    ).then((value) {
+    DioHelper.getData(url: PROFILE, token: token, query: {
+      "token": token,
+    }).then((value) {
       userModel = LoginModel.fromJson(value.data);
-      print(value.data);
+      debugPrint(value.data.toString());
       emit(UserProfileSuccessState(userModel!));
     }).catchError((error) {
-      if (kDebugMode) {
-        print(error.toString());
-      }
+      debugPrint(error.toString());
       emit(UserProfileErrorState());
     });
   }
@@ -74,32 +67,22 @@ class ProfileCubit extends Cubit<ProfileStates> {
   void createDatabase() async {
     database = await openDatabase("familyInfo.db", version: 1,
         onCreate: (database, version) async {
-      if (kDebugMode) {
-        print("database created");
-      }
+      debugPrint("database created");
       await database
           .execute(
               'CREATE TABLE family (id INTEGER PRIMARY KEY, name TEXT, phone Text, nickname Text)')
           .then((value) {
-        if (kDebugMode) {
-          print("table created");
-        }
+        debugPrint("table created");
       }).catchError((error) {
-        if (kDebugMode) {
-          print("Error occurred when creating Table (${error.toString()})");
-        }
+        debugPrint("Error occurred when creating Table (${error.toString()})");
       });
     }, onOpen: (database) {
       getFamilyDataFromDatabase(database).then((value) {
         family = value;
-        if (kDebugMode) {
-          print(family);
-        }
+        debugPrint(family.toString());
         emit(ProfileGetDataFromDatabaseState());
       });
-      if (kDebugMode) {
-        print("database opened");
-      }
+      debugPrint("database opened");
     });
   }
 
@@ -117,47 +100,37 @@ class ProfileCubit extends Cubit<ProfileStates> {
           .rawInsert(
               'INSERT INTO family(name, phone, nickname) VALUES("$name", "$phone", "$nickname")')
           .then((value) {
-        if (kDebugMode) {
-          print("$value Inserted Successfully");
-          emit(ProfileInsertToDatabaseState());
-        }
+        debugPrint("${value.toString()} Inserted Successfully");
+        emit(ProfileInsertToDatabaseState());
       }).catchError((error) {
-        if (kDebugMode) {
-          print("Error when Inserting Record ${error.toString()}");
-        }
+        debugPrint("Error when Inserting Record ${error.toString()}");
       });
       return null;
     });
   }
 
-  void deleteData({required int id}) async{
-    database.rawDelete(
-      'DELETE FROM family WHERE id = ?', [id]
-    ).then((value){
+  void deleteData({required int id}) async {
+    database.rawDelete('DELETE FROM family WHERE id = ?', [id]).then((value) {
       getFamilyDataFromDatabase(database).then((value) {
         family = value;
-        if (kDebugMode) {
-          print(family);
-        }
+        debugPrint(family.toString());
       });
       emit(ProfileDeleteDataFromDatabaseState());
     });
   }
 
-  void updateData(String sql)async{
-    await database.rawUpdate(sql).then((value){
+  void updateData(String sql) async {
+    await database.rawUpdate(sql).then((value) {
       getFamilyDataFromDatabase(database).then((value) {
         family = value;
-        if (kDebugMode) {
-          print(family);
-        }
+        debugPrint(family.toString());
       });
       emit(ProfileUpdateDataFromDatabaseState());
     });
   }
 
   bool isEnabledGesture = true;
-  void changeIsEnabledGestureState({required bool isEnabled}){
+  void changeIsEnabledGestureState({required bool isEnabled}) {
     isEnabledGesture = isEnabled;
     emit(ProfileIsEnabledGestureState());
   }

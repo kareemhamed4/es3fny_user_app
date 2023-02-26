@@ -4,7 +4,6 @@ import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,14 +109,10 @@ class _OTPScreenState extends State<OTPScreen> {
                         enableActiveFill: true,
                         onCompleted: (value) {
                           otpCode = value;
-                          if (kDebugMode) {
-                            print("Completed");
-                          }
+                          debugPrint("Completed");
                         },
                         onChanged: (value) {
-                          if (kDebugMode) {
-                            print(value);
-                          }
+                          debugPrint(value);
                         },
                       ),
                     ),

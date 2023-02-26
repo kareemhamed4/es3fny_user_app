@@ -3,7 +3,6 @@ import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,31 +23,23 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
   }
 
   void verificationCompleted(PhoneAuthCredential credential) async {
-    if (kDebugMode) {
-      print("verificationCompleted");
-    }
+    debugPrint("verificationCompleted");
     await signIn(credential);
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    if (kDebugMode) {
-      print("verificationFailed: ${error.toString()}");
-    }
+    debugPrint("verificationFailed: ${error.toString()}");
     emit(PhoneAuthErrorState(errorMsg: error.toString()));
   }
 
   void codeSent(String verificationId, int? resendToken) {
-    if (kDebugMode) {
-      print("codeSent");
-    }
+    debugPrint("codeSent");
     this.verificationId = verificationId;
     emit(PhoneNumberSubmitted());
   }
 
   void codeAutoRetrievalTimeout(String verificationId) {
-    if (kDebugMode) {
-      print("codeAutoRetrievalTimeout");
-    }
+    debugPrint("codeAutoRetrievalTimeout");
   }
 
   Future<void> submitOTP(String otpCode) async {
@@ -92,7 +83,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     DioHelper.postData(
       url: REGISTER,
       data: {
-        'name' : name,
+        'name': name,
         'email': email,
         'national_id': nationalId,
         'phone_number': phone,
@@ -101,20 +92,15 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
         'password': password,
       },
     ).then((value) {
-      if (kDebugMode) {
-        print(value.data);
-      }
-      if (kDebugMode) {
-        signupModel = LoginModel.fromJson(value.data);
-      }
+      debugPrint(value.data.toString());
+      signupModel = LoginModel.fromJson(value.data);
       emit(SignUpSuccessState(signupModel!));
     }).catchError((error) {
-      if (kDebugMode) {
-        print(error.toString());
-      }
+      debugPrint(error.toString());
       emit(SignUpErrorState(error.toString()));
     });
   }
+
   //register cubit functions
   bool isPasswordRegister = true;
   IconData suffixIconRegister = Icons.visibility_off_outlined;
@@ -143,5 +129,4 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     isEnabledButton = length == 1 ? true : false;
     emit(ChangeButtonState());
   }
-
 }

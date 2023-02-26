@@ -23,26 +23,19 @@ class TestCubit extends Cubit<TestStates> {
     required String password2,
   }) {
     emit(TestLoadingState());
-    DioHelper.postData(
-      url: API,
-      query: {
-        'Pregnancies' : name,
-        'Glucose': email,
-        'BloodPressure': nationalId,
-        'SkinThickness': phone,
-        'Insulin': gender,
-        'BMI': age,
-        'Age': password,
-        'DiabetesPedigreeFunction': password2,
-      }
-    ).then((value) {
-      if (kDebugMode) {
-        print(value.data);
-      }
-      if (kDebugMode) {
-        test = Test.fromJson(value.data);
-        prediction = test!.prediction;
-      }
+    DioHelper.postData(url: API, query: {
+      'Pregnancies': name,
+      'Glucose': email,
+      'BloodPressure': nationalId,
+      'SkinThickness': phone,
+      'Insulin': gender,
+      'BMI': age,
+      'Age': password,
+      'DiabetesPedigreeFunction': password2,
+    }).then((value) {
+      debugPrint(value.data.toString());
+      test = Test.fromJson(value.data);
+      prediction = test!.prediction;
       emit(TestSuccessState(test!));
     }).catchError((error) {
       if (kDebugMode) {

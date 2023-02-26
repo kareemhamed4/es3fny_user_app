@@ -1,27 +1,27 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class SqlDb {
-
   static Database? _db;
   Future<Database?> get db async {
-    if(_db == null){
+    if (_db == null) {
       _db = await initialDb();
-      return _db ;
-    }else{
+      return _db;
+    } else {
       return _db;
     }
-
   }
-  initialDb() async{
+
+  initialDb() async {
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, "familyInfo.db");
-    Database myDb = await openDatabase(path, onCreate: _onCreate , onUpgrade: _onUpgrade);
+    Database myDb =
+        await openDatabase(path, onCreate: _onCreate, onUpgrade: _onUpgrade);
     return myDb;
   }
 
-  _onCreate(Database db, int version)async{
+  _onCreate(Database db, int version) async {
     await db.execute('''
       CREATE TABLE "family" (
       "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,
@@ -30,37 +30,33 @@ class SqlDb {
       "nickname" TEXT
       )
     ''');
-    if (kDebugMode) {
-      print("Create DATABASE and Table SUCCESS =====================");
-    }
+    debugPrint("Create DATABASE and Table SUCCESS =====================");
   }
 
-  _onUpgrade(Database db, int oldVersion, int newVersion){
-    if (kDebugMode) {
-      print("Upgrade DATABASE SUCCESS =====================");
-    }
+  _onUpgrade(Database db, int oldVersion, int newVersion) {
+    debugPrint("Upgrade DATABASE SUCCESS =====================");
   }
 
-  readData(String sql)async{
-    Database? myDb = await db ;
+  readData(String sql) async {
+    Database? myDb = await db;
     List<Map> response = await myDb!.rawQuery(sql);
     return response;
   }
 
-  insertData(String sql)async{
-    Database? myDb = await db ;
+  insertData(String sql) async {
+    Database? myDb = await db;
     int response = await myDb!.rawInsert(sql);
     return response;
   }
 
-  deleteData(String sql)async{
-    Database? myDb = await db ;
+  deleteData(String sql) async {
+    Database? myDb = await db;
     int response = await myDb!.rawDelete(sql);
     return response;
   }
 
-  updateData(String sql)async{
-    Database? myDb = await db ;
+  updateData(String sql) async {
+    Database? myDb = await db;
     int response = await myDb!.rawUpdate(sql);
     return response;
   }
