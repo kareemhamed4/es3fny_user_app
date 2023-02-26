@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/layout/cubit/states.dart';
+import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/help_services/help_services_screen.dart';
 import 'package:es3fny_user_app/modules/home/home_screen.dart';
 import 'package:es3fny_user_app/modules/profile/profile_screen.dart';
@@ -24,4 +25,5 @@ class LayoutCubit extends Cubit<LayoutStates> {
     emit(ChangeBottomNavBarState());
   }
 
+  LoginModel? userModel;
 }

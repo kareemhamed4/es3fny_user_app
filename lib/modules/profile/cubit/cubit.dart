@@ -134,4 +134,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
     isEnabledGesture = isEnabled;
     emit(ProfileIsEnabledGestureState());
   }
+
+  String splitSentence(String sentence){
+    List<String> splitted = sentence.split(" ");
+    return splitted.first.toString();
+  }
 }

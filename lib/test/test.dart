@@ -83,9 +83,9 @@ class _TESTState extends State<TEST> {
                   },
                 ),
                 if(TestCubit.get(context).prediction == "0")
-                  Text("State is kareem"),
+                  const Text("State is kareem"),
                 if(TestCubit.get(context).prediction == "1")
-                  Text("State is Moustafa"),
+                  const Text("State is Moustafa"),
               ],
             ),
           ),
