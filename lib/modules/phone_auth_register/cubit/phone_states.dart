@@ -1,3 +1,4 @@
+/*
 import 'package:es3fny_user_app/models/login_model.dart';
 
 abstract class PhoneAuthStates {}
@@ -24,3 +25,4 @@ class SignUpErrorState extends PhoneAuthStates {
   SignUpErrorState(this.error);
 }
 
+*/

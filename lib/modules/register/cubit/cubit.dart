@@ -1,16 +1,82 @@
-/*
 import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterCubit extends Cubit<RegisterStates> {
-  RegisterCubit() : super(RegisterInitialState());
+class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
+  PhoneAuthCubit() : super(PhoneAuthInitialState());
 
-  static RegisterCubit get(context) => BlocProvider.of(context);
+  static PhoneAuthCubit get(context) => BlocProvider.of(context);
+  late String verificationId;
+
+  Future<void> submitPhoneNumber(String phoneNumber) async {
+    emit(PhoneAuthLoadingState());
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+  }
+
+  void verificationCompleted(PhoneAuthCredential credential) async {
+    if (kDebugMode) {
+      print("verificationCompleted");
+    }
+    await signIn(credential);
+  }
+
+  void verificationFailed(FirebaseAuthException error) {
+    if (kDebugMode) {
+      print("verificationFailed: ${error.toString()}");
+    }
+    emit(PhoneAuthErrorState(errorMsg: error.toString()));
+  }
+
+  void codeSent(String verificationId, int? resendToken) {
+    if (kDebugMode) {
+      print("codeSent");
+    }
+    this.verificationId = verificationId;
+    emit(PhoneNumberSubmitted());
+  }
+
+  void codeAutoRetrievalTimeout(String verificationId) {
+    if (kDebugMode) {
+      print("codeAutoRetrievalTimeout");
+    }
+  }
+
+  Future<void> submitOTP(String otpCode) async {
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: otpCode,
+    );
+    await signIn(credential);
+  }
+
+  Future<void> signIn(PhoneAuthCredential credential) async {
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      emit(PhoneOTPVerified());
+    } catch (error) {
+      emit(PhoneAuthErrorState(errorMsg: error.toString()));
+    }
+  }
+
+  Future<void> logOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  User getLoggedInUser() {
+    User firebaseUser = FirebaseAuth.instance.currentUser!;
+    return firebaseUser;
+  }
+
   LoginModel? signupModel;
 
   void userModel({
@@ -22,7 +88,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required int age,
     required String password,
   }) {
-    emit(RegisterLoadingState());
+    emit(SignUpLoadingState());
     DioHelper.postData(
       url: REGISTER,
       data: {
@@ -36,33 +102,46 @@ class RegisterCubit extends Cubit<RegisterStates> {
       },
     ).then((value) {
       if (kDebugMode) {
+        print(value.data);
+      }
+      if (kDebugMode) {
         signupModel = LoginModel.fromJson(value.data);
       }
-      emit(RegisterSuccessState(signupModel!));
+      emit(SignUpSuccessState(signupModel!));
     }).catchError((error) {
       if (kDebugMode) {
         print(error.toString());
       }
-      emit(RegisterErrorState());
+      emit(SignUpErrorState(error.toString()));
     });
   }
+  //register cubit functions
+  bool isPasswordRegister = true;
+  IconData suffixIconRegister = Icons.visibility_off_outlined;
 
-  bool isPassword = true;
-  IconData suffixIcon = Icons.visibility_off_outlined;
-
-  void changeRegisterSuffixIcon(){
-    isPassword = !isPassword;
-    suffixIcon = isPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined;
-    emit(ChangeRegisterSuffixState());
+  void changeSuffixIconRegister() {
+    isPasswordRegister = !isPasswordRegister;
+    suffixIconRegister = isPasswordRegister
+        ? Icons.visibility_off_outlined
+        : Icons.remove_red_eye;
+    emit(ChangeSuffixState());
   }
 
-  bool isConfirmedPassword = true;
-  IconData suffixIconConfirmed = Icons.visibility_off_outlined;
+  bool isPasswordConfirmRegister = true;
+  IconData suffixIconConfirmRegister = Icons.visibility_off_outlined;
 
-  void changeRegisterSuffixIconConfirmed(){
-    isConfirmedPassword = !isConfirmedPassword;
-    suffixIconConfirmed = isConfirmedPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined;
-    emit(ChangeRegisterSuffixState());
+  void changeSuffixIconConfirmRegister() {
+    isPasswordConfirmRegister = !isPasswordConfirmRegister;
+    suffixIconConfirmRegister = isPasswordConfirmRegister
+        ? Icons.visibility_off_outlined
+        : Icons.remove_red_eye;
+    emit(ChangeSuffixState());
   }
+
+  bool isEnabledButton = true;
+  void changeButtonState(int length) {
+    isEnabledButton = length == 1 ? true : false;
+    emit(ChangeButtonState());
+  }
+
 }
-*/

@@ -1,7 +1,8 @@
+/*
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
-import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -190,3 +191,4 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
         });
   }
 }
+*/

@@ -1,8 +1,8 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/create_new_password/otp_new_password.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
-import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';

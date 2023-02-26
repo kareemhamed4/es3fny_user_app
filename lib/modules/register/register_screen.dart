@@ -1,9 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/dialogs/policy_dialog.dart';
 import 'package:es3fny_user_app/modules/otp/otp_screen.dart';
-import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_cubit.dart';
-import 'package:es3fny_user_app/modules/phone_auth_register/cubit/phone_states.dart';
+import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
@@ -75,15 +76,9 @@ class _RegisterState extends State<Register> {
               CacheHelper.saveData(key: "token", value: state.signup.data!.token)
                   .then((value) {
                 token = state.signup.data!.token;
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      "${state.signup.message}",
-                    ),
-                  ),
-                );
                 NavigateTo(context: context, widget: const OTPScreen());
               });
+              context.read<PhoneAuthCubit>().submitPhoneNumber(phoneNumber);
             }
             if(!state.signup.status!){
               ScaffoldMessenger.of(context).showSnackBar(
@@ -434,27 +429,45 @@ class _RegisterState extends State<Register> {
                       SizedBox(
                         height: size.height * 0.02,
                       ),
-                      myMaterialButton(
-                        context: context,
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            cubit.userModel(
-                                name: nameController.text,
-                                email: emailController.text,
-                                nationalId: nationalIdController.text,
-                                phone: phoneNumber.substring(phoneNumber.length - 10),
-                                gender: selectedValue,
-                                age: int.parse(ageController.text),
-                                password: passwordController.text,
-                            );
-                            cubit.submitPhoneNumber(phoneNumber);
-                          }
-                        },
-                        labelWidget: Text(
-                          'register_button'.tr(context),
-                          style: Theme.of(context).textTheme.button!.copyWith(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                      ConditionalBuilder(
+                        condition: states is! SignUpLoadingState,
+                        builder:(context) => myMaterialButton(
+                          context: context,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              cubit.userModel(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  nationalId: nationalIdController.text,
+                                  phone: phoneNumber.substring(phoneNumber.length - 10),
+                                  gender: selectedValue,
+                                  age: int.parse(ageController.text),
+                                  password: passwordController.text,
+                              );
+                            }
+                          },
+                          labelWidget: Text(
+                            'register_button'.tr(context),
+                            style: Theme.of(context).textTheme.button!.copyWith(
+                                fontSize: 20, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        fallback: (context) => myMaterialButton(
+                          context: context,
+                          onPressed: () {
+                            null;
+                          },
+                          labelWidget: const Center(
+                            child: SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 3,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(

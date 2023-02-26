@@ -1,18 +1,26 @@
-/*
 import 'package:es3fny_user_app/models/login_model.dart';
 
-abstract class RegisterStates {}
+abstract class PhoneAuthStates {}
 
-class RegisterInitialState extends RegisterStates {}
+class PhoneAuthInitialState extends PhoneAuthStates {}
 
-class RegisterLoadingState extends RegisterStates {}
-class RegisterSuccessState extends RegisterStates {
-  final LoginModel signup;
-
-  RegisterSuccessState(this.signup);
+class PhoneAuthLoadingState extends PhoneAuthStates {}
+class PhoneAuthErrorState extends PhoneAuthStates {
+  final String errorMsg;
+  PhoneAuthErrorState({required this.errorMsg});
 }
-class RegisterErrorState extends RegisterStates {}
+class PhoneNumberSubmitted extends PhoneAuthStates {}
+class PhoneOTPVerified extends PhoneAuthStates {}
+class ChangeSuffixState extends PhoneAuthStates {}
+class ChangeButtonState extends PhoneAuthStates {}
 
-class ChangeRegisterSuffixState extends RegisterStates {}
-class RegisterCheckBoxState extends RegisterStates {}
-*/
+class SignUpLoadingState extends PhoneAuthStates {}
+class SignUpSuccessState extends PhoneAuthStates {
+  final LoginModel signup;
+  SignUpSuccessState(this.signup);
+}
+class SignUpErrorState extends PhoneAuthStates {
+  final String error;
+  SignUpErrorState(this.error);
+}
+

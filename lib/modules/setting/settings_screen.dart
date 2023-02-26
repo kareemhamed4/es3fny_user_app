@@ -19,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          appBar: defaultAppBar(),
           body: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -92,6 +93,7 @@ class SettingsScreen extends StatelessWidget {
                             /*Timer(const Duration(seconds: 3), () {
                               RestartWidget.restartApp(context);
                             });*/
+                            Navigator.of(context).popUntil((route) => route.isFirst);
                             NavigateToReb(
                                 context: context, widget: const OnBoardingScreen());
                           });
