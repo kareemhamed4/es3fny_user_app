@@ -4,6 +4,7 @@ import 'package:es3fny_user_app/layout/cubit/states.dart';
 import 'package:es3fny_user_app/main_button/main_button.dart';
 import 'package:es3fny_user_app/modules/edit_location/edit_location_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -150,29 +151,34 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             children: [
                               Expanded(
-                                child: SizedBox(
-                                  height: size.height * 0.105,
-                                  width: size.width * 0.36,
-                                  child: Card(
-                                    color: Theme.of(context).cardColor,
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "card_home_1".tr(context),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelMedium!
-                                              .copyWith(fontSize: 16),
-                                        ),
-                                        const Icon(
-                                          (Icons.arrow_forward),
-                                        )
-                                      ],
+                                child: GestureDetector(
+                                  onTap: (){
+                                    print(token);
+                                  },
+                                  child: SizedBox(
+                                    height: size.height * 0.105,
+                                    width: size.width * 0.36,
+                                    child: Card(
+                                      color: Theme.of(context).cardColor,
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "card_home_1".tr(context),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelMedium!
+                                                .copyWith(fontSize: 16),
+                                          ),
+                                          const Icon(
+                                            (Icons.arrow_forward),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

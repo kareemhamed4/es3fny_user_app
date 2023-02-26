@@ -35,6 +35,7 @@ class ProfileScreen extends StatelessWidget {
   TextEditingController nIDController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
   TextEditingController ageController = TextEditingController();
 
   TextEditingController familyNameController = TextEditingController();
@@ -43,15 +44,16 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = "محمد أحمد عبد الغني دومه";
-    nIDController.text = "30004011601693";
-    phoneController.text = "01157567842";
-    emailController.text = "mohamed.abdelghany@gmail.com";
-    ageController.text = "22";
-
     return BlocConsumer<ProfileCubit, ProfileStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        var model = ProfileCubit.get(context).userModel;
+        nameController.text = model != null ? model.data!.name! : " ";
+        nIDController.text = model != null ? model.data!.nationalId! : " ";
+        phoneController.text = model != null ? "0${model.data!.phone!}" : " ";
+        emailController.text = model != null ? model.data!.email! : " ";
+        genderController.text = model != null ? model.data!.gender! : " ";
+        ageController.text = model != null ? model.data!.age!.toString() : " ";
         Size size = MediaQuery.of(context).size;
         ProfileCubit cubit = BlocProvider.of(context);
         return Scaffold(
@@ -151,9 +153,9 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        const CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/images/308888645_3298435880403234_8809857619090350383_n.jpeg',
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            model!.data!.image!,
                           ),
                           radius: 40,
                         ),
@@ -183,7 +185,7 @@ class ProfileScreen extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "محمد عبد الغني",
+                                        nameController.text,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
@@ -398,6 +400,21 @@ class ProfileScreen extends StatelessWidget {
                                       label: "العمر",
                                       widget: TextFormField(
                                         controller: ageController,
+                                        decoration: InputDecoration(
+                                          enabled: cubit.isEnabled,
+                                          contentPadding: EdgeInsets.zero,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    buildPersonalInfoItem(
+                                      context: context,
+                                      size: size,
+                                      label: "النوع",
+                                      widget: TextFormField(
+                                        controller: genderController,
                                         decoration: InputDecoration(
                                           enabled: cubit.isEnabled,
                                           contentPadding: EdgeInsets.zero,

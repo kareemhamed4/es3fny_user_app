@@ -14,6 +14,8 @@ import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
+import 'package:es3fny_user_app/test/cubit/cubit.dart';
+import 'package:es3fny_user_app/test/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,8 +60,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1)),
         BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
-        BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()),
+        BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()..getUserData()),
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
+        BlocProvider(create: (BuildContext context) => TestCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},

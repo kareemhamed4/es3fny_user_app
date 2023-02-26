@@ -209,7 +209,6 @@ class _RegisterState extends State<Register> {
                             }
                             return null;
                           },
-                          autoFocus: true,
                           onInputChanged: (PhoneNumber value) {
                             /*if (value.phoneNumber!.length == 13) {
                               cubit.changeButtonState(1);

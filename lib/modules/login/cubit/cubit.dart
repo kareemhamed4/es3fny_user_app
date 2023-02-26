@@ -37,6 +37,7 @@ class LoginCubit extends Cubit<LoginStates> {
     });
   }
 
+
   bool isPassword = true;
   IconData suffixIcon = Icons.visibility_off_outlined;
 

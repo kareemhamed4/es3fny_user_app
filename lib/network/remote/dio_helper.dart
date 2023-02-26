@@ -9,7 +9,8 @@ class DioHelper {
       receiveDataWhenStatusError: true,
     ));
   }
-
+  //https://diabetes-802s.onrender.com/
+  //http://192.168.1.12/api/
   static Future<Response> getData({
     required String url,
     String? token,
@@ -17,10 +18,13 @@ class DioHelper {
   }) async {
     dio!.options.headers = {
       'lang': 'en',
-      'Authorization': token ?? '',
+      'token': token ?? '',
       'Content-Type': 'application/json',
     };
-    return await dio!.get(url, queryParameters: query);
+    return await dio!.get(
+        url,
+        queryParameters: query
+    );
   }
 
   static Future<Response> postData({

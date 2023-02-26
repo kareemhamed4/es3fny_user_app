@@ -1,4 +1,8 @@
+import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
+import 'package:es3fny_user_app/network/endpoint.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +12,29 @@ class ProfileCubit extends Cubit<ProfileStates> {
   ProfileCubit() : super(ProfileInitialState());
 
   static ProfileCubit get(context) => BlocProvider.of(context);
+
+  LoginModel? userModel;
+
+  void getUserData() {
+    emit(UserProfileLoadingState());
+
+    DioHelper.getData(
+        url: PROFILE,
+        token: token,
+        query: {
+          "token": token,
+        }
+    ).then((value) {
+      userModel = LoginModel.fromJson(value.data);
+      print(value.data);
+      emit(UserProfileSuccessState(userModel!));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print(error.toString());
+      }
+      emit(UserProfileErrorState());
+    });
+  }
 
   int currentPageIndex = 0;
   void changePageIndex(index) {
