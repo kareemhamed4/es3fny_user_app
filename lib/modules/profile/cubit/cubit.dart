@@ -1,7 +1,7 @@
 import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
-import 'package:es3fny_user_app/network/remote/dio_helper.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,11 @@ class ProfileCubit extends Cubit<ProfileStates> {
   void getUserData() {
     emit(UserProfileLoadingState());
 
-    DioHelper.getData(url: PROFILE, token: token, query: {
+    DioHelper.getData(
+        url: PROFILE,
+        baseUrl: "http://192.168.1.12/api/",
+        token: token,
+        query: {
       "token": token,
     }).then((value) {
       userModel = LoginModel.fromJson(value.data);

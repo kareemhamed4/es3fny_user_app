@@ -1,0 +1,2 @@
+-keep class com.graduationproject.userapp.es3fny_user_app.** { *; }
+-dontwarn okhttp3.internal.platform.ConscryptPlatform

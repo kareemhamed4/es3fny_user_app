@@ -31,62 +31,64 @@ class _TESTState extends State<TEST> {
           appBar: defaultAppBar(),
           body: Form(
             key: formKey,
-            child: Column(
-              children: [
-                myTextFormField(
-                  context: context,
-                  controller: controller1,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller2,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller3,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller4,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller5,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller6,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller7,
-                ),
-                myTextFormField(
-                  context: context,
-                  controller: controller8,
-                ),
-                myMaterialButton(
-                  context: context,
-                  onPressed: (){
-                    if(formKey.currentState!.validate()){
-                      TestCubit.get(context).testModel(
-                          name: controller1.text,
-                          email: controller2.text,
-                          nationalId: controller3.text,
-                          phone: controller4.text,
-                          gender: controller5.text,
-                          age: controller6.text,
-                          password: controller7.text,
-                          password2: controller8.text,
-                      );
-                    }
-                  },
-                ),
-                if(TestCubit.get(context).prediction == "0")
-                  const Text("State is kareem"),
-                if(TestCubit.get(context).prediction == "1")
-                  const Text("State is Moustafa"),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  myTextFormField(
+                    context: context,
+                    controller: controller1,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller2,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller3,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller4,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller5,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller6,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller7,
+                  ),
+                  myTextFormField(
+                    context: context,
+                    controller: controller8,
+                  ),
+                  myMaterialButton(
+                    context: context,
+                    onPressed: (){
+                      if(formKey.currentState!.validate()){
+                        TestCubit.get(context).testModel(
+                            name: controller1.text,
+                            email: controller2.text,
+                            nationalId: controller3.text,
+                            phone: controller4.text,
+                            gender: controller5.text,
+                            age: controller6.text,
+                            password: controller7.text,
+                            password2: controller8.text,
+                        );
+                      }
+                    },
+                  ),
+                  if(TestCubit.get(context).prediction == "0")
+                    const Text("State is kareem"),
+                  if(TestCubit.get(context).prediction == "1")
+                    const Text("State is Moustafa"),
+                ],
+              ),
             ),
           ),
         );

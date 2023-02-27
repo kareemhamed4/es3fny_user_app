@@ -1,9 +1,10 @@
+/*
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioHelper {
   static Dio? dio;
-
+  //static var baseUrl = "https://xxx/xxx/web_api/public";
   static void init() {
     dio = Dio(BaseOptions(
       baseUrl: "http://192.168.1.12/api/",
@@ -68,3 +69,4 @@ class DioHelper {
     );
   }
 }
+*/

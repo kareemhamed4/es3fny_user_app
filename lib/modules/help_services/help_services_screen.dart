@@ -1,6 +1,8 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/models/services_model.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
+import 'package:es3fny_user_app/test/test.dart';
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
@@ -76,7 +78,9 @@ class HelpServicesScreen extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           highlightColor: myFavColor.withOpacity(0.5),
-          onTap: () {},
+          onTap: () {
+            NavigateTo(context: context, widget: const TEST());
+          },
           child: SizedBox(
             height: size.height * 0.11,
             child: Card(

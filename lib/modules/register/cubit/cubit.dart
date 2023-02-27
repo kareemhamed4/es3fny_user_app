@@ -1,7 +1,7 @@
 import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
-import 'package:es3fny_user_app/network/remote/dio_helper.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,6 +82,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     emit(SignUpLoadingState());
     DioHelper.postData(
       url: REGISTER,
+      baseUrl: "http://192.168.1.12/api/",
       data: {
         'name': name,
         'email': email,

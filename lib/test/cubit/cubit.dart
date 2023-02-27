@@ -1,6 +1,6 @@
 import 'package:es3fny_user_app/models/test.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
-import 'package:es3fny_user_app/network/remote/dio_helper.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/test/cubit/states.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,16 +23,19 @@ class TestCubit extends Cubit<TestStates> {
     required String password2,
   }) {
     emit(TestLoadingState());
-    DioHelper.postData(url: API, query: {
-      'Pregnancies': name,
-      'Glucose': email,
-      'BloodPressure': nationalId,
-      'SkinThickness': phone,
-      'Insulin': gender,
-      'BMI': age,
-      'Age': password,
-      'DiabetesPedigreeFunction': password2,
-    }).then((value) {
+    DioHelper.postData(
+        url: API,
+        baseUrl: "https://diabetes-802s.onrender.com/",
+        query: {
+          'Pregnancies': name,
+          'Glucose': email,
+          'BloodPressure': nationalId,
+          'SkinThickness': phone,
+          'Insulin': gender,
+          'BMI': age,
+          'Age': password,
+          'DiabetesPedigreeFunction': password2,
+        }).then((value) {
       debugPrint(value.data.toString());
       test = Test.fromJson(value.data);
       prediction = test!.prediction;

@@ -11,7 +11,7 @@ import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
-import 'package:es3fny_user_app/network/remote/dio_helper.dart';
+import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:es3fny_user_app/test/cubit/cubit.dart';
