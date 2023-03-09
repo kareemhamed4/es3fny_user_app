@@ -258,7 +258,7 @@ class _RegisterState extends State<Register> {
                               .textTheme
                               .bodyText2!
                               .copyWith(
-                                  color: myFavColor11,
+                                  color: myFavColor5,
                                   fontSize: 16,
                                   fontFamily: "FinalR"),
                         ),

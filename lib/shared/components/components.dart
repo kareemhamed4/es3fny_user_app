@@ -248,11 +248,11 @@ void displaySuccessMotionToast({
     MotionToast.success(
       title: Text(
         title ?? "",
-        style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
+        style: TextStyle(color: myFavColor3, fontWeight: FontWeight.bold),
       ),
       description: Text(
         description ?? "",
-        style: TextStyle(color: myFavColor4, fontSize: 12),
+        style: TextStyle(color: myFavColor3, fontSize: 12),
       ),
       layoutOrientation: ToastOrientation.ltr,
       animationType: AnimationType.fromTop,
@@ -268,11 +268,11 @@ void displayErrorMotionToast({
     MotionToast.error(
       title: Text(
         title ?? "",
-        style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
+        style: TextStyle(color: myFavColor3, fontWeight: FontWeight.bold),
       ),
       description: Text(
         description ?? "",
-        style: TextStyle(color: myFavColor4, fontSize: 12),
+        style: TextStyle(color: myFavColor3, fontSize: 12),
       ),
       layoutOrientation: ToastOrientation.ltr,
       position: MotionToastPosition.top,
@@ -290,11 +290,11 @@ void displayWarningMotionToast({
     MotionToast.warning(
       title: Text(
         title ?? "",
-        style: TextStyle(color: myFavColor4, fontWeight: FontWeight.bold),
+        style: TextStyle(color: myFavColor3, fontWeight: FontWeight.bold),
       ),
       description: Text(
         description ?? "",
-        style: TextStyle(color: myFavColor4, fontSize: 12),
+        style: TextStyle(color: myFavColor3, fontSize: 12),
       ),
       layoutOrientation: ToastOrientation.ltr,
       position: MotionToastPosition.top,
@@ -394,7 +394,7 @@ Widget myDropDownButton({
         style: Theme.of(context)
             .textTheme
             .bodyText2!
-            .copyWith(color: myFavColor11, fontSize: 16, fontFamily: "FinalR"),
+            .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
       ),
       icon: const Icon(
         Icons.keyboard_arrow_down_outlined,

@@ -25,13 +25,13 @@ ThemeData lightTheme = ThemeData(
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      side: BorderSide(color: myFavColor2),
+      side: BorderSide(color: myFavColor1),
     ),
   ),
   buttonTheme: ButtonThemeData(
       shape: OutlineInputBorder(
           borderSide: BorderSide(
-              color: myFavColor2
+              color: myFavColor1
           )
       )
   ),
@@ -51,14 +51,14 @@ ThemeData lightTheme = ThemeData(
     ),
     elevation: 0,
   ),
-  unselectedWidgetColor: myFavColor4,
+  unselectedWidgetColor: myFavColor3,
   textTheme: TextTheme(
-    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor4,fontSize: 14),
-    bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor4),
-    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor4,fontSize: 16),
-    headline5: TextStyle(fontFamily: "kareemR",color: myFavColor4),
-    headline6: TextStyle(fontFamily: "FinalB",color: myFavColor4),
-    caption: TextStyle(fontFamily: "FinalB",color: myFavColor2),
+    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor3,fontSize: 14),
+    bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor3),
+    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor3,fontSize: 16),
+    headline5: TextStyle(fontFamily: "kareemR",color: myFavColor3),
+    headline6: TextStyle(fontFamily: "FinalB",color: myFavColor3),
+    caption: TextStyle(fontFamily: "FinalB",color: myFavColor1),
     labelMedium: TextStyle(fontFamily: "FinalB",color: myFavColor),
     button: const TextStyle(fontFamily: "FinalB",color: Colors.white),
   ),
@@ -73,73 +73,73 @@ ThemeData lightTheme = ThemeData(
 );
 
 ThemeData darkTheme = ThemeData(
-  cardColor: myFavColor13,
-  scaffoldBackgroundColor: myFavColor14,
+  cardColor: myFavColor7,
+  scaffoldBackgroundColor: myFavColor8,
   colorScheme: ColorScheme.fromSwatch().copyWith(
-      primary: myFavColor11
+      primary: myFavColor5
   ),
   bottomSheetTheme: BottomSheetThemeData(
-    backgroundColor: myFavColor13,
+    backgroundColor: myFavColor7,
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        side: BorderSide(color: myFavColor11),
+        side: BorderSide(color: myFavColor5),
       ),
   ),
   buttonTheme: ButtonThemeData(
     shape: OutlineInputBorder(
       borderSide: BorderSide(
-        color: myFavColor11
+        color: myFavColor5
       )
     )
   ),
   inputDecorationTheme: InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: myFavColor10
+        color: myFavColor4
       )
     ),
     border: OutlineInputBorder(
         borderSide: BorderSide(
-            color: myFavColor11
+            color: myFavColor5
         )
     ),
   ),
   iconTheme: IconThemeData(
-    color: myFavColor11,
+    color: myFavColor5,
   ),
   appBarTheme: AppBarTheme(
     iconTheme: IconThemeData(
-      color: myFavColor12,
+      color: myFavColor6,
     ),
-    color: myFavColor14,
+    color: myFavColor8,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: myFavColor14,
+      statusBarColor: myFavColor8,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: myFavColor14,
+      systemNavigationBarColor: myFavColor8,
       systemNavigationBarIconBrightness: Brightness.light,
     ),
     elevation: 0,
   ),
-  unselectedWidgetColor: myFavColor11,
+  unselectedWidgetColor: myFavColor5,
   textTheme: TextTheme(
-    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor12,fontSize: 14),
-    bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor12),
-    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor12,fontSize: 16),
-    headline5: TextStyle(fontFamily: "FinalR",color: myFavColor12),
-    headline6: TextStyle(fontFamily: "FinalB",color: myFavColor12),
-    caption: TextStyle(fontFamily: "FinalB",color: myFavColor11),
-    labelMedium: TextStyle(fontFamily: "FinalB",color: myFavColor12),
-    button: TextStyle(fontFamily: "FinalB",color: myFavColor12),
+    bodyText1: TextStyle(fontFamily: "FinalR",color: myFavColor6,fontSize: 14),
+    bodyText2: TextStyle(fontFamily: "FinalB",color: myFavColor6),
+    subtitle1: TextStyle(fontFamily: "FinalL",color: myFavColor6,fontSize: 16),
+    headline5: TextStyle(fontFamily: "FinalR",color: myFavColor6),
+    headline6: TextStyle(fontFamily: "FinalB",color: myFavColor6),
+    caption: TextStyle(fontFamily: "FinalB",color: myFavColor5),
+    labelMedium: TextStyle(fontFamily: "FinalB",color: myFavColor6),
+    button: TextStyle(fontFamily: "FinalB",color: myFavColor6),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: myFavColor14,
+    backgroundColor: myFavColor8,
     elevation: 0,
-    selectedIconTheme: IconThemeData(color: myFavColor11),
-    unselectedIconTheme: IconThemeData(color: myFavColor10),
+    selectedIconTheme: IconThemeData(color: myFavColor5),
+    unselectedIconTheme: IconThemeData(color: myFavColor4),
     type: BottomNavigationBarType.fixed,
-    selectedLabelStyle: TextStyle(color: myFavColor11, fontFamily: "FinalB",fontSize: 12),
-    unselectedItemColor: myFavColor10,
+    selectedLabelStyle: TextStyle(color: myFavColor5, fontFamily: "FinalB",fontSize: 12),
+    unselectedItemColor: myFavColor4,
     unselectedLabelStyle: const TextStyle(fontFamily: "FinalR",fontSize: 12),
   ),
 );

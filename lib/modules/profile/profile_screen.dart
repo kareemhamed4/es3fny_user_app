@@ -136,7 +136,7 @@ class ProfileScreen extends StatelessWidget {
                                 },
                                 icon: Icon(
                                   Icons.settings,
-                                  color: myFavColor12,
+                                  color: myFavColor6,
                                 )),
                             const Spacer(),
                             IconButton(
@@ -145,7 +145,7 @@ class ProfileScreen extends StatelessWidget {
                                 },
                                 icon: Icon(
                                   Icons.notifications_none_outlined,
-                                  color: myFavColor12,
+                                  color: myFavColor6,
                                 )),
                           ],
                         )
@@ -167,7 +167,7 @@ class ProfileScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  color: myFavColor4.withOpacity(0.2),
+                                  color: myFavColor3.withOpacity(0.2),
                                   blurStyle: BlurStyle.outer,
                                   offset: const Offset(0, 2),
                                   spreadRadius: 1,
@@ -199,7 +199,7 @@ class ProfileScreen extends StatelessWidget {
                                           },
                                           icon: Icon(
                                             cubit.editIcon,
-                                            color: myFavColor11,
+                                            color: myFavColor5,
                                             size: 24,
                                           ),
                                         ),
@@ -207,7 +207,7 @@ class ProfileScreen extends StatelessWidget {
                                   )),
                                 ),
                                 Divider(
-                                  color: myFavColor11,
+                                  color: myFavColor5,
                                 ),
                                 Expanded(
                                   flex: 1,
@@ -252,7 +252,7 @@ class ProfileScreen extends StatelessWidget {
                                                               .bodyText2!
                                                               .copyWith(
                                                                   color:
-                                                                      myFavColor11),
+                                                                      myFavColor5),
                                                     ),
                                                   ),
                                                 ),
@@ -261,7 +261,7 @@ class ProfileScreen extends StatelessWidget {
                                           ),
                                         ),
                                         VerticalDivider(
-                                          color: myFavColor11,
+                                          color: myFavColor5,
                                         ),
                                         Expanded(
                                           child: GestureDetector(
@@ -288,7 +288,7 @@ class ProfileScreen extends StatelessWidget {
                                                           .bodyText2!
                                                           .copyWith(
                                                               color:
-                                                                  myFavColor11),
+                                                                  myFavColor5),
                                                 ),
                                               ),
                                             ),
@@ -582,7 +582,7 @@ class ProfileScreen extends StatelessWidget {
                                                           );
                                                         }),
                                                         backgroundColor:
-                                                            myFavColor11,
+                                                            myFavColor5,
                                                         icon:
                                                             Icons.edit_outlined,
                                                       ),
@@ -651,7 +651,7 @@ class ProfileScreen extends StatelessWidget {
                                                         leading: Icon(
                                                           Icons
                                                               .person_outline_sharp,
-                                                          color: myFavColor11,
+                                                          color: myFavColor5,
                                                         ),
                                                         contentPadding:
                                                             EdgeInsets.zero,

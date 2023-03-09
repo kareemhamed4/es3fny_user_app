@@ -117,7 +117,7 @@ class LoadingButtonState extends State<LoadingButton>
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: myFavColor4,
+                    color: myFavColor3,
                     spreadRadius: 6,
                     blurRadius: 9,
                     blurStyle: BlurStyle.outer,

@@ -79,7 +79,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         width: 80,
                         height: 5,
                         decoration: BoxDecoration(
-                          color: myFavColor2.withOpacity(0.5),
+                          color: myFavColor1.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
@@ -130,7 +130,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         width: 80,
                         height: 5,
                         decoration: BoxDecoration(
-                          color: myFavColor2.withOpacity(0.5),
+                          color: myFavColor1.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
@@ -158,7 +158,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       },
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: myFavColor2.withOpacity(0.1),
+                        fillColor: myFavColor1.withOpacity(0.1),
                         contentPadding: const EdgeInsets.only(right: 8,left: 8),
                         label: Text(
                           "pick_location_2".tr(context),
@@ -189,7 +189,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       controller: hospitalController,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: myFavColor2.withOpacity(0.1),
+                        fillColor: myFavColor1.withOpacity(0.1),
                         contentPadding: const EdgeInsets.only(right: 8,left: 8),
                         label: Text(
                           "destination_location_2".tr(context),

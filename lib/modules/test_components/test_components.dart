@@ -58,7 +58,7 @@ class TestComponents extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!
-                        .copyWith(color: myFavColor2),
+                        .copyWith(color: myFavColor1),
                   ),
                   myTextButton(
                     context: context,
