@@ -40,7 +40,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
             "edit_location".tr(context),
             style: Theme.of(context)
                 .textTheme
-                .bodyText2!
+                .bodyText1!
                 .copyWith(fontSize: 20),
           ),
           centerTitle: true,
@@ -142,7 +142,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       "pick_location".tr(context),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyText1!
                           .copyWith(fontSize: 18),
                     ),
                     const SizedBox(
@@ -179,7 +179,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       "destination_location".tr(context),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyText1!
                           .copyWith(fontSize: 18),
                     ),
                     const SizedBox(

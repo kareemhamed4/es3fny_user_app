@@ -43,7 +43,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
             centerTitle: true,
             title: Text(
                 "track_info_title".tr(context),
-              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 20),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
             ),
           ),
           body: Stack(
@@ -152,14 +152,14 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                         Text(
                           'track_ambulance'.tr(context),
                           style:
-                          Theme.of(context).textTheme.bodyText2!.copyWith(
+                          Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 22,
                           ),
                         ),
                         Text(
                           'ambulance_time_remaining'.tr(context),
                           style:
-                          Theme.of(context).textTheme.bodyText2!.copyWith(
+                          Theme.of(context).textTheme.bodyText1!.copyWith(
                             color: myFavColor,
                           ),
                         ),
@@ -188,7 +188,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                   'محمد عبد الغني',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyText2!
+                                      .bodyText1!
                                       .copyWith(fontSize: 16),
                                 ),
                                 Text(
@@ -342,7 +342,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                   "track_alert".tr(context),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyText1!
                                     .copyWith(fontSize: 18),
                               ),
                                 contentWidget: Text(

@@ -19,137 +19,138 @@ class SettingsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: defaultAppBar(),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        onPressed: () {
-                          showMyBottomSheet(context: context);
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.language_outlined,
-                              color: Colors.blue,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "app_language".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(color: Colors.blue),
-                            ),
-                          ],
-                        )),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                          onPressed: () {
+                            showMyBottomSheet(context: context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.language_outlined,
+                                color: Colors.blue,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "app_language".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: Colors.blue),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        onPressed: () {
-                          MainCubit.get(context).changeAppMode();
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.brightness_4_outlined,
-                              color: Colors.blue,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "change_app_mode".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(color: Colors.blue),
-                            ),
-                          ],
-                        )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                          onPressed: () {
+                            MainCubit.get(context).changeAppMode();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.brightness_4_outlined,
+                                color: Colors.blue,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "change_app_mode".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: Colors.blue),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        onPressed: () {
-                          CacheHelper.clearData().then((value) {
-                            /*Timer(const Duration(seconds: 3), () {
-                              RestartWidget.restartApp(context);
-                            });*/
-                            Navigator.of(context).popUntil((route) => route.isFirst);
-                            NavigateToReb(
-                                context: context, widget: const OnBoardingScreen());
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.delete_outline,
-                              color: Colors.blue,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "clear_data".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(color: Colors.blue),
-                            ),
-                          ],
-                        )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                          onPressed: () {
+                            CacheHelper.clearData().then((value) {
+                              /*Timer(const Duration(seconds: 3), () {
+                                RestartWidget.restartApp(context);
+                              });*/
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              NavigateToReb(
+                                  context: context, widget: const OnBoardingScreen());
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.delete_outline,
+                                color: Colors.blue,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "clear_data".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: Colors.blue),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                        onPressed: () {
-                          MainCubit.get(context).signOut();
-                          NavigateToReb(context: context, widget: LoginScreen());
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.logout_outlined,
-                              color: Colors.blue,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "logout".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2!
-                                  .copyWith(color: Colors.blue),
-                            ),
-                          ],
-                        )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                          onPressed: () {
+                            MainCubit.get(context).signOut();
+                            NavigateToReb(context: context, widget: LoginScreen());
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.logout_outlined,
+                                color: Colors.blue,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "logout".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: Colors.blue),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -207,7 +208,7 @@ class SettingsScreen extends StatelessWidget {
                       const SizedBox(width: 20,),
                       Text(
                         "app_language".tr(context),
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ],
                   ),
@@ -230,7 +231,7 @@ class SettingsScreen extends StatelessWidget {
                             );
                           }
                       ),
-                      Text("arabic".tr(context),style: Theme.of(context).textTheme.bodyText2,),
+                      Text("arabic".tr(context),style: Theme.of(context).textTheme.bodyText1,),
                     ],
                   ),
                   Row(
@@ -249,7 +250,7 @@ class SettingsScreen extends StatelessWidget {
                             );
                           }
                       ),
-                      Text("english".tr(context),style: Theme.of(context).textTheme.bodyText2,),
+                      Text("english".tr(context),style: Theme.of(context).textTheme.bodyText1,),
                     ],
                   ),
                   const SizedBox(height: 20,),

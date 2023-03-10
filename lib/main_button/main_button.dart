@@ -50,7 +50,7 @@ class LoadingButtonState extends State<LoadingButton>
             "alert".tr(context),
             style: Theme.of(context)
                 .textTheme
-                .bodyText2!
+                .bodyText1!
                 .copyWith(fontSize: 18),
           ),
           contentWidget: Text(

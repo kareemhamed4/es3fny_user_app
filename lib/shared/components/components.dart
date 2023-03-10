@@ -42,7 +42,7 @@ Widget myTextFormField({
       ],
       style: Theme.of(context)
           .textTheme
-          .bodyText2!
+          .bodyText1!
           .copyWith(fontFamily: "FinalR", fontSize: 18),
       decoration: InputDecoration(
         hintText: hint ?? '',
@@ -87,7 +87,7 @@ Widget myTextButton({
           label,
           style: Theme.of(context)
               .textTheme
-              .bodyText2!
+              .bodyText1!
               .copyWith(color: myFavColor),
         ));
 
@@ -114,7 +114,7 @@ Widget onBoardingMaterialButton({
               label,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyText1!
                   .copyWith(color: Colors.white),
             ),
             const SizedBox(
@@ -229,7 +229,7 @@ Widget phoneTextFormField({
       ],
       style: Theme.of(context)
           .textTheme
-          .bodyText2!
+          .bodyText1!
           .copyWith(fontSize: 18, fontFamily: "FinalR"),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -343,7 +343,7 @@ void showMyDialog({
                   "alert_cancel".tr(context),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyText1!
                       .copyWith(color: myFavColor, fontSize: 20),
                 ),
               ),
@@ -360,7 +360,7 @@ void showMyDialog({
                   "alert_confirm".tr(context),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyText1!
                       .copyWith(color: Colors.white, fontSize: 20),
                 ),
               ),
@@ -393,7 +393,7 @@ Widget myDropDownButton({
         hintText.tr(context),
         style: Theme.of(context)
             .textTheme
-            .bodyText2!
+            .bodyText1!
             .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
       ),
       icon: const Icon(
@@ -414,7 +414,7 @@ Widget myDropDownButton({
                   item.tr(context),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyText1!
                       .copyWith(fontSize: 18, fontFamily: "FinalR"),
                 ),
               ))
@@ -517,6 +517,3 @@ Widget mySearchDropDownButton({
         ),
       ),
     );
-
-PreferredSizeWidget defaultAppBar() =>
-    PreferredSize(preferredSize: const Size.fromHeight(0.0), child: AppBar());

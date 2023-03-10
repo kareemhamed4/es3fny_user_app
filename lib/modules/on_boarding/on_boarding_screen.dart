@@ -151,7 +151,7 @@ Widget buildPageViewScreen({
         ),
         Text(
           model.header,
-          style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
         ),
         SizedBox(
           height: size.height * 0.04,
@@ -159,7 +159,7 @@ Widget buildPageViewScreen({
         Text(
           model.body,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.caption,
         ),
         SizedBox(
           height: size.height * 0.1,

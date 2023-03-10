@@ -14,7 +14,7 @@ class TrackingScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             pinned: true,
-            backgroundColor: myFavColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(20),
               child: Container(
@@ -33,7 +33,7 @@ class TrackingScreen extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "history".tr(context),
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                   ),
                 ),
               ),

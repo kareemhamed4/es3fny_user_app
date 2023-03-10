@@ -35,7 +35,7 @@ class NewPassword extends StatelessWidget {
                     child: Column(
                       children: [
                         Text("create_password".tr(context),
-                            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 32,
                               color: myFavColor
                             )),
@@ -46,7 +46,7 @@ class NewPassword extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             'create_password_enter'.tr(context),
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),
                         SizedBox(
@@ -80,7 +80,7 @@ class NewPassword extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             'create_confirm_password_enter'.tr(context),
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),
                         SizedBox(

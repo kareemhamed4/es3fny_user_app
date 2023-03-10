@@ -52,197 +52,201 @@ class LoginScreen extends StatelessWidget {
           return Scaffold(
             key: scaffoldKey,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            appBar: defaultAppBar(),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Center(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "login_label".tr(context),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(fontSize: 30, color: myFavColor),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.064,
-                        ),
-                        const Image(
-                          image: AssetImage(
-                            "assets/images/juicy-online-doctor-consultation 1.png",
-                          ),
-                          width: 180,
-                          height: 180,
-                        ),
-                        SizedBox(
-                          height: size.height * 0.065,
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Text(
-                            'login_phone'.tr(context),
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: InternationalPhoneNumberInput(
-                            countries: const ["EG"],
-                            spaceBetweenSelectorAndTextField: 20,
-                            selectorTextStyle: Theme.of(context)
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Center(
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "login_label".tr(context),
+                            style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
-                                .copyWith(fontSize: 18),
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(fontSize: 18),
-                            maxLength: 12,
-                            validator: (value) {
-                              if (value!.length < 12) {
-                                return "login_phone_valid".tr(context);
+                                .bodyText1!
+                                .copyWith(fontSize: 30, color: myFavColor),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.064,
+                          ),
+                          const Image(
+                            image: AssetImage(
+                              "assets/images/juicy-online-doctor-consultation 1.png",
+                            ),
+                            width: 180,
+                            height: 180,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.065,
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: Text(
+                              'login_phone'.tr(context),
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: InternationalPhoneNumberInput(
+                              countries: const ["EG"],
+                              spaceBetweenSelectorAndTextField: 20,
+                              selectorTextStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 18),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 18),
+                              maxLength: 12,
+                              validator: (value) {
+                                if (value!.length < 12) {
+                                  return "login_phone_valid".tr(context);
+                                }
+                                return null;
+                              },
+                              hintText: "1X-XXXX-XXXX",
+                              onInputChanged: (PhoneNumber value) {},
+                              inputDecoration: const InputDecoration(
+                                contentPadding: EdgeInsets.zero,
+                                hintText: "1X-XXXX-XXXX",
+                              ),
+                              selectorConfig: const SelectorConfig(
+                                setSelectorButtonAsPrefixIcon: true,
+                                leadingPadding: 16,
+                              ),
+                              onSaved: (phoneNumber) {
+                                this.phoneNumber = phoneNumber.phoneNumber!
+                                    .substring(
+                                        phoneNumber.phoneNumber!.length - 10);
+                                debugPrint(this.phoneNumber);
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: Text(
+                                'login_password'.tr(context),
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          myTextFormField(
+                            validate: (value) {
+                              if (value!.isEmpty) {
+                                return "login_password_valid".tr(context);
                               }
                               return null;
                             },
-                            hintText: "1X-XXXX-XXXX",
-                            onInputChanged: (PhoneNumber value) {},
-                            inputDecoration: const InputDecoration(
-                              contentPadding: EdgeInsets.zero,
-                              hintText: "1X-XXXX-XXXX",
+                            hint: '● ● ● ● ● ● ● ●',
+                            type: TextInputType.visiblePassword,
+                            isPassword: cubit.isPassword,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                cubit.changeLoginSuffixIcon();
+                              },
+                              icon: Icon(
+                                cubit.suffixIcon,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
                             ),
-                            selectorConfig: const SelectorConfig(
-                              setSelectorButtonAsPrefixIcon: true,
-                              leadingPadding: 16,
-                            ),
-                            onSaved: (phoneNumber) {
-                              this.phoneNumber = phoneNumber.phoneNumber!
-                                  .substring(
-                                      phoneNumber.phoneNumber!.length - 10);
-                              debugPrint(this.phoneNumber);
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: Text(
-                              'login_password'.tr(context),
-                              style: Theme.of(context).textTheme.bodyText2,
-                            )),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        myTextFormField(
-                          validate: (value) {
-                            if (value!.isEmpty) {
-                              return "login_password_valid".tr(context);
-                            }
-                            return null;
-                          },
-                          hint: '● ● ● ● ● ● ● ●',
-                          type: TextInputType.visiblePassword,
-                          isPassword: cubit.isPassword,
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              cubit.changeLoginSuffixIcon();
-                            },
-                            icon: Icon(
-                              cubit.suffixIcon,
-                              color: Theme.of(context).iconTheme.color,
-                            ),
-                          ),
-                          context: context,
-                          controller: passwordController,
-                          onSubmit: (value) {
-                            // to do
-                          },
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: myTextButton(
-                                context: context,
-                                label: "login_forget_password".tr(context),
-                                onPressed: () {
-                                  NavigateTo(
-                                      context: context,
-                                      widget: ForgetPasswordScreen());
-                                })),
-                        SizedBox(
-                          height: size.height * 0.042,
-                        ),
-                        ConditionalBuilder(
-                          condition: state is! LoginLoadingState,
-                          builder: (context) => myMaterialButton(
                             context: context,
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                formKey.currentState!.save();
-                                cubit.userModel(
-                                    phone: phoneNumber,
-                                    password: passwordController.text);
+                            controller: passwordController,
+                            onSubmit: (value) {
+                              // to do
+                            },
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: myTextButton(
+                                  context: context,
+                                  label: "login_forget_password".tr(context),
+                                  onPressed: () {
+                                    NavigateTo(
+                                        context: context,
+                                        widget: ForgetPasswordScreen());
+                                  })),
+                          SizedBox(
+                            height: size.height * 0.042,
+                          ),
+                          ConditionalBuilder(
+                            condition: state is! LoginLoadingState,
+                            builder: (context) => myMaterialButton(
+                              context: context,
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  formKey.currentState!.save();
+                                  cubit.userModel(
+                                      phone: phoneNumber,
+                                      password: passwordController.text);
 
-                              }
-                            },
-                            labelWidget: Text(
-                              "login_button".tr(context),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .button!
-                                  .copyWith(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
+                                }
+                              },
+                              labelWidget: Text(
+                                "login_button".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .button!
+                                    .copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                              ),
                             ),
-                          ),
-                          fallback: (context) => myMaterialButton(
-                            context: context,
-                            onPressed: () {
-                              null;
-                            },
-                            labelWidget: const Center(
-                              child: SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 3,
+                            fallback: (context) => myMaterialButton(
+                              context: context,
+                              onPressed: () {
+                                null;
+                              },
+                              labelWidget: const Center(
+                                child: SizedBox(
+                                  width: 22,
+                                  height: 22,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 3,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 11,
-                        ),
-                        Row(
-                          children: [
-                            Text("have_account".tr(context)),
-                            myTextButton(
-                                context: context,
-                                label: "have_account_button".tr(context),
-                                onPressed: () {
-                                  NavigateTo(
-                                    context: context,
-                                    widget: const Register(),
-                                  );
-                                }),
-                          ],
-                        )
-                      ],
+                          const SizedBox(
+                            height: 11,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                  "have_account".tr(context),
+                                style: Theme.of(context).textTheme.caption,
+                              ),
+                              myTextButton(
+                                  context: context,
+                                  label: "have_account_button".tr(context),
+                                  onPressed: () {
+                                    NavigateTo(
+                                      context: context,
+                                      widget: const Register(),
+                                    );
+                                  }),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

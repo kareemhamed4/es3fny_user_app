@@ -58,7 +58,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           "forget_password".tr(context),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyText1!
                               .copyWith(color: myFavColor, fontSize: 32),
                         ),
                         SizedBox(
@@ -68,7 +68,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           "enter_phone".tr(context),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyText1!
                               .copyWith(fontSize: 20),
                         ),
                         SizedBox(
@@ -97,7 +97,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             "forget_phone".tr(context),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyText1!
                                 .copyWith(fontSize: 18),
                           ),
                         ),
@@ -111,11 +111,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                             spaceBetweenSelectorAndTextField: 20,
                             selectorTextStyle: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyText1!
                                 .copyWith(fontSize: 18),
                             textStyle: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyText1!
                                 .copyWith(fontSize: 18),
                             maxLength: 12,
                             validator: (value) {

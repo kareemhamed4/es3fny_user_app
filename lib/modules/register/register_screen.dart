@@ -122,7 +122,7 @@ class _RegisterState extends State<Register> {
                         'register_label'.tr(context),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2!
+                            .bodyText1!
                             .copyWith(fontSize: 30, color: myFavColor),
                       ),
                       SizedBox(
@@ -132,7 +132,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'register_name'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -157,7 +157,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'الرقم القومي',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -183,7 +183,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'رقم الهاتف',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -196,11 +196,11 @@ class _RegisterState extends State<Register> {
                           spaceBetweenSelectorAndTextField: 20,
                           selectorTextStyle: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyText1!
                               .copyWith(fontSize: 18),
                           textStyle: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyText1!
                               .copyWith(fontSize: 18),
                           maxLength: 12,
                           validator: (value) {
@@ -236,7 +236,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'register_gender'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -256,7 +256,7 @@ class _RegisterState extends State<Register> {
                           "register_gender_choose".tr(context),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyText1!
                               .copyWith(
                                   color: myFavColor5,
                                   fontSize: 16,
@@ -282,7 +282,7 @@ class _RegisterState extends State<Register> {
                                     item.tr(context),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText2!
+                                        .bodyText1!
                                         .copyWith(
                                             fontSize: 18, fontFamily: "FinalR"),
                                   ),
@@ -308,7 +308,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'register_age'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -334,7 +334,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'register_email'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -360,7 +360,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'register_password'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(
@@ -396,7 +396,7 @@ class _RegisterState extends State<Register> {
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
                           'register_confirm_password'.tr(context),
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       SizedBox(

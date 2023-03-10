@@ -61,7 +61,7 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
                     Text("otp".tr(context),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2!
+                            .bodyText1!
                             .copyWith(fontSize: 30, color: myFavColor)),
                     SizedBox(
                       height: size.height * 0.184,
@@ -70,7 +70,7 @@ class _OTPScreenForNewPasswordState extends State<OTPScreenForNewPassword> {
                       "enter_otp".tr(context),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyText1!
                           .copyWith(fontSize: 22),
                     ),
                     SizedBox(

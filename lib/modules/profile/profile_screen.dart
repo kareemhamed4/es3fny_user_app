@@ -116,7 +116,7 @@ class ProfileScreen extends StatelessWidget {
                                 "الحساب\n   الشخصي",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText2!
+                                    .bodyText1!
                                     .copyWith(
                                       fontSize: 20,
                                       color: Colors.white,
@@ -156,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
                         CircleAvatar(
                           backgroundImage: NetworkImage(cubit.userModel != null
                               ? model!.data!.image!
-                              : "http://192.168.1.12/images/default/defaultUser.png"),
+                              : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                           radius: 40,
                         ),
                         Padding(
@@ -190,7 +190,7 @@ class ProfileScreen extends StatelessWidget {
                                             : " ",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText2,
+                                            .bodyText1,
                                       ),
                                       if (cubit.currentPageIndex == 0)
                                         IconButton(
@@ -246,10 +246,10 @@ class ProfileScreen extends StatelessWidget {
                                                               0
                                                           ? Theme.of(context)
                                                               .textTheme
-                                                              .bodyText2
+                                                              .bodyText1
                                                           : Theme.of(context)
                                                               .textTheme
-                                                              .bodyText2!
+                                                              .bodyText1!
                                                               .copyWith(
                                                                   color:
                                                                       myFavColor5),
@@ -282,10 +282,10 @@ class ProfileScreen extends StatelessWidget {
                                                           1
                                                       ? Theme.of(context)
                                                           .textTheme
-                                                          .bodyText2
+                                                          .bodyText1
                                                       : Theme.of(context)
                                                           .textTheme
-                                                          .bodyText2!
+                                                          .bodyText1!
                                                           .copyWith(
                                                               color:
                                                                   myFavColor5),
@@ -466,150 +466,124 @@ class ProfileScreen extends StatelessWidget {
                                                       )
                                                     ]),
                                                 startActionPane: ActionPane(
-                                                    motion:
-                                                        const StretchMotion(),
-                                                    children: [
-                                                      SlidableAction(
-                                                        onPressed:
-                                                            ((slidableContext) {
-                                                          familyNameController
-                                                              .text = cubit
-                                                                  .family[index]
-                                                              ["name"];
-                                                          familyPhoneController
-                                                              .text = cubit
-                                                                  .family[index]
-                                                              ["phone"];
-                                                          familyNicknameController
-                                                              .text = cubit
-                                                                  .family[index]
-                                                              ["nickname"];
-                                                          showMyDialog(
-                                                            context: context,
-                                                            formKey:
-                                                                formAlertKey,
-                                                            onConfirm: () {
-                                                              if (formAlertKey
-                                                                  .currentState!
-                                                                  .validate()) {
-                                                                cubit
-                                                                    .updateData(
-                                                                        '''
+                                                  motion: const StretchMotion(),
+                                                  children: [
+                                                    SlidableAction(
+                                                      onPressed:
+                                                          ((slidableContext) {
+                                                        familyNameController
+                                                                .text =
+                                                            cubit.family[index]
+                                                                ["name"];
+                                                        familyPhoneController
+                                                                .text =
+                                                            cubit.family[index]
+                                                                ["phone"];
+                                                        familyNicknameController
+                                                                .text =
+                                                            cubit.family[index]
+                                                                ["nickname"];
+                                                        showMyDialog(
+                                                          context: context,
+                                                          formKey: formAlertKey,
+                                                          onConfirm: () {
+                                                            if (formAlertKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                              cubit.updateData(
+                                                                  '''
                                                                   UPDATE family SET 
                                                                   "name" = "${familyNameController.text}" ,
                                                                   "phone" = "${familyPhoneController.text}" ,
                                                                   "nickname" = "${familyNicknameController.text}" 
                                                                   WHERE id = "${cubit.family[index]["id"]}"
                                                                   ''');
-                                                                Navigator.pop(
-                                                                    context);
-                                                              }
-                                                            },
-                                                            titleWidget: Text(
-                                                              "edit_dialog_title"
-                                                                  .tr(context),
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyText2!
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          18),
-                                                            ),
-                                                            contentWidget:
-                                                                Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              children: [
-                                                                myTextFormField(
-                                                                    context:
-                                                                        context,
-                                                                    controller:
-                                                                        familyNameController,
-                                                                    validate:
-                                                                        (value) {
-                                                                      if (value!
-                                                                          .isEmpty) {
-                                                                        return "برجاء ادخال الإسم";
-                                                                      }
-                                                                      return null;
-                                                                    },
-                                                                    prefixIcon:
-                                                                        const Icon(Icons
-                                                                            .title),
-                                                                    hint:
-                                                                        "الإسم"),
-                                                                const SizedBox(
-                                                                  height: 15,
-                                                                ),
-                                                                myTextFormField(
+                                                              Navigator.pop(
+                                                                  context);
+                                                            }
+                                                          },
+                                                          titleWidget: Text(
+                                                            "edit_dialog_title"
+                                                                .tr(context),
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyText1!
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        18),
+                                                          ),
+                                                          contentWidget: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              myTextFormField(
                                                                   context:
                                                                       context,
                                                                   controller:
-                                                                      familyPhoneController,
-                                                                  prefixIcon:
-                                                                      const Icon(
-                                                                          Icons
-                                                                              .dialpad_outlined),
-                                                                  hint:
-                                                                      "رقم الهاتف",
+                                                                      familyNameController,
                                                                   validate:
                                                                       (value) {
                                                                     if (value!
-                                                                            .length <
-                                                                        11) {
-                                                                      return "برجاء ادخال رقم هاتف صحيح";
+                                                                        .isEmpty) {
+                                                                      return "برجاء ادخال الإسم";
                                                                     }
                                                                     return null;
                                                                   },
-                                                                ),
-                                                                const SizedBox(
-                                                                  height: 15,
-                                                                ),
-                                                                myTextFormField(
-                                                                    context:
-                                                                        context,
-                                                                    controller:
-                                                                        familyNicknameController,
-                                                                    prefixIcon:
-                                                                        const Icon(Icons
-                                                                            .label_important_outline),
-                                                                    hint:
-                                                                        "الكنية"),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        }),
-                                                        backgroundColor:
-                                                            myFavColor5,
-                                                        icon:
-                                                            Icons.edit_outlined,
-                                                      ),
-                                                    ]),
-                                                /*direction:  DismissDirection.startToEnd,
-          background: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: const Padding(
-              padding: EdgeInsetsDirectional.only(start: 16),
-              child: Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Icon(Icons.delete_outline)),
-            ),
-          ),
-          secondaryBackground: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: const Padding(
-              padding: EdgeInsetsDirectional.only(end: 16),
-              child: Align(
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: Icon(Icons.delete_outline)),
-            ),
-          ),
-          key: UniqueKey(),
-          onDismissed: (direction) {
-            ProfileCubit.get(context).deleteData(id: model["id"]);
-          },*/
+                                                                  prefixIcon:
+                                                                      const Icon(
+                                                                          Icons
+                                                                              .title),
+                                                                  hint:
+                                                                      "الإسم"),
+                                                              const SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                              myTextFormField(
+                                                                context:
+                                                                    context,
+                                                                controller:
+                                                                    familyPhoneController,
+                                                                prefixIcon:
+                                                                    const Icon(Icons
+                                                                        .dialpad_outlined),
+                                                                hint:
+                                                                    "رقم الهاتف",
+                                                                validate:
+                                                                    (value) {
+                                                                  if (value!
+                                                                          .length <
+                                                                      11) {
+                                                                    return "برجاء ادخال رقم هاتف صحيح";
+                                                                  }
+                                                                  return null;
+                                                                },
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                              myTextFormField(
+                                                                  context:
+                                                                      context,
+                                                                  controller:
+                                                                      familyNicknameController,
+                                                                  prefixIcon:
+                                                                      const Icon(
+                                                                          Icons
+                                                                              .label_important_outline),
+                                                                  hint:
+                                                                      "الكنية"),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      }),
+                                                      backgroundColor:
+                                                          myFavColor5,
+                                                      icon: Icons.edit_outlined,
+                                                    ),
+                                                  ],
+                                                ),
                                                 child: InkWell(
                                                   highlightColor: myFavColor
                                                       .withOpacity(0.5),
@@ -629,7 +603,7 @@ class ProfileScreen extends StatelessWidget {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .bodyText2,
+                                                                  .bodyText1,
                                                             ),
                                                             const SizedBox(
                                                               width: 6,
@@ -817,7 +791,7 @@ class ProfileScreen extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
                         label,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                     const SizedBox(

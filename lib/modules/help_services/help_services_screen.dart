@@ -46,7 +46,7 @@ class HelpServicesScreen extends StatelessWidget {
               "services".tr(context),
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyText1!
                   .copyWith(fontSize: 20),
             ),
           ],
@@ -107,7 +107,7 @@ class HelpServicesScreen extends StatelessWidget {
                           model.label.tr(context),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText2!
+                              .bodyText1!
                               .copyWith(fontSize: 16),
                         ),
                       ],

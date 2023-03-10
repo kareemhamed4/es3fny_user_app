@@ -13,10 +13,12 @@ import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
 import 'package:es3fny_user_app/test/cubit/cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -66,33 +68,49 @@ class MyApp extends StatelessWidget {
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},
         builder: (context,state){
+          MainCubit cubit = BlocProvider.of(context);
           return RestartWidget(
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              locale: Locale(langCode ?? "ar"),
-              supportedLocales: const [Locale('ar'), Locale('en')],
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              localeResolutionCallback: (deviceLocale, supportedLocales) {
-                for (var locale in supportedLocales) {
-                  if (deviceLocale != null &&
-                      deviceLocale.languageCode == locale.languageCode) {
-                    return deviceLocale;
+            child: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: !cubit.isDark ? const SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                  statusBarBrightness: Brightness.light,
+                  statusBarIconBrightness: Brightness.dark,
+                  systemNavigationBarColor: Colors.transparent,
+                  systemNavigationBarIconBrightness: Brightness.dark
+              ) : SystemUiOverlayStyle(
+                statusBarColor: myFavColor8,
+                statusBarIconBrightness: Brightness.light,
+                systemNavigationBarColor: myFavColor8,
+                systemNavigationBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.light,
+              ),
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                locale: Locale(langCode ?? "ar"),
+                supportedLocales: const [Locale('ar'), Locale('en')],
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                localeResolutionCallback: (deviceLocale, supportedLocales) {
+                  for (var locale in supportedLocales) {
+                    if (deviceLocale != null &&
+                        deviceLocale.languageCode == locale.languageCode) {
+                      return deviceLocale;
+                    }
                   }
-                }
-                return supportedLocales.first;
-              },
-              title: 'ES3FNY USER APP',
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              themeMode: MainCubit.get(context).isDark
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-              home: startWidget,
+                  return supportedLocales.first;
+                },
+                title: 'ES3FNY USER APP',
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: MainCubit.get(context).isDark
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+                home: startWidget,
+              ),
             ),
           );
         },

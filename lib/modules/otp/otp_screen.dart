@@ -62,7 +62,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     Text("otp".tr(context),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText2!
+                            .bodyText1!
                             .copyWith(fontSize: 30, color: myFavColor)),
                     SizedBox(
                       height: size.height * 0.184,
@@ -71,7 +71,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       "enter_otp".tr(context),
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText2!
+                          .bodyText1!
                           .copyWith(fontSize: 22),
                     ),
                     SizedBox(
