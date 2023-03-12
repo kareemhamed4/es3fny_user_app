@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
+import 'package:es3fny_user_app/responsive.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,83 @@ class LoadingButtonState extends State<LoadingButton>
           controller.reverse();
         }
       },
-      child: Container(
+      child: Responsive(
+        mobile: buildMobileButtonScreen(size, context),
+        desktop: buildDesktopButtonScreen(context),
+        tablet: buildDesktopButtonScreen(context),
+      ),
+    );
+  }
+
+  Container buildDesktopButtonScreen(BuildContext context) {
+    return Container(
+        height: 220,
+        width: 220,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: myFavColor.withOpacity(0.9),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 220,
+              width: 220,
+              child: CircularProgressIndicator(
+                strokeWidth: 17,
+                value: 1.0,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).scaffoldBackgroundColor),
+              ),
+            ),
+            Container(
+              height: 220,
+              width: 220,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: myFavColor3,
+                    spreadRadius: 6,
+                    blurRadius: 9,
+                    blurStyle: BlurStyle.outer,
+                  ),
+                ],
+              ),
+              child: CircularProgressIndicator(
+                strokeWidth: 15,
+                value: 1.0,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+              ),
+            ),
+            SizedBox(
+              height: 220,
+              width: 220,
+              child: CircularProgressIndicator(
+                strokeWidth: 15,
+                value: controller.value,
+                valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+              ),
+            ),
+            if (controller.status == AnimationStatus.dismissed)
+              SvgPicture.asset("assets/images/semilogo.svg")
+            else if (controller.status == AnimationStatus.forward)
+              Text(
+                secondsRemaining.toString(),
+                style:
+                Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
+              )
+            else if (controller.status == AnimationStatus.reverse)
+                SvgPicture.asset("assets/images/semilogo.svg")
+              else if (controller.status == AnimationStatus.completed)
+                  SvgPicture.asset('assets/images/semilogo.svg')
+          ],
+        ),
+      );
+  }
+
+  Container buildMobileButtonScreen(Size size, BuildContext context) {
+    return Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: myFavColor.withOpacity(0.9),
@@ -153,8 +230,7 @@ class LoadingButtonState extends State<LoadingButton>
               SvgPicture.asset('assets/images/semilogo.svg')
           ],
         ),
-      ),
-    );
+      );
   }
 
   @override

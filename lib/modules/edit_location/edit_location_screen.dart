@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/responsive.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,6 @@ class EditLocationScreen extends StatefulWidget {
 }
 
 class _EditLocationScreenState extends State<EditLocationScreen> {
-
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   var formKey = GlobalKey<FormState>();
@@ -23,65 +23,158 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 0)).then((_) {
-      showMyBottomSheet(context: context);
+      if(Responsive.isMobile(context)) {
+        showMyBottomSheet(context: context);
+      }
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
             "edit_location".tr(context),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(fontSize: 20),
+            style:
+                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
           ),
           centerTitle: true,
         ),
-        body: Stack(
+        body: Responsive(
+          mobile: buildMobileEditLocationScreen(context),
+          desktop: buildDesktopEditLocationScreen(size, context),
+          tablet: buildDesktopEditLocationScreen(size, context),
+        ),
+      ),
+    );
+  }
+
+  Row buildDesktopEditLocationScreen(Size size, BuildContext context) {
+    return Row(
           children: [
-            const SizedBox(
-                width: double.infinity,
-                child: Image(
-                  image: AssetImage("assets/images/Map.png"),
-                  fit: BoxFit.cover,
-                )),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: GestureDetector(
-                  onVerticalDragStart: (start) {
-                    showMyBottomSheet(context: context);
-                  },
-                  onTap: () {
-                    showMyBottomSheet(context: context);
-                  },
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      width: double.infinity,
+                      height: size.height - 80,
+                      decoration: const BoxDecoration(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20))),
+                      child: const Image(
+                        image: AssetImage("assets/images/Map.png"),
+                        fit: BoxFit.fitWidth,
+                      )),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 160,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
+                      Text(
+                        "pick_location".tr(context),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextFormField(
+                        controller: locationController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "pick_location_validate".tr(context);
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: myFavColor1.withOpacity(0.1),
+                          contentPadding:
+                          const EdgeInsets.only(right: 8, left: 8),
+                          label: Text(
+                            "pick_location_2".tr(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(fontSize: 14),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide.none),
                         ),
                       ),
-                      Container(
-                        width: 80,
-                        height: 5,
-                        decoration: BoxDecoration(
-                          color: myFavColor1.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(8),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "destination_location".tr(context),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextFormField(
+                        controller: hospitalController,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: myFavColor1.withOpacity(0.1),
+                          contentPadding:
+                          const EdgeInsets.only(right: 8, left: 8),
+                          label: Text(
+                            "destination_location_2".tr(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(fontSize: 14),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide.none),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: MaterialButton(
+                          height: 40,
+                          minWidth: 178,
+                          color: myFavColor,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              hospitalController.text = hospitalController.text;
+                              locationController.text = locationController.text;
+                            }
+                          },
+                          child: Text(
+                            "edit_location_button".tr(context),
+                            style: Theme.of(context).textTheme.button,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
@@ -89,10 +182,55 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
+        );
+  }
 
+  Stack buildMobileEditLocationScreen(BuildContext context) {
+    return Stack(
+      children: [
+        const SizedBox(
+            width: double.infinity,
+            child: Image(
+              image: AssetImage("assets/images/Map.png"),
+              fit: BoxFit.cover,
+            )),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: GestureDetector(
+              onVerticalDragStart: (start) {
+                showMyBottomSheet(context: context);
+              },
+              onTap: () {
+                showMyBottomSheet(context: context);
+              },
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    width: 160,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  Container(
+                    width: 80,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: myFavColor1.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   void showMyBottomSheet({required BuildContext context}) {
@@ -121,7 +259,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const  SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Align(
@@ -135,7 +273,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         ),
                       ),
                     ),
-                    const  SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -159,7 +297,8 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: myFavColor1.withOpacity(0.1),
-                        contentPadding: const EdgeInsets.only(right: 8,left: 8),
+                        contentPadding:
+                            const EdgeInsets.only(right: 8, left: 8),
                         label: Text(
                           "pick_location_2".tr(context),
                           style: Theme.of(context)
@@ -190,7 +329,8 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: myFavColor1.withOpacity(0.1),
-                        contentPadding: const EdgeInsets.only(right: 8,left: 8),
+                        contentPadding:
+                            const EdgeInsets.only(right: 8, left: 8),
                         label: Text(
                           "destination_location_2".tr(context),
                           style: Theme.of(context)

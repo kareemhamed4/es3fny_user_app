@@ -44,10 +44,11 @@ ThemeData lightTheme = ThemeData(
     ),
     color: Colors.white,
     systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark
     ),
     elevation: 0,
   ),
@@ -115,10 +116,11 @@ ThemeData darkTheme = ThemeData(
     ),
     color: myFavColor8,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: myFavColor8,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: myFavColor8,
-      systemNavigationBarIconBrightness: Brightness.light,
+        statusBarColor: myFavColor8,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: myFavColor8,
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light
     ),
     elevation: 0,
   ),

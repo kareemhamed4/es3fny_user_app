@@ -73,7 +73,6 @@ class PolicyDialog extends StatelessWidget {
                 ),
               ),
             ),
-
           ),
         ],
       ),
