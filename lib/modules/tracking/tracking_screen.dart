@@ -48,6 +48,7 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25,vertical: 20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Stack(
                       alignment: Alignment.bottomCenter,
@@ -80,22 +81,25 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "tap_for_tracking".tr(context),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .button!
-                                            .copyWith(fontSize: 18),
-                                      ),
-                                      const Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.white,
-                                      ),
-                                    ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "tap_for_tracking".tr(context),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button!
+                                              .copyWith(fontSize: 18),
+                                        ),
+                                        const Icon(
+                                          Icons.arrow_forward,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -110,32 +114,35 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "tracking_address".tr(context),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .button!
-                                                .copyWith(fontSize: 16),
-                                          ),
-                                          Text("time_remaining".tr(context),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              "tracking_address".tr(context),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .button!
-                                                  .copyWith(fontSize: 14)),
-                                        ],
-                                      ),
-                                      const Icon(
-                                        Icons.location_on_outlined,
-                                        color: Colors.white,
-                                      ),
-                                    ],
+                                                  .copyWith(fontSize: 16),
+                                            ),
+                                            Text("time_remaining".tr(context),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .button!
+                                                    .copyWith(fontSize: 14)),
+                                          ],
+                                        ),
+                                        const Icon(
+                                          Icons.location_on_outlined,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
