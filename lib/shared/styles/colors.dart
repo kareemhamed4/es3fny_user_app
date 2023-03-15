@@ -14,5 +14,6 @@ Color myFavColor6 = HexColor("#f2f7fb"); //semi white
 Color myFavColor7 = HexColor("#28303d"); //background dark light
 Color myFavColor8 = HexColor("#161a23"); //background dark
 Color myFavColor9 = HexColor("#FFFFFF"); //white
+Color myFavColor10 = HexColor("#f3f3f3");
 
 

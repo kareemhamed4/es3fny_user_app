@@ -4,7 +4,6 @@ import 'package:es3fny_user_app/responsive.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class TrackingScreen extends StatefulWidget {
   const TrackingScreen({Key? key}) : super(key: key);
@@ -23,7 +22,7 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
   }
   @override
   dispose() {
-    controller.dispose(); // you need this
+    controller.dispose();
     super.dispose();
   }
   @override
@@ -40,13 +39,13 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
 
   SafeArea buildDesktopTrackingScreen(Size size, BuildContext context) {
     return SafeArea(
-        child: Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25,vertical: 20),
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -66,7 +65,7 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
+                          padding: const EdgeInsets.only(bottom: 20,left: 20,right: 20),
                           child: Row(
                             children: [
                               Expanded(
@@ -87,12 +86,14 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "tap_for_tracking".tr(context),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .button!
-                                              .copyWith(fontSize: 18),
+                                        Flexible(
+                                          child: Text(
+                                            "tap_for_tracking".tr(context),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .button!
+                                                .copyWith(fontSize: 18),
+                                          ),
                                         ),
                                         const Icon(
                                           Icons.arrow_forward,
@@ -128,18 +129,19 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .button!
-                                                  .copyWith(fontSize: 16),
+                                                  .copyWith(fontSize: 14),
                                             ),
                                             Text("time_remaining".tr(context),
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .button!
-                                                    .copyWith(fontSize: 14)),
+                                                    .copyWith(fontSize: 12)),
                                           ],
                                         ),
                                         const Icon(
                                           Icons.location_on_outlined,
                                           color: Colors.white,
+                                          size: 12,
                                         ),
                                       ],
                                     ),
@@ -151,20 +153,12 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40,),
-                    Lottie.asset(
-                        "assets/lottie/live_tracking.json",
-                      width: 200,
-                      height: 200
-                    ),
                   ],
                 ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+              const SizedBox(width: 40,),
+              Expanded(
+                flex: 2,
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
@@ -193,8 +187,8 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
   }

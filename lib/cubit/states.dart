@@ -20,3 +20,4 @@ class ChangeLanguageState extends MainStates {
 }
 class ChangeStartLanguageState extends MainStates {}
 class ChangeRadioState extends MainStates {}
+class ChangeLangContainerState extends MainStates {}

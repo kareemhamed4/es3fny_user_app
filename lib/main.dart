@@ -30,7 +30,7 @@ void main()async{
   await CacheHelper.init();
   DioHelper.init();
   token = CacheHelper.getData(key: 'token');
-  radioValue = CacheHelper.getData(key: 'RadioValue');
+  langContainerIndex = CacheHelper.getData(key: 'langContainerIndex');
   langCode = CacheHelper.getData(key: 'lang');
   isDark = CacheHelper.getData(key: "isDark") ?? false;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeRadioValue(radioValue ?? 1)),
+        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeLanguageValue(langContainerIndex ?? 0)),
         BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()..getUserData()),

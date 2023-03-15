@@ -517,3 +517,23 @@ Widget mySearchDropDownButton({
         ),
       ),
     );
+
+Future<dynamic> showMyBottomSheet({
+  required BuildContext context,
+  required Widget child,
+
+}) => showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    barrierColor: Colors.black38,
+    backgroundColor: Theme.of(context).cardColor,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+    ),
+    builder: (context){
+      return child;
+    }
+);

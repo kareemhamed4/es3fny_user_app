@@ -1,3 +1,4 @@
+/*
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
@@ -90,9 +91,11 @@ class SettingsScreen extends StatelessWidget {
                       child: OutlinedButton(
                           onPressed: () {
                             CacheHelper.clearData().then((value) {
-                              /*Timer(const Duration(seconds: 3), () {
+                              */
+/*Timer(const Duration(seconds: 3), () {
                                 RestartWidget.restartApp(context);
-                              });*/
+                              });*//*
+
                               Navigator.of(context).popUntil((route) => route.isFirst);
                               NavigateToReb(
                                   context: context, widget: const OnBoardingScreen());
@@ -219,10 +222,10 @@ class SettingsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Radio(
-                          value: radioValue,
+                          value: langContainerIndex,
                           groupValue: 1,
                           onChanged: (value){
-                            MainCubit.get(context).changeRadioValue(1);
+                            MainCubit.get(context).changeLanguageValue(1);
                             context.read<MainCubit>().changeLang(context, "ar");
                             displaySuccessMotionToast(
                                 context: context,
@@ -238,10 +241,10 @@ class SettingsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Radio(
-                          value: radioValue,
+                          value: langContainerIndex,
                           groupValue: 2,
                           onChanged: (value){
-                            MainCubit.get(context).changeRadioValue(2);
+                            MainCubit.get(context).changeLanguageValue(2);
                             context.read<MainCubit>().changeLang(context, "en");
                             displaySuccessMotionToast(
                                 context: context,
@@ -261,3 +264,4 @@ class SettingsScreen extends StatelessWidget {
         });
   }
 }
+*/
