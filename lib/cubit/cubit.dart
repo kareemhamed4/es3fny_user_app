@@ -54,7 +54,7 @@ class MainCubit extends Cubit<MainStates> {
   }
 
   void signOut() {
-    CacheHelper.removeData(key: "uId");
+    CacheHelper.removeData(key: "token");
     emit(SignOutState());
   }
   void changeStartLang() async {

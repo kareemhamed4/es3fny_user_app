@@ -336,6 +336,7 @@ class ProfileScreen extends StatelessWidget {
                               ConditionalBuilder(
                                 condition: (cubit.userModel != null),
                                 builder: (context) => SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(),
                                   child: Column(
                                     children: [
                                       buildPersonalInfoItem(
@@ -780,6 +781,7 @@ class ProfileScreen extends StatelessWidget {
               color: Theme.of(context).cardColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
+                side: BorderSide.none,
               ),
               elevation: 5,
               child: Padding(
