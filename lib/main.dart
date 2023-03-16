@@ -10,6 +10,7 @@ import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
+import 'package:es3fny_user_app/modules/tts_stt/tts.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
@@ -109,7 +110,7 @@ class MyApp extends StatelessWidget {
                 themeMode: MainCubit.get(context).isDark
                     ? ThemeMode.dark
                     : ThemeMode.light,
-                home: startWidget,
+                home: TextToSpeech(),
               ),
             ),
           );
