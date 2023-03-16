@@ -1,5 +1,10 @@
+import 'dart:math';
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class TextToSpeech extends StatefulWidget {
   const TextToSpeech({Key? key}) : super(key: key);
@@ -15,7 +20,14 @@ class _TextToSpeechState extends State<TextToSpeech> {
   double pitch = 1;
   double rate = 0.5;
   List<String>? languages;
-  String langCode = "en-US";
+  String langCode = "ar_EG";
+
+  var isListening = false;
+  SpeechToText stt = SpeechToText();
+  double level = 0.0;
+  double minSoundLevel = 50000;
+  double maxSoundLevel = -50000;
+  bool logEvents = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,7 +127,9 @@ class _TextToSpeechState extends State<TextToSpeech> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 40,),
+                  const SizedBox(
+                    width: 40,
+                  ),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: _stop,
@@ -131,9 +145,58 @@ class _TextToSpeechState extends State<TextToSpeech> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: AvatarGlow(
+        endRadius: 75,
+        animate: isListening,
+        duration: const Duration(milliseconds: 2000),
+        glowColor: rose,
+        repeatPauseDuration: const Duration(milliseconds: 100),
+        showTwoGlows: true,
+        child: GestureDetector(
+          onTapDown: (details) async {
+            if (!isListening) {
+              var available = await stt.initialize();
+              if (available) {
+                setState(() {
+                  isListening = true;
+                  stt.listen(
+                    onResult: resultListener,
+                    listenFor: const Duration(seconds: 60),
+                    pauseFor: const Duration(seconds: 9),
+                    partialResults: true,
+                    onSoundLevelChange: soundLevelListener,
+                    cancelOnError: true,
+                    listenMode: ListenMode.confirmation,
+                    localeId: "ar_EG"
+                  );
+                });
+              }
+            }
+          },
+          onTapUp: (details) async {
+            setState(() {
+              isListening = false;
+            });
+            await stt.stop();
+            setState(() {
+              level = 0;
+            });
+          },
+          child: CircleAvatar(
+            radius: 35,
+            backgroundColor: rose,
+            child: Icon(
+              isListening ? Icons.mic : Icons.mic_none,
+              color: myFavColor9,
+            ),
+          ),
+        ),
+      ),
     );
   }
-  void initSetting()async {
+
+  void initSetting() async {
     await tts.setVolume(volume);
     await tts.setPitch(pitch);
     await tts.setSpeechRate(rate);
@@ -147,5 +210,29 @@ class _TextToSpeechState extends State<TextToSpeech> {
 
   void _stop() async {
     await tts.stop();
+  }
+
+  void soundLevelListener(double level) {
+    minSoundLevel = min(minSoundLevel, level);
+    maxSoundLevel = max(maxSoundLevel, level);
+    // _logEvent('sound level $level: $minSoundLevel - $maxSoundLevel ');
+    setState(() {
+      this.level = level;
+    });
+  }
+
+  void resultListener(SpeechRecognitionResult result) {
+    _logEvent(
+        'Result listener final: ${result.finalResult}, words: ${result.recognizedWords}');
+    setState(() {
+      controller.text = result.recognizedWords;
+    });
+  }
+
+  void _logEvent(String eventDescription) {
+    if (logEvents) {
+      var eventTime = DateTime.now().toIso8601String();
+      debugPrint('$eventTime $eventDescription');
+    }
   }
 }

@@ -10,6 +10,6 @@ class SpeechToText extends StatefulWidget {
 class _SpeechToTextState extends State<SpeechToText> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

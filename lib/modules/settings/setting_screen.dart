@@ -3,6 +3,7 @@ import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
+import 'package:es3fny_user_app/modules/tts_stt/tts.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
@@ -408,7 +409,9 @@ class SettingsScreen extends StatelessWidget {
                                     : myFavColor1,
                                 size: 16,
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                NavigateTo(context: context, widget: const TextToSpeech());
+                              },
                             ),
                             const SizedBox(
                               height: 6,
