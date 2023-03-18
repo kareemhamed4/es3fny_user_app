@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeLanguageValue(langContainerIndex ?? 0)),
         BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
-        BlocProvider(create: (BuildContext context) => ProfileCubit()..createDatabase()..getUserData()),
+        BlocProvider(create: (BuildContext context) => ProfileCubit()..getUserData()..getFamilyMember(token: token!)),
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
         BlocProvider(create: (BuildContext context) => TestCubit()),
         ],

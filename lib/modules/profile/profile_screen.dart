@@ -181,30 +181,32 @@ class ProfileScreen extends StatelessWidget {
                                 Expanded(
                                   flex: 2,
                                   child: Center(
-                                      child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        cubit.userModel != null
-                                            ? nameController.text
-                                            : " ",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                      if (cubit.currentPageIndex == 0)
-                                        IconButton(
-                                          onPressed: () {
-                                            cubit.changeEditingState();
-                                          },
-                                          icon: Icon(
-                                            cubit.editIcon,
-                                            color: myFavColor5,
-                                            size: 24,
-                                          ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          cubit.userModel != null
+                                              ? nameController.text
+                                              : " ",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
                                         ),
-                                    ],
-                                  )),
+                                        if (cubit.currentPageIndex == 0)
+                                          IconButton(
+                                            onPressed: () {
+                                              cubit.changeEditingState();
+                                            },
+                                            icon: Icon(
+                                              cubit.editIcon,
+                                              color: myFavColor5,
+                                              size: 24,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 Divider(
                                   color: myFavColor5,
@@ -278,17 +280,19 @@ class ProfileScreen extends StatelessWidget {
                                               child: Center(
                                                 child: Text(
                                                   "العائلة",
-                                                  style: cubit.currentPageIndex ==
-                                                          1
-                                                      ? Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1
-                                                      : Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1!
-                                                          .copyWith(
-                                                              color:
-                                                                  myFavColor5),
+                                                  style:
+                                                      cubit.currentPageIndex ==
+                                                              1
+                                                          ? Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(
+                                                                color:
+                                                                    myFavColor5,
+                                                              ),
                                                 ),
                                               ),
                                             ),
@@ -436,7 +440,7 @@ class ProfileScreen extends StatelessWidget {
                                     child: CircularProgressIndicator()),
                               ),
                               ConditionalBuilder(
-                                condition: cubit.family.isNotEmpty,
+                                condition: cubit.familyMembers.isNotEmpty,
                                 builder: (context) => Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -445,201 +449,171 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: ListView.separated(
-                                          itemBuilder: (context, index) =>
-                                              Slidable(
-                                                endActionPane: ActionPane(
-                                                    motion:
-                                                        const StretchMotion(),
-                                                    children: [
-                                                      SlidableAction(
-                                                        onPressed: ((context) {
-                                                          ProfileCubit.get(
-                                                                  context)
-                                                              .deleteData(
-                                                                  id: cubit.family[
-                                                                          index]
-                                                                      ["id"]);
-                                                        }),
-                                                        backgroundColor:
-                                                            myFavColor,
-                                                        icon: Icons
-                                                            .delete_outline,
-                                                      )
-                                                    ]),
-                                                startActionPane: ActionPane(
-                                                  motion: const StretchMotion(),
-                                                  children: [
-                                                    SlidableAction(
-                                                      onPressed:
-                                                          ((slidableContext) {
-                                                        familyNameController
-                                                                .text =
-                                                            cubit.family[index]
-                                                                ["name"];
-                                                        familyPhoneController
-                                                                .text =
-                                                            cubit.family[index]
-                                                                ["phone"];
-                                                        familyNicknameController
-                                                                .text =
-                                                            cubit.family[index]
-                                                                ["nickname"];
-                                                        showMyDialog(
+                                        itemBuilder: (context, index) =>
+                                            Slidable(
+                                          endActionPane: ActionPane(
+                                              motion: const StretchMotion(),
+                                              children: [
+                                                SlidableAction(
+                                                  onPressed: ((context) {
+                                                    /*debugPrint(cubit.familyMembers[index].id!.toString());
+                                                    debugPrint(token);
+                                                    debugPrint("$Delete_FAMILY_MEMBER/${cubit.familyMembers[index].id!}");*/
+                                                    cubit.deleteFamilyMember(token: token!, memberId: cubit.familyMembers[index].id!);
+                                                  }),
+                                                  backgroundColor: myFavColor,
+                                                  icon: Icons.delete_outline,
+                                                )
+                                              ]),
+                                          startActionPane: ActionPane(
+                                            motion: const StretchMotion(),
+                                            children: [
+                                              SlidableAction(
+                                                onPressed: ((slidableContext) {
+                                                  familyNameController.text =
+                                                      "";
+                                                  familyPhoneController.text =
+                                                      "";
+                                                  familyNicknameController
+                                                      .text = "";
+                                                  showMyDialog(
+                                                    context: context,
+                                                    formKey: formAlertKey,
+                                                    onConfirm: () {
+                                                      if (formAlertKey
+                                                          .currentState!
+                                                          .validate()) {
+                                                        // update
+                                                        Navigator.pop(context);
+                                                      }
+                                                    },
+                                                    titleWidget: Text(
+                                                      "edit_dialog_title"
+                                                          .tr(context),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText1!
+                                                          .copyWith(
+                                                              fontSize: 18),
+                                                    ),
+                                                    contentWidget: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        myTextFormField(
+                                                            context: context,
+                                                            controller:
+                                                                familyNameController,
+                                                            validate: (value) {
+                                                              if (value!
+                                                                  .isEmpty) {
+                                                                return "برجاء ادخال الإسم";
+                                                              }
+                                                              return null;
+                                                            },
+                                                            prefixIcon:
+                                                                const Icon(Icons
+                                                                    .title),
+                                                            hint: "الإسم"),
+                                                        const SizedBox(
+                                                          height: 15,
+                                                        ),
+                                                        myTextFormField(
                                                           context: context,
-                                                          formKey: formAlertKey,
-                                                          onConfirm: () {
-                                                            if (formAlertKey
-                                                                .currentState!
-                                                                .validate()) {
-                                                              cubit.updateData(
-                                                                  '''
-                                                                  UPDATE family SET 
-                                                                  "name" = "${familyNameController.text}" ,
-                                                                  "phone" = "${familyPhoneController.text}" ,
-                                                                  "nickname" = "${familyNicknameController.text}" 
-                                                                  WHERE id = "${cubit.family[index]["id"]}"
-                                                                  ''');
-                                                              Navigator.pop(
-                                                                  context);
+                                                          controller:
+                                                              familyPhoneController,
+                                                          prefixIcon:
+                                                              const Icon(Icons
+                                                                  .dialpad_outlined),
+                                                          hint: "رقم الهاتف",
+                                                          validate: (value) {
+                                                            if (value!.length <
+                                                                11) {
+                                                              return "برجاء ادخال رقم هاتف صحيح";
                                                             }
+                                                            return null;
                                                           },
-                                                          titleWidget: Text(
-                                                            "edit_dialog_title"
-                                                                .tr(context),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        18),
-                                                          ),
-                                                          contentWidget: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              myTextFormField(
-                                                                  context:
-                                                                      context,
-                                                                  controller:
-                                                                      familyNameController,
-                                                                  validate:
-                                                                      (value) {
-                                                                    if (value!
-                                                                        .isEmpty) {
-                                                                      return "برجاء ادخال الإسم";
-                                                                    }
-                                                                    return null;
-                                                                  },
-                                                                  prefixIcon:
-                                                                      const Icon(
-                                                                          Icons
-                                                                              .title),
-                                                                  hint:
-                                                                      "الإسم"),
-                                                              const SizedBox(
-                                                                height: 15,
-                                                              ),
-                                                              myTextFormField(
-                                                                context:
-                                                                    context,
-                                                                controller:
-                                                                    familyPhoneController,
-                                                                prefixIcon:
-                                                                    const Icon(Icons
-                                                                        .dialpad_outlined),
-                                                                hint:
-                                                                    "رقم الهاتف",
-                                                                validate:
-                                                                    (value) {
-                                                                  if (value!
-                                                                          .length <
-                                                                      11) {
-                                                                    return "برجاء ادخال رقم هاتف صحيح";
-                                                                  }
-                                                                  return null;
-                                                                },
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 15,
-                                                              ),
-                                                              myTextFormField(
-                                                                  context:
-                                                                      context,
-                                                                  controller:
-                                                                      familyNicknameController,
-                                                                  prefixIcon:
-                                                                      const Icon(
-                                                                          Icons
-                                                                              .label_important_outline),
-                                                                  hint:
-                                                                      "الكنية"),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      }),
-                                                      backgroundColor:
-                                                          myFavColor5,
-                                                      icon: Icons.edit_outlined,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 15,
+                                                        ),
+                                                        myTextFormField(
+                                                            context: context,
+                                                            controller:
+                                                                familyNicknameController,
+                                                            prefixIcon:
+                                                                const Icon(Icons
+                                                                    .label_important_outline),
+                                                            hint: "الكنية"),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                                child: InkWell(
-                                                  highlightColor: myFavColor
-                                                      .withOpacity(0.5),
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    color: Theme.of(context)
-                                                        .cardColor,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 16),
-                                                      child: ListTile(
-                                                        title: Row(
-                                                          children: [
-                                                            Text(
-                                                              "${cubit.family[index]["name"]}",
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyText1,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 6,
-                                                            ),
-                                                            Text(
-                                                              "${cubit.family[index]["nickname"]}",
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .caption!
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          14),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        subtitle: Text(
-                                                            "${cubit.family[index]["phone"]}"),
-                                                        leading: Icon(
-                                                          Icons
-                                                              .person_outline_sharp,
-                                                          color: myFavColor5,
-                                                        ),
-                                                        contentPadding:
-                                                            EdgeInsets.zero,
+                                                  );
+                                                }),
+                                                backgroundColor: myFavColor5,
+                                                icon: Icons.edit_outlined,
+                                              ),
+                                            ],
+                                          ),
+                                          child: InkWell(
+                                            highlightColor:
+                                                myFavColor.withOpacity(0.5),
+                                            onTap: () {},
+                                            child: Container(
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16),
+                                                child: ListTile(
+                                                  title: Row(
+                                                    children: [
+                                                      Text(
+                                                        cubit
+                                                            .familyMembers[
+                                                                index]
+                                                            .name!,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyText1,
                                                       ),
-                                                    ),
+                                                      const SizedBox(
+                                                        width: 6,
+                                                      ),
+                                                      Text(
+                                                        cubit
+                                                            .familyMembers[
+                                                                index]
+                                                            .kinship!,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .caption!
+                                                            .copyWith(
+                                                                fontSize: 14),
+                                                      ),
+                                                    ],
                                                   ),
+                                                  subtitle: Text(
+                                                    cubit.familyMembers[index]
+                                                        .phoneNumber!,
+                                                  ),
+                                                  leading: Icon(
+                                                    Icons.person_outline_sharp,
+                                                    color: myFavColor5,
+                                                  ),
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
                                                 ),
                                               ),
-                                          separatorBuilder: (context, index) =>
-                                              const SizedBox(
-                                                height: 12,
-                                              ),
-                                          itemCount: cubit.family.length),
+                                            ),
+                                          ),
+                                        ),
+                                        separatorBuilder: (context, index) =>
+                                            const SizedBox(
+                                          height: 12,
+                                        ),
+                                        itemCount: cubit.familyMembers.length,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -672,18 +646,14 @@ class ProfileScreen extends StatelessWidget {
                   onPressed: () {
                     if (cubit.isBottomSheetShown) {
                       if (formKey.currentState!.validate()) {
-                        cubit.changeIsEnabledGestureState(isEnabled: true);
-                        cubit.insertToDatabase(
-                            name: familyNameController.text,
-                            phone: familyPhoneController.text,
-                            nickname: familyNicknameController.text);
-                        cubit
-                            .getFamilyDataFromDatabase(cubit.database)
-                            .then((value) {
-                          cubit.family = value;
-                          debugPrint(cubit.family.toString());
-                          Navigator.pop(context);
-                        });
+                        // insert & get
+                        cubit.addFamilyMember(
+                          name: familyNameController.text,
+                          phone: familyPhoneController.text.substring(1, 11),
+                          kinship: familyNicknameController.text,
+                          token: token!,
+                        );
+                        Navigator.pop(context);
                       }
                     } else {
                       cubit.changeFabIcon();

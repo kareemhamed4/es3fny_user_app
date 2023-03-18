@@ -70,6 +70,20 @@ class DioHelper {
     };
     return await dioInstance.put(url, queryParameters: query, data: data);
   }
+
+  static Future<Response> deleteData({
+    required String url,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? data,
+    String? baseUrl,
+  }) async {
+    final dioInstance = getDioInstance(baseUrl ?? "");
+    dioInstance.options.headers = {
+      'lang': 'en',
+      'Content-Type': 'application/json',
+    };
+    return await dioInstance.delete(url, queryParameters: query, data: data);
+  }
 }
 
 /*

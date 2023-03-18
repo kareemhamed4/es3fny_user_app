@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/models/add_family_member.dart';
 import 'package:es3fny_user_app/models/login_model.dart';
 
 abstract class ProfileStates {}
@@ -23,3 +24,21 @@ class UserProfileSuccessState extends ProfileStates{
   UserProfileSuccessState(this.profileModel);
 }
 class UserProfileErrorState extends ProfileStates{}
+
+
+class AddingFamilyMemberLoadingState extends ProfileStates{}
+class AddingFamilyMemberSuccessState extends ProfileStates{
+  final AddFamilyMember family;
+  AddingFamilyMemberSuccessState(this.family);
+}
+class AddingFamilyMemberErrorState extends ProfileStates{}
+
+
+class GetFamilyMembersLoadingState extends ProfileStates{}
+class GetFamilyMembersSuccessState extends ProfileStates{}
+class GetFamilyMembersErrorState extends ProfileStates{}
+
+
+class DeleteFamilyMemberLoadingState extends ProfileStates{}
+class DeleteFamilyMemberSuccessState extends ProfileStates{}
+class DeleteFamilyMemberErrorState extends ProfileStates{}

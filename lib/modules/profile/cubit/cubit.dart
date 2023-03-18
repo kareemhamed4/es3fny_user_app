@@ -1,3 +1,5 @@
+import 'package:es3fny_user_app/models/add_family_member.dart';
+import 'package:es3fny_user_app/models/get_family.dart';
 import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
@@ -5,7 +7,6 @@ import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sqflite/sqflite.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
   ProfileCubit() : super(ProfileInitialState());
@@ -22,8 +23,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
         baseUrl: "http://192.168.1.12/api/",
         token: token,
         query: {
-      "token": token,
-    }).then((value) {
+          "token": token,
+        }).then((value) {
       userModel = LoginModel.fromJson(value.data);
       debugPrint(value.data.toString());
       emit(UserProfileSuccessState(userModel!));
@@ -66,7 +67,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
     emit(ProfileChangeScrollPhysicsState());
   }
 
-  late Database database;
+/*  late Database database;
   List<Map> family = [];
   void createDatabase() async {
     database = await openDatabase("familyInfo.db", version: 1,
@@ -131,7 +132,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       });
       emit(ProfileUpdateDataFromDatabaseState());
     });
-  }
+  }*/
 
   bool isEnabledGesture = true;
   void changeIsEnabledGestureState({required bool isEnabled}) {
@@ -139,8 +140,81 @@ class ProfileCubit extends Cubit<ProfileStates> {
     emit(ProfileIsEnabledGestureState());
   }
 
-  String splitSentence(String sentence){
+  String splitSentence(String sentence) {
     List<String> splitted = sentence.split(" ");
     return splitted.first.toString();
+  }
+
+  AddFamilyMember? family;
+
+  void addFamilyMember({
+    required String name,
+    required String phone,
+    required String kinship,
+    required String token,
+  }) {
+    emit(AddingFamilyMemberLoadingState());
+    DioHelper.postData(
+        baseUrl: "http://192.168.1.12/api/",
+        url: ADD_FAMILY_MEMBER,
+        data: {
+          "name": name,
+          "phone_number": phone,
+          "kinship": kinship,
+          "token": token,
+        }).then((value) {
+      family = AddFamilyMember.fromJson(value.data);
+      getFamilyMember(token: token);
+      emit(AddingFamilyMemberSuccessState(family!));
+    }).catchError((error) {
+      emit(AddingFamilyMemberErrorState());
+    });
+  }
+
+  List<Family> familyMembers = [];
+  void getFamilyMember({
+    required String token,
+  }) {
+    emit(GetFamilyMembersLoadingState());
+    DioHelper.getData(
+      baseUrl: "http://192.168.1.12/api/",
+      url: GET_FAMILY_MEMBER,
+      query: {
+        "token": token,
+      }
+    ).then((value) async{
+      List<dynamic> json = value.data;
+      familyMembers = json.map((item){
+        return Family(
+          id: item["id"],
+          name: item['name'],
+          phoneNumber: item['phone_number'],
+          kinship: item['kinship'],
+          userId: item['user_id'],
+        );
+      }).toList();
+      emit(GetFamilyMembersSuccessState());
+    }).catchError((error){
+      emit(GetFamilyMembersErrorState());
+    });
+  }
+
+  void deleteFamilyMember({
+    required String token,
+    required int memberId,
+}){
+    emit(DeleteFamilyMemberLoadingState());
+    DioHelper.getData(
+        baseUrl: "http://192.168.1.12/api/",
+        url: "$Delete_FAMILY_MEMBER/$memberId",
+        query: {
+          "token": token,
+        }
+    ).then((value){
+      getFamilyMember(token: token);
+      emit(DeleteFamilyMemberSuccessState());
+    }).catchError((error){
+      emit(DeleteFamilyMemberErrorState());
+    });
   }
 }
