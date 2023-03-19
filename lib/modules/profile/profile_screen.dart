@@ -140,13 +140,14 @@ class ProfileScreen extends StatelessWidget {
                                 )),
                             const Spacer(),
                             IconButton(
-                                onPressed: () {
-                                  debugPrint(token);
-                                },
-                                icon: Icon(
-                                  Icons.notifications_none_outlined,
-                                  color: myFavColor6,
-                                )),
+                              onPressed: () {
+                                debugPrint(token);
+                              },
+                              icon: Icon(
+                                Icons.notifications_none_outlined,
+                                color: myFavColor6,
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -155,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(cubit.userModel != null
-                              ? model!.data!.image!
+                              ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
                               : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                           radius: 40,
                         ),
@@ -226,13 +227,15 @@ class ProfileScreen extends StatelessWidget {
                                               cubit.isEnabledGesture
                                                   ? {
                                                       cubit.changePageIndex(0),
-                                                      pageController.previousPage(
-                                                          duration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      750),
-                                                          curve: Curves
-                                                              .fastLinearToSlowEaseIn)
+                                                      pageController
+                                                          .previousPage(
+                                                        duration:
+                                                            const Duration(
+                                                          milliseconds: 750,
+                                                        ),
+                                                        curve: Curves
+                                                            .fastLinearToSlowEaseIn,
+                                                      )
                                                     }
                                                   : null;
                                             },
@@ -301,7 +304,7 @@ class ProfileScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -449,33 +452,42 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: ListView.separated(
+                                        physics: const BouncingScrollPhysics(),
                                         itemBuilder: (context, index) =>
                                             Slidable(
                                           endActionPane: ActionPane(
-                                              motion: const StretchMotion(),
-                                              children: [
-                                                SlidableAction(
-                                                  onPressed: ((context) {
-                                                    /*debugPrint(cubit.familyMembers[index].id!.toString());
+                                            motion: const StretchMotion(),
+                                            children: [
+                                              SlidableAction(
+                                                onPressed: ((context) {
+                                                  /*debugPrint(cubit.familyMembers[index].id!.toString());
                                                     debugPrint(token);
                                                     debugPrint("$Delete_FAMILY_MEMBER/${cubit.familyMembers[index].id!}");*/
-                                                    cubit.deleteFamilyMember(token: token!, memberId: cubit.familyMembers[index].id!);
-                                                  }),
-                                                  backgroundColor: myFavColor,
-                                                  icon: Icons.delete_outline,
-                                                )
-                                              ]),
+                                                  cubit.deleteFamilyMember(
+                                                      token: token!,
+                                                      memberId: cubit
+                                                          .familyMembers[index]
+                                                          .id!);
+                                                }),
+                                                backgroundColor: myFavColor,
+                                                icon: Icons.delete_outline,
+                                              ),
+                                            ],
+                                          ),
                                           startActionPane: ActionPane(
                                             motion: const StretchMotion(),
                                             children: [
                                               SlidableAction(
                                                 onPressed: ((slidableContext) {
                                                   familyNameController.text =
-                                                      "";
+                                                      cubit.familyMembers[index]
+                                                          .name!;
                                                   familyPhoneController.text =
-                                                      "";
+                                                      "0${cubit.familyMembers[index].phoneNumber!}";
                                                   familyNicknameController
-                                                      .text = "";
+                                                          .text =
+                                                      cubit.familyMembers[index]
+                                                          .kinship!;
                                                   showMyDialog(
                                                     context: context,
                                                     formKey: formAlertKey,
@@ -564,7 +576,8 @@ class ProfileScreen extends StatelessWidget {
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
-                                                        horizontal: 16),
+                                                  horizontal: 16,
+                                                ),
                                                 child: ListTile(
                                                   title: Row(
                                                     children: [
@@ -594,8 +607,7 @@ class ProfileScreen extends StatelessWidget {
                                                     ],
                                                   ),
                                                   subtitle: Text(
-                                                    cubit.familyMembers[index]
-                                                        .phoneNumber!,
+                                                    "0${cubit.familyMembers[index].phoneNumber!}",
                                                   ),
                                                   leading: Icon(
                                                     Icons.person_outline_sharp,

@@ -6,6 +6,7 @@ import 'package:es3fny_user_app/main_button/main_button.dart';
 import 'package:es3fny_user_app/modules/edit_location/edit_location_screen.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -161,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: (){
-                                        debugPrint(token);
+                                        CacheHelper.removeData(key: "token");
                                       },
                                       child: SizedBox(
                                         height: size.height * 0.105,
