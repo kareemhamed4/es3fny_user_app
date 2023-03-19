@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
@@ -54,56 +55,60 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 21),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 26,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: NetworkImage(model != null
-                                          ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
-                                          : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
-                                    ),
-                                    const SizedBox(
-                                      width: 12,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          model != null
-                                              ? model.data!.name!
-                                              : "",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1!
-                                              .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 14),
-                                        ),
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          model != null
-                                              ? model.data!.nationalId!
-                                              : "",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption!
-                                              .copyWith(color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            child: ConditionalBuilder(
+                              condition: model != null,
+                              builder: (context) => Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 26,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage: NetworkImage(model != null
+                                            ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
+                                            : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
+                                      ),
+                                      const SizedBox(
+                                        width: 12,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            model != null
+                                                ? model.data!.name!
+                                                : "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                            model != null
+                                                ? model.data!.nationalId!
+                                                : "",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption!
+                                                .copyWith(color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              fallback: (context) => Center(child: SizedBox(height: 25, width: 25, child: CircularProgressIndicator(color: myFavColor10,strokeWidth: 2,))),
                             ),
                           ),
                         ),
