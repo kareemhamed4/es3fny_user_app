@@ -19,13 +19,6 @@
   "address":"Taha-El-hakim,Tanta",
   "address_caption":"Edit your current location",
 
-  "arabic":"العربية",
-  "english":"English",
-
-  "change_app_mode": "Change App Mode",
-  "clear_data": "Clear Data",
-  "logout": "Logout",
-
   "tap_for_tracking": "Tracking Info",
   "tracking_address": "Tanta, Gharbia",
   "time_remaining": "4 mins ago",
@@ -132,5 +125,35 @@
   "destination_location_2": "Name of hospital",
   "edit_location_button": "CHANGE",
 
-  "edit_dialog_title" : "Update"
+  "edit_dialog_title" : "Update",
+
+  "personal_profile" : "Personal\n    Profile",
+  "personal_info" : "Personal Info",
+  "family" : "Family",
+  "user_name" : "Name",
+  "user_nID" : "National ID",
+  "user_phone" : "Phone Number",
+  "user_email" : "Email",
+  "user_age" : "age",
+  "user_gender" : "Gender",
+
+  "add_family_name": "name",
+  "add_family_phone": "phone number",
+  "add_family_kinship": "kinship",
+
+  "add_family_name_validate": "please enter family name",
+  "add_family_phone_validate": "phone number is invalid",
+
+  "setting": "Setting",
+  "night_mode": "Night Mode",
+  "night_mode_caption": "Change App Mode",
+  "language": "Language",
+  "language_caption": "Change App Language",
+  "arabic":"العربية",
+  "english":"English",
+  "logout": "Logout",
+  "logout_caption": "Logout account",
+  "more": "More",
+  "support": "Support and assistance",
+  "about_app": "About App"
 }

@@ -19,13 +19,6 @@
   "address":"طه الحكيم، طنطا",
   "address_caption":"تعديل موقعك الحالي",
 
-  "arabic":"العربية",
-  "english":"English",
-
-  "change_app_mode": "الوضع الليلي",
-  "clear_data": "مسح البيانات",
-  "logout": "تسجيل خروج",
-
   "tap_for_tracking": "اضغط للتتبع",
   "tracking_address": "طنطا، الغربية",
   "time_remaining": "منذ 4 دقائق",
@@ -132,5 +125,35 @@
   "destination_location_2": "اسم المستشفي",
   "edit_location_button": "تغيير",
 
-  "edit_dialog_title" : "تعديل"
+  "edit_dialog_title" : "تعديل",
+
+  "personal_profile" : "الحساب\n   الشخصي",
+  "personal_info" : "المعلومات الشخصية",
+  "family" : "الحساب الشخصي",
+  "user_name" : "الإسم",
+  "user_nID" : "الرقم القومي",
+  "user_phone" : "رقم الهاتف",
+  "user_email" : "البريد الإلكتروني",
+  "user_age" : "العمر",
+  "user_gender" : "النوع",
+
+  "add_family_name": "الإسم",
+  "add_family_phone": "رقم الهاتف",
+  "add_family_kinship": "الكنية",
+
+  "add_family_name_validate": "برجاء ادخال الإسم",
+  "add_family_phone_validate": "برجاء ادخال رقم هاتف صحيح",
+
+  "setting": "الإعدادات",
+  "night_mode": "الوضع الليلي",
+  "night_mode_caption": "تبديل الوضع",
+  "language": "اللغة",
+  "language_caption": "تغيير لغة التطبيق",
+  "arabic":"العربية",
+  "english":"English",
+  "logout": "تسجيل الخروج",
+  "logout_caption": "تسجيل خروج من حسابك",
+  "more": "المزيد",
+  "support": "الدعم والمساعدة",
+  "about_app": "عن التطبيق"
 }

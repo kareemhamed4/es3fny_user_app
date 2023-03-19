@@ -113,7 +113,7 @@ class ProfileScreen extends StatelessWidget {
                               padding: const EdgeInsetsDirectional.only(
                                   bottom: 140, start: 16),
                               child: Text(
-                                "الحساب\n   الشخصي",
+                                "personal_profile".tr(context),
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -246,7 +246,7 @@ class ProfileScreen extends StatelessWidget {
                                                 child: Center(
                                                   child: FittedBox(
                                                     child: Text(
-                                                      "المعلومات الشخصية",
+                                                      "personal_info".tr(context),
                                                       style: cubit.currentPageIndex ==
                                                               0
                                                           ? Theme.of(context)
@@ -282,7 +282,7 @@ class ProfileScreen extends StatelessWidget {
                                               color: Colors.transparent,
                                               child: Center(
                                                 child: Text(
-                                                  "العائلة",
+                                                  "family".tr(context),
                                                   style:
                                                       cubit.currentPageIndex ==
                                                               1
@@ -349,7 +349,7 @@ class ProfileScreen extends StatelessWidget {
                                       buildPersonalInfoItem(
                                         context: context,
                                         size: size,
-                                        label: "الإسم",
+                                        label: "user_name".tr(context),
                                         widget: TextFormField(
                                           controller: nameController,
                                           decoration: InputDecoration(
@@ -364,7 +364,7 @@ class ProfileScreen extends StatelessWidget {
                                       buildPersonalInfoItem(
                                         context: context,
                                         size: size,
-                                        label: "الرقم القومي",
+                                        label: "user_nID".tr(context),
                                         widget: TextFormField(
                                           controller: nIDController,
                                           decoration: InputDecoration(
@@ -379,7 +379,7 @@ class ProfileScreen extends StatelessWidget {
                                       buildPersonalInfoItem(
                                         context: context,
                                         size: size,
-                                        label: "رقم الهاتف",
+                                        label: "user_phone".tr(context),
                                         widget: TextFormField(
                                           controller: phoneController,
                                           decoration: InputDecoration(
@@ -394,7 +394,7 @@ class ProfileScreen extends StatelessWidget {
                                       buildPersonalInfoItem(
                                         context: context,
                                         size: size,
-                                        label: "البريد الإلكتروني",
+                                        label: "user_email".tr(context),
                                         widget: TextFormField(
                                           controller: emailController,
                                           decoration: InputDecoration(
@@ -409,7 +409,7 @@ class ProfileScreen extends StatelessWidget {
                                       buildPersonalInfoItem(
                                         context: context,
                                         size: size,
-                                        label: "العمر",
+                                        label: "user_age".tr(context),
                                         widget: TextFormField(
                                           controller: ageController,
                                           decoration: InputDecoration(
@@ -424,7 +424,7 @@ class ProfileScreen extends StatelessWidget {
                                       buildPersonalInfoItem(
                                         context: context,
                                         size: size,
-                                        label: "النوع",
+                                        label: "user_gender".tr(context),
                                         widget: TextFormField(
                                           controller: genderController,
                                           decoration: InputDecoration(
@@ -688,12 +688,13 @@ class ProfileScreen extends StatelessWidget {
                                         controller: familyNameController,
                                         validate: (value) {
                                           if (value!.isEmpty) {
-                                            return "برجاء ادخال الإسم";
+                                            return "add_family_name_validate".tr(context);
                                           }
                                           return null;
                                         },
                                         prefixIcon: const Icon(Icons.title),
-                                        hint: "الإسم"),
+                                        hint: "add_family_name".tr(context),
+                                    ),
                                     const SizedBox(
                                       height: 15,
                                     ),
@@ -702,10 +703,10 @@ class ProfileScreen extends StatelessWidget {
                                       controller: familyPhoneController,
                                       prefixIcon:
                                           const Icon(Icons.dialpad_outlined),
-                                      hint: "رقم الهاتف",
+                                      hint: "add_family_phone".tr(context),
                                       validate: (value) {
                                         if (value!.length < 11) {
-                                          return "برجاء ادخال رقم هاتف صحيح";
+                                          return "add_family_phone_validate".tr(context);
                                         }
                                         return null;
                                       },
@@ -718,7 +719,8 @@ class ProfileScreen extends StatelessWidget {
                                         controller: familyNicknameController,
                                         prefixIcon: const Icon(
                                             Icons.label_important_outline),
-                                        hint: "الكنية"),
+                                        hint: "add_family_kinship".tr(context),
+                                    ),
                                   ],
                                 ),
                               ),

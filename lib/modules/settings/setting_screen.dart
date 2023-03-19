@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
               MainCubit.get(context).isDark ? myFavColor8 : myFavColor10,
           appBar: AppBar(
             title: Text(
-              "الإعدادات",
+              "setting".tr(context),
               style:
                   Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
             ),
@@ -63,9 +63,9 @@ class SettingsScreen extends StatelessWidget {
                                     CircleAvatar(
                                       radius: 26,
                                       backgroundColor: Colors.transparent,
-                                      backgroundImage: NetworkImage(
-                                        model != null ? model.data!.image! : "https://img.freepik.com/free-icon/user_318-159712.jpg",
-                                      ),
+                                      backgroundImage: NetworkImage(model != null
+                                          ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
+                                          : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                                     ),
                                     const SizedBox(
                                       width: 12,
@@ -139,15 +139,15 @@ class SettingsScreen extends StatelessWidget {
                                 ),
                               ),
                               title: Text(
-                                "الوضع الليلي",
+                                "night_mode".tr(context),
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               subtitle: Text(
-                                "تبديل الوضع",
+                                "night_mode_caption".tr(context),
                                 style: Theme.of(context).textTheme.caption,
                               ),
                               trailing: Icon(
-                                Icons.arrow_back_ios_new_outlined,
+                                Icons.arrow_forward_ios_outlined,
                                 color: MainCubit.get(context).isDark
                                     ? myFavColor6
                                     : myFavColor1,
@@ -169,15 +169,15 @@ class SettingsScreen extends StatelessWidget {
                                 ),
                               ),
                               title: Text(
-                                "اللغة",
+                                "language".tr(context),
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               subtitle: Text(
-                                "تغيير لغة التطبيق",
+                                "language_caption".tr(context),
                                 style: Theme.of(context).textTheme.caption,
                               ),
                               trailing: Icon(
-                                Icons.arrow_back_ios_new_outlined,
+                                Icons.arrow_forward_ios_outlined,
                                 color: MainCubit.get(context).isDark
                                     ? myFavColor6
                                     : myFavColor1,
@@ -338,11 +338,11 @@ class SettingsScreen extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               subtitle: Text(
-                                "تسجيل خروج من حسابك",
+                                "logout_caption".tr(context),
                                 style: Theme.of(context).textTheme.caption,
                               ),
                               trailing: Icon(
-                                Icons.arrow_back_ios_new_outlined,
+                                Icons.arrow_forward_ios_outlined,
                                 color: MainCubit.get(context).isDark
                                     ? myFavColor6
                                     : myFavColor1,
@@ -362,7 +362,7 @@ class SettingsScreen extends StatelessWidget {
                       height: 40,
                     ),
                     Text(
-                      "المزيد",
+                      "more".tr(context),
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
@@ -399,11 +399,11 @@ class SettingsScreen extends StatelessWidget {
                                 ),
                               ),
                               title: Text(
-                                "الدعم والمساعدة",
+                                "support".tr(context),
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               trailing: Icon(
-                                Icons.arrow_back_ios_new_outlined,
+                                Icons.arrow_forward_ios_outlined,
                                 color: MainCubit.get(context).isDark
                                     ? myFavColor6
                                     : myFavColor1,
@@ -428,11 +428,11 @@ class SettingsScreen extends StatelessWidget {
                                 ),
                               ),
                               title: Text(
-                                "عن التطبيق",
+                                "about_app".tr(context),
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                               trailing: Icon(
-                                Icons.arrow_back_ios_new_outlined,
+                                Icons.arrow_forward_ios_outlined,
                                 color: MainCubit.get(context).isDark
                                     ? myFavColor6
                                     : myFavColor1,
