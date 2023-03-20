@@ -59,7 +59,7 @@ class NotifyMeScreen extends StatelessWidget {
     height: 74,
     child: Card(
       margin: EdgeInsets.zero,
-      color: myFavColor10,
+      color: Theme.of(context).cardColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
         side: BorderSide.none,

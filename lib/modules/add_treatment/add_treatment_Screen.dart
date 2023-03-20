@@ -40,7 +40,7 @@ class AddTreatmentScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Card(
                   margin: EdgeInsets.zero,
-                  color: myFavColor10,
+                  color: Theme.of(context).cardColor,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     side: BorderSide.none,
@@ -79,7 +79,7 @@ class AddTreatmentScreen extends StatelessWidget {
                       height: 44,
                       child: Card(
                         margin: EdgeInsets.zero,
-                        color: myFavColor10,
+                        color: Theme.of(context).cardColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           side: BorderSide.none,
@@ -112,7 +112,7 @@ class AddTreatmentScreen extends StatelessWidget {
                       height: 44,
                       child: Card(
                         margin: EdgeInsets.zero,
-                        color: myFavColor10,
+                        color: Theme.of(context).cardColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           side: BorderSide.none,
@@ -157,9 +157,9 @@ class AddTreatmentScreen extends StatelessWidget {
                     child: SfDateRangePicker(
                       selectionShape: DateRangePickerSelectionShape.rectangle,
                       selectionColor: myFavColor,
-                      backgroundColor: calendarBg,
+                      backgroundColor: calendarBg.withOpacity(0.5),
                       startRangeSelectionColor: myFavColor,
-                      selectionMode: DateRangePickerSelectionMode.range,
+                      selectionMode: DateRangePickerSelectionMode.multiple,
                       selectionRadius: 0,
                       headerStyle: DateRangePickerHeaderStyle(
                         textAlign: TextAlign.center,
@@ -169,7 +169,6 @@ class AddTreatmentScreen extends StatelessWidget {
                       rangeTextStyle: Theme.of(context).textTheme.bodyText1,
                       enablePastDates: false,
                       initialDisplayDate: DateTime.now(),
-                      view: DateRangePickerView.year,
                       monthViewSettings: const DateRangePickerMonthViewSettings(
                         firstDayOfWeek: 6,
                       ),
@@ -190,7 +189,7 @@ class AddTreatmentScreen extends StatelessWidget {
                       height: 44,
                       child: Card(
                         margin: EdgeInsets.zero,
-                        color: myFavColor10,
+                        color: Theme.of(context).cardColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           side: BorderSide.none,
