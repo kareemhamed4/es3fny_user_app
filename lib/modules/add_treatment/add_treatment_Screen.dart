@@ -169,6 +169,10 @@ class AddTreatmentScreen extends StatelessWidget {
                       rangeTextStyle: Theme.of(context).textTheme.bodyText1,
                       enablePastDates: false,
                       initialDisplayDate: DateTime.now(),
+                      view: DateRangePickerView.year,
+                      monthViewSettings: const DateRangePickerMonthViewSettings(
+                        firstDayOfWeek: 6,
+                      ),
                     ),
                   ),
                 ),
