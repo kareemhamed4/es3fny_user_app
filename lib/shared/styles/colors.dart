@@ -3,6 +3,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 Color myFavColor = HexColor("#c20114"); //red
 Color rose = HexColor("#edb3b9"); //rose
+Color lightRose = HexColor("#fbedee"); //lightRose
+Color cardForCalendar = HexColor("#f5d4d7"); //lightRose
+Color calendarBg = HexColor("#c4a3a6"); //lightRose
 Color myFavColorWithOpacity = HexColor("#f9e1e7"); //red with opacity
 Color myFavColor1 = HexColor("#6d7275"); //grey
 Color myFavColor2 = HexColor("#555555"); //background grey

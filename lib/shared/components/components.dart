@@ -145,10 +145,10 @@ Future NavigateTo({
 }) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 
-Widget myDivider() => Padding(
-      padding: const EdgeInsets.only(
-        right: 12,
-        left: 12,
+Widget myDivider({double? paddingValue}) => Padding(
+      padding: EdgeInsets.only(
+        right: paddingValue ??12,
+        left: paddingValue ?? 12,
         top: 0,
         bottom: 0,
       ),

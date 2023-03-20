@@ -1,8 +1,13 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/models/services_model.dart';
+import 'package:es3fny_user_app/modules/first_aid/first_aid_screen.dart';
+import 'package:es3fny_user_app/modules/nearest_clinic/nearest_clinic_screen.dart';
+import 'package:es3fny_user_app/modules/nearest_hospital/nearest_hospital_screen.dart';
+import 'package:es3fny_user_app/modules/nearest_pharmacy/nearest_pharmacy_screen.dart';
+import 'package:es3fny_user_app/modules/notify_me/notify_me_screen.dart';
+import 'package:es3fny_user_app/modules/prediction/prediction_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
-import 'package:es3fny_user_app/test/test.dart';
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
@@ -35,6 +40,16 @@ class HelpServicesScreen extends StatelessWidget {
       label: "pharmacy",
     ),
   ];
+
+  List<Widget> screens = const [
+    PredictionScreen(),
+    NotifyMeScreen(),
+    FirstAidScreen(),
+    NearestHospital(),
+    NearestClinic(),
+    NearestPharmacy(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -59,6 +74,9 @@ class HelpServicesScreen extends StatelessWidget {
                   context: context,
                   model: services[index],
                   size: size,
+                  onPressed: (){
+                    NavigateTo(context: context, widget: screens[index]);
+                  }
                 ),
             separatorBuilder: (context, index) => SizedBox(
                   height: size.height * 0.0216,
@@ -72,6 +90,7 @@ class HelpServicesScreen extends StatelessWidget {
     required ServicesModel model,
     required BuildContext context,
     required Size size,
+    required Function onPressed,
   }) =>
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -79,7 +98,7 @@ class HelpServicesScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           highlightColor: myFavColor.withOpacity(0.5),
           onTap: () {
-            NavigateTo(context: context, widget: const TEST());
+            onPressed();
           },
           child: SizedBox(
             height: size.height * 0.11,
