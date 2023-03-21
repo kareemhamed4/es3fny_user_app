@@ -487,7 +487,7 @@ class ProfileScreen extends StatelessWidget {
                                                   familyNicknameController
                                                           .text =
                                                       cubit.familyMembers[index]
-                                                          .kinship!;
+                                                          .kinship ?? "";
                                                   showMyDialog(
                                                     context: context,
                                                     formKey: formAlertKey,
@@ -597,7 +597,7 @@ class ProfileScreen extends StatelessWidget {
                                                         cubit
                                                             .familyMembers[
                                                                 index]
-                                                            .kinship!,
+                                                            .kinship ?? "",
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .caption!
