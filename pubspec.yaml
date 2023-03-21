@@ -44,6 +44,7 @@ dependencies:
   avatar_glow: ^2.0.2
   syncfusion_flutter_datepicker: "20.4.44"
 
+
   firebase_auth: ^4.2.4
   firebase_core: ^2.4.1
 
@@ -68,7 +69,6 @@ flutter:
     - assets/lottie/
     - assets/lang/en.json
     - assets/lang/ar.json
-    - assets/images/3b8ny.jpeg
 
   fonts:
     - family: Almarai-Bold
