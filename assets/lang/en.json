@@ -155,5 +155,16 @@
   "logout_caption": "Logout account",
   "more": "More",
   "support": "Support and assistance",
-  "about_app": "About App"
+  "about_app": "About App",
+
+  "1": "1",
+  "2": "2",
+  "3": "3",
+  "4": "4",
+  "5": "5",
+  "quantity": "Quantity",
+
+  "multiple": "Multiple",
+  "range": "Range"
+
 }

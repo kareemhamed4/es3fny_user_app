@@ -376,34 +376,50 @@ Widget myDropDownButton({
   required BuildContext context,
   required List<String> dropMenuItems,
   required String selectedValue,
-  required String validateText,
+  String? validateText,
+  required Widget prefix,
   required String hintText,
+  void Function(String?)? onChange,
+  String Function(String?)? validator,
 }) =>
     DropdownButtonFormField2(
       decoration: const InputDecoration(
         //Add isDense true and zero Padding.
         //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
         isDense: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+        contentPadding: EdgeInsets.symmetric(horizontal: 6),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide.none
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none
+        ),
         //Add more decoration as you want here
         //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
       ),
       isExpanded: true,
-      hint: Text(
-        hintText.tr(context),
-        style: Theme.of(context)
-            .textTheme
-            .bodyText1!
-            .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
+      hint: Row(
+        children: [
+          prefix,
+          const SizedBox(width: 6,),
+          Text(
+            hintText.tr(context),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
+          ),
+        ],
       ),
       icon: const Icon(
         Icons.keyboard_arrow_down_outlined,
       ),
-      iconSize: 30,
-      buttonHeight: 48,
+      iconSize: 25,
+      buttonHeight: 44,
       dropdownDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Theme.of(context).cardColor),
+          color: Theme.of(context).cardColor,
+      ),
       items: dropMenuItems
           .map((item) => DropdownMenuItem<String>(
                 value: item.tr(context),
@@ -419,15 +435,8 @@ Widget myDropDownButton({
                 ),
               ))
           .toList(),
-      validator: (value) {
-        if (value == null) {
-          return validateText.tr(context);
-        }
-        return null;
-      },
-      onChanged: (value) {
-        //Do something when changing the item if you want.
-      },
+      validator: validator,
+      onChanged: onChange,
       onSaved: (value) {
         selectedValue = value.toString();
       },
