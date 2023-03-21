@@ -1,8 +1,11 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/add_treatment/add_treatment_Screen.dart';
+import 'package:es3fny_user_app/modules/notify_me/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/notify_me/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class NotifyMeScreen extends StatelessWidget {
@@ -10,46 +13,51 @@ class NotifyMeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "notify".tr(context),
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              const SizedBox(height: 12,),
-              myDivider(
-                paddingValue: 0,
-              ),
-              const SizedBox(height: 60,),
-              SvgPicture.asset("assets/images/bellIcon.svg"),
-              const SizedBox(height: 60,),
-              ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context,index) => buildTreatmentItem(context: context),
-                  separatorBuilder: (context,index) => const SizedBox(height: 30,),
-                  itemCount: 4
-              ),
-              //SvgPicture.asset("assets/images/pill2.svg"),
-            ],
+    return BlocConsumer<NotifyMeCubit,NotifyMeStates>(
+      listener: (context,state){},
+      builder: (context,state){
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              "notify".tr(context),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
+            ),
           ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          NavigateTo(context: context, widget: const AddTreatmentScreen());
-        },
-        backgroundColor: myFavColor,
-        child: Icon(Icons.add,color: myFavColor9,),
-      ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  const SizedBox(height: 12,),
+                  myDivider(
+                    paddingValue: 0,
+                  ),
+                  const SizedBox(height: 60,),
+                  SvgPicture.asset("assets/images/bellIcon.svg"),
+                  const SizedBox(height: 60,),
+                  ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context,index) => buildTreatmentItem(context: context),
+                      separatorBuilder: (context,index) => const SizedBox(height: 30,),
+                      itemCount: 4
+                  ),
+                  //SvgPicture.asset("assets/images/pill2.svg"),
+                ],
+              ),
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              NavigateTo(context: context, widget: const AddTreatmentScreen());
+            },
+            backgroundColor: myFavColor,
+            child: Icon(Icons.add,color: myFavColor9,),
+          ),
+        );
+      },
     );
   }
   Widget buildTreatmentItem({
