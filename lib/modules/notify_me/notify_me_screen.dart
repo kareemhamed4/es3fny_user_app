@@ -16,6 +16,7 @@ class NotifyMeScreen extends StatelessWidget {
     return BlocConsumer<NotifyMeCubit,NotifyMeStates>(
       listener: (context,state){},
       builder: (context,state){
+        NotifyMeCubit cubit = BlocProvider.of(context);
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -40,7 +41,7 @@ class NotifyMeScreen extends StatelessWidget {
                   ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemBuilder: (context,index) => buildTreatmentItem(context: context),
+                      itemBuilder: (context,index) => buildTreatmentItem(context: context,cubit: cubit),
                       separatorBuilder: (context,index) => const SizedBox(height: 30,),
                       itemCount: 4
                   ),
@@ -62,6 +63,7 @@ class NotifyMeScreen extends StatelessWidget {
   }
   Widget buildTreatmentItem({
     required BuildContext context,
+    required NotifyMeCubit cubit,
 }) => SizedBox(
     width: double.infinity,
     height: 74,
@@ -82,7 +84,7 @@ class NotifyMeScreen extends StatelessWidget {
                 SvgPicture.asset("assets/images/pill.svg",height: 40,width: 40,),
                 const SizedBox(width: 16,),
                 Text(
-                  "بانادول",
+                  cubit.treatmentNameController.text,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor,fontSize: 20),
                 ),
               ],

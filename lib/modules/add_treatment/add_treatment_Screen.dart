@@ -19,7 +19,6 @@ class AddTreatmentScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         NotifyMeCubit cubit = BlocProvider.of(context);
-        DateRangePickerController dateRangePickerController = DateRangePickerController();
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -88,7 +87,8 @@ class AddTreatmentScreen extends StatelessWidget {
                                       ),
                                       Expanded(
                                           child: TextFormField(
-                                        controller: cubit.treatmentNameController,
+                                        controller:
+                                            cubit.treatmentNameController,
                                         validator: (String? treatName) {
                                           if (treatName!.isEmpty) {
                                             return "برجاء ادخال اسم الدواء";
@@ -104,8 +104,9 @@ class AddTreatmentScreen extends StatelessWidget {
                                           ),
                                           contentPadding: EdgeInsets.zero,
                                         ),
-                                        style:
-                                            Theme.of(context).textTheme.bodyText1,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
                                       )),
                                     ],
                                   ),
@@ -212,7 +213,7 @@ class AddTreatmentScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(20),
                             child: SfDateRangePicker(
-                              controller: dateRangePickerController,
+                              controller: cubit.dateRangePickerController,
                               selectionShape:
                                   DateRangePickerSelectionShape.rectangle,
                               selectionColor: myFavColor,
@@ -264,8 +265,8 @@ class AddTreatmentScreen extends StatelessWidget {
                                   side: BorderSide.none,
                                 ),
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -350,19 +351,36 @@ class AddTreatmentScreen extends StatelessWidget {
                         context: context,
                         onPressed: () {
                           if (cubit.formKey.currentState!.validate()) {
-                            debugPrint(cubit.treatmentNameController.text);
-                            debugPrint(cubit.selectedQuantity);
-                            //debugPrint("selectedDates ${dateRangePickerController.selectedDates.toString()}");
-                            cubit.selectedDate = dateRangePickerController.selectedDates.toString();
-                            debugPrint(cubit.selectedDate);
-                            //debugPrint("startDate ${dateRangePickerController.selectedRange?.startDate.toString() ?? ""}");
-                            cubit.startDate = dateRangePickerController.selectedRange?.startDate.toString() ?? "";
-                            debugPrint(cubit.startDate);
-                            //debugPrint("endDate ${dateRangePickerController.selectedRange?.endDate.toString() ?? ""}");
-                            cubit.secondDate = dateRangePickerController.selectedRange?.endDate.toString() ??"";
-                            debugPrint(cubit.secondDate);
-                            debugPrint(cubit.timeController.text);
+                            for (int i = 0;
+                                cubit.dateRangePickerController.selectedDates !=
+                                        null
+                                    ? i <
+                                        cubit.dateRangePickerController
+                                            .selectedDates!.length
+                                    : i < 0;
+                                i++) {
+                              cubit.selectedDate = cubit
+                                  .dateRangePickerController.selectedDates![i]
+                                  .toString();
+                              cubit.selectedDates
+                                  .add(cubit.selectedDate.substring(0, 9));
+                            }
+                            cubit.startDate = cubit.dateRangePickerController
+                                    .selectedRange?.startDate
+                                    .toString() ??
+                                "";
+                            cubit.secondDate = cubit.dateRangePickerController
+                                    .selectedRange?.endDate
+                                    .toString() ??
+                                "";
                           }
+                          debugPrint(cubit.treatmentNameController.text);
+                          debugPrint(cubit.selectedQuantity);
+                          debugPrint(cubit.selectedDates[0].substring(0,9).toString());
+                          debugPrint(cubit.startDate);
+                          debugPrint(cubit.secondDate);
+                          debugPrint(cubit.timeController.text);
+                          Navigator.pop(context);
                         },
                         labelWidget: Text(
                           "تم",

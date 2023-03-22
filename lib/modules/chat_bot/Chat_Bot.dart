@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,7 +41,11 @@ class ChatBot extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: myFavColor10,
                     radius: 25,
-child: Image.asset('assets/images/Bot.png', width:35,height: 35 ,),
+                    child: Image.asset(
+                      'assets/images/Bot.png',
+                      width: 35,
+                      height: 35,
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 5),
@@ -54,29 +60,25 @@ child: Image.asset('assets/images/Bot.png', width:35,height: 35 ,),
           ),
         ),
       ),
-      body:
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15
-        ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                height: size.height*0.238,
+                height: size.height * 0.238,
               ),
               Container(
-                width: size.width*0.754,
-                height: size.height*0.307,
+                width: size.width * 0.754,
+                height: size.height * 0.307,
                 decoration: BoxDecoration(
                     color: myFavColor10,
-                    borderRadius: BorderRadiusDirectional.circular(10)
-                ),
+                    borderRadius: BorderRadiusDirectional.circular(10)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: size.height*0.0135,
+                      height: size.height * 0.0135,
                     ),
                     Column(
                       children: [
@@ -85,84 +87,88 @@ child: Image.asset('assets/images/Bot.png', width:35,height: 35 ,),
                           children: [
                             Text(
                               'AidBot',
-                              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                fontSize: 24
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 24),
                             ),
                             Text(
                               'للمحادثة السريعة',
-                              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                  fontSize: 24
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(fontSize: 24),
                             ),
-
                           ],
                         ),
                         SizedBox(
-                          height: size.height*0.0160,
+                          height: size.height * 0.0160,
                         ),
-                        Image.asset('assets/images/chat bot.png',width: size.width*0.32,height: size.height*0.147,),
-                       const  SizedBox(
+                        Image.asset(
+                          'assets/images/chat bot.png',
+                          width: size.width * 0.32,
+                          height: size.height * 0.147,
+                        ),
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
                           'كيف يمكنني مساعدتك',
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 24
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 24),
                         ),
-
                       ],
                     )
                   ],
                 ),
               ),
               SizedBox(
-                height: size.height*0.266,
+                height: size.height * 0.266,
               ),
               Row(
                 children: [
-                 CircleAvatar(
-                   radius: 20,
-                   backgroundColor: myFavColor,
-                   child: IconButton(onPressed: (){}, icon: const  Icon(Icons.send,
-                   size: 27,
-                     color: Colors.white,
-                   )),
-                 ),
-                const  SizedBox(
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: myFavColor,
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.send,
+                          size: 27,
+                          color: Colors.white,
+                        )),
+                  ),
+                  const SizedBox(
                     width: 17,
                   ),
                   Expanded(
                     child: TextFormField(
-
                       decoration: InputDecoration(
                         hintText: 'اكتب رسالتك.........',
                         border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide.none,
-                      ),
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
-                      fillColor: myFavColor10,
+                        fillColor: myFavColor10,
                         filled: true,
-                        hintStyle: Theme.of(context).textTheme.caption!.copyWith(
-                          fontSize: 22
-                        ),
-
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .caption!
+                            .copyWith(fontSize: 22),
                       ),
-onFieldSubmitted: (value){
-                        print(value);
-},
-                      onTap: (){},
+                      onFieldSubmitted: (value) {
+                        debugPrint(value);
+                      },
+                      onTap: () {},
                       style: Theme.of(context).textTheme.bodyText1,
-
                     ),
                   )
-
-
                 ],
               )
             ],
