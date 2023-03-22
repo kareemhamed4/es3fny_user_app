@@ -84,7 +84,7 @@ class NotifyMeScreen extends StatelessWidget {
                 SvgPicture.asset("assets/images/pill.svg",height: 40,width: 40,),
                 const SizedBox(width: 16,),
                 Text(
-                  cubit.treatmentNameController.text,
+                  "بانادول",
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor,fontSize: 20),
                 ),
               ],

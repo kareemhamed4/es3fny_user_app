@@ -43,6 +43,7 @@ dependencies:
   speech_to_text: ^6.1.1
   avatar_glow: ^2.0.2
   syncfusion_flutter_datepicker: "20.4.44"
+  equatable: ^2.0.3
 
 
   firebase_auth: ^4.2.4

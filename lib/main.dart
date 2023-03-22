@@ -4,6 +4,7 @@ import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/force_restart.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
+import 'package:es3fny_user_app/modules/chat_bot/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/notify_me/cubit/cubit.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
         BlocProvider(create: (BuildContext context) => TestCubit()),
         BlocProvider(create: (BuildContext context) => NotifyMeCubit()),
+        BlocProvider(create: (BuildContext context) => ChatBotCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},
