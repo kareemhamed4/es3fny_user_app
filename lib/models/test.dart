@@ -1,9 +1,9 @@
-class Test {
-  String? prediction;
+class PredictionModel {
+  String? predictionResult;
 
-  Test({this.prediction});
+  PredictionModel({this.predictionResult});
 
-  Test.fromJson(Map<String, dynamic> json) {
-    prediction = json['prediction'];
+  PredictionModel.fromJson(Map<String, dynamic> json) {
+    predictionResult = json['prediction'];
   }
 }

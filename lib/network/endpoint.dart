@@ -8,7 +8,9 @@ const ADD_FAMILY_MEMBER = "store";
 const GET_FAMILY_MEMBER = "show";
 const Delete_FAMILY_MEMBER = "delete";
 const SEARCH = 'products/search';
-const API = 'API';
+const LIVERAPI = 'liverApi';
+const HEARTAPI = 'heartApi';
+const DIABETESAPI = 'API';
 const CHATBOT = 'chatbotApi';
 
 //http://127.0.0.1:8000/api/login

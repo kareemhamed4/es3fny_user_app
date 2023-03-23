@@ -9,6 +9,7 @@ import 'package:es3fny_user_app/modules/login/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/notify_me/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:es3fny_user_app/modules/prediction/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
@@ -17,7 +18,6 @@ import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:es3fny_user_app/shared/styles/themes.dart';
-import 'package:es3fny_user_app/test/cubit/cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,9 +65,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         BlocProvider(create: (BuildContext context) => ProfileCubit()..getUserData()..getFamilyMember(token: token!)),
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
-        BlocProvider(create: (BuildContext context) => TestCubit()),
         BlocProvider(create: (BuildContext context) => NotifyMeCubit()),
         BlocProvider(create: (BuildContext context) => ChatBotCubit()),
+        BlocProvider(create: (BuildContext context) => PredictionCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},

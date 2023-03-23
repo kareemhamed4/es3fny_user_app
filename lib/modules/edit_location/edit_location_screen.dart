@@ -33,23 +33,26 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () {},
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          title: Text(
-            "edit_location".tr(context),
-            style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
-          ),
-          centerTitle: true,
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        title: Text(
+          "edit_location".tr(context),
+          style:
+              Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
         ),
-        body: Responsive(
-          mobile: buildMobileEditLocationScreen(context),
-          desktop: buildDesktopEditLocationScreen(size, context),
-          tablet: buildDesktopEditLocationScreen(size, context),
+        elevation: 2,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12)),
         ),
+        centerTitle: true,
+      ),
+      body: Responsive(
+        mobile: buildMobileEditLocationScreen(context),
+        desktop: buildDesktopEditLocationScreen(size, context),
+        tablet: buildDesktopEditLocationScreen(size, context),
       ),
     );
   }

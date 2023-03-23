@@ -1,3 +1,4 @@
+/*
 import 'package:es3fny_user_app/models/test.dart';
 
 abstract class TestStates{}
@@ -9,4 +10,4 @@ class TestSuccessState extends TestStates {
 
   TestSuccessState(this.testModel);
 }
-class TestErrorState extends TestStates {}
+class TestErrorState extends TestStates {}*/

@@ -55,7 +55,7 @@ ThemeData lightTheme = ThemeData(
   unselectedWidgetColor: myFavColor3,
   textTheme: TextTheme(
     bodyText1: TextStyle(fontFamily: "Almarai-Bold",color: myFavColor3),
-    bodyText2: TextStyle(fontFamily: "Inter-Regular",color: myFavColor3),
+    bodyText2: TextStyle(fontFamily: "Almarai-Regular",color: myFavColor3,fontSize: 18),
     subtitle1: TextStyle(fontFamily: "Inter-Medium",color: myFavColor3),
     subtitle2: TextStyle(fontFamily: "Almarai-Regular",color: myFavColor3),
     headline5: TextStyle(fontFamily: "Almarai-Bold",color: myFavColor3),

@@ -10,11 +10,10 @@ import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-//ignore: must_be_immutable
 class HelpServicesScreen extends StatelessWidget {
   HelpServicesScreen({Key? key}) : super(key: key);
 
-  List<ServicesModel> services = [
+  final List<ServicesModel> services = [
     ServicesModel(
       imagePath: "assets/images/predict 1.png",
       label: "prediction",
@@ -41,13 +40,13 @@ class HelpServicesScreen extends StatelessWidget {
     ),
   ];
 
-  List<Widget> screens = const [
+  final List<Widget> helpServicesScreens = [
     PredictionScreen(),
-    NotifyMeScreen(),
-    FirstAidScreen(),
-    NearestHospital(),
-    NearestClinic(),
-    NearestPharmacy(),
+    const NotifyMeScreen(),
+    const FirstAidScreen(),
+    const NearestHospital(),
+    const NearestClinic(),
+    const NearestPharmacy(),
   ];
 
   @override
@@ -66,22 +65,39 @@ class HelpServicesScreen extends StatelessWidget {
             ),
           ],
         ),
+        elevation: 2,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12)),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: ListView.separated(
-            itemBuilder: (context, index) => buildServicesItem(
-                  context: context,
-                  model: services[index],
-                  size: size,
-                  onPressed: (){
-                    NavigateTo(context: context, widget: screens[index]);
-                  }
-                ),
-            separatorBuilder: (context, index) => SizedBox(
-                  height: size.height * 0.0216,
-                ),
-            itemCount: services.length),
+        child: Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => buildServicesItem(
+                          context: context,
+                          model: services[index],
+                          size: size,
+                          onPressed: (){
+                            NavigateTo(context: context, widget: helpServicesScreens[index]);
+                          }
+                        ),
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: size.height * 0.0216,
+                        ),
+                    itemCount: services.length),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -29,6 +29,12 @@ class SettingsScreen extends StatelessWidget {
               style:
                   Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
             ),
+            elevation: 2,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12)),
+            ),
             backgroundColor:
                 MainCubit.get(context).isDark ? myFavColor8 : myFavColor10,
           ),
