@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -392,13 +393,13 @@ Widget myDropDownButton({
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         enabledBorder: OutlineInputBorder(
           borderSide:
-              isRegisterForm ? BorderSide(color: myFavColor) : BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+              isRegisterForm ? BorderSide(color: MainCubit.get(context).isDark ? myFavColor5 : myFavColor) : BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         border: OutlineInputBorder(
           borderSide:
-              isRegisterForm ? BorderSide(color: myFavColor) : BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
+              isRegisterForm ? BorderSide(color: MainCubit.get(context).isDark ? myFavColor5 : myFavColor) : BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         hintStyle: Theme.of(context)
             .textTheme
@@ -429,7 +430,7 @@ Widget myDropDownButton({
         Icons.keyboard_arrow_down_outlined,
       ),
       iconSize: 25,
-      buttonHeight: isRegisterForm ? 54 : 44,
+      buttonHeight: isRegisterForm ? 48 : 44,
       dropdownDecoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Theme.of(context).cardColor,

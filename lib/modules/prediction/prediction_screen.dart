@@ -5,7 +5,6 @@ import 'package:es3fny_user_app/modules/prediction/liver_prediction_screen.dart'
 import 'package:es3fny_user_app/modules/prediction/pressure_prediction_screen.dart';
 import 'package:es3fny_user_app/modules/prediction/sugar_prediction_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
-import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -115,7 +114,7 @@ class PredictionScreen extends StatelessWidget {
             onPressed();
           },
           child: Card(
-            color: myFavColor10,
+            color: Theme.of(context).cardColor,
             elevation: 5,
             margin: EdgeInsets.zero,
             shape: const RoundedRectangleBorder(
