@@ -165,6 +165,26 @@
   "quantity": "Quantity",
 
   "multiple": "Multiple",
-  "range": "Range"
+  "range": "Range",
 
+  "Typical Angina": "Typical Angina",
+  "Atypical Angina": "Atypical Angina",
+  "Non-anginal Pain": "Non-anginal Pain",
+  "Asymptomatic": "Asymptomatic",
+
+  "Chest Pain Type": "Chest Pain Type",
+
+  "yes": "Yes",
+  "no": "No",
+
+  "Normal": "Normal",
+  "ST-T Wave Abnormality": "ST-T Wave Abnormality",
+  "Left Ventricular Hypertrophy": "Left Ventricular Hypertrophy",
+
+  "Upsloping": "Upsloping",
+  "Flat": "Flat",
+  "Downsloping":"Downsloping",
+
+  "Fixed Defect": "Fixed Defect",
+  "Reversable Defect": "Reversable Defect"
 }

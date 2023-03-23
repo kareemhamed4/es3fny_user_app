@@ -58,10 +58,8 @@ class HelpServicesScreen extends StatelessWidget {
           children: [
             Text(
               "services".tr(context),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontSize: 20),
+              style:
+                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
             ),
           ],
         ),
@@ -80,20 +78,22 @@ class HelpServicesScreen extends StatelessWidget {
             child: Column(
               children: [
                 ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => buildServicesItem(
-                          context: context,
-                          model: services[index],
-                          size: size,
-                          onPressed: (){
-                            NavigateTo(context: context, widget: helpServicesScreens[index]);
-                          }
-                        ),
-                    separatorBuilder: (context, index) => SizedBox(
-                          height: size.height * 0.0216,
-                        ),
-                    itemCount: services.length),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => buildServicesItem(
+                    context: context,
+                    model: services[index],
+                    size: size,
+                    onPressed: () {
+                      NavigateTo(
+                          context: context, widget: helpServicesScreens[index]);
+                    },
+                  ),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: size.height * 0.0216,
+                  ),
+                  itemCount: services.length,
+                ),
               ],
             ),
           ),
@@ -137,7 +137,9 @@ class HelpServicesScreen extends StatelessWidget {
                           width: 50,
                           height: 50,
                         ),
-                        const SizedBox(width: 25,),
+                        const SizedBox(
+                          width: 25,
+                        ),
                         Text(
                           model.label.tr(context),
                           style: Theme.of(context)

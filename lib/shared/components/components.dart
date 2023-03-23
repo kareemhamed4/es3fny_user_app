@@ -40,13 +40,13 @@ Widget myTextFormField({
       inputFormatters: [
         LengthLimitingTextInputFormatter(maxLength2),
       ],
-      style: Theme.of(context)
-          .textTheme
-          .bodyText1!
-          .copyWith(fontFamily: "FinalR", fontSize: 18),
+      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
       decoration: InputDecoration(
         hintText: hint ?? '',
-        hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 18),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(fontSize: 16, color: myFavColor5),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
@@ -60,7 +60,6 @@ Widget myMaterialButton({
   bool isEnabled = true,
 }) =>
     MaterialButton(
-
       onPressed: () {
         isEnabled ? onPressed() : null;
       },
@@ -70,7 +69,6 @@ Widget myMaterialButton({
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
       ),
-
       child: labelWidget,
     );
 
@@ -81,7 +79,7 @@ Widget myTextButton({
 }) =>
     TextButton(
         onPressed: () {
-         onPressed();
+          onPressed();
         },
         child: Text(
           label,
@@ -147,7 +145,7 @@ Future NavigateTo({
 
 Widget myDivider({double? paddingValue}) => Padding(
       padding: EdgeInsets.only(
-        right: paddingValue ??12,
+        right: paddingValue ?? 12,
         left: paddingValue ?? 12,
         top: 0,
         bottom: 0,
@@ -209,6 +207,7 @@ Widget phoneTextFormField({
   int? maxLength,
   int? maxLength2,
   TextAlign? textAlign,
+  String? hint,
 }) =>
     TextFormField(
       textAlignVertical: TextAlignVertical.center,
@@ -227,16 +226,18 @@ Widget phoneTextFormField({
         LengthLimitingTextInputFormatter(maxLength2),
         FilteringTextInputFormatter.allow(RegExp("[0-9]")),
       ],
-      style: Theme.of(context)
-          .textTheme
-          .bodyText1!
-          .copyWith(fontSize: 18, fontFamily: "FinalR"),
+      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 18),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         suffixIconColor: Colors.grey,
         icon: icon,
+        hintText: hint ?? '',
+        hintStyle: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(fontSize: 16, color: myFavColor5),
       ),
     );
 
@@ -377,61 +378,74 @@ Widget myDropDownButton({
   required List<String> dropMenuItems,
   required String selectedValue,
   String? validateText,
-  required Widget prefix,
+  Widget? prefix,
   required String hintText,
+  required bool isRegisterForm,
   void Function(String?)? onChange,
   String Function(String?)? validator,
 }) =>
     DropdownButtonFormField2(
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         //Add isDense true and zero Padding.
         //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
         isDense: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 6),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 6),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none
+          borderSide:
+              isRegisterForm ? BorderSide(color: myFavColor) : BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide.none
+          borderSide:
+              isRegisterForm ? BorderSide(color: myFavColor) : BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
+        hintStyle: Theme.of(context)
+            .textTheme
+            .bodyText2!
+            .copyWith(color: myFavColor5, fontSize: 16),
         //Add more decoration as you want here
         //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
       ),
       isExpanded: true,
       hint: Row(
         children: [
-          prefix,
-          const SizedBox(width: 6,),
+          if (prefix != null) prefix,
+          if (prefix != null)
+            const SizedBox(
+              width: 6,
+            ),
           Text(
             hintText.tr(context),
             style: Theme.of(context)
                 .textTheme
-                .bodyText1!
-                .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
+                .bodyText2!
+                .copyWith(color: myFavColor5, fontSize: 16),
           ),
         ],
       ),
+      style: Theme.of(context).textTheme.bodyText2,
       icon: const Icon(
         Icons.keyboard_arrow_down_outlined,
       ),
       iconSize: 25,
-      buttonHeight: 44,
+      buttonHeight: isRegisterForm ? 54 : 44,
       dropdownDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(15),
+        color: Theme.of(context).cardColor,
       ),
       items: dropMenuItems
           .map((item) => DropdownMenuItem<String>(
                 value: item.tr(context),
-                onTap: (){
+                onTap: () {
                   selectedValue = item.tr(context);
                 },
                 child: Text(
                   item.tr(context),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 18, fontFamily: "FinalR"),
+                      .bodyText2!
+                      .copyWith(fontSize: 18),
                 ),
               ))
           .toList(),
@@ -530,19 +544,19 @@ Widget mySearchDropDownButton({
 Future<dynamic> showMyBottomSheet({
   required BuildContext context,
   required Widget child,
-
-}) => showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    barrierColor: Colors.black38,
-    backgroundColor: Theme.of(context).cardColor,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
+}) =>
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      barrierColor: Colors.black38,
+      backgroundColor: Theme.of(context).cardColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
       ),
-    ),
-    builder: (context){
-      return child;
-    }
-);
+      builder: (context) {
+        return child;
+      },
+    );

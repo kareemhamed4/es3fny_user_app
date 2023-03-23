@@ -64,14 +64,14 @@ class PredictionCubit extends Cubit<PredictionStates> {
   void makeLiverPrediction({
     required String age,
     required String gender,
-    required String total_bilirubin,
-    required String direct_bilirubin,
-    required String alkaline_phosphotase,
-    required String alamine_aminotransferase,
-    required String aspartate_aminotransferase,
-    required String total_protiens,
+    required String totalPilirubin,
+    required String directBilirubin,
+    required String alkalinePhosphotase,
+    required String alamineAminotransferase,
+    required String aspartateAminotransferase,
+    required String totalProtiens,
     required String albumin,
-    required String albumin_and_globulin_ratio,
+    required String albuminAndGlobulinRatio,
   }) {
     emit(LiverPredictionLoadingState());
     DioHelper.postData(
@@ -80,14 +80,14 @@ class PredictionCubit extends Cubit<PredictionStates> {
         query: {
           'age': age,
           'gender': gender,
-          'total_bilirubin': total_bilirubin,
-          'direct_bilirubin': direct_bilirubin,
-          'alkaline_phosphotase': alkaline_phosphotase,
-          'alamine_aminotransferase': alamine_aminotransferase,
-          'aspartate_aminotransferase': aspartate_aminotransferase,
-          'total_protiens': total_protiens,
+          'total_bilirubin': totalPilirubin,
+          'direct_bilirubin': directBilirubin,
+          'alkaline_phosphotase': alkalinePhosphotase,
+          'alamine_aminotransferase': alamineAminotransferase,
+          'aspartate_aminotransferase': aspartateAminotransferase,
+          'total_protiens': totalProtiens,
           'albumin': albumin,
-          'albumin_and_globulin_ratio': albumin_and_globulin_ratio,
+          'albumin_and_globulin_ratio': albuminAndGlobulinRatio,
         }).then((value) {
       debugPrint(value.data.toString());
       liverPredictionModel = PredictionModel.fromJson(value.data);
@@ -105,28 +105,28 @@ class PredictionCubit extends Cubit<PredictionStates> {
   String? diabetesPredictionResult;
   PredictionModel? diabetesPredictionModel;
   void makeDiabetesPrediction({
-    required String Pregnancies,
-    required String Glucose,
-    required String BloodPressure,
-    required String SkinThickness,
-    required String Insulin,
-    required String BMI,
-    required String DiabetesPedigreeFunction,
-    required String Age,
+    required String pregnancies,
+    required String glucose,
+    required String bloodPressure,
+    required String skinThickness,
+    required String insulin,
+    required String bMI,
+    required String diabetesPedigreeFunction,
+    required String age,
   }) {
     emit(DiabetesPredictionLoadingState());
     DioHelper.postData(
         url: DIABETESAPI,
         baseUrl: "https://diabetes-802s.onrender.com/",
         query: {
-          'Pregnancies': Pregnancies,
-          'Glucose': Glucose,
-          'BloodPressure': BloodPressure,
-          'SkinThickness': SkinThickness,
-          'Insulin': Insulin,
-          'BMI': BMI,
-          'DiabetesPedigreeFunction': DiabetesPedigreeFunction,
-          'Age': Age,
+          'Pregnancies': pregnancies,
+          'Glucose': glucose,
+          'BloodPressure': bloodPressure,
+          'SkinThickness': skinThickness,
+          'Insulin': insulin,
+          'BMI': bMI,
+          'DiabetesPedigreeFunction': diabetesPedigreeFunction,
+          'Age': age,
         }).then((value) {
       debugPrint(value.data.toString());
       diabetesPredictionModel = PredictionModel.fromJson(value.data);
@@ -139,4 +139,51 @@ class PredictionCubit extends Cubit<PredictionStates> {
       emit(DiabetesPredictionErrorState());
     });
   }
+
+  List<String> genderItems = [
+    'male',
+    'female',
+  ];
+  String selectedGender = "";
+
+  List<String> chestPainItems = [
+    'Typical Angina',
+    'Atypical Angina',
+    'Non-anginal Pain',
+    'Asymptomatic',
+  ];
+  String selectedChestPain = "";
+
+  List<String> fastingBloodSugarItems = [
+    'yes',
+    'no',
+  ];
+  String selectedFastingBloodSugar = "";
+
+  List<String> restingElectrocardiographicItems = [
+    'Normal',
+    'ST-T Wave Abnormality',
+    'Left Ventricular Hypertrophy',
+  ];
+  String selectedRestingElectrocardiographic = "";
+
+  List<String> maximumHeartRateAchievedItems = [
+    'yes',
+    'no',
+  ];
+  String selectedMaximumHeartRateAchieved = "";
+
+  List<String> slopeOfThePeakExerciseSTItems = [
+    'Upsloping',
+    'Flat',
+    'Downsloping',
+  ];
+  String selectedSlopeOfThePeakExercise = "";
+
+  List<String> thalItems = [
+    'Normal',
+    'Fixed Defect',
+    'Reversable Defect',
+  ];
+  String selectedThal = "";
 }

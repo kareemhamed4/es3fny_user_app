@@ -164,6 +164,27 @@
   "5": "5",
 
   "quantity": "الكمية",
-   "range": "مستمر",
-   "multiple": "متقطع"
+  "range": "مستمر",
+  "multiple": "متقطع",
+
+  "Typical Angina": "الذبحة الصدرية النموذجية",
+  "Atypical Angina": "الذبحة الصدرية غير النمطية",
+  "Non-anginal Pain": "الألم غير الزاوي",
+  "Asymptomatic": "بدون أعراض ظاهرة",
+
+  "Chest Pain Type": "نوع آلام الصدر",
+
+  "yes": "نعم",
+  "no": "لا",
+
+  "Normal": "طبيعي",
+  "ST-T Wave Abnormality": "شذوذ موجة ST-T",
+  "Left Ventricular Hypertrophy": "تضخم البطين الايسر",
+
+  "Upsloping": "صعود",
+  "Flat": "مستوي",
+  "Downsloping":"هبوط",
+
+  "Fixed Defect": "خلل ثابت",
+  "Reversable Defect": "عيب عكسي"
 }

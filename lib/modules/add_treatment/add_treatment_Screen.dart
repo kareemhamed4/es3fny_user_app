@@ -26,8 +26,9 @@ class AddTreatmentScreen extends StatelessWidget {
             elevation: 2,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12)),
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
             ),
             title: Text(
               "notify".tr(context),
@@ -152,6 +153,7 @@ class AddTreatmentScreen extends StatelessWidget {
                                 ),
                                 child: myDropDownButton(
                                     context: context,
+                                    isRegisterForm: false,
                                     prefix: SvgPicture.asset(
                                       "assets/images/pill2.svg",
                                       height: 20,
@@ -183,6 +185,7 @@ class AddTreatmentScreen extends StatelessWidget {
                                 ),
                                 child: myDropDownButton(
                                     context: context,
+                                    isRegisterForm: false,
                                     prefix: Icon(
                                       Icons.edit_calendar_outlined,
                                       color: myFavColor1,
@@ -234,27 +237,33 @@ class AddTreatmentScreen extends StatelessWidget {
                               enablePastDates: false,
                               initialDisplayDate: DateTime.now(),
                               monthViewSettings:
-                              DateRangePickerMonthViewSettings(
-                                firstDayOfWeek: 6,
-                                viewHeaderStyle: DateRangePickerViewHeaderStyle(
-                                  textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12),
-                                )
-                              ),
+                                  DateRangePickerMonthViewSettings(
+                                      firstDayOfWeek: 6,
+                                      viewHeaderStyle:
+                                          DateRangePickerViewHeaderStyle(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(fontSize: 12),
+                                      )),
                               monthCellStyle: DateRangePickerMonthCellStyle(
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                        color: MainCubit.get(context).isDark
-                                            ? myFavColor9
-                                            : myFavColor3,
-                                      ),
-                                  cellDecoration: BoxDecoration(
-                                    color: MainCubit.get(context).isDark
-                                        ? myFavColor7
-                                        : myFavColor9,
-                                  ),
-                                  todayTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor),
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      color: MainCubit.get(context).isDark
+                                          ? myFavColor9
+                                          : myFavColor3,
+                                    ),
+                                cellDecoration: BoxDecoration(
+                                  color: MainCubit.get(context).isDark
+                                      ? myFavColor7
+                                      : myFavColor9,
+                                ),
+                                todayTextStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(color: myFavColor),
                               ),
                             ),
                           ),

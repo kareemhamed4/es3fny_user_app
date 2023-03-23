@@ -40,11 +40,11 @@ class PredictionScreen extends StatelessWidget {
     ),
   ];
 
-  final List<Widget> predictionScreens = const [
+  final List<Widget> predictionScreens = [
     HeartPredictionScreen(),
-    LiverPredictionScreen(),
-    DiabetesPredictionScreen(),
-    PressurePredictionScreen(),
+    const LiverPredictionScreen(),
+    const DiabetesPredictionScreen(),
+    const PressurePredictionScreen(),
   ];
 
   @override
