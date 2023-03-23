@@ -15,16 +15,16 @@ class PredictionCubit extends Cubit<PredictionStates> {
   void makeHeartPrediction({
     required String age,
     required String sex,
-    required String cp,
-    required String trestbps,
-    required String chol,
-    required String fbs,
-    required String restecg,
-    required String thalach,
-    required String exang,
-    required String oldpeak,
-    required String slope,
-    required String ca,
+    required String chestPainType,
+    required String restingBloodPressure,
+    required String serumCholestoral,
+    required String fastingBloodSugar,
+    required String restingElectrocardiographic,
+    required String maximumHeartRate,
+    required String exerciseInducedAngina,
+    required String sTDepression,
+    required String slopeOfThePeakExercise,
+    required String numberOfMajorVessels,
     required String thal,
   }) {
     emit(HeartPredictionLoadingState());
@@ -34,21 +34,22 @@ class PredictionCubit extends Cubit<PredictionStates> {
         query: {
           'age': age,
           'sex': sex,
-          'cp': cp,
-          'trestbps': trestbps,
-          'chol': chol,
-          'fbs': fbs,
-          'restecg': restecg,
-          'thalach': thalach,
-          'exang': exang,
-          'oldpeak': oldpeak,
-          'slope': slope,
-          'ca': ca,
+          'cp': chestPainType,
+          'trestbps': restingBloodPressure,
+          'chol': serumCholestoral,
+          'fbs': fastingBloodSugar,
+          'restecg': restingElectrocardiographic,
+          'thalach': maximumHeartRate,
+          'exang': exerciseInducedAngina,
+          'oldpeak': sTDepression,
+          'slope': slopeOfThePeakExercise,
+          'ca': numberOfMajorVessels,
           'thal': thal,
         }).then((value) {
       debugPrint(value.data.toString());
       heartPredictionModel = PredictionModel.fromJson(value.data);
       heartPredictionResult = heartPredictionModel!.predictionResult;
+      debugPrint(heartPredictionResult);
       emit(HeartPredictionSuccessState(heartPredictionModel!));
     }).catchError((error) {
       if (kDebugMode) {
@@ -92,6 +93,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
       debugPrint(value.data.toString());
       liverPredictionModel = PredictionModel.fromJson(value.data);
       liverPredictionResult = liverPredictionModel!.predictionResult;
+      debugPrint(liverPredictionResult);
       emit(LiverPredictionSuccessState(liverPredictionModel!));
     }).catchError((error) {
       if (kDebugMode) {
@@ -131,6 +133,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
       debugPrint(value.data.toString());
       diabetesPredictionModel = PredictionModel.fromJson(value.data);
       diabetesPredictionResult = diabetesPredictionModel!.predictionResult;
+      debugPrint(diabetesPredictionResult);
       emit(DiabetesPredictionSuccessState(diabetesPredictionModel!));
     }).catchError((error) {
       if (kDebugMode) {
@@ -167,11 +170,11 @@ class PredictionCubit extends Cubit<PredictionStates> {
   ];
   String selectedRestingElectrocardiographic = "";
 
-  List<String> maximumHeartRateAchievedItems = [
+  List<String> exerciseInducedAnginaItems = [
     'yes',
     'no',
   ];
-  String selectedMaximumHeartRateAchieved = "";
+  String selectedExerciseInducedAngina = "";
 
   List<String> slopeOfThePeakExerciseSTItems = [
     'Upsloping',

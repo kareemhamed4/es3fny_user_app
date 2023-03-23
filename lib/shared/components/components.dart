@@ -389,7 +389,7 @@ Widget myDropDownButton({
         //Add isDense true and zero Padding.
         //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 6),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         enabledBorder: OutlineInputBorder(
           borderSide:
               isRegisterForm ? BorderSide(color: myFavColor) : BorderSide.none,
@@ -449,7 +449,12 @@ Widget myDropDownButton({
                 ),
               ))
           .toList(),
-      validator: validator,
+      validator: (value) {
+        if (value == null) {
+          return validateText?.tr(context);
+        }
+        return null;
+      },
       onChanged: onChange,
       onSaved: (value) {
         selectedValue = value.toString();
