@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/notify_me/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/notify_me/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -22,6 +23,12 @@ class AddTreatmentScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
+            elevation: 2,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12)),
+            ),
             title: Text(
               "notify".tr(context),
               style:
@@ -39,12 +46,6 @@ class AddTreatmentScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 12,
-                      ),
-                      myDivider(
-                        paddingValue: 0,
-                      ),
                       const SizedBox(
                         height: 30,
                       ),
@@ -205,7 +206,7 @@ class AddTreatmentScreen extends StatelessWidget {
                         height: 335,
                         child: Card(
                           margin: EdgeInsets.zero,
-                          color: cardForCalendar,
+                          color: Theme.of(context).cardColor,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             side: BorderSide.none,
@@ -217,7 +218,9 @@ class AddTreatmentScreen extends StatelessWidget {
                               selectionShape:
                                   DateRangePickerSelectionShape.rectangle,
                               selectionColor: myFavColor,
-                              backgroundColor: calendarBg.withOpacity(0.5),
+                              backgroundColor: MainCubit.get(context).isDark
+                                  ? myFavColor8
+                                  : calendarBg,
                               startRangeSelectionColor: myFavColor,
                               selectionMode: cubit.mode,
                               selectionRadius: 0,
@@ -231,8 +234,27 @@ class AddTreatmentScreen extends StatelessWidget {
                               enablePastDates: false,
                               initialDisplayDate: DateTime.now(),
                               monthViewSettings:
-                                  const DateRangePickerMonthViewSettings(
+                              DateRangePickerMonthViewSettings(
                                 firstDayOfWeek: 6,
+                                viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                                  textStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12),
+                                )
+                              ),
+                              monthCellStyle: DateRangePickerMonthCellStyle(
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        color: MainCubit.get(context).isDark
+                                            ? myFavColor9
+                                            : myFavColor3,
+                                      ),
+                                  cellDecoration: BoxDecoration(
+                                    color: MainCubit.get(context).isDark
+                                        ? myFavColor7
+                                        : myFavColor9,
+                                  ),
+                                  todayTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: myFavColor),
                               ),
                             ),
                           ),
@@ -376,7 +398,9 @@ class AddTreatmentScreen extends StatelessWidget {
                           }
                           debugPrint(cubit.treatmentNameController.text);
                           debugPrint(cubit.selectedQuantity);
-                          debugPrint(cubit.selectedDates[0].substring(0,9).toString());
+                          debugPrint(cubit.selectedDates[0]
+                              .substring(0, 9)
+                              .toString());
                           debugPrint(cubit.startDate);
                           debugPrint(cubit.secondDate);
                           debugPrint(cubit.timeController.text);

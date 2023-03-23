@@ -20,6 +20,12 @@ class NotifyMeScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
+            elevation: 2,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12)),
+            ),
             title: Text(
               "notify".tr(context),
               style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
@@ -31,10 +37,6 @@ class NotifyMeScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  const SizedBox(height: 12,),
-                  myDivider(
-                    paddingValue: 0,
-                  ),
                   const SizedBox(height: 60,),
                   SvgPicture.asset("assets/images/bellIcon.svg"),
                   const SizedBox(height: 60,),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData(
-  cardColor: Colors.grey.shade200,
+  cardColor: myFavColor10,
   scaffoldBackgroundColor: Colors.white,
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: myFavColorWithOpacity,
