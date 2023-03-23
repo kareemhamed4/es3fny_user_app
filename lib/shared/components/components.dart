@@ -416,12 +416,14 @@ Widget myDropDownButton({
             const SizedBox(
               width: 6,
             ),
-          Text(
-            hintText.tr(context),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2!
-                .copyWith(color: myFavColor5, fontSize: 16),
+          Flexible(
+            child: Text(
+              hintText.tr(context),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(color: myFavColor5, fontSize: 16),
+            ),
           ),
         ],
       ),

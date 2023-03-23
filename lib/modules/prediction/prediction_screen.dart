@@ -41,8 +41,8 @@ class PredictionScreen extends StatelessWidget {
 
   final List<Widget> predictionScreens = [
     HeartPredictionScreen(),
-    const LiverPredictionScreen(),
-    const DiabetesPredictionScreen(),
+    LiverPredictionScreen(),
+    DiabetesPredictionScreen(),
     const PressurePredictionScreen(),
   ];
 
