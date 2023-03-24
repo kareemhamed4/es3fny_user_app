@@ -1,5 +1,5 @@
 class PredictionModel {
-  String? predictionResult;
+  int? predictionResult;
 
   PredictionModel({this.predictionResult});
 

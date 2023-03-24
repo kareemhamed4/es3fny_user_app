@@ -1,4 +1,4 @@
-import 'package:es3fny_user_app/models/test.dart';
+import 'package:es3fny_user_app/models/prediction_model.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
@@ -10,7 +10,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
 
   static PredictionCubit get(context) => BlocProvider.of(context);
 
-  String? heartPredictionResult;
+  int? heartPredictionResult;
   PredictionModel? heartPredictionModel;
   void makeHeartPrediction({
     required String age,
@@ -49,7 +49,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
       debugPrint(value.data.toString());
       heartPredictionModel = PredictionModel.fromJson(value.data);
       heartPredictionResult = heartPredictionModel!.predictionResult;
-      debugPrint(heartPredictionResult);
+      debugPrint(heartPredictionResult.toString());
       emit(HeartPredictionSuccessState(heartPredictionModel!));
     }).catchError((error) {
       if (kDebugMode) {
@@ -60,7 +60,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
   }
 
 
-  String? liverPredictionResult;
+  int? liverPredictionResult;
   PredictionModel? liverPredictionModel;
   void makeLiverPrediction({
     required String age,
@@ -93,7 +93,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
       debugPrint(value.data.toString());
       liverPredictionModel = PredictionModel.fromJson(value.data);
       liverPredictionResult = liverPredictionModel!.predictionResult;
-      debugPrint(liverPredictionResult);
+      debugPrint(liverPredictionResult.toString());
       emit(LiverPredictionSuccessState(liverPredictionModel!));
     }).catchError((error) {
       if (kDebugMode) {
@@ -104,7 +104,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
   }
 
 
-  String? diabetesPredictionResult;
+  int? diabetesPredictionResult;
   PredictionModel? diabetesPredictionModel;
   void makeDiabetesPrediction({
     required String pregnancies,
@@ -133,7 +133,7 @@ class PredictionCubit extends Cubit<PredictionStates> {
       debugPrint(value.data.toString());
       diabetesPredictionModel = PredictionModel.fromJson(value.data);
       diabetesPredictionResult = diabetesPredictionModel!.predictionResult;
-      debugPrint(diabetesPredictionResult);
+      debugPrint(diabetesPredictionResult.toString());
       emit(DiabetesPredictionSuccessState(diabetesPredictionModel!));
     }).catchError((error) {
       if (kDebugMode) {

@@ -184,18 +184,19 @@ class AddTreatmentScreen extends StatelessWidget {
                                   side: BorderSide.none,
                                 ),
                                 child: myDropDownButton(
-                                    context: context,
-                                    isRegisterForm: false,
-                                    prefix: Icon(
-                                      Icons.edit_calendar_outlined,
-                                      color: myFavColor1,
-                                    ),
-                                    dropMenuItems: cubit.modes,
-                                    selectedValue: cubit.selectedMode ?? "",
-                                    hintText: cubit.modes[0],
-                                    onChange: (value) {
-                                      cubit.changeCalendarMode(value!, context);
-                                    }),
+                                  context: context,
+                                  isRegisterForm: false,
+                                  prefix: Icon(
+                                    Icons.edit_calendar_outlined,
+                                    color: myFavColor1,
+                                  ),
+                                  dropMenuItems: cubit.modes,
+                                  selectedValue: cubit.selectedMode ?? "",
+                                  hintText: cubit.modes[0],
+                                  onChange: (value) {
+                                    cubit.changeCalendarMode(value!, context);
+                                  },
+                                ),
                               ),
                             ),
                           ),

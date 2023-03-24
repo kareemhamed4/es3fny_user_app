@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
+import 'package:es3fny_user_app/main_button/cubit/cubit.dart';
+import 'package:es3fny_user_app/main_button/cubit/states.dart';
+import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
 import 'package:es3fny_user_app/responsive.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,29 +49,28 @@ class LoadingButtonState extends State<LoadingButton>
       }
       if (controller.status == AnimationStatus.completed) {
         showMyDialog(
-          context: context,
-          icon: Icons.info_outline,
-          titleWidget: Text(
-            "alert".tr(context),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(fontSize: 18),
-          ),
-          contentWidget: Text(
-            "alert_content".tr(context),
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .caption!
-                .copyWith(fontSize: 18),
-          ),
-          onConfirm: (){
-            Navigator.pop(context, "Ok");
-            context.read<LayoutCubit>().changeIndex(1);
-            NavigateTo(context: context, widget: const TrackingInfoScreen());
-          }
-        );
+            context: context,
+            icon: Icons.info_outline,
+            titleWidget: Text(
+              "alert".tr(context),
+              style:
+                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+            ),
+            contentWidget: Text(
+              "alert_content".tr(context),
+              textAlign: TextAlign.center,
+              style:
+                  Theme.of(context).textTheme.caption!.copyWith(fontSize: 18),
+            ),
+            onConfirm: () {
+              Navigator.pop(context, "Ok");
+              context.read<SendRequestCubit>().sendRequest(
+                    token: token!,
+                    userId: ProfileCubit.get(context).userModel!.data!.id!,
+                  );
+              context.read<LayoutCubit>().changeIndex(1);
+              NavigateTo(context: context, widget: const TrackingInfoScreen());
+            });
         setState(() {
           controller.reset();
           secondsRemaining = 3;
@@ -86,151 +89,154 @@ class LoadingButtonState extends State<LoadingButton>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTapDown: (_) => controller.forward(),
-      onTapUp: (_) {
-        if (controller.status == AnimationStatus.forward) {
-          controller.reverse();
-        }
+    return BlocConsumer<SendRequestCubit, SendRequestStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return GestureDetector(
+          onTapDown: (_) => controller.forward(),
+          onTapUp: (_) {
+            if (controller.status == AnimationStatus.forward) {
+              controller.reverse();
+            }
+          },
+          child: Responsive(
+            mobile: buildMobileButtonScreen(size, context),
+            desktop: buildDesktopButtonScreen(context),
+            tablet: buildDesktopButtonScreen(context),
+          ),
+        );
       },
-      child: Responsive(
-        mobile: buildMobileButtonScreen(size, context),
-        desktop: buildDesktopButtonScreen(context),
-        tablet: buildDesktopButtonScreen(context),
-      ),
     );
   }
 
   Container buildDesktopButtonScreen(BuildContext context) {
     return Container(
-        height: 220,
-        width: 220,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: myFavColor.withOpacity(0.9),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 220,
-              width: 220,
-              child: CircularProgressIndicator(
-                strokeWidth: 17,
-                value: 1.0,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                    Theme.of(context).scaffoldBackgroundColor),
-              ),
+      height: 220,
+      width: 220,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: myFavColor.withOpacity(0.9),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: 220,
+            width: 220,
+            child: CircularProgressIndicator(
+              strokeWidth: 17,
+              value: 1.0,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  Theme.of(context).scaffoldBackgroundColor),
             ),
-            Container(
-              height: 220,
-              width: 220,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: myFavColor3,
-                    spreadRadius: 6,
-                    blurRadius: 9,
-                    blurStyle: BlurStyle.outer,
-                  ),
-                ],
-              ),
-              child: CircularProgressIndicator(
-                strokeWidth: 15,
-                value: 1.0,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
-              ),
+          ),
+          Container(
+            height: 220,
+            width: 220,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: myFavColor3,
+                  spreadRadius: 6,
+                  blurRadius: 9,
+                  blurStyle: BlurStyle.outer,
+                ),
+              ],
             ),
-            SizedBox(
-              height: 220,
-              width: 220,
-              child: CircularProgressIndicator(
-                strokeWidth: 15,
-                value: controller.value,
-                valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
-              ),
+            child: CircularProgressIndicator(
+              strokeWidth: 15,
+              value: 1.0,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
             ),
-            if (controller.status == AnimationStatus.dismissed)
-              SvgPicture.asset("assets/images/semilogo.svg")
-            else if (controller.status == AnimationStatus.forward)
-              Text(
-                secondsRemaining.toString(),
-                style:
-                Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
-              )
-            else if (controller.status == AnimationStatus.reverse)
-                SvgPicture.asset("assets/images/semilogo.svg")
-              else if (controller.status == AnimationStatus.completed)
-                  SvgPicture.asset('assets/images/semilogo.svg')
-          ],
-        ),
-      );
+          ),
+          SizedBox(
+            height: 220,
+            width: 220,
+            child: CircularProgressIndicator(
+              strokeWidth: 15,
+              value: controller.value,
+              valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+            ),
+          ),
+          if (controller.status == AnimationStatus.dismissed)
+            SvgPicture.asset("assets/images/semilogo.svg")
+          else if (controller.status == AnimationStatus.forward)
+            Text(
+              secondsRemaining.toString(),
+              style: Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
+            )
+          else if (controller.status == AnimationStatus.reverse)
+            SvgPicture.asset("assets/images/semilogo.svg")
+          else if (controller.status == AnimationStatus.completed)
+            SvgPicture.asset('assets/images/semilogo.svg')
+        ],
+      ),
+    );
   }
 
   Container buildMobileButtonScreen(Size size, BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: myFavColor.withOpacity(0.9),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: size.height * 0.3,
-              width: size.width * 0.65,
-              child: CircularProgressIndicator(
-                strokeWidth: 17,
-                value: 1.0,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                    Theme.of(context).scaffoldBackgroundColor),
-              ),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: myFavColor.withOpacity(0.9),
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: size.height * 0.3,
+            width: size.width * 0.65,
+            child: CircularProgressIndicator(
+              strokeWidth: 17,
+              value: 1.0,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  Theme.of(context).scaffoldBackgroundColor),
             ),
-            Container(
-              height: size.height * 0.3,
-              width: size.width * 0.65,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: myFavColor3,
-                    spreadRadius: 6,
-                    blurRadius: 9,
-                    blurStyle: BlurStyle.outer,
-                  ),
-                ],
-              ),
-              child: CircularProgressIndicator(
-                strokeWidth: 15,
-                value: 1.0,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
-              ),
+          ),
+          Container(
+            height: size.height * 0.3,
+            width: size.width * 0.65,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: myFavColor3,
+                  spreadRadius: 6,
+                  blurRadius: 9,
+                  blurStyle: BlurStyle.outer,
+                ),
+              ],
             ),
-            SizedBox(
-              height: size.height * 0.3,
-              width: size.width * 0.65,
-              child: CircularProgressIndicator(
-                strokeWidth: 15,
-                value: controller.value,
-                valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
-              ),
+            child: CircularProgressIndicator(
+              strokeWidth: 15,
+              value: 1.0,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
             ),
-            if (controller.status == AnimationStatus.dismissed)
-              SvgPicture.asset("assets/images/semilogo.svg")
-            else if (controller.status == AnimationStatus.forward)
-              Text(
-                secondsRemaining.toString(),
-                style:
-                    Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
-              )
-            else if (controller.status == AnimationStatus.reverse)
-              SvgPicture.asset("assets/images/semilogo.svg")
-            else if (controller.status == AnimationStatus.completed)
-              SvgPicture.asset('assets/images/semilogo.svg')
-          ],
-        ),
-      );
+          ),
+          SizedBox(
+            height: size.height * 0.3,
+            width: size.width * 0.65,
+            child: CircularProgressIndicator(
+              strokeWidth: 15,
+              value: controller.value,
+              valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+            ),
+          ),
+          if (controller.status == AnimationStatus.dismissed)
+            SvgPicture.asset("assets/images/semilogo.svg")
+          else if (controller.status == AnimationStatus.forward)
+            Text(
+              secondsRemaining.toString(),
+              style: Theme.of(context).textTheme.button!.copyWith(fontSize: 40),
+            )
+          else if (controller.status == AnimationStatus.reverse)
+            SvgPicture.asset("assets/images/semilogo.svg")
+          else if (controller.status == AnimationStatus.completed)
+            SvgPicture.asset('assets/images/semilogo.svg')
+        ],
+      ),
+    );
   }
 
   @override

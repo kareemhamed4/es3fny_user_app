@@ -1,5 +1,5 @@
 /*
-import 'package:es3fny_user_app/models/test.dart';
+import 'package:es3fny_user_app/models/prediction_model.dart';
 
 abstract class TestStates{}
 
