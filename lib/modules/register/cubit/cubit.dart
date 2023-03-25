@@ -82,7 +82,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     emit(SignUpLoadingState());
     DioHelper.postData(
       url: REGISTER,
-      baseUrl: "http://192.168.1.12/api/",
+      baseUrl: BASEURL,
       data: {
         'name': name,
         'email': email,

@@ -20,7 +20,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
     DioHelper.getData(
         url: PROFILE,
-        baseUrl: "http://192.168.1.12/api/",
+        baseUrl: BASEURL,
         token: token,
         query: {
           "token": token,
@@ -155,7 +155,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }) {
     emit(AddingFamilyMemberLoadingState());
     DioHelper.postData(
-        baseUrl: "http://192.168.1.12/api/",
+        baseUrl: BASEURL,
         url: ADD_FAMILY_MEMBER,
         data: {
           "name": name,
@@ -177,7 +177,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }) {
     emit(GetFamilyMembersLoadingState());
     DioHelper.getData(
-      baseUrl: "http://192.168.1.12/api/",
+      baseUrl: BASEURL,
       url: GET_FAMILY_MEMBER,
       query: {
         "token": token,
@@ -205,7 +205,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
 }){
     emit(DeleteFamilyMemberLoadingState());
     DioHelper.getData(
-        baseUrl: "http://192.168.1.12/api/",
+        baseUrl: BASEURL,
         url: "$Delete_FAMILY_MEMBER/$memberId",
         query: {
           "token": token,

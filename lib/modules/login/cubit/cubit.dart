@@ -19,7 +19,7 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(LoginLoadingState());
     DioHelper.postData(
       url: LOGIN,
-      baseUrl: "http://192.168.1.12/api/",
+      baseUrl: BASEURL,
       data: {'phone_number': phone, 'password': password},
     ).then((value) {
       loginModel = LoginModel.fromJson(value.data);

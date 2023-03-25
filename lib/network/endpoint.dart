@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+const BASEURL = "http://192.168.1.12/api/";
+
 const LOGIN = "login";
 const REGISTER = "register";
 const PROFILE = "profile";

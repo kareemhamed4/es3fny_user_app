@@ -19,7 +19,7 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
     emit(SendRequestLoadingState());
     await DioHelper.postData(
       url: REQUEST,
-      baseUrl: "http://192.168.1.12/api/store/",
+      baseUrl: "${BASEURL}store/",
       data: {
         'user_id': userId,
         'token': token,
@@ -44,7 +44,7 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
         emit(GetParamedicLoadingState());
         await DioHelper.getData(
             url: PARAMEDICINFO,
-            baseUrl: "http://192.168.1.12/api/",
+            baseUrl: BASEURL,
             query: {
               "id": requestId,
             }).then((value) {
