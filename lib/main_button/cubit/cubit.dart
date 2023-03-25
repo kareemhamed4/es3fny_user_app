@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/main_button/cubit/states.dart';
+import 'package:es3fny_user_app/models/paramedic_model.dart';
 import 'package:es3fny_user_app/models/send_request_model.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
@@ -11,12 +12,12 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
 
   SendRequestModel? sendRequestModel;
 
-  void sendRequest({
+  Future<void> sendRequest({
     required int userId,
     required String token,
-  }) {
+  }) async {
     emit(SendRequestLoadingState());
-    DioHelper.postData(
+    await DioHelper.postData(
       url: REQUEST,
       baseUrl: "http://192.168.1.12/api/store/",
       data: {
@@ -33,6 +34,38 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
     });
   }
 
+  ParamedicModel? paramedicModel;
+
+  Future<void> listenForParamedicInfo({
+    required int requestId,
+}) async {
+    Stream.periodic(const Duration(seconds: 5)).asyncMap((_) async {
+      try {
+        emit(GetParamedicLoadingState());
+        await DioHelper.getData(
+            url: PARAMEDICINFO,
+            baseUrl: "http://192.168.1.12/api/",
+            query: {
+              "id": requestId,
+            }).then((value) {
+          paramedicModel = ParamedicModel.fromJson(value.data);
+          emit(GetParamedicSuccessState(paramedicModel!));
+        }).catchError((error) {
+          debugPrint(error.toString());
+          emit(GetParamedicErrorState());
+        });
+        return paramedicModel;
+      } catch (e) {
+        return null;
+      }
+    }).listen((requests) {
+      if (requests != null) {
+        emit(GetParamedicSuccessState(requests));
+      } else {
+        emit(GetParamedicErrorState());
+      }
+    });
+  }
 /*  late Timer timer;
   late AnimationController controller;
   int totalSeconds = 3;

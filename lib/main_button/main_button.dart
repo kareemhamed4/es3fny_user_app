@@ -64,12 +64,25 @@ class LoadingButtonState extends State<LoadingButton>
             ),
             onConfirm: () {
               Navigator.pop(context, "Ok");
-              context.read<SendRequestCubit>().sendRequest(
+              context
+                  .read<SendRequestCubit>()
+                  .sendRequest(
                     token: token!,
                     userId: ProfileCubit.get(context).userModel!.data!.id!,
-                  );
-              context.read<LayoutCubit>().changeIndex(1);
-              NavigateTo(context: context, widget: const TrackingInfoScreen());
+                  )
+                  .then((value) {
+                SendRequestCubit.get(context)
+                    .listenForParamedicInfo(
+                        requestId: SendRequestCubit.get(context)
+                            .sendRequestModel!
+                            .data!
+                            .id!)
+                    .then((value) {
+                  context.read<LayoutCubit>().changeIndex(1);
+                  NavigateTo(
+                      context: context, widget: const TrackingInfoScreen());
+                });
+              });
             });
         setState(() {
           controller.reset();

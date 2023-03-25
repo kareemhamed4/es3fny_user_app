@@ -21,7 +21,6 @@ class TrackingInfoScreen extends StatefulWidget {
 
 class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
   var formKey = GlobalKey<FormState>();
 
   TextEditingController hospitalController = TextEditingController();
@@ -30,21 +29,12 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 0)).then((_) {
-      if (SendRequestCubit.get(context).paramedicModel != null) {
+      if(SendRequestCubit.get(context).paramedicModel != null){
         if (Responsive.isMobile(context)) {
-          SendRequestCubit.get(context).paramedicModel != null
-              ? showMyBottomSheetIfDataAvailable(
-                  context: context,
-                  cubit: SendRequestCubit(),
-                  model: SendRequestCubit.get(context).paramedicModel!)
-              : showMyBottomSheet(
-                  context: context,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [CircularProgressIndicator()],
-                  ),
-                );
+          showMyBottomSheet(
+              context: context,
+              cubit: SendRequestCubit(),
+              model: SendRequestCubit.get(context).paramedicModel!);
         }
       }
     });
@@ -67,7 +57,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
             title: Text(
               "track_info_title".tr(context),
               style:
-                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
+              Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
             ),
             elevation: 2,
             shape: const RoundedRectangleBorder(
@@ -79,7 +69,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
           ),
           body: Responsive(
             mobile: buildMobileTrackingDetailsScreen(
-                context: context, cubit: cubit, model: model),
+                context: context, cubit: cubit, model: model!),
             desktop: Row(
               children: [
                 Expanded(
@@ -92,7 +82,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                           height: size.height - 80,
                           decoration: const BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
+                              BorderRadius.all(Radius.circular(20))),
                           child: const Image(
                             image: AssetImage("assets/images/Map.png"),
                             fit: BoxFit.fitWidth,
@@ -118,8 +108,8 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                     .textTheme
                                     .bodyText1!
                                     .copyWith(
-                                      fontSize: 18,
-                                    ),
+                                  fontSize: 18,
+                                ),
                               ),
                               Text(
                                 'ambulance_time_remaining'.tr(context),
@@ -127,8 +117,8 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                     .textTheme
                                     .bodyText1!
                                     .copyWith(
-                                      color: myFavColor,
-                                    ),
+                                  color: myFavColor,
+                                ),
                               ),
                             ],
                           ),
@@ -150,7 +140,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'محمد عبد الغني',
@@ -162,7 +152,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                       Text(
                                         'driver'.tr(context),
                                         style:
-                                            Theme.of(context).textTheme.caption,
+                                        Theme.of(context).textTheme.caption,
                                       ),
                                     ],
                                   ),
@@ -261,7 +251,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor:
-                                              myFavColor1.withOpacity(0.1),
+                                          myFavColor1.withOpacity(0.1),
                                           contentPadding: const EdgeInsets.only(
                                               right: 5, left: 5),
                                           label: Text(
@@ -273,7 +263,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                           ),
                                           border: OutlineInputBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                              BorderRadius.circular(5),
                                               borderSide: BorderSide.none),
                                         ),
                                       ),
@@ -368,9 +358,9 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
     );
   }
 
-  Widget buildMobileTrackingDetailsScreen({
+  Stack buildMobileTrackingDetailsScreen({
     required BuildContext context,
-    required ParamedicModel? model,
+    required ParamedicModel model,
     required SendRequestCubit cubit,
   }) {
     return Stack(
@@ -387,30 +377,10 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
             padding: const EdgeInsets.only(bottom: 12),
             child: GestureDetector(
               onVerticalDragStart: (start) {
-                model != null
-                    ? showMyBottomSheetIfDataAvailable(
-                        context: context, cubit: cubit, model: model)
-                    : showMyBottomSheet(
-                        context: context,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [CircularProgressIndicator()],
-                        ),
-                      );
+                showMyBottomSheet(context: context, cubit: cubit, model: model);
               },
               onTap: () {
-                model != null
-                    ? showMyBottomSheetIfDataAvailable(
-                        context: context, cubit: cubit, model: model)
-                    : showMyBottomSheet(
-                        context: context,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [CircularProgressIndicator()],
-                        ),
-                      );
+                showMyBottomSheet(context: context, cubit: cubit, model: model);
               },
               child: Stack(
                 alignment: Alignment.bottomCenter,
@@ -440,7 +410,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
     );
   }
 
-  void showMyBottomSheetIfDataAvailable({
+  void showMyBottomSheet({
     required BuildContext context,
     required ParamedicModel model,
     required SendRequestCubit cubit,
@@ -457,302 +427,288 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
           ),
         ),
         builder: (context) {
-          return cubit.paramedicModel!.message != "palmer data not founded ! "
+          return cubit.paramedicModel != null
               ? Padding(
-                  padding: EdgeInsets.only(
-                    right: 13,
-                    left: 13,
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(
-                            height: 20,
+            padding: EdgeInsets.only(
+              right: 13,
+              left: 13,
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: 80,
+                        height: 5,
+                        decoration: BoxDecoration(
+                          color: myFavColor1.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'track_ambulance'.tr(context),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                            fontSize: 22,
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              width: 80,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: myFavColor1.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                        ),
+                        Text(
+                          'ambulance_time_remaining'.tr(context),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                            color: myFavColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  'assets/images/308888645_3298435880403234_8809857619090350383_n.jpeg'),
+                              radius: 30,
                             ),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'محمد عبد الغني',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(fontSize: 16),
+                                ),
+                                Text(
+                                  'driver'.tr(context),
+                                  style:
+                                  Theme.of(context).textTheme.caption,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              FluentIcons.call_16_regular,
+                              color: myFavColor,
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    myDivider(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundColor: myFavColor.withOpacity(0.1),
+                          child: Icon(
+                            Icons.location_on_outlined,
+                            color: myFavColor,
+                            size: 16,
                           ),
-                          const SizedBox(
-                            height: 20,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "track_address".tr(context),
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              "2972 Westheimer Rd. Santa Ana, Illinois 85486 ",
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundColor: myFavColor.withOpacity(0.1),
+                          child: Icon(
+                            Icons.add_home_outlined,
+                            color: myFavColor,
+                            size: 16,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'track_ambulance'.tr(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      fontSize: 22,
+                              Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                    end: 16),
+                                child: TextFormField(
+                                  controller: hospitalController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      displayErrorMotionToast(
+                                        context: context,
+                                        title: langCode == "en"
+                                            ? "Error"
+                                            : "خطأ",
+                                        description: langCode == "en"
+                                            ? "Please enter hospital name"
+                                            : "برجاء ادخال اسم المستشفي للتأكيد",
+                                      );
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor:
+                                    myFavColor1.withOpacity(0.1),
+                                    contentPadding: const EdgeInsets.only(
+                                        right: 5, left: 5),
+                                    label: Text(
+                                      "track_destination".tr(context),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .caption!
+                                          .copyWith(fontSize: 12),
                                     ),
-                              ),
-                              Text(
-                                'ambulance_time_remaining'.tr(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                      color: myFavColor,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundImage: NetworkImage(model != null
-                                        ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
-                                        : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
-                                    radius: 30,
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5),
+                                        borderSide: BorderSide.none),
                                   ),
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        model.plamerData!.name!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(fontSize: 16),
-                                      ),
-                                      const SizedBox(height: 6,),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'driver'.tr(context),
-                                            style:
-                                                Theme.of(context).textTheme.caption,
-                                          ),
-                                          const SizedBox(width: 6,),
-                                          Text(
-                                            "ب${model.plamerData!.unit!}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2!
-                                                .copyWith(fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    FluentIcons.call_16_regular,
-                                    color: myFavColor,
-                                  )),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          myDivider(),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundColor: myFavColor.withOpacity(0.1),
-                                child: Icon(
-                                  Icons.location_on_outlined,
-                                  color: myFavColor,
-                                  size: 16,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "track_address".tr(context),
-                                    style: Theme.of(context).textTheme.caption,
-                                  ),
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    model.plamerData!.address!,
-                                    style: Theme.of(context).textTheme.caption,
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 15,
-                                backgroundColor: myFavColor.withOpacity(0.1),
-                                child: Icon(
-                                  Icons.add_home_outlined,
-                                  color: myFavColor,
-                                  size: 16,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.only(
-                                          end: 16),
-                                      child: TextFormField(
-                                        controller: hospitalController,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            displayErrorMotionToast(
-                                              context: context,
-                                              title: langCode == "en"
-                                                  ? "Error"
-                                                  : "خطأ",
-                                              description: langCode == "en"
-                                                  ? "Please enter hospital name"
-                                                  : "برجاء ادخال اسم المستشفي للتأكيد",
-                                            );
-                                          }
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor:
-                                              myFavColor1.withOpacity(0.1),
-                                          contentPadding: const EdgeInsets.only(
-                                              right: 5, left: 5),
-                                          label: Text(
-                                            "track_destination".tr(context),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption!
-                                                .copyWith(fontSize: 12),
-                                          ),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              borderSide: BorderSide.none),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: SizedBox(
-                                    child: MaterialButton(
-                                      height: 32,
-                                      color: myFavColor,
-                                      onPressed: () {
-                                        if (formKey.currentState!.validate()) {
-                                          hospitalController.text =
-                                              hospitalController.text;
-                                        }
-                                      },
-                                      child: Text(
-                                        "track_confirm".tr(context),
-                                        style:
-                                            Theme.of(context).textTheme.button,
-                                      ),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          SizedBox(
-                            child: Align(
-                              alignment: Alignment.center,
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: SizedBox(
                               child: MaterialButton(
                                 height: 32,
                                 color: myFavColor,
                                 onPressed: () {
-                                  showMyDialog(
-                                    context: context,
-                                    icon: Icons.info_outline,
-                                    titleWidget: Text(
-                                      "track_alert".tr(context),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(fontSize: 18),
-                                    ),
-                                    contentWidget: Text(
-                                      "track_alert_content".tr(context),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(fontSize: 18),
-                                    ),
-                                    onConfirm: () {
-                                      Navigator.of(context)
-                                          .popUntil((route) => route.isFirst);
-                                      NavigateToReb(
-                                          context: context,
-                                          widget: const LayoutScreen());
-                                      displayWarningMotionToast(
-                                        context: context,
-                                        title: langCode == "en"
-                                            ? "Warning"
-                                            : "تحذير",
-                                        description: langCode == "en"
-                                            ? "Your request is being processed"
-                                            : "طلبك قيد التنفيذ",
-                                      );
-                                    },
-                                  );
+                                  if (formKey.currentState!.validate()) {
+                                    hospitalController.text =
+                                        hospitalController.text;
+                                  }
                                 },
                                 child: Text(
-                                  "track_cancel_request".tr(context),
-                                  style: Theme.of(context).textTheme.button,
+                                  "track_confirm".tr(context),
+                                  style:
+                                  Theme.of(context).textTheme.button,
                                 ),
                               ),
-                            ),
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    SizedBox(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: MaterialButton(
+                          height: 32,
+                          color: myFavColor,
+                          onPressed: () {
+                            showMyDialog(
+                              context: context,
+                              icon: Icons.info_outline,
+                              titleWidget: Text(
+                                "track_alert".tr(context),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(fontSize: 18),
+                              ),
+                              contentWidget: Text(
+                                "track_alert_content".tr(context),
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .copyWith(fontSize: 18),
+                              ),
+                              onConfirm: () {
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                NavigateToReb(
+                                    context: context,
+                                    widget: const LayoutScreen());
+                                displayWarningMotionToast(
+                                  context: context,
+                                  title: langCode == "en"
+                                      ? "Warning"
+                                      : "تحذير",
+                                  description: langCode == "en"
+                                      ? "Your request is being processed"
+                                      : "طلبك قيد التنفيذ",
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            "track_cancel_request".tr(context),
+                            style: Theme.of(context).textTheme.button,
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  ],
+                ),
+              ),
+            ),
+          )
               : const Center(
-                  child: CircularProgressIndicator(),
-                );
+            child: CircularProgressIndicator(),
+          );
         });
   }
 }

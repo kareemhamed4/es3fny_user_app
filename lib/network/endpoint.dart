@@ -13,6 +13,7 @@ const HEARTAPI = 'heartApi';
 const DIABETESAPI = 'API';
 const CHATBOT = 'chatbotApi';
 const REQUEST = 'request';
+const PARAMEDICINFO = 'show/palmerinf';
 
 
 //http://127.0.0.1:8000/api/login
