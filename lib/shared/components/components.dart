@@ -392,13 +392,19 @@ Widget myDropDownButton({
         isDense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         enabledBorder: OutlineInputBorder(
-          borderSide:
-              isRegisterForm ? BorderSide(color: MainCubit.get(context).isDark ? myFavColor5 : myFavColor) : BorderSide.none,
+          borderSide: isRegisterForm
+              ? BorderSide(
+                  color:
+                      MainCubit.get(context).isDark ? myFavColor5 : myFavColor)
+              : BorderSide.none,
           borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         border: OutlineInputBorder(
-          borderSide:
-              isRegisterForm ? BorderSide(color: MainCubit.get(context).isDark ? myFavColor5 : myFavColor) : BorderSide.none,
+          borderSide: isRegisterForm
+              ? BorderSide(
+                  color:
+                      MainCubit.get(context).isDark ? myFavColor5 : myFavColor)
+              : BorderSide.none,
           borderRadius: const BorderRadius.all(Radius.circular(4)),
         ),
         hintStyle: Theme.of(context)
@@ -568,3 +574,22 @@ Future<dynamic> showMyBottomSheet({
         return child;
       },
     );
+
+void showProgressIndicator(BuildContext context) {
+  AlertDialog alertDialog = AlertDialog(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    content: Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
+      ),
+    ),
+  );
+  showDialog(
+      context: context,
+      barrierColor: Colors.white.withOpacity(0),
+      barrierDismissible: false,
+      builder: (context) {
+        return alertDialog;
+      });
+}

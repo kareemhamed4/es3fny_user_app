@@ -45,6 +45,10 @@ dependencies:
   syncfusion_flutter_datepicker: "20.4.44"
   equatable: ^2.0.3
 
+  google_maps_flutter: ^2.2.5
+  flutter_polyline_points: ^1.0.0
+  geolocator: ^9.0.2
+  material_floating_search_bar: ^0.3.7
 
   firebase_auth: ^4.2.4
   firebase_core: ^2.4.1

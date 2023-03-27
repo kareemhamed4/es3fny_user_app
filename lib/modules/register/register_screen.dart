@@ -979,25 +979,6 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void showProgressIndicator(BuildContext context) {
-    AlertDialog alertDialog = AlertDialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      content: Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
-        ),
-      ),
-    );
-    showDialog(
-        context: context,
-        barrierColor: Colors.white.withOpacity(0),
-        barrierDismissible: false,
-        builder: (context) {
-          return alertDialog;
-        });
-  }
-
   String generateCountryFlag() {
     String countryCode = "eg";
     String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),

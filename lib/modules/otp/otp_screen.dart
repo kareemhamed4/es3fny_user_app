@@ -2,8 +2,10 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/responsive.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,6 +33,9 @@ class _OTPScreenState extends State<OTPScreen> {
           showProgressIndicator(context);
         }
         if (state is PhoneOTPVerified) {
+          CacheHelper.saveData(key: "otpCode", value: otpCode).then((value){
+            otpCodeFromShared = otpCode;
+          });
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(
@@ -293,24 +298,5 @@ class _OTPScreenState extends State<OTPScreen> {
         ),
       ),
     );
-  }
-
-  void showProgressIndicator(BuildContext context) {
-    AlertDialog alertDialog = AlertDialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      content: Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(myFavColor),
-        ),
-      ),
-    );
-    showDialog(
-        context: context,
-        barrierColor: Colors.white.withOpacity(0),
-        barrierDismissible: false,
-        builder: (context) {
-          return alertDialog;
-        });
   }
 }

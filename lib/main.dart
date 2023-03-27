@@ -32,6 +32,7 @@ void main()async{
   await CacheHelper.init();
   DioHelper.init();
   token = CacheHelper.getData(key: 'token');
+  otpCodeFromShared = CacheHelper.getData(key: 'otpCode');
   langContainerIndex = CacheHelper.getData(key: 'langContainerIndex');
   langCode = CacheHelper.getData(key: 'lang');
   isDark = CacheHelper.getData(key: "isDark") ?? false;
