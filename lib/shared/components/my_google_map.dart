@@ -50,7 +50,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   BitmapDescriptor patientMarkerIcon = BitmapDescriptor.defaultMarker;
   void addCustomIconForPatient() {
     BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(), "assets/images/ambulance-marker.png")
+            const ImageConfiguration(), "assets/images/patient_maker.png")
         .then((icon) {
       setState(() {
         patientMarkerIcon = icon;
