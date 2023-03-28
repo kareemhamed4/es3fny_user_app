@@ -5,6 +5,7 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 
@@ -593,3 +594,47 @@ void showProgressIndicator(BuildContext context) {
         return alertDialog;
       });
 }
+
+Widget buildFloatingSearchBar({
+  required FloatingSearchBarController floatingSearchBarController,
+  required BuildContext context,
+}) =>
+    FloatingSearchBar(
+      controller: floatingSearchBarController,
+      hintStyle:
+          Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor1),
+      elevation: 6,
+      queryStyle: Theme.of(context).textTheme.bodyText2,
+      hint: "${"pick_location".tr(context)}...",
+      border: BorderSide.none,
+      height: 52,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      iconColor: myFavColor1,
+      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+      transitionDuration: const Duration(milliseconds: 750),
+      transitionCurve: Curves.easeInOut,
+      physics: const BouncingScrollPhysics(),
+      axisAlignment: 0,
+      openAxisAlignment: 600,
+      debounceDelay: const Duration(milliseconds: 500),
+      onQueryChanged: (query) {},
+      transition: CircularFloatingSearchBarTransition(),
+      width: double.infinity,
+      actions: [
+        FloatingSearchBarAction(
+          showIfOpened: false,
+          child: CircularButton(
+              icon: const Icon(Icons.place_outlined), onPressed: () {}),
+        ),
+      ],
+      builder: (context, transition) {
+        return ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [],
+          ),
+        );
+      },
+    );

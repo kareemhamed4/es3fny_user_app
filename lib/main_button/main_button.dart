@@ -20,13 +20,9 @@ class LoadingButton extends StatefulWidget {
   LoadingButtonState createState() => LoadingButtonState();
 }
 
-class LoadingButtonState extends State<LoadingButton>
-    with SingleTickerProviderStateMixin {
+class LoadingButtonState extends State<LoadingButton> with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  int totalSeconds = 3;
   int secondsRemaining = 3;
-  double progressFraction = 0.0;
-  int percentage = 0;
   late Timer timer;
 
   @override
@@ -34,8 +30,6 @@ class LoadingButtonState extends State<LoadingButton>
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       setState(() {
         secondsRemaining -= 1;
-        progressFraction = (totalSeconds - secondsRemaining) / totalSeconds;
-        percentage = (progressFraction * 100).floor();
       });
       if (controller.status == AnimationStatus.reverse) {
         setState(() {
@@ -79,8 +73,7 @@ class LoadingButtonState extends State<LoadingButton>
                             .id!)
                     .then((value) {
                   context.read<LayoutCubit>().changeIndex(1);
-                  NavigateTo(
-                      context: context, widget: const TrackingInfoScreen());
+                  NavigateTo(context: context, widget: const TrackingInfoScreen());
                 });
               });
             });
@@ -90,13 +83,12 @@ class LoadingButtonState extends State<LoadingButton>
         });
       }
     });
-
-    super.initState();
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 3));
     controller.addListener(() {
       setState(() {});
     });
+    super.initState();
   }
 
   @override
@@ -105,8 +97,16 @@ class LoadingButtonState extends State<LoadingButton>
     return BlocConsumer<SendRequestCubit, SendRequestStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        SendRequestCubit cubit = BlocProvider.of(context);
+        var model = cubit.paramedicModel;
         return GestureDetector(
-          onTapDown: (_) => controller.forward(),
+          onTapDown: (_) {
+            if(model != null && model.plamerData != null){
+              null;
+            }else if(model == null){
+              controller.forward();
+            }
+          },
           onTapUp: (_) {
             if (controller.status == AnimationStatus.forward) {
               controller.reverse();
@@ -122,7 +122,7 @@ class LoadingButtonState extends State<LoadingButton>
     );
   }
 
-  Container buildDesktopButtonScreen(BuildContext context) {
+  Widget buildDesktopButtonScreen(BuildContext context) {
     return Container(
       height: 220,
       width: 220,
@@ -188,7 +188,7 @@ class LoadingButtonState extends State<LoadingButton>
     );
   }
 
-  Container buildMobileButtonScreen(Size size, BuildContext context) {
+  Widget buildMobileButtonScreen(Size size, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,

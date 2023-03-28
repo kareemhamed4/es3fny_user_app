@@ -17,3 +17,7 @@ class GetParamedicSuccessState extends SendRequestStates {
   GetParamedicSuccessState(this.paramedicModel);
 }
 class GetParamedicErrorState extends SendRequestStates {}
+
+class GetCurrentLocationLoadingState extends SendRequestStates {}
+class GetCurrentLocationSuccessState extends SendRequestStates {}
+class GetCurrentLocationErrorState extends SendRequestStates {}

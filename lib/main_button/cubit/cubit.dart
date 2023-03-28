@@ -2,9 +2,13 @@ import 'package:es3fny_user_app/main_button/cubit/states.dart';
 import 'package:es3fny_user_app/models/paramedic_model.dart';
 import 'package:es3fny_user_app/models/send_request_model.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
+import 'package:es3fny_user_app/shared/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SendRequestCubit extends Cubit<SendRequestStates> {
   SendRequestCubit() : super(SendRequestInitialState());
@@ -38,16 +42,13 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
 
   Future<void> listenForParamedicInfo({
     required int requestId,
-}) async {
+  }) async {
     Stream.periodic(const Duration(seconds: 5)).asyncMap((_) async {
       try {
         emit(GetParamedicLoadingState());
-        await DioHelper.getData(
-            url: PARAMEDICINFO,
-            baseUrl: BASEURL,
-            query: {
-              "id": requestId,
-            }).then((value) {
+        await DioHelper.getData(url: PARAMEDICINFO, baseUrl: BASEURL, query: {
+          "id": requestId,
+        }).then((value) {
           paramedicModel = ParamedicModel.fromJson(value.data);
           emit(GetParamedicSuccessState(paramedicModel!));
         }).catchError((error) {
@@ -66,87 +67,22 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
       }
     });
   }
-/*  late Timer timer;
-  late AnimationController controller;
-  int totalSeconds = 3;
-  int secondsRemaining = 3;
-  double progressFraction = 0.0;
-  int percentage = 0;
 
-  void startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      secondsRemaining -= 1;
-      progressFraction = (totalSeconds - secondsRemaining) / totalSeconds;
-      percentage = (progressFraction * 100).floor();
-      if (controller.status == AnimationStatus.reverse) {
-        reset();
-      }
-      if (controller.status == AnimationStatus.dismissed) {
-        reset();
-      }
-      if (controller.status == AnimationStatus.completed) {
-        emit(LoadingButtonCompleted());
-      }
-    });
-    controller.forward();
-    emit(LoadingButtonStarted());
-  }
-
-  void reset() {
-    controller.reset();
-    timer.cancel();
-    secondsRemaining = 3;
-    progressFraction = 0.0;
-    percentage = 0;
-    emit(LoadingButtonInitial());
-  }
-
-  void handleTapDown() {
-    controller.forward();
-  }
-
-  void handleTapUp() {
-    if (controller.status == AnimationStatus.forward) {
-      controller.reverse();
-    }
-  }
-
-  void navigateToTrackingInfo(BuildContext context) {
-    showMyDialog(
-      context: context,
-      icon: Icons.info_outline,
-      titleWidget: Text(
-        "alert".tr(context),
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-      ),
-      contentWidget: Text(
-        "alert_content".tr(context),
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 18),
-      ),
-      onConfirm: () {
-        Navigator.pop(context, "Ok");
-        context.read<SendRequestCubit>().sendRequest(
-          token: token!,
-          userId: ProfileCubit.get(context).userModel!.data!.id!,
-        );
-        context.read<LayoutCubit>().changeIndex(1);
-        NavigateTo(context: context, widget: const TrackingInfoScreen());
-      },
+  Future<void> getMyCurrentLocation() async {
+    emit(GetCurrentLocationLoadingState());
+    await LocationHelper.getCurrentLocation();
+    CacheHelper.saveData(
+      key: "currentLocation",
+      value: Geolocator.getLastKnownPosition().whenComplete(
+        () async {
+          currentLocation =
+              await Geolocator.getLastKnownPosition().whenComplete(
+            () {
+              emit(GetCurrentLocationSuccessState());
+            },
+          );
+        },
+      ).toString(),
     );
   }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  Future<void> close() {
-    controller.dispose();
-    timer.cancel();
-    return super.close();
-  }*/
 }

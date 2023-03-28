@@ -156,7 +156,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(cubit.userModel != null
-                              ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
+                              ? model!.data!.image!
                               : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                           radius: 40,
                         ),

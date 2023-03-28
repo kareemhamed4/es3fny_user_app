@@ -162,7 +162,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Expanded(
                                     child: GestureDetector(
                                       onTap: (){
-                                        debugPrint(token);
+                                        debugPrint(currentLocation.toString());
+                                        debugPrint(currentLatitude.toString());
+                                        debugPrint(currentLongitude.toString());
                                       },
                                       child: SizedBox(
                                         height: size.height * 0.105,

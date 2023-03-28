@@ -1,7 +1,10 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/tracking_info/tracking_info_screen.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/responsive.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/components/my_google_map.dart';
+import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,189 +15,39 @@ class TrackingScreen extends StatefulWidget {
   State<TrackingScreen> createState() => _TrackingScreenState();
 }
 
-class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStateMixin {
+class _TrackingScreenState extends State<TrackingScreen>
+    with TickerProviderStateMixin {
   late AnimationController controller;
 
   @override
   void initState() {
+    currentLocationAsString = CacheHelper.getData(key: 'currentLocation');
     super.initState();
-    controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))..forward();
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..forward();
   }
+
   @override
   dispose() {
     controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Responsive(
         mobile: buildMobileTrackingScreen(context),
-        desktop: buildDesktopTrackingScreen(size, context),
-        tablet: buildDesktopTrackingScreen(size, context),
+        desktop: buildMobileTrackingScreen(context),
+        tablet: buildMobileTrackingScreen(context),
       ),
     );
   }
 
-  SafeArea buildDesktopTrackingScreen(Size size, BuildContext context) {
-    return SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Container(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Image.asset(
-                            "assets/images/Map.png",
-                            fit: BoxFit.cover,
-                            height: size.height /2,
-                            width: double.infinity,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20,left: 20,right: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: MaterialButton(
-                                  onPressed: () {
-                                    NavigateTo(
-                                        context: context,
-                                        widget: const TrackingInfoScreen());
-                                  },
-                                  color: myFavColor,
-                                  height: 68,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            "tap_for_tracking".tr(context),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .button!
-                                                .copyWith(fontSize: 18),
-                                          ),
-                                        ),
-                                        const Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              Expanded(
-                                child: MaterialButton(
-                                  onPressed: () {},
-                                  color: myFavColor,
-                                  height: 68,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              "tracking_address".tr(context),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .button!
-                                                  .copyWith(fontSize: 14),
-                                            ),
-                                            Text("time_remaining".tr(context),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .button!
-                                                    .copyWith(fontSize: 12)),
-                                          ],
-                                        ),
-                                        const Icon(
-                                          Icons.location_on_outlined,
-                                          color: Colors.white,
-                                          size: 12,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 40,),
-              Expanded(
-                flex: 2,
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      Text(
-                        "history".tr(context),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 18),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) =>
-                            buildHistoryItem(context: context),
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 8,
-                        ),
-                        itemCount: 8,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-  }
-
   CustomScrollView buildMobileTrackingScreen(BuildContext context) {
     return CustomScrollView(
+      physics: const BouncingScrollPhysics(),
       slivers: [
         SliverAppBar(
           pinned: true,
@@ -230,11 +83,13 @@ class _TrackingScreenState extends State<TrackingScreen> with TickerProviderStat
             background: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Image.asset(
-                  "assets/images/Map.png",
-                  fit: BoxFit.cover,
-                  width: double.maxFinite,
-                ),
+                if (currentLocation != null) const MyGoogleMap(isGoToMyLocationEnabled: false,isTracking: false,),
+                if (currentLocation == null)
+                  Center(
+                      child: Text(
+                    "Loading",
+                    style: Theme.of(context).textTheme.caption,
+                  )),
                 Padding(
                   padding:
                       const EdgeInsets.only(left: 20, right: 20, bottom: 60),

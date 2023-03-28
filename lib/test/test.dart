@@ -1,12 +1,15 @@
-import 'dart:async';
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/layout/layout_screen.dart';
+import 'package:es3fny_user_app/main_button/cubit/cubit.dart';
+import 'package:es3fny_user_app/main_button/cubit/states.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
+import 'package:es3fny_user_app/shared/components/my_google_map.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
-import 'package:es3fny_user_app/shared/location_helper.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class MapScreen extends StatefulWidget {
@@ -17,12 +20,13 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
+  TextEditingController hospitalController = TextEditingController();
+  String label = "تأكيد";
+
   FloatingSearchBarController floatingSearchBarController =
       FloatingSearchBarController();
-
   double sheetHeight = 100.0;
   bool isSheetExpanded = false;
   void onVerticalDragUpdate(DragUpdateDetails details) {
@@ -31,261 +35,490 @@ class _MapScreenState extends State<MapScreen> {
       if (sheetHeight < 100) {
         sheetHeight = 100;
         isSheetExpanded = false;
-      } else if (sheetHeight > 220) {
-        sheetHeight = 220;
+      } else if (sheetHeight > 375) {
+        sheetHeight = 375;
         isSheetExpanded = true;
       }
     });
   }
 
-  static Position? currentLocation;
-  Future<void> getMyCurrentLocation() async {
-    await LocationHelper.getCurrentLocation();
-    currentLocation = await Geolocator.getLastKnownPosition().whenComplete(() {
-      setState(() {});
-    });
-  }
-
-  static LatLng sourceLocation = LatLng(currentLocation!.latitude, currentLocation!.longitude);
-  static const LatLng destination = LatLng(30.6860, 31.1447);
-
-  List<LatLng> polylineCoordinates = [];
-  void getPolyPoints() async {
-    PolylinePoints polylinePoints = PolylinePoints();
-    if (currentLocation != null) {
-      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        googleApiKey,
-        PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-        PointLatLng(destination.latitude, destination.longitude),
-      );
-      if (result.points.isNotEmpty) {
-        for (var point in result.points) {
-          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-        }
-        setState(() {});
-      }
-    }
-  }
-
-  Widget buildFloatingSearchBar() => FloatingSearchBar(
-        controller: floatingSearchBarController,
-        hintStyle:
-            Theme.of(context).textTheme.bodyText2!.copyWith(color: myFavColor1),
-        elevation: 6,
-        queryStyle: Theme.of(context).textTheme.bodyText2,
-        hint: "ابحث عن مكان...",
-        border: BorderSide.none,
-        margins: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        padding: const EdgeInsets.symmetric(horizontal: 2),
-        height: 52,
-        backgroundColor: Theme.of(context).cardColor,
-        iconColor: myFavColor1,
-        scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-        transitionDuration: const Duration(milliseconds: 750),
-        transitionCurve: Curves.easeInOut,
-        physics: const BouncingScrollPhysics(),
-        axisAlignment: 0,
-        openAxisAlignment: 600,
-        debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: (query) {},
-        transition: CircularFloatingSearchBarTransition(),
-        actions: [
-          FloatingSearchBarAction(
-            showIfOpened: false,
-            child: CircularButton(
-                icon: const Icon(Icons.place_outlined), onPressed: () {}),
-          ),
-        ],
-        builder: (context, transition) {
-          return ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [],
-            ),
-          );
-        },
-      );
-
   @override
   void initState() {
-    getMyCurrentLocation();
-    addCustomIcon();
-    getPolyPoints();
+    currentLocationAsString = CacheHelper.getData(key: "currentLocation");
     super.initState();
-  }
-
-  void addCustomIcon() {
-    BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(), "assets/images/ambulance-marker.png")
-        .then((icon) {
-      setState(() {
-        markerIcon = icon;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        centerTitle: true,
-        title: GestureDetector(
-          onTap: () {},
-          child: Text(
-            "track_info_title".tr(context),
-            style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
-          ),
-        ),
-        elevation: 2,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(12),
-            bottomRight: Radius.circular(12),
-          ),
-        ),
-      ),
-      body: currentLocation == null
-          ? Center(
+    return BlocConsumer<SendRequestCubit, SendRequestStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        SendRequestCubit cubit = BlocProvider.of(context);
+        var model = cubit.paramedicModel;
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            centerTitle: true,
+            title: GestureDetector(
+              onTap: () {},
               child: Text(
-              "Loading",
-              style: Theme.of(context).textTheme.caption,
-            ))
-          : Stack(
-              alignment: Alignment.topCenter,
-              fit: StackFit.expand,
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  myLocationEnabled: true,
-                  zoomControlsEnabled: false,
-                  myLocationButtonEnabled: true,
-                  initialCameraPosition: CameraPosition(
-                    target: sourceLocation,
-                    zoom: 17,
-                    bearing: 0.0,
-                    tilt: 0.0,
-                  ),
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
-                  },
-                  polylines: {
-                    Polyline(
-                      polylineId: const PolylineId("route"),
-                      points: polylineCoordinates,
-                    ),
-                  },
-                  markers: {
-                    Marker(
-                      markerId: const MarkerId("source"),
-                      position: sourceLocation,
-                      draggable: true,
-                      onDragEnd: (value) {},
-                    ),
-                    Marker(
-                      markerId: const MarkerId("destination"),
-                      position: destination,
-                      draggable: true,
-                      onDragEnd: (value) {},
-                      icon: markerIcon,
-                    ),
-                  },
-                ),
-                buildFloatingSearchBar(),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: GestureDetector(
-                    onVerticalDragUpdate: onVerticalDragUpdate,
-                    onVerticalDragEnd: (_) {
-                      setState(() {
-                        if (sheetHeight > 130) {
-                          sheetHeight = 220;
-                          isSheetExpanded = true;
-                        } else {
-                          sheetHeight = 100;
-                          isSheetExpanded = false;
-                        }
-                      });
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeOut,
-                      height: sheetHeight,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 10),
-                          Container(
-                            width: 40,
-                            height: 5,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(10),
+                "track_info_title".tr(context),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 20),
+              ),
+            ),
+            elevation: 2,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
+            ),
+          ),
+          body: currentLocationAsString == null
+              ? Center(
+                  child: Text(
+                  "Loading",
+                  style: Theme.of(context).textTheme.caption,
+                ))
+              : Stack(
+                  alignment: Alignment.topCenter,
+                  fit: StackFit.expand,
+                  children: [
+                    const MyGoogleMap(isGoToMyLocationEnabled: true,isTracking: true),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: GestureDetector(
+                        onVerticalDragUpdate: onVerticalDragUpdate,
+                        onVerticalDragEnd: (_) {
+                          setState(() {
+                            if (sheetHeight > 130) {
+                              sheetHeight = 375;
+                              isSheetExpanded = true;
+                            } else {
+                              sheetHeight = 100;
+                              isSheetExpanded = false;
+                            }
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOut,
+                          height: sheetHeight,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
                             ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 20),
-                          const Text(
-                            'Bottom Sheet',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                Container(
+                                  width: 40,
+                                  height: 5,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
                                     Text(
-                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel dolor id lectus euismod sodales.',
+                                      'track_ambulance'.tr(context),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            fontSize: 22,
+                                          ),
                                     ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Suspendisse quis purus vel ante sagittis accumsan quis vitae tortor.',
+                                    if(model != null && model.plamerData != null)
+                                      Text(
+                                      'ambulance_time_remaining'.tr(context),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1!
+                                          .copyWith(
+                                            color: myFavColor,
+                                          ),
                                     ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Nullam sit amet turpis nibh. In malesuada tristique ex, in fringilla lorem volutpat a.',
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.',
-                                    ),
+                                    if(model == null)
+                                      Text(
+                                        'ليس لديك أي طلب للإسعاف لتتبعه',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption!
+                                            .copyWith(
+                                          color: myFavColor,
+                                        ),
+                                      ),
+                                    if(model != null && model.plamerData == null)
+                                      Text(
+                                        'جارٍ البحث عن مسعف',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .copyWith(
+                                          color: myFavColor,
+                                        ),
+                                      ),
                                   ],
                                 ),
-                              ),
+                                const SizedBox(height: 20),
+                                if(model != null && model.plamerData != null)
+                                  Expanded(
+                                  child: SingleChildScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                      child: Form(
+                                        key: formKey,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    const CircleAvatar(
+                                                      backgroundImage: NetworkImage(
+                                                        "https://img.freepik.com/free-icon/user_318-159712.jpg",
+                                                      ),
+                                                      radius: 30,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 12,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          model.plamerData!.name!,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText1!
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          16),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 6,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              'driver'
+                                                                  .tr(context),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .caption,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 6,
+                                                            ),
+                                                            Text(
+                                                              "ب${model.plamerData!.unit!}",
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2!
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          14),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                IconButton(
+                                                    onPressed: () {},
+                                                    icon: Icon(
+                                                      FluentIcons
+                                                          .call_16_regular,
+                                                      color: myFavColor,
+                                                    )),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            myDivider(),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 15,
+                                                  backgroundColor: myFavColor
+                                                      .withOpacity(0.1),
+                                                  child: Icon(
+                                                    Icons.location_on_outlined,
+                                                    color: myFavColor,
+                                                    size: 16,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 12,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "track_address"
+                                                          .tr(context),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .caption,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 2,
+                                                    ),
+                                                    Text(
+                                                      model
+                                                          .plamerData!.address!,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .caption,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Row(
+                                              children: [
+                                                CircleAvatar(
+                                                  radius: 15,
+                                                  backgroundColor: myFavColor
+                                                      .withOpacity(0.1),
+                                                  child: Icon(
+                                                    Icons.add_home_outlined,
+                                                    color: myFavColor,
+                                                    size: 16,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 12,
+                                                ),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .only(end: 16),
+                                                        child: TextFormField(
+                                                          controller:
+                                                              hospitalController,
+                                                          validator: (value) {
+                                                            if (value!
+                                                                .isEmpty) {
+                                                              displayErrorMotionToast(
+                                                                context:
+                                                                    context,
+                                                                title:
+                                                                    langCode ==
+                                                                            "en"
+                                                                        ? "Error"
+                                                                        : "خطأ",
+                                                                description: langCode ==
+                                                                        "en"
+                                                                    ? "Please enter hospital name"
+                                                                    : "برجاء ادخال اسم المستشفي للتأكيد",
+                                                              );
+                                                            }
+                                                            return null;
+                                                          },
+                                                          decoration:
+                                                              InputDecoration(
+                                                            filled: true,
+                                                            fillColor:
+                                                                myFavColor1
+                                                                    .withOpacity(
+                                                                        0.1),
+                                                            contentPadding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 5,
+                                                                    left: 5),
+                                                            label: Text(
+                                                              "track_destination"
+                                                                  .tr(context),
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .caption!
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          12),
+                                                            ),
+                                                            border: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5),
+                                                                borderSide:
+                                                                    BorderSide
+                                                                        .none),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                    flex: 1,
+                                                    child: SizedBox(
+                                                      child: MaterialButton(
+                                                        height: 32,
+                                                        color: myFavColor,
+                                                        onPressed: () {
+                                                          if (formKey
+                                                              .currentState!
+                                                              .validate()) {
+                                                            hospitalController
+                                                                    .text =
+                                                                hospitalController
+                                                                    .text;
+                                                          }
+                                                        },
+                                                        child: Text(
+                                                          "track_confirm"
+                                                              .tr(context),
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .button,
+                                                        ),
+                                                      ),
+                                                    )),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            SizedBox(
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: MaterialButton(
+                                                  height: 32,
+                                                  color: myFavColor,
+                                                  onPressed: () {
+                                                    showMyDialog(
+                                                      context: context,
+                                                      icon: Icons.info_outline,
+                                                      titleWidget: Text(
+                                                        "track_alert"
+                                                            .tr(context),
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                                fontSize: 18),
+                                                      ),
+                                                      contentWidget: Text(
+                                                        "track_alert_content"
+                                                            .tr(context),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .caption!
+                                                            .copyWith(
+                                                                fontSize: 18),
+                                                      ),
+                                                      onConfirm: () {
+                                                        Navigator.of(context)
+                                                            .popUntil((route) =>
+                                                                route.isFirst);
+                                                        NavigateToReb(
+                                                            context: context,
+                                                            widget: const LayoutScreen());
+                                                        displayWarningMotionToast(
+                                                          context: context,
+                                                          title:
+                                                              langCode == "en"
+                                                                  ? "Warning"
+                                                                  : "تحذير",
+                                                          description: langCode ==
+                                                                  "en"
+                                                              ? "Your request is being processed"
+                                                              : "طلبك قيد التنفيذ",
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    "track_cancel_request"
+                                                        .tr(context),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .button,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                if(model == null || model.plamerData == null)
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        if(isSheetExpanded && sheetHeight >150)
+                                          const CircularProgressIndicator(),
+                                      ],
+                                    ),
+                                  ),
+                                const SizedBox(height: 20),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 20),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
+        );
+      },
     );
   }
 }

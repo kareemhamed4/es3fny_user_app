@@ -74,6 +74,7 @@ flutter:
     - assets/lottie/
     - assets/lang/en.json
     - assets/lang/ar.json
+    - assets/map_style/
 
   fonts:
     - family: Almarai-Bold
