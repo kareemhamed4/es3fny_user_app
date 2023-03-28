@@ -22,7 +22,6 @@ class MyGoogleMap extends StatefulWidget {
 class _MyGoogleMapState extends State<MyGoogleMap> {
   late bool isGoToMyLocationEnabled;
   late bool isTracking;
-  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -48,12 +47,24 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     }
   }
 
-  void addCustomIcon() {
+  BitmapDescriptor patientMarkerIcon = BitmapDescriptor.defaultMarker;
+  void addCustomIconForPatient() {
     BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(), "assets/images/ambulance-marker.png")
         .then((icon) {
       setState(() {
-        markerIcon = icon;
+        patientMarkerIcon = icon;
+      });
+    });
+  }
+
+  BitmapDescriptor ambulanceMarkerIcon = BitmapDescriptor.defaultMarker;
+  void addCustomIconForAmbulance() {
+    BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(), "assets/images/ambulance-marker.png")
+        .then((icon) {
+      setState(() {
+        ambulanceMarkerIcon = icon;
       });
     });
   }
@@ -66,7 +77,8 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   void initState() {
     loadMapStyles();
-    addCustomIcon();
+    addCustomIconForAmbulance();
+    addCustomIconForPatient();
     getPolyPoints();
     super.initState();
   }
@@ -104,6 +116,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             position: sourceLocation,
             draggable: true,
             onDragEnd: (value) {},
+            icon: patientMarkerIcon
           ),
           if (isTracking)
             Marker(
@@ -111,7 +124,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
               position: destination,
               draggable: true,
               onDragEnd: (value) {},
-              icon: markerIcon,
+              icon: ambulanceMarkerIcon,
             ),
         },
       ),
