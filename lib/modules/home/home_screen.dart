@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(16),
                   child: Center(
                     child: Stack(
-                      alignment: Alignment.bottomLeft,
+                      alignment: AlignmentDirectional.bottomEnd,
                       children: [
                         Column(
                           children: [
