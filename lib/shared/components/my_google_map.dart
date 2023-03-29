@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   static LatLng sourceLocation =
       LatLng(currentLocation!.latitude, currentLocation!.longitude);
-  static const LatLng destination = LatLng(30.6860, 31.1447);
+  static const LatLng destination = LatLng(30.7924168532, 30.9987951871);
 
   List<LatLng> polylineCoordinates = [];
   void getPolyPoints() async {
@@ -74,9 +75,20 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     darkMapStyle  = await rootBundle.loadString('assets/map_style/night.json');
     lightMapStyle = await rootBundle.loadString('assets/map_style/light.json');
   }
+
+  double totalDistance = 0;
+  double calculateDistance(lat1, lon1, lat2, lon2){
+    var p = 0.017453292519943295;
+    var a = 0.5 - cos((lat2 - lat1) * p)/2 +
+        cos(lat1 * p) * cos(lat2 * p) *
+            (1 - cos((lon2 - lon1) * p))/2;
+    return totalDistance = 12742 * asin(sqrt(a));
+  }
   @override
   void initState() {
     loadMapStyles();
+    calculateDistance(sourceLocation.latitude,sourceLocation.longitude,destination.latitude,destination.longitude);
+    print(totalDistance.toString());
     addCustomIconForAmbulance();
     addCustomIconForPatient();
     getPolyPoints();
