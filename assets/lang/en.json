@@ -197,5 +197,11 @@
   "Aspartate Aminotransferase": "Aspartate Aminotransferase",
   "Total Protiens": "Total Protiens",
   "Albumin": "Albumin",
-  "Albumin and Globulin Ratio": "Albumin and Globulin Ratio"
+  "Albumin and Globulin Ratio": "Albumin and Globulin Ratio",
+
+  "Predicting some diseases":"Predicting some diseases",
+  "Predicting heart disease": "Predicting heart disease",
+  "Predicting liver disease": "Predicting liver disease",
+  "Predicting diabetes disease": "Predicting diabetes disease",
+  "Predicting cancer disease": "Predicting cancer disease"
 }

@@ -197,5 +197,11 @@
   "Aspartate Aminotransferase": "أسبارتات أمينوترانسفيراز (AST)",
   "Total Protiens": "إجمالي البروتينات",
   "Albumin": "إجمالي البروتينات",
-  "Albumin and Globulin Ratio": "نسبة الزلال و الجلوبيولين"
+  "Albumin and Globulin Ratio": "نسبة الزلال و الجلوبيولين",
+
+  "Predicting some diseases":"التنبؤ ببعض الأمراض",
+  "Predicting heart disease": "التنبؤ بمرض القلب",
+  "Predicting liver disease": "التنبؤ بمرض الكبد",
+  "Predicting diabetes disease": "التنبؤ بمرض السكر",
+  "Predicting cancer disease": "التنبؤ بمرض السرطان"
 }

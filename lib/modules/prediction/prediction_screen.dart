@@ -1,3 +1,4 @@
+import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/states.dart';
 import 'package:es3fny_user_app/modules/prediction/heart_prediction_screen.dart';
@@ -23,19 +24,19 @@ class PredictionScreen extends StatelessWidget {
   final List<DiseasesModel> diseases = [
     DiseasesModel(
       image: 'assets/images/heart.png',
-      name: 'التنبؤ بمرض القلب',
+      name: 'Predicting heart disease',
     ),
     DiseasesModel(
       image: 'assets/images/Liver.png',
-      name: 'التنبؤ بمرض الكبد',
+      name: 'Predicting liver disease',
     ),
     DiseasesModel(
       image: 'assets/images/diabetes.png',
-      name: 'التنبؤ بمرض السكر',
+      name: 'Predicting diabetes disease',
     ),
     DiseasesModel(
       image: 'assets/images/cancer.png',
-      name: 'التنبؤ بمرض السرطان',
+      name: 'Predicting cancer disease',
     ),
   ];
 
@@ -55,7 +56,7 @@ class PredictionScreen extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "التنبؤ ببعض الأمراض",
+              "Predicting some diseases".tr(context),
               style:
                   Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 22),
             ),
@@ -126,24 +127,28 @@ class PredictionScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        model.image,
-                        width: 75,
-                        height: 75,
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        model.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontSize: 21),
-                      ),
-                    ],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          model.image,
+                          width: 75,
+                          height: 75,
+                        ),
+                        const SizedBox(
+                          width: 6,
+                        ),
+                        Flexible(
+                          child: Text(
+                            model.name.tr(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const Icon(Icons.arrow_forward_outlined)
                 ],

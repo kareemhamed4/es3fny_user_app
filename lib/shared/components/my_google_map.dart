@@ -88,7 +88,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   void initState() {
     loadMapStyles();
     calculateDistance(sourceLocation.latitude,sourceLocation.longitude,destination.latitude,destination.longitude);
-    print(totalDistance.toString());
+    debugPrint(totalDistance.toString());
     addCustomIconForAmbulance();
     addCustomIconForPatient();
     getPolyPoints();
