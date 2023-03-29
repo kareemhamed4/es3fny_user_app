@@ -23,7 +23,41 @@ class LiverPredictionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PredictionCubit,PredictionStates>(
-        listener: (context,state){},
+        listener: (context,state){
+          if (state is LiverPredictionSuccessState) {
+            if(state.liverModel.predictionResult == 0){
+              showMyDialog(
+                context: context,
+                titleWidget: Text(
+                  "لا يوجد احتمال لإصابتك بالمرض",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                confirmText: "حسناً",
+                isCancelButton: false,
+                onConfirm: () {
+                  Navigator.pop(context);
+                },
+              );
+            }else{
+              showMyDialog(
+                context: context,
+                titleWidget: Text(
+                  "احتمال اصابتك بالمرض كبير",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                contentWidget: Text(
+                  "الرجاء التوجة الي طبيب متخصص في اقرب وقت",
+                  style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 14),
+                ),
+                confirmText: "حسناً",
+                isCancelButton: false,
+                onConfirm: () {
+                  Navigator.pop(context);
+                },
+              );
+            }
+          }
+        },
         builder: (context,state){
           Size size = MediaQuery.of(context).size;
           PredictionCubit cubit = BlocProvider.of(context);
@@ -127,7 +161,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Total Bilirubin',
+                        'Total Bilirubin'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -151,7 +185,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Direct Bilirubin',
+                        'Direct Bilirubin'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -175,7 +209,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Alkaline Phosphotase',
+                        'Alkaline Phosphotase'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -199,7 +233,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Alamine Aminotransferase',
+                        'Alamine Aminotransferase'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -223,7 +257,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Aspartate Aminotransferase',
+                        'Aspartate Aminotransferase'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -247,7 +281,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Total Protiens',
+                        'Total Protiens'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -271,7 +305,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Albumin',
+                        'Albumin'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -295,7 +329,7 @@ class LiverPredictionScreen extends StatelessWidget {
                         height: size.height * 0.025,
                       ),
                       Text(
-                        'Albumin and Globulin Ratio',
+                        'Albumin and Globulin Ratio'.tr(context),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!

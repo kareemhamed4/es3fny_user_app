@@ -188,5 +188,14 @@
   "Fixed Defect": "خلل ثابت",
   "Reversable Defect": "عيب عكسي",
 
-  "required": "مطلوب"
+  "required": "مطلوب",
+
+  "Total Bilirubin": "البيليروبين الكلي",
+  "Direct Bilirubin": "البيليروبين المباشر",
+  "Alkaline Phosphotase": "فوسفوتاز قلوي",
+  "Alamine Aminotransferase": "ألامين أمينوترانسفيراز (ALT)",
+  "Aspartate Aminotransferase": "أسبارتات أمينوترانسفيراز (AST)",
+  "Total Protiens": "إجمالي البروتينات",
+  "Albumin": "إجمالي البروتينات",
+  "Albumin and Globulin Ratio": "نسبة الزلال و الجلوبيولين"
 }

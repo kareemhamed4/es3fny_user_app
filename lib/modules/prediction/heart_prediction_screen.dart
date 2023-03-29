@@ -21,7 +21,41 @@ class HeartPredictionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PredictionCubit, PredictionStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is HeartPredictionSuccessState) {
+          if(state.heartModel.predictionResult == 0){
+            showMyDialog(
+              context: context,
+              titleWidget: Text(
+                "لا يوجد احتمال لإصابتك بالمرض",
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              confirmText: "حسناً",
+              isCancelButton: false,
+              onConfirm: () {
+                Navigator.pop(context);
+              },
+            );
+          }else{
+            showMyDialog(
+              context: context,
+              titleWidget: Text(
+                "احتمال اصابتك بالمرض كبير",
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              contentWidget: Text(
+                "الرجاء التوجة الي طبيب متخصص في اقرب وقت",
+                style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 14),
+              ),
+              confirmText: "حسناً",
+              isCancelButton: false,
+              onConfirm: () {
+                Navigator.pop(context);
+              },
+            );
+          }
+        }
+      },
       builder: (context, state) {
         Size size = MediaQuery.of(context).size;
         PredictionCubit cubit = BlocProvider.of(context);

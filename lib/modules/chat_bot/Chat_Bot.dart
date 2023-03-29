@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart' as intl;
 
-class ChatBot extends StatelessWidget {
-  ChatBot({Key? key}) : super(key: key);
+class ChatBotScreen extends StatelessWidget {
+  ChatBotScreen({Key? key}) : super(key: key);
   final TextEditingController messageController = TextEditingController();
 
   @override

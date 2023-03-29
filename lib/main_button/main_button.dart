@@ -20,7 +20,8 @@ class LoadingButton extends StatefulWidget {
   LoadingButtonState createState() => LoadingButtonState();
 }
 
-class LoadingButtonState extends State<LoadingButton> with SingleTickerProviderStateMixin {
+class LoadingButtonState extends State<LoadingButton>
+    with SingleTickerProviderStateMixin {
   late AnimationController controller;
   int secondsRemaining = 3;
   late Timer timer;
@@ -65,16 +66,10 @@ class LoadingButtonState extends State<LoadingButton> with SingleTickerProviderS
                     userId: ProfileCubit.get(context).userModel!.data!.id!,
                   )
                   .then((value) {
-                SendRequestCubit.get(context)
-                    .listenForParamedicInfo(
-                        requestId: SendRequestCubit.get(context)
-                            .sendRequestModel!
-                            .data!
-                            .id!)
-                    .then((value) {
-                  context.read<LayoutCubit>().changeIndex(1);
-                  NavigateTo(context: context, widget: const TrackingInfoScreen());
-                });
+                SendRequestCubit.get(context).listenForParamedicInfo(
+                  requestId:
+                      SendRequestCubit.get(context).sendRequestModel!.data!.id!,
+                );
               });
             });
         setState(() {
@@ -95,15 +90,24 @@ class LoadingButtonState extends State<LoadingButton> with SingleTickerProviderS
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<SendRequestCubit, SendRequestStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SendRequestLoadingState) {
+          showProgressIndicator(context);
+          Navigator.pop(context);
+        }
+        if (state is SendRequestSuccessState) {
+          context.read<LayoutCubit>().changeIndex(1);
+          NavigateTo(context: context, widget: const TrackingInfoScreen());
+        }
+      },
       builder: (context, state) {
         SendRequestCubit cubit = BlocProvider.of(context);
         var model = cubit.paramedicModel;
         return GestureDetector(
           onTapDown: (_) {
-            if(model != null && model.plamerData != null){
+            if (model != null && model.plamerData != null) {
               null;
-            }else if(model == null){
+            } else if (model == null) {
               controller.forward();
             }
           },

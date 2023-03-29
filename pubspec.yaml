@@ -44,6 +44,7 @@ dependencies:
   avatar_glow: ^2.0.2
   syncfusion_flutter_datepicker: "20.4.44"
   equatable: ^2.0.3
+  rive: ^0.10.3
 
   google_maps_flutter: ^2.2.5
   flutter_polyline_points: ^1.0.0
@@ -72,6 +73,7 @@ flutter:
     - assets/icons/
     - assets/
     - assets/lottie/
+    - assets/rive/
     - assets/lang/en.json
     - assets/lang/ar.json
     - assets/map_style/

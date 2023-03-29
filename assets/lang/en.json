@@ -188,5 +188,14 @@
   "Fixed Defect": "Fixed Defect",
   "Reversable Defect": "Reversable Defect",
 
-  "required": "Required"
+  "required": "Required",
+
+  "Total Bilirubin": "Total Bilirubin",
+  "Direct Bilirubin": "Direct Bilirubin",
+  "Alkaline Phosphotase": "Alkaline Phosphotase",
+  "Alamine Aminotransferase": "Alamine Aminotransferase",
+  "Aspartate Aminotransferase": "Aspartate Aminotransferase",
+  "Total Protiens": "Total Protiens",
+  "Albumin": "Albumin",
+  "Albumin and Globulin Ratio": "Albumin and Globulin Ratio"
 }

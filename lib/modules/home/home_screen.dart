@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
@@ -9,6 +10,7 @@ import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
+import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,20 +26,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<ProfileCubit,ProfileStates>(
-      listener: (context,state){},
-      builder: (context,state){
+    return BlocConsumer<ProfileCubit, ProfileStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
         ProfileCubit cubit = BlocProvider.of(context);
-        return BlocConsumer<LayoutCubit,LayoutStates>(
-          listener: (context,state){},
-          builder: (context,state){
+        return BlocConsumer<LayoutCubit, LayoutStates>(
+          listener: (context, state) {},
+          builder: (context, state) {
             return Scaffold(
               body: SafeArea(
                   child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Center(
-                        child: Column(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Center(
+                    child: Stack(
+                      alignment: Alignment.bottomLeft,
+                      children: [
+                        Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,28 +59,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 5,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         ConditionalBuilder(
                                           condition: (cubit.userModel != null),
                                           builder: (context) => Text(
                                             "${"welcome".tr(context)}${cubit.splitSentence(cubit.userModel!.data!.name!)}..",
                                             /*"${"welcome".tr(context)}${cubit.userModel!.data!.name!.substring(0,4)}..",*/
-                                            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(fontSize: 16),
                                           ),
                                           fallback: (context) => Text(
                                             "welcome".tr(context),
-                                            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1!
+                                                .copyWith(fontSize: 16),
                                           ),
                                         ),
-                                        const SizedBox(height: 6,),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
                                         InkWell(
-                                          onTap: (){
-                                            LayoutCubit.get(context).changeIndex(3);
+                                          onTap: () {
+                                            LayoutCubit.get(context)
+                                                .changeIndex(3);
                                           },
                                           child: Text(
                                             "welcome_caption".tr(context),
-                                            style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 12),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption!
+                                                .copyWith(fontSize: 12),
                                           ),
                                         ),
                                       ],
@@ -92,22 +110,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 5,
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           "address".tr(context),
-                                          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(fontSize: 16),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                        const SizedBox(height: 6,),
+                                        const SizedBox(
+                                          height: 6,
+                                        ),
                                         InkWell(
-                                          onTap: (){
-                                            NavigateTo(context: context, widget: const EditLocationScreen());
+                                          onTap: () {
+                                            NavigateTo(
+                                                context: context,
+                                                widget:
+                                                    const EditLocationScreen());
                                           },
                                           child: Text(
                                             "address_caption".tr(context),
-                                            style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 12),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption!
+                                                .copyWith(fontSize: 12),
                                           ),
                                         ),
                                       ],
@@ -130,9 +160,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Text(
                               'need_ems_caption'.tr(context),
-                              style: Theme.of(context).textTheme.caption!.copyWith(
-                                fontSize: 14,
-                              ),
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontSize: 14,
+                                      ),
                               textAlign: TextAlign.center,
                             ),
                             const Spacer(),
@@ -142,26 +173,29 @@ class _HomeScreenState extends State<HomeScreen> {
                               'fast_help'.tr(context),
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!.copyWith(fontSize: 16),
+                                  .bodyText1!
+                                  .copyWith(fontSize: 16),
                             ),
                             SizedBox(
                               height: size.height * 0.006,
                             ),
                             Text(
                               'fast_help_caption'.tr(context),
-                              style: Theme.of(context).textTheme.caption!.copyWith(
-                                fontSize: 14,
-                              ),
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        fontSize: 14,
+                                      ),
                               textAlign: TextAlign.center,
                             ),
                             const Spacer(),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: GestureDetector(
-                                      onTap: (){
+                                      onTap: () {
                                         debugPrint(currentLocation.toString());
                                         debugPrint(currentLatitude.toString());
                                         debugPrint(currentLongitude.toString());
@@ -173,10 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Theme.of(context).cardColor,
                                           elevation: 5,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 "card_home_1".tr(context),
@@ -197,8 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SizedBox(width: size.width * 0.077),
                                   Expanded(
                                     child: InkWell(
-                                      onTap: (){
-                                        NavigateTo(context: context, widget: ChatBot());
+                                      onTap: () {
                                       },
                                       child: SizedBox(
                                         height: size.height * 0.105,
@@ -207,10 +242,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Theme.of(context).cardColor,
                                           elevation: 5,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 "card_home_2".tr(context),
@@ -233,9 +270,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ],
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 105),
+                          child: AvatarGlow(
+                            endRadius: 42,
+                            animate: true,
+                            duration: const Duration(milliseconds: 2000),
+                            glowColor: myFavColor,
+                            repeatPauseDuration:
+                                const Duration(milliseconds: 100),
+                            showTwoGlows: false,
+                            child: GestureDetector(
+                              onTap: (){
+                                NavigateTo(context: context, widget: ChatBotScreen());
+                              },
+                              child: const CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.transparent,
+                                backgroundImage: AssetImage(
+                                  "assets/images/chatbot-kareem.png",
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
-                  )),
+                  ),
+                ),
+              )),
             );
           },
         );

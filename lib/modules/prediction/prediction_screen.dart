@@ -2,7 +2,7 @@ import 'package:es3fny_user_app/modules/prediction/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/states.dart';
 import 'package:es3fny_user_app/modules/prediction/heart_prediction_screen.dart';
 import 'package:es3fny_user_app/modules/prediction/liver_prediction_screen.dart';
-import 'package:es3fny_user_app/modules/prediction/pressure_prediction_screen.dart';
+import 'package:es3fny_user_app/modules/prediction/cancer_prediction_screen.dart';
 import 'package:es3fny_user_app/modules/prediction/sugar_prediction_screen.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +34,8 @@ class PredictionScreen extends StatelessWidget {
       name: 'التنبؤ بمرض السكر',
     ),
     DiseasesModel(
-      image: 'assets/images/pressure.png',
-      name: 'التنبؤ بمرض الضغط',
+      image: 'assets/images/cancer.png',
+      name: 'التنبؤ بمرض السرطان',
     ),
   ];
 
@@ -43,7 +43,7 @@ class PredictionScreen extends StatelessWidget {
     HeartPredictionScreen(),
     LiverPredictionScreen(),
     DiabetesPredictionScreen(),
-    const PressurePredictionScreen(),
+    const CancerPredictionScreen(),
   ];
 
   @override

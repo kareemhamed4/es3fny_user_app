@@ -313,6 +313,9 @@ void showMyDialog({
   Widget? contentWidget,
   Widget? titleWidget,
   Key? formKey,
+  String? confirmText,
+  String? cancelText,
+  bool isCancelButton = true,
 }) {
   showDialog<String>(
     context: context,
@@ -332,8 +335,10 @@ void showMyDialog({
             ),
             title: titleWidget ?? const SizedBox(),
             content: contentWidget ?? const SizedBox(),
+            contentPadding: contentWidget != null ? const EdgeInsets.all(8): EdgeInsets.zero,
             actions: <Widget>[
-              MaterialButton(
+              if(isCancelButton)
+                MaterialButton(
                 color: Colors.white,
                 shape: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -343,7 +348,7 @@ void showMyDialog({
                   Navigator.pop(context, 'Cancel');
                 },
                 child: Text(
-                  "alert_cancel".tr(context),
+                  cancelText ?? "alert_cancel".tr(context),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
@@ -360,7 +365,7 @@ void showMyDialog({
                   onConfirm();
                 },
                 child: Text(
-                  "alert_confirm".tr(context),
+                  confirmText ?? "alert_confirm".tr(context),
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
