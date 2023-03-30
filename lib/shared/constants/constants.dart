@@ -10,3 +10,4 @@ Position? currentLocation;
 String? currentLocationAsString;
 double? currentLatitude = currentLocation!.latitude;
 double? currentLongitude = currentLocation!.longitude;
+double distance = 0;

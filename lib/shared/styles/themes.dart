@@ -100,7 +100,8 @@ ThemeData darkTheme = ThemeData(
   unselectedWidgetColor: myFavColor5,
   textTheme: TextTheme(
     bodyText1: TextStyle(fontFamily: "Almarai-Bold", color: myFavColor6),
-    bodyText2: TextStyle(fontFamily: "Inter-Regular", color: myFavColor6),
+    bodyText2: TextStyle(
+        fontFamily: "Almarai-Regular", color: myFavColor6, fontSize: 18),
     subtitle1: TextStyle(fontFamily: "Inter-Medium", color: myFavColor6),
     subtitle2: TextStyle(fontFamily: "Almarai-Regular", color: myFavColor6),
     headline5: TextStyle(fontFamily: "Almarai-Bold", color: myFavColor6),
