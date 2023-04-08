@@ -45,6 +45,7 @@ dependencies:
   syncfusion_flutter_datepicker: "20.4.44"
   equatable: ^2.0.3
   rive: ^0.10.3
+  connectivity_plus: ^3.0.3
 
   google_maps_flutter: ^2.2.5
   flutter_polyline_points: ^1.0.0
