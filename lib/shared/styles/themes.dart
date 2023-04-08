@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 ThemeData lightTheme = ThemeData(
   cardColor: myFavColor10,
+  primaryColor: myFavColor,
   scaffoldBackgroundColor: Colors.white,
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: myFavColorWithOpacity,
@@ -64,6 +65,7 @@ ThemeData lightTheme = ThemeData(
 
 ThemeData darkTheme = ThemeData(
   cardColor: myFavColor7,
+  primaryColor: myFavColor,
   scaffoldBackgroundColor: myFavColor8,
   colorScheme: ColorScheme.fromSwatch().copyWith(primary: myFavColor5),
   bottomSheetTheme: BottomSheetThemeData(
