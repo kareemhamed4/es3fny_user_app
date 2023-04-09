@@ -18,7 +18,7 @@
         </intent>
     </queries>
     <application
-        android:label="Es3fny"
+        android:label="Emerg-e-care"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         tools:targetApi="n"
