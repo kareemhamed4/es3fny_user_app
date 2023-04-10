@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -434,63 +435,67 @@ class HeartPredictionScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            cubit.makeHeartPrediction(
-                              age: ageController.text.toString(),
-                              sex: cubit.selectedGender == cubit.genderItems[1]
-                                  ? "0"
-                                  : "1",
-                              chestPainType: cubit.selectedChestPain ==
-                                  cubit.chestPainItems[0]
-                                  ? "0"
-                                  : cubit.selectedChestPain ==
-                                  cubit.chestPainItems[1]
-                                  ? "1"
-                                  : cubit.selectedChestPain ==
-                                  cubit.chestPainItems[2]
-                                  ? "2"
-                                  : "3",
-                              restingBloodPressure:
-                              pressureController.text.toString(),
-                              serumCholestoral:
-                              cholestoralController.text.toString(),
-                              fastingBloodSugar:
-                              cubit.selectedFastingBloodSugar ==
-                                  cubit.fastingBloodSugarItems[1]
-                                  ? "0"
-                                  : "1",
-                              restingElectrocardiographic: cubit
-                                  .selectedRestingElectrocardiographic ==
-                                  cubit.restingElectrocardiographicItems[0]
-                                  ? "0"
-                                  : cubit.selectedRestingElectrocardiographic ==
-                                  cubit
-                                      .restingElectrocardiographicItems[1]
-                                  ? "1"
-                                  : "2",
-                              maximumHeartRate:
-                              maximumHeartRateController.text.toString(),
-                              exerciseInducedAngina:
-                              cubit.selectedExerciseInducedAngina ==
-                                  cubit.exerciseInducedAnginaItems[1]
-                                  ? "0"
-                                  : "1",
-                              sTDepression: depressionController.text.toString(),
-                              slopeOfThePeakExercise: cubit
-                                  .selectedSlopeOfThePeakExercise ==
-                                  cubit.slopeOfThePeakExerciseSTItems[0]
-                                  ? "0"
-                                  : cubit.selectedSlopeOfThePeakExercise ==
-                                  cubit.slopeOfThePeakExerciseSTItems[1]
-                                  ? "1"
-                                  : "2",
-                              numberOfMajorVessels:
-                              numberVesselsController.text.toString(),
-                              thal: cubit.selectedThal == cubit.thalItems[0]
-                                  ? "0"
-                                  : cubit.selectedThal == cubit.thalItems[1]
-                                  ? "1"
-                                  : "2",
-                            );
+                            if(context.read<MainCubit>().hasInternet){
+                              cubit.makeHeartPrediction(
+                                age: ageController.text.toString(),
+                                sex: cubit.selectedGender == cubit.genderItems[1]
+                                    ? "0"
+                                    : "1",
+                                chestPainType: cubit.selectedChestPain ==
+                                    cubit.chestPainItems[0]
+                                    ? "0"
+                                    : cubit.selectedChestPain ==
+                                    cubit.chestPainItems[1]
+                                    ? "1"
+                                    : cubit.selectedChestPain ==
+                                    cubit.chestPainItems[2]
+                                    ? "2"
+                                    : "3",
+                                restingBloodPressure:
+                                pressureController.text.toString(),
+                                serumCholestoral:
+                                cholestoralController.text.toString(),
+                                fastingBloodSugar:
+                                cubit.selectedFastingBloodSugar ==
+                                    cubit.fastingBloodSugarItems[1]
+                                    ? "0"
+                                    : "1",
+                                restingElectrocardiographic: cubit
+                                    .selectedRestingElectrocardiographic ==
+                                    cubit.restingElectrocardiographicItems[0]
+                                    ? "0"
+                                    : cubit.selectedRestingElectrocardiographic ==
+                                    cubit
+                                        .restingElectrocardiographicItems[1]
+                                    ? "1"
+                                    : "2",
+                                maximumHeartRate:
+                                maximumHeartRateController.text.toString(),
+                                exerciseInducedAngina:
+                                cubit.selectedExerciseInducedAngina ==
+                                    cubit.exerciseInducedAnginaItems[1]
+                                    ? "0"
+                                    : "1",
+                                sTDepression: depressionController.text.toString(),
+                                slopeOfThePeakExercise: cubit
+                                    .selectedSlopeOfThePeakExercise ==
+                                    cubit.slopeOfThePeakExerciseSTItems[0]
+                                    ? "0"
+                                    : cubit.selectedSlopeOfThePeakExercise ==
+                                    cubit.slopeOfThePeakExerciseSTItems[1]
+                                    ? "1"
+                                    : "2",
+                                numberOfMajorVessels:
+                                numberVesselsController.text.toString(),
+                                thal: cubit.selectedThal == cubit.thalItems[0]
+                                    ? "0"
+                                    : cubit.selectedThal == cubit.thalItems[1]
+                                    ? "1"
+                                    : "2",
+                              );
+                            }else{
+                              showNoInternetDialog(context: context);
+                            }
                           }
                         },
                       ),

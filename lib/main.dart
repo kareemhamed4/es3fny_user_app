@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeLanguageValue(langContainerIndex ?? 0)),
+        BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeLanguageValue(langContainerIndex ?? 0)..checkingConnectivity()..checkingInternetConnection()),
         BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         BlocProvider(create: (BuildContext context) => ProfileCubit()..getUserData()..getFamilyMember(token: token!)),

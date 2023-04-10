@@ -1,8 +1,11 @@
 // ignore_for_file: file_names
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/models/message_model.dart';
 import 'package:es3fny_user_app/modules/chat_bot/cubit/cubit.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -92,11 +95,11 @@ class ChatBotScreen extends StatelessWidget {
           ),
           body: ConditionalBuilder(
             condition: messages.isNotEmpty,
-            builder: (context) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  Expanded(
+            builder: (context) => Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       controller: cubit.scrollController,
@@ -105,60 +108,9 @@ class ChatBotScreen extends StatelessWidget {
                           _buildMessage(context, messages[index]),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: messageController,
-                            decoration: InputDecoration(
-                              hintText: 'اكتب رسالتك...',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none,
-                              ),
-                              fillColor: Theme.of(context).cardColor,
-                              filled: true,
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .caption!
-                                  .copyWith(fontSize: 18),
-                            ),
-                            onFieldSubmitted: (value) {
-                              debugPrint(value);
-                            },
-                            onTap: () {},
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 17,
-                        ),
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: myFavColor,
-                          child: IconButton(
-                              onPressed: () {
-                                cubit.sendMessage(messageController.text);
-                                messageController.clear();
-                              },
-                              icon: const Icon(
-                                Icons.send,
-                                size: 27,
-                                color: Colors.white,
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                _buildEnterMessageWidget(context, cubit),
+              ],
             ),
             fallback: (context) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -221,61 +173,90 @@ class ChatBotScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: messageController,
-                          decoration: InputDecoration(
-                            hintText: 'اكتب رسالتك...',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide.none,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide.none,
-                            ),
-                            fillColor: Theme.of(context).cardColor,
-                            filled: true,
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(fontSize: 18),
-                          ),
-                          onFieldSubmitted: (value) {
-                            debugPrint(value);
-                          },
-                          onTap: () {},
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundColor: myFavColor,
-                        child: IconButton(
-                            onPressed: () {
-                              cubit.sendMessage(messageController.text);
-                              messageController.clear();
-                            },
-                            icon: const Icon(
-                              Icons.send,
-                              size: 27,
-                              color: Colors.white,
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
+                _buildEnterMessageWidget(context, cubit),
               ],
             ),
           ),
         );
+      },
+    );
+  }
+
+  Widget _buildEnterMessageWidget(BuildContext context, ChatBotCubit cubit) {
+    return StreamBuilder<bool>(
+      stream: context.read<MainCubit>().internetStream,
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData && !snapshot.data!) {
+          return GestureDetector(
+            onTap: (){
+              showNoInternetDialog(context: context);
+            },
+            child: Container(
+              height: 44,
+              width: double.infinity,
+              color: myFavColor,
+              child: Center(
+                child: Text(
+                  "noInternet".tr(context),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 12, color: myFavColor9),
+                ),
+              ),
+            ),
+          );
+        } else {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: messageController,
+                    decoration: InputDecoration(
+                      hintText: 'اكتب رسالتك...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide.none,
+                      ),
+                      fillColor: Theme.of(context).cardColor,
+                      filled: true,
+                      hintStyle:
+                      Theme.of(context).textTheme.caption!.copyWith(fontSize: 18),
+                    ),
+                    onFieldSubmitted: (value) {
+                      debugPrint(value);
+                    },
+                    onTap: () {},
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                const SizedBox(
+                  width: 17,
+                ),
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: myFavColor,
+                  child: IconButton(
+                      onPressed: () {
+                        cubit.sendMessage(messageController.text);
+                        messageController.clear();
+                      },
+                      icon: const Icon(
+                        Icons.send,
+                        size: 27,
+                        color: Colors.white,
+                      )),
+                ),
+              ],
+            ),
+          );
+        }
       },
     );
   }

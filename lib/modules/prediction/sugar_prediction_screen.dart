@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/prediction/cubit/states.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
@@ -25,7 +26,7 @@ class DiabetesPredictionScreen extends StatelessWidget {
     return BlocConsumer<PredictionCubit, PredictionStates>(
         listener: (context, state) {
       if (state is DiabetesPredictionSuccessState) {
-        if(state.diabetesModel.predictionResult == 0){
+        if (state.diabetesModel.predictionResult == 0) {
           showMyDialog(
             context: context,
             titleWidget: Text(
@@ -38,7 +39,7 @@ class DiabetesPredictionScreen extends StatelessWidget {
               Navigator.pop(context);
             },
           );
-        }else{
+        } else {
           showMyDialog(
             context: context,
             titleWidget: Text(
@@ -47,7 +48,8 @@ class DiabetesPredictionScreen extends StatelessWidget {
             ),
             contentWidget: Text(
               "الرجاء التوجة الي طبيب متخصص في اقرب وقت",
-              style: Theme.of(context).textTheme.caption!.copyWith(fontSize: 14),
+              style:
+                  Theme.of(context).textTheme.caption!.copyWith(fontSize: 14),
             ),
             confirmText: "حسناً",
             isCancelButton: false,
@@ -328,17 +330,21 @@ class DiabetesPredictionScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          cubit.makeDiabetesPrediction(
-                            pregnancies: pregnanciesController.text,
-                            glucose: glucoseController.text,
-                            bloodPressure: bloodPressureController.text,
-                            skinThickness: skinThicknessController.text,
-                            insulin: insulinController.text,
-                            bMI: bmiController.text,
-                            diabetesPedigreeFunction:
-                                diabetesPedigreeFunctionController.text,
-                            age: ageController.text,
-                          );
+                          if (context.read<MainCubit>().hasInternet) {
+                            cubit.makeDiabetesPrediction(
+                              pregnancies: pregnanciesController.text,
+                              glucose: glucoseController.text,
+                              bloodPressure: bloodPressureController.text,
+                              skinThickness: skinThicknessController.text,
+                              insulin: insulinController.text,
+                              bMI: bmiController.text,
+                              diabetesPedigreeFunction:
+                                  diabetesPedigreeFunctionController.text,
+                              age: ageController.text,
+                            );
+                          } else {
+                            showNoInternetDialog(context: context);
+                          }
                         }
                       },
                     ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
@@ -14,7 +13,6 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class LoadingButton extends StatefulWidget {
   const LoadingButton({super.key});
@@ -92,8 +90,6 @@ class LoadingButtonState extends State<LoadingButton>
     controller.addListener(() {
       setState(() {});
     });
-    context.read<MainCubit>().checkingInternetConnection();
-    context.read<MainCubit>().checkingConnectivity();
     super.initState();
   }
 

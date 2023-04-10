@@ -361,8 +361,8 @@ void showMyDialog({
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none,
                 ),
-                onPressed: () {
-                  onConfirm();
+                onPressed: () async{
+                  await onConfirm();
                 },
                 child: Text(
                   confirmText ?? "alert_confirm".tr(context),
@@ -693,7 +693,7 @@ void showNoInternetDialog({
         ),
       ],
     ),
-    confirmText: "حسناً",
+    confirmText: "ok".tr(context),
     isCancelButton: false,
     onConfirm: () {
       Navigator.pop(context);

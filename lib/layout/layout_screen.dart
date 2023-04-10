@@ -2,6 +2,7 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/states.dart';
+import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -21,21 +22,34 @@ class LayoutScreen extends StatelessWidget {
           bottomNavigationBar: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (!context.read<MainCubit>().hasInternet)
-                Container(
-                  height: 16,
-                  width: double.infinity,
-                  color: myFavColor,
-                  child: Center(
-                    child: Text(
-                      "noInternet".tr(context),
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 12,color: myFavColor9),
-                    ),
-                  ),
-                ),
+              StreamBuilder<bool>(
+                stream: context.read<MainCubit>().internetStream,
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData && !snapshot.data!) {
+                    return GestureDetector(
+                      onTap: (){
+                        showNoInternetDialog(context: context);
+                      },
+                      child: Container(
+                        height: 16,
+                        width: double.infinity,
+                        color: myFavColor,
+                        child: Center(
+                          child: Text(
+                            "noInternet".tr(context),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 12, color: myFavColor9),
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
               BottomNavigationBar(
                 items: [
                   BottomNavigationBarItem(

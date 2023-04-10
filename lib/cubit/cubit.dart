@@ -79,27 +79,36 @@ class MainCubit extends Cubit<MainStates> {
     emit(ChangeLangContainerState());
   }
 
+  final StreamController<bool> _internetController = StreamController<bool>.broadcast();
   bool hasInternet = true;
+  Stream<bool> get internetStream => _internetController.stream;
+
   late StreamSubscription internetSubscription;
 
-  late StreamSubscription subscription;
-  ConnectivityResult result = ConnectivityResult.none;
+  late StreamSubscription connectivitySubscription;
 
   void checkingInternetConnection() {
-    emit(CheckingNetworkLoadingState());
     internetSubscription =
-        InternetConnectionChecker().onStatusChange.listen((status) async{
+        InternetConnectionChecker().onStatusChange.listen((status) {
       final hasInternet = status == InternetConnectionStatus.connected;
+      _internetController.add(hasInternet);
       this.hasInternet = hasInternet;
       emit(CheckingNetworkSuccessfulState());
     });
   }
 
   void checkingConnectivity() {
-    emit(CheckingNetworkLoadingState());
-    subscription = Connectivity().onConnectivityChanged.listen((result) async {
-      this.result = result;
+    connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen((result) {
       emit(CheckingNetworkSuccessfulState());
     });
+  }
+
+  @override
+  Future<void> close() {
+    internetSubscription.cancel();
+    connectivitySubscription.cancel();
+    _internetController.close();
+    return super.close();
   }
 }
