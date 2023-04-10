@@ -643,3 +643,58 @@ Widget buildFloatingSearchBar({
         );
       },
     );
+
+void showNoInternetDialog({
+  required BuildContext context,
+}) => showMyDialog(
+    context: context,
+    titleWidget: Text(
+      "noInternet".tr(context),
+      style: Theme.of(context).textTheme.bodyText1,
+    ),
+    contentWidget: Column(
+      children: [
+        Text(
+          "tryStepsToConnect".tr(context),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText2!
+              .copyWith(color: myFavColor1,fontSize: 14),
+        ),
+        const SizedBox(height: 20,),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(Icons.check_circle,color: myFavColor1,size: 16,),
+            const SizedBox(width: 6,),
+            Text(
+              "checkModem".tr(context),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(color: myFavColor1, fontSize: 14),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8,),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(Icons.check_circle,color: myFavColor1,size: 16,),
+            const SizedBox(width: 6,),
+            Text(
+              "reconnect".tr(context),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(color: myFavColor1, fontSize: 14),
+            ),
+          ],
+        ),
+      ],
+    ),
+    confirmText: "حسناً",
+    isCancelButton: false,
+    onConfirm: () {
+      Navigator.pop(context);
+    });

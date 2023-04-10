@@ -1,8 +1,12 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:es3fny_user_app/cubit/states.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class MainCubit extends Cubit<MainStates> {
   MainCubit() : super(MainInitialState());
@@ -57,6 +61,7 @@ class MainCubit extends Cubit<MainStates> {
     CacheHelper.removeData(key: "token");
     emit(SignOutState());
   }
+
   void changeStartLang() async {
     CacheHelper.getData(key: "lang");
     emit(ChangeStartLanguageState());
@@ -68,9 +73,33 @@ class MainCubit extends Cubit<MainStates> {
     CacheHelper.saveData(key: "lang", value: data);
   }
 
-  void changeLanguageValue(int value){
+  void changeLanguageValue(int value) {
     langContainerIndex = value;
     CacheHelper.saveData(key: "langContainerIndex", value: value);
     emit(ChangeLangContainerState());
+  }
+
+  bool hasInternet = true;
+  late StreamSubscription internetSubscription;
+
+  late StreamSubscription subscription;
+  ConnectivityResult result = ConnectivityResult.none;
+
+  void checkingInternetConnection() {
+    emit(CheckingNetworkLoadingState());
+    internetSubscription =
+        InternetConnectionChecker().onStatusChange.listen((status) async{
+      final hasInternet = status == InternetConnectionStatus.connected;
+      this.hasInternet = hasInternet;
+      emit(CheckingNetworkSuccessfulState());
+    });
+  }
+
+  void checkingConnectivity() {
+    emit(CheckingNetworkLoadingState());
+    subscription = Connectivity().onConnectivityChanged.listen((result) async {
+      this.result = result;
+      emit(CheckingNetworkSuccessfulState());
+    });
   }
 }

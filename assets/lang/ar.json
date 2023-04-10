@@ -203,5 +203,10 @@
   "Predicting heart disease": "التنبؤ بمرض القلب",
   "Predicting liver disease": "التنبؤ بمرض الكبد",
   "Predicting diabetes disease": "التنبؤ بمرض السكر",
-  "Predicting cancer disease": "التنبؤ بمرض السرطان"
+  "Predicting cancer disease": "التنبؤ بمرض السرطان",
+
+  "noInternet": "لا يوجد اتصال بالإنترنت",
+  "tryStepsToConnect": "جرب هذه الخطوات لإعادة الاتصال بالإنترنت",
+  "checkModem": "تحقق من المودم وجهاز التوجيه",
+  "reconnect": "إعادة الاتصال بشبكة Wi-Fi"
 }

@@ -21,3 +21,6 @@ class ChangeLanguageState extends MainStates {
 class ChangeStartLanguageState extends MainStates {}
 class ChangeRadioState extends MainStates {}
 class ChangeLangContainerState extends MainStates {}
+
+class CheckingNetworkLoadingState extends MainStates {}
+class CheckingNetworkSuccessfulState extends MainStates {}

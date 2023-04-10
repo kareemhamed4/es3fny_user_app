@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/main_button/cubit/cubit.dart';
 import 'package:es3fny_user_app/main_button/cubit/states.dart';
@@ -27,7 +28,6 @@ class LoadingButtonState extends State<LoadingButton>
   late AnimationController controller;
   int secondsRemaining = 3;
   late Timer timer;
-  bool hasInternet = false;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class LoadingButtonState extends State<LoadingButton>
             ),
             onConfirm: () {
               Navigator.pop(context, "Ok");
-              if(hasInternet){
+              if (context.read<MainCubit>().hasInternet) {
                 context
                     .read<SendRequestCubit>()
                     .sendRequest(
@@ -77,8 +77,8 @@ class LoadingButtonState extends State<LoadingButton>
                         .id!,
                   );
                 });
-              }else{
-                showMyDialog(context: context,confirmText: "No Internet", onConfirm: (){});
+              } else {
+                showNoInternetDialog(context: context);
               }
             });
         setState(() {
@@ -92,13 +92,15 @@ class LoadingButtonState extends State<LoadingButton>
     controller.addListener(() {
       setState(() {});
     });
-    InternetConnectionChecker().onStatusChange.listen((status) {
-      final hasInternet = status == InternetConnectionStatus.connected;
-      setState(() {
-        this.hasInternet = hasInternet;
-      });
-    });
+    context.read<MainCubit>().checkingInternetConnection();
+    context.read<MainCubit>().checkingConnectivity();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -269,11 +271,5 @@ class LoadingButtonState extends State<LoadingButton>
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
   }
 }
