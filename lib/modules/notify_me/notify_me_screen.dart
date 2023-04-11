@@ -45,7 +45,7 @@ class NotifyMeScreen extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (context,index) => buildTreatmentItem(context: context,cubit: cubit),
                       separatorBuilder: (context,index) => const SizedBox(height: 30,),
-                      itemCount: 4
+                      itemCount: 3
                   ),
                   //SvgPicture.asset("assets/images/pill2.svg"),
                 ],

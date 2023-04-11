@@ -528,7 +528,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                       ),
                                     ),
                                   ),
-                                if (state is GetParamedicLoadingState)
+                                if (model != null && model.status == null)
                                   Expanded(
                                     child: Column(
                                       mainAxisAlignment:

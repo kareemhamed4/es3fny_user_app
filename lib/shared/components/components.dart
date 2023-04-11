@@ -396,7 +396,7 @@ Widget myDropDownButton({
         //Add isDense true and zero Padding.
         //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        contentPadding: isRegisterForm ? const EdgeInsets.symmetric(horizontal: 16) : const EdgeInsets.all(0),
         enabledBorder: OutlineInputBorder(
           borderSide: isRegisterForm
               ? BorderSide(
