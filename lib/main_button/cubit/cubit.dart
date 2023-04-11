@@ -43,29 +43,33 @@ class SendRequestCubit extends Cubit<SendRequestStates> {
   Future<void> listenForParamedicInfo({
     required int requestId,
   }) async {
-    Stream.periodic(const Duration(seconds: 5)).asyncMap((_) async {
+    bool requestAccepted = false;
+
+    while (!requestAccepted) {
       try {
         emit(GetParamedicLoadingState());
+
         await DioHelper.getData(url: PARAMEDICINFO, baseUrl: BASEURL, query: {
           "id": requestId,
         }).then((value) {
           paramedicModel = ParamedicModel.fromJson(value.data);
-          emit(GetParamedicSuccessState(paramedicModel!));
+
+          if (paramedicModel?.status == true) {
+            requestAccepted = true;
+            emit(GetParamedicSuccessState(paramedicModel!));
+          } else {
+            emit(GetParamedicErrorState());
+          }
         }).catchError((error) {
           debugPrint(error.toString());
           emit(GetParamedicErrorState());
         });
-        return paramedicModel;
       } catch (e) {
-        return null;
-      }
-    }).listen((requests) {
-      if (requests != null) {
-        emit(GetParamedicSuccessState(requests));
-      } else {
         emit(GetParamedicErrorState());
       }
-    });
+
+      await Future.delayed(const Duration(seconds: 5));
+    }
   }
 
   Future<void> getMyCurrentLocation() async {

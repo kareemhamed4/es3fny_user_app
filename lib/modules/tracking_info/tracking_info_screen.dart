@@ -196,7 +196,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                   ],
                                 ),
                                 const SizedBox(height: 20),
-                                if (model != null && model.plamerData != null)
+                                if (state is GetParamedicSuccessState)
                                   Expanded(
                                     child: SingleChildScrollView(
                                       physics: const BouncingScrollPhysics(),
@@ -235,7 +235,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            model.plamerData!
+                                                            model!.plamerData!
                                                                 .name!,
                                                             style: Theme.of(
                                                                     context)
@@ -528,7 +528,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                       ),
                                     ),
                                   ),
-                                if (model == null || model.plamerData == null)
+                                if (state is GetParamedicLoadingState)
                                   Expanded(
                                     child: Column(
                                       mainAxisAlignment:
