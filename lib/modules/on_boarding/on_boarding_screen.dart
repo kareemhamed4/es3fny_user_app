@@ -29,24 +29,34 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
-      image: 'assets/images/applogonight.png',
-      header: 'اسعفني',
+      image: 'assets/images/light logo red.png',
+      header: 'Emerg-e-care',
       body: 'نقرة واحدة يمكن أن تنقذ حياتك!',
     ),
     BoardingModel(
       image: 'assets/images/tracking.png',
       header: 'تتبع مباشر',
-      body: 'اسعفني يوفر خدمة معرفة مكان المريض والمسعف بشكل مباشر',
+      body: 'يمكنك تتبع تقدم الإسعاف بشكل مباشر',
     ),
     BoardingModel(
-      image: 'assets/images/friends.jpg',
+      image: 'assets/images/family.png',
       header: 'إبلاغ العائلة',
-      body: 'اسعفني يقوم بإبلاغ عائلة المصاب بتفاصيل الحادث ومكان المستشفي الناقلة للمريض',
+      body: 'نبقي عائلتك مطلعة على كل شيء من خلال توفير اسم وعنوان المستشفى التي تتوجه إليها',
     ),
     BoardingModel(
-      image: 'assets/images/findout.png',
+      image: 'assets/images/helpServices.png',
       header: 'الخدمات المساعدة',
-      body: 'اسعفني يوفر الكثير من الخدمات المساعدة (التنبؤ بالأمراض الخطيرة، الإسعافات الأولية، أقرب مستشفى، التذكير بموعد العلاج، ...)',
+      body: 'كما نوفر الكثير من الخدمات المساعدة (التنبؤ بالأمراض الخطيرة، التذكير بموعد الدواء، أقرب مستشفى،أقرب صيدلية، أقرب عيادة طبيب، ...)',
+    ),
+    BoardingModel(
+      image: 'assets/images/chatbotService.png',
+      header: 'طبيبك الذكي',
+      body: 'نوفر لك روبوت ذكي للتحدث معه لتوفير كافة الإسعافات الأولية',
+    ),
+    BoardingModel(
+      image: 'assets/images/blind.png',
+      header: 'قادرون بإختلاف',
+      body: 'كما قمنا بدمج تقنية الذكاء الاصطناعي المتطورة في Emerg-e-care، مما يتيح للمرضى طلب سيارة إسعاف من خلال الأوامر الصوتية.',
     ),
   ];
 
