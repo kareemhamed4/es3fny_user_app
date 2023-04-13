@@ -7,3 +7,4 @@ class GetTreatmentDataFromDatabaseState extends NotifyMeStates {}
 class TreatmentInsertToDatabaseState extends NotifyMeStates {}
 class TreatmentDeleteDataFromDatabaseState extends NotifyMeStates {}
 class TreatmentUpdateDataFromDatabaseState extends NotifyMeStates {}
+class TreatmentGetDataFromDatabaseState extends NotifyMeStates {}

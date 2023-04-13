@@ -406,6 +406,11 @@ class AddTreatmentScreen extends StatelessWidget {
                                     .toString() ??
                                 "";
                           }
+                          cubit.insertToDatabase(
+                              treatment: cubit.treatmentNameController.text,
+                              time: cubit.timeController.text,
+                              quantity: cubit.selectedQuantity.toString(),
+                          );
                           debugPrint(cubit.treatmentNameController.text);
                           debugPrint(cubit.selectedQuantity);
                           debugPrint(cubit.selectedDates[0]

@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
         BlocProvider(create: (BuildContext context) => ProfileCubit()..getUserData()..getFamilyMember(token: token!)),
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
-        BlocProvider(create: (BuildContext context) => NotifyMeCubit()),
+        BlocProvider(create: (BuildContext context) => NotifyMeCubit()..createDatabase()),
         BlocProvider(create: (BuildContext context) => ChatBotCubit()),
         BlocProvider(create: (BuildContext context) => PredictionCubit()),
         BlocProvider(create: (BuildContext context) => SendRequestCubit()..getMyCurrentLocation()),
