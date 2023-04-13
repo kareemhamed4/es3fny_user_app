@@ -128,9 +128,13 @@ class LoginScreen extends StatelessWidget {
                           },
                           hintText: "1X-XXXX-XXXX",
                           onInputChanged: (PhoneNumber value) {},
-                          inputDecoration: const InputDecoration(
+                          inputDecoration: InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             hintText: "1X-XXXX-XXXX",
+                            hintStyle: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(fontSize: 16, color: myFavColor5),
                           ),
                           selectorConfig: const SelectorConfig(
                             setSelectorButtonAsPrefixIcon: true,
@@ -345,9 +349,13 @@ class LoginScreen extends StatelessWidget {
                     },
                     hintText: "1X-XXXX-XXXX",
                     onInputChanged: (PhoneNumber value) {},
-                    inputDecoration: const InputDecoration(
+                    inputDecoration: InputDecoration(
                       contentPadding: EdgeInsets.zero,
                       hintText: "1X-XXXX-XXXX",
+                      hintStyle: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(fontSize: 16, color: myFavColor5),
                     ),
                     selectorConfig: const SelectorConfig(
                       setSelectorButtonAsPrefixIcon: true,

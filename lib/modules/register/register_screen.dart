@@ -232,9 +232,13 @@ class _RegisterState extends State<Register> {
                                   cubit.changeButtonState(0);
                                 }*/
                       },
-                      inputDecoration: const InputDecoration(
+                      inputDecoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: "1X-XXXX-XXXX",
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontSize: 16, color: myFavColor5),
                       ),
                       selectorConfig: const SelectorConfig(
                         setSelectorButtonAsPrefixIcon: true,
@@ -670,9 +674,13 @@ class _RegisterState extends State<Register> {
                               cubit.changeButtonState(0);
                             }*/
                 },
-                inputDecoration: const InputDecoration(
+                inputDecoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   hintText: "1X-XXXX-XXXX",
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 16, color: myFavColor5),
                 ),
                 selectorConfig: const SelectorConfig(
                   setSelectorButtonAsPrefixIcon: true,

@@ -48,7 +48,7 @@ class CancerPredictionScreen extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
-                          .copyWith(fontSize: 22, color: myFavColor2),
+                          .copyWith(fontSize: 22),
                     ),
                   ],
                 ),
