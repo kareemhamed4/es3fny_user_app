@@ -268,7 +268,7 @@ class LoginScreen extends StatelessWidget {
                     children: const [
                       Image(
                         image: AssetImage(
-                          "assets/images/juicy-online-doctor-consultation 1.png",
+                          "assets/images/login.png",
                         ),
                         width: 200,
                         height: 200,
@@ -309,7 +309,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const Image(
                   image: AssetImage(
-                    "assets/images/juicy-online-doctor-consultation 1.png",
+                    "assets/images/login.png",
                   ),
                   width: 180,
                   height: 180,

@@ -7,6 +7,7 @@ import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 //ignore: must_be_immutable
 class NewPassword extends StatelessWidget {
@@ -169,13 +170,12 @@ class NewPassword extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Column(
-                            children: const [
-                              Image(
-                                image: AssetImage(
-                                    "assets/images/newPassword.png"),
-                                width: 350,
-                                height: 350,
-                              )
+                            children: [
+                              SvgPicture.asset(
+                                "assets/images/Reset password.svg",
+                                width: 250,
+                                height: 250,
+                              ),
                             ],
                           ),
                         ),

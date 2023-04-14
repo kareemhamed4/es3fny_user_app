@@ -10,6 +10,7 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -185,10 +186,10 @@ class _OTPScreenState extends State<OTPScreen> {
                                 .bodyText1!
                                 .copyWith(fontSize: 22),
                           ),
-                          const Image(
-                              image: AssetImage("assets/images/otp.png"),
-                              width: 350,
-                              height: 350,
+                          SvgPicture.asset(
+                            "assets/images/OTP.svg",
+                            width: 250,
+                            height: 250,
                           ),
                         ],
                       ),

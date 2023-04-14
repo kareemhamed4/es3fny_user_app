@@ -13,6 +13,7 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class Register extends StatefulWidget {
@@ -110,8 +111,10 @@ class _RegisterState extends State<Register> {
               physics: const BouncingScrollPhysics(),
               child: Responsive(
                 mobile: buildMobileRegisterScreen(context, size, cubit, states),
-                desktop: buildDesktopRegisterScreen(context, size, cubit, states),
-                tablet: buildDesktopRegisterScreen(context, size, cubit, states),
+                desktop:
+                    buildDesktopRegisterScreen(context, size, cubit, states),
+                tablet:
+                    buildDesktopRegisterScreen(context, size, cubit, states),
               ),
             ),
           ),
@@ -540,19 +543,20 @@ class _RegisterState extends State<Register> {
                               }),
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 10,),
                 ],
               ),
             ),
-            const SizedBox(width: 40,),
+            const SizedBox(
+              width: 40,
+            ),
             Expanded(
               flex: 2,
               child: Column(
-                children: const [
-                  Image(
-                    image: AssetImage(
-                      "assets/images/register.png",
-                    ),
+                children: [
+                  SvgPicture.asset(
+                    "assets/images/register.svg",
                     width: 250,
                     height: 250,
                   ),

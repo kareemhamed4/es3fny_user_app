@@ -8,6 +8,7 @@ import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 //ignore: must_be_immutable
@@ -202,9 +203,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: Column(
-                      children: const [
-                        Image(
-                          image: AssetImage("assets/images/password.png"),
+                      children: [
+                        SvgPicture.asset(
+                          "assets/images/Forgot password.svg",
                           width: 250,
                           height: 250,
                         ),
