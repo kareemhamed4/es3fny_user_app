@@ -12,16 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class PersonalModel {
-  final String label;
-  final Widget widget;
-
-  PersonalModel({
-    required this.label,
-    required this.widget,
-  });
-}
-
 //ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
