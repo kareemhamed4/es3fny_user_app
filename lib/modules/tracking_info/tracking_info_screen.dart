@@ -10,7 +10,6 @@ import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class TrackingInfoScreen extends StatefulWidget {
   const TrackingInfoScreen({Key? key}) : super(key: key);
@@ -25,8 +24,6 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
   TextEditingController hospitalController = TextEditingController();
   String label = "تأكيد";
 
-  FloatingSearchBarController floatingSearchBarController =
-      FloatingSearchBarController();
   double sheetHeight = 100.0;
   bool isSheetExpanded = false;
   void onVerticalDragUpdate(DragUpdateDetails details) {

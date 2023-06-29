@@ -26,7 +26,7 @@ dependencies:
   iconsax: ^0.0.8
   fluentui_system_icons: ^1.1.185
   flutter_svg: ^1.1.6
-  intl: ^0.17.0
+  intl: ^0.18.0
   flutter_windowmanager: ^0.2.0
   intl_phone_number_input: ^0.7.1
   shared_preferences: ^2.0.15
@@ -52,7 +52,6 @@ dependencies:
   google_maps_flutter: ^2.2.5
   flutter_polyline_points: ^1.0.0
   geolocator: ^9.0.2
-  material_floating_search_bar: ^0.3.7
 
   firebase_auth: ^4.2.4
   firebase_core: ^2.4.1

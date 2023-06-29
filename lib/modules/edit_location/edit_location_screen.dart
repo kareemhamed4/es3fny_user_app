@@ -1,12 +1,10 @@
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/responsive.dart';
-import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/components/my_google_map.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 class EditLocationScreen extends StatefulWidget {
   const EditLocationScreen({Key? key}) : super(key: key);
@@ -22,8 +20,6 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   TextEditingController locationController = TextEditingController();
   String label = "تأكيد";
 
-  FloatingSearchBarController floatingSearchBarController =
-      FloatingSearchBarController();
   double sheetHeight = 100.0;
   bool isSheetExpanded = false;
   void onVerticalDragUpdate(DragUpdateDetails details) {
@@ -89,7 +85,6 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                 isGoToMyLocationEnabled: false,
                 isTracking: false,
               ),
-              buildFloatingSearchBar(floatingSearchBarController: floatingSearchBarController, context: context),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
