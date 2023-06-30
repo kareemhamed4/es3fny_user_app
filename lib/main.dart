@@ -34,7 +34,8 @@ void main()async{
   token = CacheHelper.getData(key: 'token');
   otpCodeFromShared = CacheHelper.getData(key: 'otpCode');
   langContainerIndex = CacheHelper.getData(key: 'langContainerIndex');
-  currentLocationAsString = CacheHelper.getData(key: 'currentLocation');
+  currentLatitude = CacheHelper.getData(key: 'currentLatitude');
+  currentLongitude = CacheHelper.getData(key: 'currentLongitude');
   langCode = CacheHelper.getData(key: 'lang');
   isDark = CacheHelper.getData(key: "isDark") ?? false;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
@@ -66,12 +67,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => MainCubit()..changeAppMode(fromShared: isDark)..changeStartLang()..changeLanguageValue(langContainerIndex ?? 0)..checkingConnectivity()..checkingInternetConnection()),
         BlocProvider(create: (BuildContext context) => LoginCubit()),
         BlocProvider(create: (BuildContext context) => LayoutCubit()),
-        BlocProvider(create: (BuildContext context) => ProfileCubit()..getUserData()..getFamilyMember(token: token!)),
+        BlocProvider(create: (BuildContext context) => ProfileCubit()..getUserData()..getFamilyMember()..startLocationUpdates()),
         BlocProvider(create: (BuildContext context) => PhoneAuthCubit()),
         BlocProvider(create: (BuildContext context) => NotifyMeCubit()..createDatabase()),
         BlocProvider(create: (BuildContext context) => ChatBotCubit()),
         BlocProvider(create: (BuildContext context) => PredictionCubit()),
-        BlocProvider(create: (BuildContext context) => SendRequestCubit()..getMyCurrentLocation()),
+        BlocProvider(create: (BuildContext context) => SendRequestCubit()),
         ],
       child: BlocConsumer<MainCubit,MainStates>(
         listener: (context,state){},

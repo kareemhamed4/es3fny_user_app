@@ -21,7 +21,6 @@ class _TrackingScreenState extends State<TrackingScreen>
 
   @override
   void initState() {
-    currentLocationAsString = CacheHelper.getData(key: 'currentLocation');
     super.initState();
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 2))
@@ -83,8 +82,8 @@ class _TrackingScreenState extends State<TrackingScreen>
             background: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                if (currentLocation != null) const MyGoogleMap(isGoToMyLocationEnabled: false,isTracking: false,),
-                if (currentLocation == null)
+                if (currentLatitude != null) const MyGoogleMap(isGoToMyLocationEnabled: false,isTracking: false,),
+                if (currentLatitude == null)
                   Center(
                       child: Text(
                     "Loading",

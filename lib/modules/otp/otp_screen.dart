@@ -1,4 +1,5 @@
 import 'package:es3fny_user_app/app_localization.dart';
+import 'package:es3fny_user_app/modules/login/login_screen.dart';
 import 'package:es3fny_user_app/modules/register/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/cubit/states.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
@@ -14,8 +15,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPScreen extends StatefulWidget {
+  final String registerMsg;
   const OTPScreen({
-    Key? key,
+    Key? key, required this.registerMsg
   }) : super(key: key);
 
   @override
@@ -30,21 +32,18 @@ class _OTPScreenState extends State<OTPScreen> {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<PhoneAuthCubit, PhoneAuthStates>(
       listener: (context, state) {
-        if (state is PhoneAuthLoadingState) {
-          showProgressIndicator(context);
-        }
         if (state is PhoneOTPVerified) {
           CacheHelper.saveData(key: "otpCode", value: otpCode).then((value){
             otpCodeFromShared = otpCode;
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                "تم التسجيل بنجاح",
+                widget.registerMsg,
               ),
             ),
           );
-          NavigateToReb(context: context, widget: const SplashScreen());
+          NavigateToReb(context: context, widget: LoginScreen());
         }
         if (state is PhoneAuthErrorState) {
           Navigator.pop(context);

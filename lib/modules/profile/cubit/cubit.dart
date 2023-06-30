@@ -1,36 +1,73 @@
-import 'package:es3fny_user_app/models/add_family_member.dart';
-import 'package:es3fny_user_app/models/get_family.dart';
+import 'dart:async';
+
+import 'package:es3fny_user_app/models/family_model.dart';
 import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';
 import 'package:es3fny_user_app/network/endpoint.dart';
+import 'package:es3fny_user_app/network/local/cache_helper.dart';
 import 'package:es3fny_user_app/network/remote/dio_helper_advanced.dart';
 import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
   ProfileCubit() : super(ProfileInitialState());
 
   static ProfileCubit get(context) => BlocProvider.of(context);
 
-  LoginModel? userModel;
+  final List<String> genderItems = [
+    'male',
+    'female',
+  ];
+  String selectedValue = "";
 
-  void getUserData() {
+  LoginModel? userModel;
+  Future<void> getUserData() async {
     emit(UserProfileLoadingState());
 
-    DioHelper.getData(
-        url: PROFILE,
-        baseUrl: BASEURL,
-        token: token,
-        query: {
-          "token": token,
-        }).then((value) {
+    await DioHelper.getData(
+      url: PROFILE,
+      baseUrl: BASEURL,
+      token: token,
+    ).then((value) {
       userModel = LoginModel.fromJson(value.data);
-      debugPrint(value.data.toString());
       emit(UserProfileSuccessState(userModel!));
     }).catchError((error) {
       debugPrint(error.toString());
       emit(UserProfileErrorState());
+    });
+  }
+
+  LoginModel? updatedUser;
+  void updateUserInfo({
+    String? name,
+    String? nationalId,
+    String? phone,
+    int? gender,
+    int? age,
+    String? email,
+  }) {
+    emit(UpdateUserInfoLoadingState());
+    DioHelper.postData(
+      url: UPDATE_PROFILE,
+      baseUrl: BASEURL,
+      token: token,
+      data: {
+        'name': name,
+        'national_id': nationalId,
+        'phone_number': phone,
+        'gender': gender,
+        'age': age,
+        'email': email,
+      },
+    ).then((value) {
+      updatedUser = LoginModel.fromJson(value.data);
+      getUserData();
+      emit(UpdateUserInfoSuccessState(updatedUser!));
+    }).catchError((error) {
+      debugPrint(error.toString());
+      emit(UpdateUserInfoErrorState(error.toString()));
     });
   }
 
@@ -61,78 +98,9 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   ScrollPhysics scrollPhysics = const BouncingScrollPhysics();
   void changeScrollPhysics() {
-    scrollPhysics = isBottomSheetShown
-        ? const NeverScrollableScrollPhysics()
-        : const BouncingScrollPhysics();
+    scrollPhysics = isBottomSheetShown ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics();
     emit(ProfileChangeScrollPhysicsState());
   }
-
-/*  late Database database;
-  List<Map> family = [];
-  void createDatabase() async {
-    database = await openDatabase("familyInfo.db", version: 1,
-        onCreate: (database, version) async {
-      debugPrint("database created");
-      await database
-          .execute(
-              'CREATE TABLE family (id INTEGER PRIMARY KEY, name TEXT, phone Text, nickname Text)')
-          .then((value) {
-        debugPrint("table created");
-      }).catchError((error) {
-        debugPrint("Error occurred when creating Table (${error.toString()})");
-      });
-    }, onOpen: (database) {
-      getFamilyDataFromDatabase(database).then((value) {
-        family = value;
-        debugPrint(family.toString());
-        emit(ProfileGetDataFromDatabaseState());
-      });
-      debugPrint("database opened");
-    });
-  }
-
-  Future<List<Map>> getFamilyDataFromDatabase(database) async {
-    return await database.rawQuery("SELECT * FROM family");
-  }
-
-  insertToDatabase({
-    required String name,
-    required String phone,
-    required String nickname,
-  }) {
-    return database.transaction((txn) async {
-      await txn
-          .rawInsert(
-              'INSERT INTO family(name, phone, nickname) VALUES("$name", "$phone", "$nickname")')
-          .then((value) {
-        debugPrint("${value.toString()} Inserted Successfully");
-        emit(ProfileInsertToDatabaseState());
-      }).catchError((error) {
-        debugPrint("Error when Inserting Record ${error.toString()}");
-      });
-      return null;
-    });
-  }
-
-  void deleteData({required int id}) async {
-    database.rawDelete('DELETE FROM family WHERE id = ?', [id]).then((value) {
-      getFamilyDataFromDatabase(database).then((value) {
-        family = value;
-        debugPrint(family.toString());
-      });
-      emit(ProfileDeleteDataFromDatabaseState());
-    });
-  }
-
-  void updateData(String sql) async {
-    await database.rawUpdate(sql).then((value) {
-      getFamilyDataFromDatabase(database).then((value) {
-        family = value;
-        debugPrint(family.toString());
-      });
-      emit(ProfileUpdateDataFromDatabaseState());
-    });
-  }*/
 
   bool isEnabledGesture = true;
   void changeIsEnabledGestureState({required bool isEnabled}) {
@@ -145,76 +113,107 @@ class ProfileCubit extends Cubit<ProfileStates> {
     return splitted.first.toString();
   }
 
-  AddFamilyMember? family;
-
+  Family? addMemberModel;
   void addFamilyMember({
     required String name,
     required String phone,
     required String kinship,
-    required String token,
   }) {
     emit(AddingFamilyMemberLoadingState());
     DioHelper.postData(
-        baseUrl: BASEURL,
-        url: ADD_FAMILY_MEMBER,
-        data: {
-          "name": name,
-          "phone_number": phone,
-          "kinship": kinship,
-          "token": token,
-        }).then((value) {
-      family = AddFamilyMember.fromJson(value.data);
-      getFamilyMember(token: token);
-      emit(AddingFamilyMemberSuccessState(family!));
+      baseUrl: BASEURL,
+      url: ADD_FAMILY_MEMBER,
+      data: {
+        "name": name,
+        "phone_number": phone,
+        "kinship": kinship,
+      },
+      token: token,
+    ).then((value) {
+      addMemberModel = Family.fromJson(value.data);
+      getFamilyMember();
+      emit(AddingFamilyMemberSuccessState(addMemberModel!));
     }).catchError((error) {
       emit(AddingFamilyMemberErrorState());
     });
   }
 
-  List<Family> familyMembers = [];
-  void getFamilyMember({
-    required String token,
-  }) {
+  Family? familyMembers;
+  void getFamilyMember() {
     emit(GetFamilyMembersLoadingState());
     DioHelper.getData(
       baseUrl: BASEURL,
       url: GET_FAMILY_MEMBER,
-      query: {
-        "token": token,
-      }
-    ).then((value) async{
-      List<dynamic> json = value.data;
-      familyMembers = json.map((item){
-        return Family(
-          id: item["id"],
-          name: item['name'],
-          phoneNumber: item['phone_number'],
-          kinship: item['kinship'],
-          userId: item['user_id'],
-        );
-      }).toList();
+      token: token,
+    ).then((value) {
+      familyMembers = Family.fromJson(value.data);
       emit(GetFamilyMembersSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetFamilyMembersErrorState());
     });
   }
 
   void deleteFamilyMember({
-    required String token,
     required int memberId,
-}){
+  }) {
     emit(DeleteFamilyMemberLoadingState());
     DioHelper.getData(
-        baseUrl: BASEURL,
-        url: "$Delete_FAMILY_MEMBER/$memberId",
-        query: {
-          "token": token,
-        }
-    ).then((value){
-      getFamilyMember(token: token);
+      baseUrl: BASEURL,
+      url: "$Delete_FAMILY_MEMBER/$memberId",
+      token: token,
+    ).then((value) {
+      getFamilyMember();
       emit(DeleteFamilyMemberSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(DeleteFamilyMemberErrorState());
     });
+  }
+
+  StreamSubscription<Position>? _positionStreamSubscription;
+
+  Future<void> startLocationUpdates() async {
+    await getUserData();
+    emit(UpdateLocationLoadingState());
+    _positionStreamSubscription = Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 10, // Minimum distance (in meters) before receiving updates
+      ),
+    ).listen((Position position) {
+      CacheHelper.saveData(key: "currentLatitude",value: position.latitude).then((value){
+        currentLatitude = position.latitude;
+      });
+      CacheHelper.saveData(key: "currentLongitude",value: position.longitude).then((value){
+        currentLongitude = position.longitude;
+      });
+      // Call the update method with the new latitude and longitude values
+      if (token != null) {
+        updateLocation(latitude: position.latitude,longitude: position.longitude);
+      }
+    });
+  }
+
+  void updateLocation({
+    required double latitude,
+    required double longitude,
+  }) {
+    DioHelper.postData(
+      baseUrl: BASEURL,
+      url: UPDATELOCATION,
+      token: token,
+      data: {
+        "latitude": latitude,
+        "longitude": longitude,
+      },
+    ).then((value) {
+      emit(UpdateLocationSuccessState());
+    }).catchError((error) {
+      emit(UpdateLocationErrorState(error.toString()));
+    });
+  }
+
+  void stopLocationUpdates() {
+    _positionStreamSubscription?.cancel();
+    _positionStreamSubscription = null;
   }
 }

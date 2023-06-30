@@ -24,6 +24,4 @@ class LayoutCubit extends Cubit<LayoutStates> {
     currentIndex = index;
     emit(ChangeBottomNavBarState());
   }
-
-  LoginModel? userModel;
 }

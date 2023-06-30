@@ -65,10 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           ConditionalBuilder(
                                             condition:
-                                                (cubit.userModel != null),
+                                                (cubit.userModel != null && cubit.userModel!.data != null),
                                             builder: (context) => Text(
                                               "${"welcome".tr(context)}${cubit.splitSentence(cubit.userModel!.data!.name!)}..",
-                                              /*"${"welcome".tr(context)}${cubit.userModel!.data!.name!.substring(0,4)}..",*/
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!

@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                       displayErrorMotionToast(
                         context: context,
                         title: "خطأ",
-                        description: "${state.loginModel.message}",
+                        description: "${state.loginModel.msg}",
                       ),
                     }
                 }

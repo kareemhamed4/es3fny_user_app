@@ -73,18 +73,14 @@ class _RegisterState extends State<Register> {
         }
         if (state is SignUpSuccessState) {
           if (state.signup.status!) {
-            CacheHelper.saveData(key: "token", value: state.signup.data!.token)
-                .then((value) {
-              token = state.signup.data!.token;
-              NavigateTo(context: context, widget: const OTPScreen());
-            });
+            NavigateTo(context: context, widget: OTPScreen(registerMsg: state.signup.msg!));
             context.read<PhoneAuthCubit>().submitPhoneNumber(phoneNumber);
           }
           if (!state.signup.status!) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  "${state.signup.message}",
+                  "${state.signup.msg}",
                 ),
               ),
             );
@@ -462,9 +458,10 @@ class _RegisterState extends State<Register> {
                             nationalId: nationalIdController.text,
                             phone:
                                 phoneNumber.substring(phoneNumber.length - 10),
-                            gender: selectedValue,
+                            gender: selectedValue == 'male'.tr(context) ? 1 : 0,
                             age: int.parse(ageController.text),
                             password: passwordController.text,
+                            passwordConfirmation: passwordConfirmController.text,
                           );
                         }
                       },
@@ -901,9 +898,10 @@ class _RegisterState extends State<Register> {
                       email: emailController.text,
                       nationalId: nationalIdController.text,
                       phone: phoneNumber.substring(phoneNumber.length - 10),
-                      gender: selectedValue,
+                      gender: selectedValue == 'male'.tr(context) ? 1 : 0,
                       age: int.parse(ageController.text),
                       password: passwordController.text,
+                      passwordConfirmation: passwordConfirmController.text,
                     );
                   }
                 },

@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/settings/setting_screen.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
@@ -12,15 +13,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-//ignore: must_be_immutable
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key}) : super(key: key);
-  GlobalKey<ScaffoldState> scaffoldKey =
-      GlobalKey<ScaffoldState>(debugLabel: "profileScaffoldKey");
-  GlobalKey<FormState> formKey =
-      GlobalKey<FormState>(debugLabel: "profileFormKey");
-  GlobalKey<FormState> formFamilyKey =
-      GlobalKey<FormState>(debugLabel: "familyFormKey");
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "profileScaffoldKey");
+  GlobalKey<FormState> formKey = GlobalKey<FormState>(debugLabel: "profileFormKey");
+  GlobalKey<FormState> formFamilyKey = GlobalKey<FormState>(debugLabel: "familyFormKey");
   var formAlertKey = GlobalKey<FormState>();
   PageController pageController = PageController();
   TextEditingController nameController = TextEditingController();
@@ -29,7 +32,6 @@ class ProfileScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-
   TextEditingController familyNameController = TextEditingController();
   TextEditingController familyPhoneController = TextEditingController();
   TextEditingController familyNicknameController = TextEditingController();
@@ -42,9 +44,13 @@ class ProfileScreen extends StatelessWidget {
         var model = ProfileCubit.get(context).userModel;
         nameController.text = model != null ? model.data!.name! : " ";
         nIDController.text = model != null ? model.data!.nationalId! : " ";
-        phoneController.text = model != null ? "0${model.data!.phone!}" : " ";
+        phoneController.text = model != null ? "0${model.data!.phoneNumber!}" : " ";
         emailController.text = model != null ? model.data!.email! : " ";
-        genderController.text = model != null ? model.data!.gender! : " ";
+        ProfileCubit.get(context).selectedValue = model != null
+            ? model.data!.gender! == 1
+                ? "male".tr(context)
+                : "female".tr(context)
+            : " ";
         ageController.text = model != null ? model.data!.age!.toString() : " ";
         Size size = MediaQuery.of(context).size;
         ProfileCubit cubit = BlocProvider.of(context);
@@ -91,8 +97,7 @@ class ProfileScreen extends StatelessWidget {
                                       child: Container(
                                         height: 95,
                                         width: double.infinity,
-                                        color: Theme.of(context)
-                                            .scaffoldBackgroundColor,
+                                        color: Theme.of(context).scaffoldBackgroundColor,
                                       ),
                                     ),
                                   ],
@@ -100,14 +105,10 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.only(
-                                  bottom: 140, start: 16),
+                              padding: const EdgeInsetsDirectional.only(bottom: 140, start: 16),
                               child: Text(
                                 "personal_profile".tr(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
+                                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                       fontSize: 20,
                                       color: Colors.white,
                                     ),
@@ -146,7 +147,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundImage: NetworkImage(cubit.userModel != null
-                              ? model!.data!.image!
+                              ? model!.data!.profileImage!
                               : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                           radius: 40,
                         ),
@@ -173,21 +174,24 @@ class ProfileScreen extends StatelessWidget {
                                   flex: 2,
                                   child: Center(
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          cubit.userModel != null
-                                              ? nameController.text
-                                              : " ",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
+                                          cubit.userModel != null ? nameController.text : " ",
+                                          style: Theme.of(context).textTheme.bodyText1,
                                         ),
                                         if (cubit.currentPageIndex == 0)
                                           IconButton(
                                             onPressed: () {
                                               cubit.changeEditingState();
+                                              !cubit.isEditing ? cubit.updateUserInfo(
+                                                email: emailController.text,
+                                                name: nameController.text,
+                                                nationalId: nIDController.text,
+                                                phone: phoneController.text.substring(1,11),
+                                                gender: cubit.selectedValue == 'male'.tr(context) ? 1 : 0,
+                                                age: int.parse(ageController.text),
+                                              ) : null;
                                             },
                                             icon: Icon(
                                               cubit.editIcon,
@@ -205,11 +209,9 @@ class ProfileScreen extends StatelessWidget {
                                 Expanded(
                                   flex: 1,
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12),
+                                    padding: const EdgeInsets.symmetric(horizontal: 12),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Expanded(
                                           child: GestureDetector(
@@ -217,14 +219,11 @@ class ProfileScreen extends StatelessWidget {
                                               cubit.isEnabledGesture
                                                   ? {
                                                       cubit.changePageIndex(0),
-                                                      pageController
-                                                          .previousPage(
-                                                        duration:
-                                                            const Duration(
+                                                      pageController.previousPage(
+                                                        duration: const Duration(
                                                           milliseconds: 750,
                                                         ),
-                                                        curve: Curves
-                                                            .fastLinearToSlowEaseIn,
+                                                        curve: Curves.fastLinearToSlowEaseIn,
                                                       )
                                                     }
                                                   : null;
@@ -237,17 +236,12 @@ class ProfileScreen extends StatelessWidget {
                                                   child: FittedBox(
                                                     child: Text(
                                                       "personal_info".tr(context),
-                                                      style: cubit.currentPageIndex ==
-                                                              0
-                                                          ? Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1
+                                                      style: cubit.currentPageIndex == 0
+                                                          ? Theme.of(context).textTheme.bodyText1
                                                           : Theme.of(context)
                                                               .textTheme
                                                               .bodyText1!
-                                                              .copyWith(
-                                                                  color:
-                                                                      myFavColor5),
+                                                              .copyWith(color: myFavColor5),
                                                     ),
                                                   ),
                                                 ),
@@ -263,29 +257,19 @@ class ProfileScreen extends StatelessWidget {
                                             onTap: () {
                                               cubit.changePageIndex(1);
                                               pageController.nextPage(
-                                                  duration: const Duration(
-                                                      milliseconds: 750),
-                                                  curve: Curves
-                                                      .fastLinearToSlowEaseIn);
+                                                  duration: const Duration(milliseconds: 750),
+                                                  curve: Curves.fastLinearToSlowEaseIn);
                                             },
                                             child: Container(
                                               color: Colors.transparent,
                                               child: Center(
                                                 child: Text(
                                                   "family".tr(context),
-                                                  style:
-                                                      cubit.currentPageIndex ==
-                                                              1
-                                                          ? Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1
-                                                          : Theme.of(context)
-                                                              .textTheme
-                                                              .bodyText1!
-                                                              .copyWith(
-                                                                color:
-                                                                    myFavColor5,
-                                                              ),
+                                                  style: cubit.currentPageIndex == 1
+                                                      ? Theme.of(context).textTheme.bodyText1
+                                                      : Theme.of(context).textTheme.bodyText1!.copyWith(
+                                                            color: myFavColor5,
+                                                          ),
                                                 ),
                                               ),
                                             ),
@@ -415,12 +399,65 @@ class ProfileScreen extends StatelessWidget {
                                         context: context,
                                         size: size,
                                         label: "user_gender".tr(context),
-                                        widget: TextFormField(
-                                          controller: genderController,
+                                        widget: DropdownButtonFormField2(
                                           decoration: InputDecoration(
                                             enabled: cubit.isEnabled,
-                                            contentPadding: EdgeInsets.zero,
+                                            //Add isDense true and zero Padding.
+                                            //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                                            isDense: true,
+                                            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                            //Add more decoration as you want here
+                                            //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
                                           ),
+                                          isExpanded: true,
+                                          hint: Text(
+                                            model != null && model.data != null ? model.data!.gender == 1 ? "male".tr(context) : "female".tr(context) : "",
+                                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                                color: myFavColor5,
+                                                fontSize: 16,
+                                                fontFamily: "FinalR"),
+                                          ),
+                                          icon: const Icon(
+                                            Icons.keyboard_arrow_down_outlined,
+                                          ),
+                                          iconSize: 30,
+                                          buttonHeight: 48,
+                                          dropdownDecoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(15),
+                                              color: Theme.of(context).cardColor,
+                                          ),
+                                          items: cubit.isEnabled ? cubit.genderItems
+                                              .map((item) => DropdownMenuItem<String>(
+                                            value: item.tr(context),
+                                            onTap: () {
+                                              setState(
+                                                    () => () {
+                                                  cubit.selectedValue = item.tr(context);
+                                                },
+                                              );
+                                            },
+                                            child: Text(
+                                              item.tr(context),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(
+                                                  fontSize: 18, fontFamily: "FinalR"),
+                                            ),
+                                          ))
+                                              .toList() : [],
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return "register_gender_choose".tr(context);
+                                            }
+                                            return null;
+                                          },
+                                          onChanged: (value) {
+                                            //Do something when changing the item if you want.
+                                          },
+                                          onSaved: (value) {
+                                            cubit.selectedValue = value.toString();
+                                          },
                                         ),
                                       ),
                                       const SizedBox(
@@ -429,11 +466,10 @@ class ProfileScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                fallback: (context) => const Center(
-                                    child: CircularProgressIndicator()),
+                                fallback: (context) => const Center(child: CircularProgressIndicator()),
                               ),
                               ConditionalBuilder(
-                                condition: cubit.familyMembers.isNotEmpty,
+                                condition: cubit.familyMembers!.data!.isNotEmpty,
                                 builder: (context) => Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -443,21 +479,15 @@ class ProfileScreen extends StatelessWidget {
                                     Expanded(
                                       child: ListView.separated(
                                         physics: const BouncingScrollPhysics(),
-                                        itemBuilder: (context, index) =>
-                                            Slidable(
+                                        itemBuilder: (context, index) => Slidable(
                                           endActionPane: ActionPane(
                                             motion: const StretchMotion(),
                                             children: [
                                               SlidableAction(
                                                 onPressed: ((context) {
-                                                  /*debugPrint(cubit.familyMembers[index].id!.toString());
-                                                    debugPrint(token);
-                                                    debugPrint("$Delete_FAMILY_MEMBER/${cubit.familyMembers[index].id!}");*/
                                                   cubit.deleteFamilyMember(
-                                                      token: token!,
-                                                      memberId: cubit
-                                                          .familyMembers[index]
-                                                          .id!);
+                                                    memberId: cubit.familyMembers!.data![index].id!,
+                                                  );
                                                 }),
                                                 backgroundColor: myFavColor,
                                                 icon: Icons.delete_outline,
@@ -469,68 +499,49 @@ class ProfileScreen extends StatelessWidget {
                                             children: [
                                               SlidableAction(
                                                 onPressed: ((slidableContext) {
-                                                  familyNameController.text =
-                                                      cubit.familyMembers[index]
-                                                          .name!;
+                                                  familyNameController.text = cubit.familyMembers!.data![index].name!;
                                                   familyPhoneController.text =
-                                                      "0${cubit.familyMembers[index].phoneNumber!}";
-                                                  familyNicknameController
-                                                          .text =
-                                                      cubit.familyMembers[index]
-                                                          .kinship ?? "";
+                                                      "0${cubit.familyMembers!.data![index].phoneNumber!}";
+                                                  familyNicknameController.text =
+                                                      cubit.familyMembers!.data![index].kinship ?? "";
                                                   showMyDialog(
                                                     context: context,
                                                     formKey: formAlertKey,
                                                     onConfirm: () {
-                                                      if (formAlertKey
-                                                          .currentState!
-                                                          .validate()) {
+                                                      if (formAlertKey.currentState!.validate()) {
                                                         // update
                                                         Navigator.pop(context);
                                                       }
                                                     },
                                                     titleWidget: Text(
-                                                      "edit_dialog_title"
-                                                          .tr(context),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1!
-                                                          .copyWith(
-                                                              fontSize: 18),
+                                                      "edit_dialog_title".tr(context),
+                                                      style:
+                                                          Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                                                     ),
                                                     contentWidget: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
+                                                      mainAxisSize: MainAxisSize.min,
                                                       children: [
                                                         myTextFormField(
                                                             context: context,
-                                                            controller:
-                                                                familyNameController,
+                                                            controller: familyNameController,
                                                             validate: (value) {
-                                                              if (value!
-                                                                  .isEmpty) {
+                                                              if (value!.isEmpty) {
                                                                 return "برجاء ادخال الإسم";
                                                               }
                                                               return null;
                                                             },
-                                                            prefixIcon:
-                                                                const Icon(Icons
-                                                                    .title),
+                                                            prefixIcon: const Icon(Icons.title),
                                                             hint: "الإسم"),
                                                         const SizedBox(
                                                           height: 15,
                                                         ),
                                                         myTextFormField(
                                                           context: context,
-                                                          controller:
-                                                              familyPhoneController,
-                                                          prefixIcon:
-                                                              const Icon(Icons
-                                                                  .dialpad_outlined),
+                                                          controller: familyPhoneController,
+                                                          prefixIcon: const Icon(Icons.dialpad_outlined),
                                                           hint: "رقم الهاتف",
                                                           validate: (value) {
-                                                            if (value!.length <
-                                                                11) {
+                                                            if (value!.length < 11) {
                                                               return "برجاء ادخال رقم هاتف صحيح";
                                                             }
                                                             return null;
@@ -541,11 +552,8 @@ class ProfileScreen extends StatelessWidget {
                                                         ),
                                                         myTextFormField(
                                                             context: context,
-                                                            controller:
-                                                                familyNicknameController,
-                                                            prefixIcon:
-                                                                const Icon(Icons
-                                                                    .label_important_outline),
+                                                            controller: familyNicknameController,
+                                                            prefixIcon: const Icon(Icons.label_important_outline),
                                                             hint: "الكنية"),
                                                       ],
                                                     ),
@@ -557,64 +565,48 @@ class ProfileScreen extends StatelessWidget {
                                             ],
                                           ),
                                           child: InkWell(
-                                            highlightColor:
-                                                myFavColor.withOpacity(0.5),
+                                            highlightColor: myFavColor.withOpacity(0.5),
                                             onTap: () {},
                                             child: Container(
-                                              color:
-                                                  Theme.of(context).cardColor,
+                                              color: Theme.of(context).cardColor,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
+                                                padding: const EdgeInsets.symmetric(
                                                   horizontal: 16,
                                                 ),
                                                 child: ListTile(
                                                   title: Row(
                                                     children: [
                                                       Text(
-                                                        cubit
-                                                            .familyMembers[
-                                                                index]
-                                                            .name!,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText1,
+                                                        cubit.familyMembers!.data![index].name!,
+                                                        style: Theme.of(context).textTheme.bodyText1,
                                                       ),
                                                       const SizedBox(
                                                         width: 6,
                                                       ),
                                                       Text(
-                                                        cubit
-                                                            .familyMembers[
-                                                                index]
-                                                            .kinship ?? "",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .caption!
-                                                            .copyWith(
-                                                                fontSize: 14),
+                                                        cubit.familyMembers!.data![index].kinship ?? "",
+                                                        style:
+                                                            Theme.of(context).textTheme.caption!.copyWith(fontSize: 14),
                                                       ),
                                                     ],
                                                   ),
                                                   subtitle: Text(
-                                                    "0${cubit.familyMembers[index].phoneNumber!}",
+                                                    "0${cubit.familyMembers!.data![index].phoneNumber!}",
                                                   ),
                                                   leading: Icon(
                                                     Icons.person_outline_sharp,
                                                     color: myFavColor5,
                                                   ),
-                                                  contentPadding:
-                                                      EdgeInsets.zero,
+                                                  contentPadding: EdgeInsets.zero,
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                        separatorBuilder: (context, index) =>
-                                            const SizedBox(
+                                        separatorBuilder: (context, index) => const SizedBox(
                                           height: 12,
                                         ),
-                                        itemCount: cubit.familyMembers.length,
+                                        itemCount: cubit.familyMembers!.data!.length,
                                       ),
                                     ),
                                   ],
@@ -624,8 +616,7 @@ class ProfileScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       "لا توجد أفراد، أضف الآن",
-                                      style:
-                                          Theme.of(context).textTheme.caption,
+                                      style: Theme.of(context).textTheme.caption,
                                     ),
                                   ],
                                 ),
@@ -653,7 +644,6 @@ class ProfileScreen extends StatelessWidget {
                           name: familyNameController.text,
                           phone: familyPhoneController.text.substring(1, 11),
                           kinship: familyNicknameController.text,
-                          token: token!,
                         );
                         Navigator.pop(context);
                       }
@@ -674,16 +664,16 @@ class ProfileScreen extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     myTextFormField(
-                                        context: context,
-                                        controller: familyNameController,
-                                        validate: (value) {
-                                          if (value!.isEmpty) {
-                                            return "add_family_name_validate".tr(context);
-                                          }
-                                          return null;
-                                        },
-                                        prefixIcon: const Icon(Icons.title),
-                                        hint: "add_family_name".tr(context),
+                                      context: context,
+                                      controller: familyNameController,
+                                      validate: (value) {
+                                        if (value!.isEmpty) {
+                                          return "add_family_name_validate".tr(context);
+                                        }
+                                        return null;
+                                      },
+                                      prefixIcon: const Icon(Icons.title),
+                                      hint: "add_family_name".tr(context),
                                     ),
                                     const SizedBox(
                                       height: 15,
@@ -691,8 +681,7 @@ class ProfileScreen extends StatelessWidget {
                                     myTextFormField(
                                       context: context,
                                       controller: familyPhoneController,
-                                      prefixIcon:
-                                          const Icon(Icons.dialpad_outlined),
+                                      prefixIcon: const Icon(Icons.dialpad_outlined),
                                       hint: "add_family_phone".tr(context),
                                       validate: (value) {
                                         if (value!.length < 11) {
@@ -705,11 +694,10 @@ class ProfileScreen extends StatelessWidget {
                                       height: 15,
                                     ),
                                     myTextFormField(
-                                        context: context,
-                                        controller: familyNicknameController,
-                                        prefixIcon: const Icon(
-                                            Icons.label_important_outline),
-                                        hint: "add_family_kinship".tr(context),
+                                      context: context,
+                                      controller: familyNicknameController,
+                                      prefixIcon: const Icon(Icons.label_important_outline),
+                                      hint: "add_family_kinship".tr(context),
                                     ),
                                   ],
                                 ),

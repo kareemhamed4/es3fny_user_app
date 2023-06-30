@@ -1,56 +1,56 @@
 class LoginModel {
   bool? status;
-  dynamic message;
-  UserData? data;
+  String? errNum;
+  String? msg;
+  Data? data;
+
+  LoginModel({this.status, this.errNum, this.msg, this.data});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
-    status = json["status"];
-    message = json["message"];
-    data = json["data"] != null ? UserData.fromJson(json["data"]) : null;
+    status = json['status'];
+    errNum = json['errNum'];
+    msg = json['msg'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
-
-  LoginModel(
-      this.status,
-      this.message,
-      this.data,
-      );
 }
 
-class UserData {
+class Data {
   int? id;
   int? age;
   String? name;
+  int? gender;
   String? email;
+  String? latitude;
+  String? longitude;
   String? nationalId;
-  String? phone;
-  String? gender;
-  String? image;
+  String? phoneNumber;
+  String? profileImage;
   String? token;
-  String? address;
 
-  UserData(
-      this.id,
-      this.age,
-      this.name,
-      this.email,
-      this.nationalId,
-      this.phone,
-      this.gender,
-      this.image,
-      this.token,
-      this.address
-      );
+  Data(
+      {this.id,
+        this.age,
+        this.name,
+        this.gender,
+        this.email,
+        this.latitude,
+        this.longitude,
+        this.nationalId,
+        this.phoneNumber,
+        this.profileImage,
+        this.token});
 
-  UserData.fromJson(Map<String, dynamic> json) {
-    id = json["id"];
-    age = json["age"];
-    name = json["name"];
-    email = json["email"];
-    nationalId = json["national_id"];
-    phone = json["Phone_number"];
-    gender = json["gender"];
-    image = json["profile_image"];
-    token = json["token"];
-    address = json["address"];
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    age = json['age'];
+    name = json['name'];
+    gender = json['gender'];
+    email = json['email'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    nationalId = json['national_id'];
+    phoneNumber = json['Phone_number'];
+    profileImage = json['profile_image'];
+    token = json['token'];
   }
 }

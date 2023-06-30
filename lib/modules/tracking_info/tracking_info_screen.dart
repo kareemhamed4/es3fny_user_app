@@ -40,12 +40,6 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
   }
 
   @override
-  void initState() {
-    currentLocationAsString = CacheHelper.getData(key: "currentLocation");
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<SendRequestCubit, SendRequestStates>(
       listener: (context, state) {},
@@ -84,7 +78,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
               ),
             ),
           ),
-          body: currentLocation == null
+          body: currentLatitude == null
               ? Center(
                   child: Text(
                     "Loading",

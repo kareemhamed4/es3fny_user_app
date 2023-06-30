@@ -36,29 +36,10 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   }
 
   @override
-  void initState() {
-    currentLocationAsString = CacheHelper.getData(key: "currentLocation");
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-      /*appBar: AppBar(
-        title: Text(
-          "edit_location".tr(context),
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
-        ),
-        elevation: 2,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(12),
-              bottomRight: Radius.circular(12)),
-        ),
-        centerTitle: true,
-      ),*/
       body: SafeArea(
         child: Responsive(
           mobile: buildMobileEditLocationScreen(context),
@@ -70,7 +51,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   }
 
   Widget buildMobileEditLocationScreen(BuildContext context) {
-    return currentLocation == null
+    return currentLatitude == null
         ? Center(
             child: Text(
               "Loading",

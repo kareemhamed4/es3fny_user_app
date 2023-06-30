@@ -72,12 +72,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
 
   void userModel({
     required String name,
-    required String email,
     required String nationalId,
     required String phone,
-    required String gender,
+    required int gender,
     required int age,
+    required String email,
     required String password,
+    required String passwordConfirmation,
   }) {
     emit(SignUpLoadingState());
     DioHelper.postData(
@@ -85,12 +86,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
       baseUrl: BASEURL,
       data: {
         'name': name,
-        'email': email,
         'national_id': nationalId,
         'phone_number': phone,
         'gender': gender,
         'age': age,
+        'email': email,
         'password': password,
+        'password_confirmation': passwordConfirmation,
       },
     ).then((value) {
       debugPrint(value.data.toString());

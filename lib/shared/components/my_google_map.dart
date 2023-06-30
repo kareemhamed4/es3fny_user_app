@@ -27,13 +27,13 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       Completer<GoogleMapController>();
 
   static LatLng sourceLocation =
-      LatLng(currentLocation!.latitude, currentLocation!.longitude);
+      LatLng(currentLatitude ?? 0, currentLongitude ?? 0);
   static const LatLng destination = LatLng(30.7924168532, 30.9987951871);
 
   List<LatLng> polylineCoordinates = [];
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
-    if (currentLocation != null) {
+    if (currentLatitude != null) {
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         googleApiKey,
         PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
