@@ -1,5 +1,4 @@
 import 'package:es3fny_user_app/layout/cubit/states.dart';
-import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/models/prediction_model.dart';
 import 'package:es3fny_user_app/modules/help_services/help_services_screen.dart';
 import 'package:es3fny_user_app/modules/home/home_screen.dart';
@@ -19,7 +18,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     const HomeScreen(),
     const TrackingScreen(),
     HelpServicesScreen(),
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
 
   int currentIndex = 0;
@@ -32,7 +31,6 @@ class LayoutCubit extends Cubit<LayoutStates> {
   PredictionModel? voicePredictionModel;
   Future<void> makeVoicePrediction({
     required String message,
-    required String voiceParam,
   }) async{
     emit(VoicePredictionLoadingState());
     DioHelper.postData(
@@ -40,7 +38,6 @@ class LayoutCubit extends Cubit<LayoutStates> {
         baseUrl: "https://voice-osqs.onrender.com/",
         query: {
           'message': message,
-          'voice Param': voiceParam,
         }).then((value) {
       voicePredictionModel = PredictionModel.fromJson(value.data);
       voicePredictionResult = voicePredictionModel!.predictionResult;
