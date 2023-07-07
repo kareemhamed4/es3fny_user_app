@@ -63,17 +63,16 @@ class LoadingButtonState extends State<LoadingButton>
               if (context.read<MainCubit>().hasInternet) {
                 context
                     .read<SendRequestCubit>()
-                    .sendRequest(
-                      token: token!,
-                      userId: ProfileCubit.get(context).userModel!.data!.id!,
-                    )
+                    .sendRequest()
                     .then((value) {
-                  SendRequestCubit.get(context).listenForParamedicInfo(
-                    requestId: SendRequestCubit.get(context)
-                        .sendRequestModel!
-                        .data!
-                        .id!,
-                  );
+                      if(context.read<SendRequestCubit>().sendRequestModel!.status!){
+                        SendRequestCubit.get(context).listenForParamedicInfo(
+                          requestId: SendRequestCubit.get(context)
+                              .sendRequestModel!
+                              .data!
+                              .requesId!,
+                        );
+                      }
                 });
               } else {
                 showNoInternetDialog(context: context);
@@ -109,8 +108,22 @@ class LoadingButtonState extends State<LoadingButton>
           Navigator.pop(context);
         }
         if (state is SendRequestSuccessState) {
-          context.read<LayoutCubit>().changeIndex(1);
-          NavigateTo(context: context, widget: const TrackingInfoScreen());
+          if(state.sendRequest.status!){
+            context.read<LayoutCubit>().changeIndex(1);
+            NavigateTo(context: context, widget: const TrackingInfoScreen());
+            displaySuccessMotionToast(
+              context: context,
+              title: "Done!",
+              description: state.sendRequest.msg
+            );
+          }
+          if(!state.sendRequest.status!){
+            displayWarningMotionToast(
+                context: context,
+                title: "Oops!",
+                description: state.sendRequest.msg
+            );
+          }
         }
       },
       builder: (context, state) {
@@ -118,7 +131,7 @@ class LoadingButtonState extends State<LoadingButton>
         var model = cubit.paramedicModel;
         return GestureDetector(
           onTapDown: (_) {
-            if (model != null && model.plamerData != null) {
+            if (model != null && model.data != null) {
               null;
             } else if (model == null) {
               controller.forward();

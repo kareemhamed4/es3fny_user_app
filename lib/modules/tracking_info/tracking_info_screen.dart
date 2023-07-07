@@ -153,9 +153,9 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                           ),
                                     ),
                                     if (model != null &&
-                                        model.plamerData != null)
+                                        model.data != null)
                                       Text(
-                                        'ambulance_time_remaining'.tr(context),
+                                        "${model.data!.distance!.split(".").first} KM",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1!
@@ -174,7 +174,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                             ),
                                       ),
                                     if (model != null &&
-                                        model.plamerData == null)
+                                        model.data == null)
                                       Text(
                                         'جارٍ تحديد هاويه المسعف',
                                         style: Theme.of(context)
@@ -210,10 +210,11 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      const CircleAvatar(
+                                                      CircleAvatar(
                                                         backgroundImage:
                                                             NetworkImage(
-                                                          "https://img.freepik.com/free-icon/user_318-159712.jpg",
+                                                              model!.data!
+                                                                  .profileImage!,
                                                         ),
                                                         radius: 30,
                                                       ),
@@ -226,7 +227,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                                 .start,
                                                         children: [
                                                           Text(
-                                                            model!.plamerData!
+                                                            model.data!
                                                                 .name!,
                                                             style: Theme.of(
                                                                     context)
@@ -253,7 +254,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                                 width: 6,
                                                               ),
                                                               Text(
-                                                                "ب${model.plamerData!.unit!}",
+                                                                "ب${model.data!.unitName!}",
                                                                 style: Theme.of(
                                                                         context)
                                                                     .textTheme
@@ -316,8 +317,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                         height: 2,
                                                       ),
                                                       Text(
-                                                        model.plamerData!
-                                                            .address!,
+                                                        "${model.data!.government!},${model.data!.city!}",
                                                         style: Theme.of(context)
                                                             .textTheme
                                                             .caption,

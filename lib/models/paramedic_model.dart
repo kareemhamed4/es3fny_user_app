@@ -1,41 +1,71 @@
 class ParamedicModel {
   bool? status;
-  String? message;
-  PlamerData? plamerData;
+  String? errNum;
+  String? msg;
+  Data? data;
 
-  ParamedicModel({this.status, this.message, this.plamerData});
+  ParamedicModel({this.status, this.errNum, this.msg, this.data});
 
   ParamedicModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    message = json['message'];
-    plamerData = json['Plamer_data'] != null
-        ? PlamerData.fromJson(json['Plamer_data'])
-        : null;
+    errNum = json['errNum'];
+    msg = json['msg'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
-class PlamerData {
+class Data {
+  int? id;
   String? name;
-  String? address;
-  String? unit;
+  String? email;
+  String? latitude;
+  String? longitude;
+  String? government;
+  String? city;
+  String? unitName;
   String? carNumber;
+  int? status;
+  String? nationalId;
   String? phoneNumber;
-  String? image;
+  String? profileImage;
+  String? token;
+  String? distance;
+  int? requesId;
 
-  PlamerData(
-      {this.name,
-        this.address,
-        this.unit,
+  Data(
+      {this.id,
+        this.name,
+        this.email,
+        this.latitude,
+        this.longitude,
+        this.government,
+        this.city,
+        this.unitName,
         this.carNumber,
+        this.status,
+        this.nationalId,
         this.phoneNumber,
-        this.image});
+        this.profileImage,
+        this.token,
+        this.distance,
+        this.requesId});
 
-  PlamerData.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
-    address = json['address'];
-    unit = json['unit'];
+    email = json['email'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    government = json['government'];
+    city = json['city'];
+    unitName = json['unit_name'];
     carNumber = json['car_number'];
-    phoneNumber = json['phone_number'];
-    image = json['image'];
+    status = json['status'];
+    nationalId = json['national_id'];
+    phoneNumber = json['Phone_number'];
+    profileImage = json['profile_image'];
+    token = json['token'];
+    distance = json['distance'];
+    requesId = json['reques_id'];
   }
 }

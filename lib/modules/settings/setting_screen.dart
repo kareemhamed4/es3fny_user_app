@@ -73,12 +73,13 @@ class SettingsScreen extends StatelessWidget {
                                       backgroundColor: Colors.transparent,
                                       backgroundImage: NetworkImage(model !=
                                               null
-                                          ? /*model!.data!.image! */ "https://img.freepik.com/free-icon/user_318-159712.jpg"
+                                          ? model.data!.profileImage!
                                           : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                                     ),
                                     const SizedBox(
                                       width: 12,
                                     ),
+                                    if(model != null)
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -86,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          model != null
+                                          model.data != null
                                               ? model.data!.name!
                                               : "",
                                           style: Theme.of(context)
@@ -100,7 +101,7 @@ class SettingsScreen extends StatelessWidget {
                                           height: 8,
                                         ),
                                         Text(
-                                          model != null
+                                          model.data != null
                                               ? model.data!.nationalId!
                                               : "",
                                           style: Theme.of(context)
@@ -368,6 +369,7 @@ class SettingsScreen extends StatelessWidget {
                             ),
                             onTap: () {
                               MainCubit.get(context).signOut();
+                              ProfileCubit.get(context).stopLocationUpdates();
                               NavigateToReb(
                                   context: context, widget: LoginScreen());
                             },

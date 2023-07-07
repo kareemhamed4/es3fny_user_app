@@ -42,16 +42,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       listener: (context, state) {},
       builder: (context, state) {
         var model = ProfileCubit.get(context).userModel;
-        nameController.text = model != null ? model.data!.name! : " ";
-        nIDController.text = model != null ? model.data!.nationalId! : " ";
-        phoneController.text = model != null ? "0${model.data!.phoneNumber!}" : " ";
-        emailController.text = model != null ? model.data!.email! : " ";
-        ProfileCubit.get(context).selectedValue = model != null
+        nameController.text = (model != null && model.data != null) ? model.data!.name! : " ";
+        nIDController.text = (model != null && model.data != null) ? model.data!.nationalId! : " ";
+        phoneController.text = (model != null && model.data != null) ? "0${model.data!.phoneNumber!}" : " ";
+        emailController.text = (model != null && model.data != null) ? model.data!.email! : " ";
+        ProfileCubit.get(context).selectedValue = (model != null && model.data != null)
             ? model.data!.gender! == 1
                 ? "male".tr(context)
                 : "female".tr(context)
             : " ";
-        ageController.text = model != null ? model.data!.age!.toString() : " ";
+        ageController.text = (model != null && model.data != null) ? model.data!.age!.toString() : " ";
         Size size = MediaQuery.of(context).size;
         ProfileCubit cubit = BlocProvider.of(context);
         return Scaffold(
@@ -146,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Column(
                       children: [
                         CircleAvatar(
-                          backgroundImage: NetworkImage(cubit.userModel != null
+                          backgroundImage: NetworkImage((cubit.userModel != null && cubit.userModel!.data != null)
                               ? model!.data!.profileImage!
                               : "https://img.freepik.com/free-icon/user_318-159712.jpg"),
                           radius: 40,
@@ -469,7 +469,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 fallback: (context) => const Center(child: CircularProgressIndicator()),
                               ),
                               ConditionalBuilder(
-                                condition: cubit.familyMembers!.data!.isNotEmpty,
+                                condition: (cubit.familyMembers != null && cubit.familyMembers!.data != null && cubit.familyMembers!.data!.isNotEmpty),
                                 builder: (context) => Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
