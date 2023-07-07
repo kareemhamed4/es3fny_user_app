@@ -12,10 +12,10 @@ class LoginCubit extends Cubit<LoginStates> {
 
   LoginModel? loginModel;
 
-  void userModel({
+  Future<void> userLogin({
     required String phone,
     required String password,
-  }) {
+  }) async{
     emit(LoginLoadingState());
     DioHelper.postData(
       url: LOGIN,

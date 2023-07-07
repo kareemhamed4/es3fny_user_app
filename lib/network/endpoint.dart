@@ -14,6 +14,7 @@ const SEARCH = 'products/search';
 const LIVERAPI = 'liverApi';
 const HEARTAPI = 'heartApi';
 const DIABETESAPI = 'API';
+const VOICEAPI = 'voiceApi';
 const CHATBOT = 'chatbotApi';
 const REQUEST = 'request';
 const CHECKREQUESTSTATE = 'check/accept/';

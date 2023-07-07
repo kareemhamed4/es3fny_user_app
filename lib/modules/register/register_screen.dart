@@ -51,8 +51,7 @@ class _RegisterState extends State<Register> {
   ];
 
   String? selectedSearchValue;
-  final TextEditingController searchTextEditingController =
-      TextEditingController();
+  final TextEditingController searchTextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _RegisterState extends State<Register> {
         }
         if (state is SignUpSuccessState) {
           if (state.signup.status!) {
-            NavigateTo(context: context, widget: OTPScreen(registerMsg: state.signup.msg!));
+            NavigateTo(context: context, widget: OTPScreen(registerMsg: state.signup.msg!,phone: phoneNumber,password: passwordController.text));
             context.read<PhoneAuthCubit>().submitPhoneNumber(phoneNumber);
           }
           if (!state.signup.status!) {
@@ -107,10 +106,8 @@ class _RegisterState extends State<Register> {
               physics: const BouncingScrollPhysics(),
               child: Responsive(
                 mobile: buildMobileRegisterScreen(context, size, cubit, states),
-                desktop:
-                    buildDesktopRegisterScreen(context, size, cubit, states),
-                tablet:
-                    buildDesktopRegisterScreen(context, size, cubit, states),
+                desktop: buildDesktopRegisterScreen(context, size, cubit, states),
+                tablet: buildDesktopRegisterScreen(context, size, cubit, states),
               ),
             ),
           ),
@@ -119,8 +116,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Padding buildDesktopRegisterScreen(BuildContext context, Size size,
-      PhoneAuthCubit cubit, PhoneAuthStates states) {
+  Padding buildDesktopRegisterScreen(BuildContext context, Size size, PhoneAuthCubit cubit, PhoneAuthStates states) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Form(
@@ -135,10 +131,7 @@ class _RegisterState extends State<Register> {
                 children: [
                   Text(
                     'register_label'.tr(context),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 30, color: myFavColor),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 30, color: myFavColor),
                   ),
                   SizedBox(
                     height: size.height * 0.0346,
@@ -209,14 +202,8 @@ class _RegisterState extends State<Register> {
                     child: InternationalPhoneNumberInput(
                       countries: const ["EG"],
                       spaceBetweenSelectorAndTextField: 20,
-                      selectorTextStyle: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18),
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 18),
+                      selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                      textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                       maxLength: 12,
                       validator: (value) {
                         if (value!.length < 12) {
@@ -234,10 +221,7 @@ class _RegisterState extends State<Register> {
                       inputDecoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: "1X-XXXX-XXXX",
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontSize: 16, color: myFavColor5),
+                        hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16, color: myFavColor5),
                       ),
                       selectorConfig: const SelectorConfig(
                         setSelectorButtonAsPrefixIcon: true,
@@ -273,19 +257,18 @@ class _RegisterState extends State<Register> {
                     isExpanded: true,
                     hint: Text(
                       "register_gender_choose".tr(context),
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: myFavColor5,
-                          fontSize: 16,
-                          fontFamily: "FinalR"),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
                     ),
                     icon: const Icon(
                       Icons.keyboard_arrow_down_outlined,
                     ),
                     iconSize: 30,
                     buttonHeight: 48,
-                    dropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Theme.of(context).cardColor),
+                    dropdownDecoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(15), color: Theme.of(context).cardColor),
                     items: genderItems
                         .map((item) => DropdownMenuItem<String>(
                               value: item.tr(context),
@@ -298,11 +281,8 @@ class _RegisterState extends State<Register> {
                               },
                               child: Text(
                                 item.tr(context),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .copyWith(
-                                        fontSize: 18, fontFamily: "FinalR"),
+                                style:
+                                    Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18, fontFamily: "FinalR"),
                               ),
                             ))
                         .toList(),
@@ -443,6 +423,19 @@ class _RegisterState extends State<Register> {
                         ),
                       )),
                   SizedBox(
+                    height: size.height * 0.0219,
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                      'isBlind'.tr(context),
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    value: cubit.isBlind,
+                    onChanged: (value) {
+                      cubit.changeIsBlind(value!);
+                    },
+                  ),
+                  SizedBox(
                     height: size.height * 0.02,
                   ),
                   ConditionalBuilder(
@@ -452,23 +445,22 @@ class _RegisterState extends State<Register> {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
-                          cubit.userModel(
+                          cubit.userRegister(
                             name: nameController.text,
                             email: emailController.text,
                             nationalId: nationalIdController.text,
-                            phone:
-                                phoneNumber.substring(phoneNumber.length - 10),
+                            phone: phoneNumber.substring(phoneNumber.length - 10),
                             gender: selectedValue == 'male'.tr(context) ? 1 : 0,
                             age: int.parse(ageController.text),
                             password: passwordController.text,
                             passwordConfirmation: passwordConfirmController.text,
+                            isBlind: cubit.isBlind,
                           );
                         }
                       },
                       labelWidget: Text(
                         'register_button'.tr(context),
-                        style: Theme.of(context).textTheme.button!.copyWith(
-                            fontSize: 20, fontWeight: FontWeight.w600),
+                        style: Theme.of(context).textTheme.button!.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                     ),
                     fallback: (context) => myMaterialButton(
@@ -502,10 +494,7 @@ class _RegisterState extends State<Register> {
                       children: [
                         TextSpan(
                             text: "terms".tr(context),
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(color: myFavColor),
+                            style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 showDialog(
@@ -523,10 +512,7 @@ class _RegisterState extends State<Register> {
                         ),
                         TextSpan(
                             text: "privacy".tr(context),
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption!
-                                .copyWith(color: myFavColor),
+                            style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 showDialog(
@@ -541,7 +527,9 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),
@@ -566,11 +554,9 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Padding buildMobileRegisterScreen(BuildContext context, Size size,
-      PhoneAuthCubit cubit, PhoneAuthStates states) {
+  Padding buildMobileRegisterScreen(BuildContext context, Size size, PhoneAuthCubit cubit, PhoneAuthStates states) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(
-          start: 16.0, end: 16.0, bottom: 16.0),
+      padding: const EdgeInsetsDirectional.only(start: 16.0, end: 16.0, bottom: 16.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -579,10 +565,7 @@ class _RegisterState extends State<Register> {
           children: [
             Text(
               'register_label'.tr(context),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1!
-                  .copyWith(fontSize: 30, color: myFavColor),
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 30, color: myFavColor),
             ),
             SizedBox(
               height: size.height * 0.0346,
@@ -653,14 +636,8 @@ class _RegisterState extends State<Register> {
               child: InternationalPhoneNumberInput(
                 countries: const ["EG"],
                 spaceBetweenSelectorAndTextField: 20,
-                selectorTextStyle: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 18),
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 18),
+                selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                 maxLength: 12,
                 validator: (value) {
                   if (value!.length < 12) {
@@ -678,10 +655,7 @@ class _RegisterState extends State<Register> {
                 inputDecoration: InputDecoration(
                   contentPadding: EdgeInsets.zero,
                   hintText: "1X-XXXX-XXXX",
-                  hintStyle: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(fontSize: 16, color: myFavColor5),
+                  hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16, color: myFavColor5),
                 ),
                 selectorConfig: const SelectorConfig(
                   setSelectorButtonAsPrefixIcon: true,
@@ -717,17 +691,18 @@ class _RegisterState extends State<Register> {
               isExpanded: true,
               hint: Text(
                 "register_gender_choose".tr(context),
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: myFavColor5, fontSize: 16, fontFamily: "FinalR"),
               ),
               icon: const Icon(
                 Icons.keyboard_arrow_down_outlined,
               ),
               iconSize: 30,
               buttonHeight: 48,
-              dropdownDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Theme.of(context).cardColor),
+              dropdownDecoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(15), color: Theme.of(context).cardColor),
               items: genderItems
                   .map((item) => DropdownMenuItem<String>(
                         value: item.tr(context),
@@ -740,10 +715,7 @@ class _RegisterState extends State<Register> {
                         },
                         child: Text(
                           item.tr(context),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontSize: 18, fontFamily: "FinalR"),
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18, fontFamily: "FinalR"),
                         ),
                       ))
                   .toList(),
@@ -884,6 +856,19 @@ class _RegisterState extends State<Register> {
                   ),
                 )),
             SizedBox(
+              height: size.height * 0.0219,
+            ),
+            CheckboxListTile(
+              title: Text(
+                'isBlind'.tr(context),
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              value: cubit.isBlind,
+              onChanged: (value) {
+                cubit.changeIsBlind(value!);
+              },
+            ),
+            SizedBox(
               height: size.height * 0.02,
             ),
             ConditionalBuilder(
@@ -893,7 +878,7 @@ class _RegisterState extends State<Register> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
-                    cubit.userModel(
+                    cubit.userRegister(
                       name: nameController.text,
                       email: emailController.text,
                       nationalId: nationalIdController.text,
@@ -902,15 +887,13 @@ class _RegisterState extends State<Register> {
                       age: int.parse(ageController.text),
                       password: passwordController.text,
                       passwordConfirmation: passwordConfirmController.text,
+                      isBlind: cubit.isBlind,
                     );
                   }
                 },
                 labelWidget: Text(
                   'register_button'.tr(context),
-                  style: Theme.of(context)
-                      .textTheme
-                      .button!
-                      .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.button!.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
               ),
               fallback: (context) => myMaterialButton(
@@ -944,10 +927,7 @@ class _RegisterState extends State<Register> {
                 children: [
                   TextSpan(
                       text: "terms".tr(context),
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption!
-                          .copyWith(color: myFavColor),
+                      style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           showDialog(
@@ -965,10 +945,7 @@ class _RegisterState extends State<Register> {
                   ),
                   TextSpan(
                       text: "privacy".tr(context),
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption!
-                          .copyWith(color: myFavColor),
+                      style: Theme.of(context).textTheme.caption!.copyWith(color: myFavColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           showDialog(
@@ -991,8 +968,9 @@ class _RegisterState extends State<Register> {
 
   String generateCountryFlag() {
     String countryCode = "eg";
-    String flag = countryCode.toUpperCase().replaceAllMapped(RegExp(r'[A-Z]'),
-        (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
+    String flag = countryCode
+        .toUpperCase()
+        .replaceAllMapped(RegExp(r'[A-Z]'), (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
     return flag;
   }
 }

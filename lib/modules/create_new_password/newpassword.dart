@@ -150,7 +150,7 @@ class NewPassword extends StatelessWidget {
                                                     .tr(context))));
                                     NavigateTo(
                                         context: context,
-                                        widget: const SplashScreen());
+                                        widget: const SplashScreen(isBlind: false));
                                   }
                                 },
                                 labelWidget: Text(
@@ -286,7 +286,7 @@ class NewPassword extends StatelessWidget {
                           content:
                               Text('password_changed_snackBar'.tr(context))));
                       NavigateTo(
-                          context: context, widget: const SplashScreen());
+                          context: context, widget: const SplashScreen(isBlind: false));
                     }
                   },
                   labelWidget: Text(

@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  final bool isBlind;
+  const SplashScreen({Key? key, required this.isBlind}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late AnimationController controller;
   bool showBiometric = false;
   bool isAuthenticated = false;
@@ -33,18 +33,16 @@ class _SplashScreenState extends State<SplashScreen>
     bool isAuthenticated = false;
     while (!isAuthenticated) {
       try {
-          if (this.isAuthenticated) {
-            controller =
-            AnimationController(vsync: this, duration: const Duration(seconds: 2))
-              ..forward();
-            Timer(const Duration(seconds: 2), () {
-              NavigateToReb(context: context, widget: const LayoutScreen());
-            });
-            isAuthenticated = true;
-            setState(() {});
-          } else {
-            setState(() {});
-          }
+        if (this.isAuthenticated) {
+          controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))..forward();
+          Timer(const Duration(seconds: 2), () {
+            NavigateToReb(context: context, widget: LayoutScreen(isBlind: widget.isBlind));
+          });
+          isAuthenticated = true;
+          setState(() {});
+        } else {
+          setState(() {});
+        }
       } catch (e) {
         setState(() {});
       }
@@ -79,9 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
             Center(
               child: Transform(
                 alignment: Alignment.center,
-                transform: langCode == "ar"
-                    ? Matrix4.rotationY(math.pi)
-                    : Matrix4.rotationY(math.pi * 2),
+                transform: langCode == "ar" ? Matrix4.rotationY(math.pi) : Matrix4.rotationY(math.pi * 2),
                 child: Lottie.asset(
                   "assets/lottie/ambulance.json",
                   width: 150,

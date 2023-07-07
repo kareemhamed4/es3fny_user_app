@@ -53,7 +53,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
             centerTitle: true,
             automaticallyImplyLeading: false,
             leading: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.pop(context);
               },
               child: const Icon(
@@ -64,10 +64,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
               onTap: () {},
               child: Text(
                 "track_info_title".tr(context),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 20),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 20),
               ),
             ),
             elevation: 2,
@@ -89,7 +86,10 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                   alignment: Alignment.topCenter,
                   fit: StackFit.expand,
                   children: [
-                    const MyGoogleMap(isGoToMyLocationEnabled: true,isTracking: true,),
+                    const MyGoogleMap(
+                      isGoToMyLocationEnabled: true,
+                      isTracking: true,
+                    ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: GestureDetector(
@@ -125,8 +125,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                             ],
                           ),
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Column(
                               children: [
                                 const SizedBox(height: 10),
@@ -140,47 +139,32 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                 ),
                                 const SizedBox(height: 20),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
                                       'track_ambulance'.tr(context),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
+                                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                             fontSize: 22,
                                           ),
                                     ),
-                                    if (model != null &&
-                                        model.data != null)
+                                    if (model != null && model.data != null)
                                       Text(
                                         "${model.data!.distance!.split(".").first} KM",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
+                                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                               color: myFavColor,
                                             ),
                                       ),
                                     if (model == null)
                                       Text(
                                         'ليس لديك أي طلب للإسعاف لتتبعه',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .caption!
-                                            .copyWith(
+                                        style: Theme.of(context).textTheme.caption!.copyWith(
                                               color: myFavColor,
                                             ),
                                       ),
-                                    if (model != null &&
-                                        model.data == null)
+                                    if (model != null && model.data == null)
                                       Text(
                                         'جارٍ تحديد هاويه المسعف',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .copyWith(
+                                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                                               color: myFavColor,
                                             ),
                                       ),
@@ -192,29 +176,23 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                     child: SingleChildScrollView(
                                       physics: const BouncingScrollPhysics(),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20),
+                                        padding: const EdgeInsets.symmetric(horizontal: 20),
                                         child: Form(
                                           key: formKey,
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               const SizedBox(
                                                 height: 20,
                                               ),
                                               Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
                                                       CircleAvatar(
-                                                        backgroundImage:
-                                                            NetworkImage(
-                                                              model!.data!
-                                                                  .profileImage!,
+                                                        backgroundImage: NetworkImage(
+                                                          model!.data!.profileImage!,
                                                         ),
                                                         radius: 30,
                                                       ),
@@ -222,20 +200,14 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                         width: 12,
                                                       ),
                                                       Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text(
-                                                            model.data!
-                                                                .name!,
-                                                            style: Theme.of(
-                                                                    context)
+                                                            model.data!.name!,
+                                                            style: Theme.of(context)
                                                                 .textTheme
                                                                 .bodyText1!
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        16),
+                                                                .copyWith(fontSize: 16),
                                                           ),
                                                           const SizedBox(
                                                             height: 6,
@@ -243,25 +215,18 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                           Row(
                                                             children: [
                                                               Text(
-                                                                'driver'.tr(
-                                                                    context),
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .caption,
+                                                                'driver'.tr(context),
+                                                                style: Theme.of(context).textTheme.caption,
                                                               ),
                                                               const SizedBox(
                                                                 width: 6,
                                                               ),
                                                               Text(
                                                                 "ب${model.data!.unitName!}",
-                                                                style: Theme.of(
-                                                                        context)
+                                                                style: Theme.of(context)
                                                                     .textTheme
                                                                     .bodyText2!
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            14),
+                                                                    .copyWith(fontSize: 14),
                                                               ),
                                                             ],
                                                           ),
@@ -272,8 +237,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                   IconButton(
                                                       onPressed: () {},
                                                       icon: Icon(
-                                                        FluentIcons
-                                                            .call_16_regular,
+                                                        FluentIcons.call_16_regular,
                                                         color: myFavColor,
                                                       )),
                                                 ],
@@ -289,11 +253,9 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                 children: [
                                                   CircleAvatar(
                                                     radius: 15,
-                                                    backgroundColor: myFavColor
-                                                        .withOpacity(0.1),
+                                                    backgroundColor: myFavColor.withOpacity(0.1),
                                                     child: Icon(
-                                                      Icons
-                                                          .location_on_outlined,
+                                                      Icons.location_on_outlined,
                                                       color: myFavColor,
                                                       size: 16,
                                                     ),
@@ -302,25 +264,18 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                     width: 12,
                                                   ),
                                                   Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Text(
-                                                        "track_address"
-                                                            .tr(context),
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .caption,
+                                                        "track_address".tr(context),
+                                                        style: Theme.of(context).textTheme.caption,
                                                       ),
                                                       const SizedBox(
                                                         height: 2,
                                                       ),
                                                       Text(
                                                         "${model.data!.government!},${model.data!.city!}",
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .caption,
+                                                        style: Theme.of(context).textTheme.caption,
                                                       ),
                                                     ],
                                                   ),
@@ -333,8 +288,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                 children: [
                                                   CircleAvatar(
                                                     radius: 15,
-                                                    backgroundColor: myFavColor
-                                                        .withOpacity(0.1),
+                                                    backgroundColor: myFavColor.withOpacity(0.1),
                                                     child: Icon(
                                                       Icons.add_home_outlined,
                                                       color: myFavColor,
@@ -347,67 +301,38 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                   Expanded(
                                                     flex: 3,
                                                     child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Padding(
-                                                          padding:
-                                                              const EdgeInsetsDirectional
-                                                                      .only(
-                                                                  end: 16),
+                                                          padding: const EdgeInsetsDirectional.only(end: 16),
                                                           child: TextFormField(
-                                                            controller:
-                                                                hospitalController,
+                                                            controller: hospitalController,
                                                             validator: (value) {
-                                                              if (value!
-                                                                  .isEmpty) {
+                                                              if (value!.isEmpty) {
                                                                 displayErrorMotionToast(
-                                                                  context:
-                                                                      context,
-                                                                  title: langCode ==
-                                                                          "en"
-                                                                      ? "Error"
-                                                                      : "خطأ",
-                                                                  description: langCode ==
-                                                                          "en"
+                                                                  context: context,
+                                                                  title: langCode == "en" ? "Error" : "خطأ",
+                                                                  description: langCode == "en"
                                                                       ? "Please enter hospital name"
                                                                       : "برجاء ادخال اسم المستشفي للتأكيد",
                                                                 );
                                                               }
                                                               return null;
                                                             },
-                                                            decoration:
-                                                                InputDecoration(
+                                                            decoration: InputDecoration(
                                                               filled: true,
-                                                              fillColor:
-                                                                  myFavColor1
-                                                                      .withOpacity(
-                                                                          0.1),
-                                                              contentPadding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right: 5,
-                                                                      left: 5),
+                                                              fillColor: myFavColor1.withOpacity(0.1),
+                                                              contentPadding: const EdgeInsets.only(right: 5, left: 5),
                                                               label: Text(
-                                                                "track_destination"
-                                                                    .tr(context),
-                                                                style: Theme.of(
-                                                                        context)
+                                                                "track_destination".tr(context),
+                                                                style: Theme.of(context)
                                                                     .textTheme
                                                                     .caption!
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            12),
+                                                                    .copyWith(fontSize: 12),
                                                               ),
                                                               border: OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5),
-                                                                  borderSide:
-                                                                      BorderSide
-                                                                          .none),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  borderSide: BorderSide.none),
                                                             ),
                                                           ),
                                                         ),
@@ -421,22 +346,13 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                           height: 32,
                                                           color: myFavColor,
                                                           onPressed: () {
-                                                            if (formKey
-                                                                .currentState!
-                                                                .validate()) {
-                                                              hospitalController
-                                                                      .text =
-                                                                  hospitalController
-                                                                      .text;
+                                                            if (formKey.currentState!.validate()) {
+                                                              hospitalController.text = hospitalController.text;
                                                             }
                                                           },
                                                           child: Text(
-                                                            "track_confirm"
-                                                                .tr(context),
-                                                            style: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .button,
+                                                            "track_confirm".tr(context),
+                                                            style: Theme.of(context).textTheme.button,
                                                           ),
                                                         ),
                                                       )),
@@ -454,49 +370,30 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                     onPressed: () {
                                                       showMyDialog(
                                                         context: context,
-                                                        icon:
-                                                            Icons.info_outline,
+                                                        icon: Icons.info_outline,
                                                         titleWidget: Text(
-                                                          "track_alert"
-                                                              .tr(context),
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText1!
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          18),
+                                                          "track_alert".tr(context),
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText1!
+                                                              .copyWith(fontSize: 18),
                                                         ),
                                                         contentWidget: Text(
-                                                          "track_alert_content"
-                                                              .tr(context),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .caption!
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          18),
+                                                          "track_alert_content".tr(context),
+                                                          textAlign: TextAlign.center,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .caption!
+                                                              .copyWith(fontSize: 18),
                                                         ),
                                                         onConfirm: () {
-                                                          Navigator.of(context)
-                                                              .popUntil((route) =>
-                                                                  route
-                                                                      .isFirst);
+                                                          Navigator.of(context).popUntil((route) => route.isFirst);
                                                           NavigateToReb(
-                                                              context: context,
-                                                              widget:
-                                                                  const LayoutScreen());
+                                                              context: context, widget: LayoutScreen(isBlind: isBlind));
                                                           displayWarningMotionToast(
                                                             context: context,
-                                                            title:
-                                                                langCode == "en"
-                                                                    ? "Warning"
-                                                                    : "تحذير",
-                                                            description: langCode ==
-                                                                    "en"
+                                                            title: langCode == "en" ? "Warning" : "تحذير",
+                                                            description: langCode == "en"
                                                                 ? "Your request is being processed"
                                                                 : "طلبك قيد التنفيذ",
                                                           );
@@ -504,11 +401,8 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                       );
                                                     },
                                                     child: Text(
-                                                      "track_cancel_request"
-                                                          .tr(context),
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .button,
+                                                      "track_cancel_request".tr(context),
+                                                      style: Theme.of(context).textTheme.button,
                                                     ),
                                                   ),
                                                 ),
@@ -522,14 +416,10 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                 if (model != null && model.status == null)
                                   Expanded(
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
-                                        if (isSheetExpanded &&
-                                            sheetHeight > 150)
-                                          const CircularProgressIndicator(),
+                                        if (isSheetExpanded && sheetHeight > 150) const CircularProgressIndicator(),
                                       ],
                                     ),
                                   ),

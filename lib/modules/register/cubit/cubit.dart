@@ -10,6 +10,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
   PhoneAuthCubit() : super(PhoneAuthInitialState());
 
   static PhoneAuthCubit get(context) => BlocProvider.of(context);
+
+  bool isBlind = false;
+  void changeIsBlind(bool value){
+    isBlind = value;
+    emit(ChangeIsBlindState());
+  }
+
   late String verificationId;
 
   Future<void> submitPhoneNumber(String phoneNumber) async {
@@ -70,7 +77,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
 
   LoginModel? signupModel;
 
-  void userModel({
+  void userRegister({
     required String name,
     required String nationalId,
     required String phone,
@@ -79,6 +86,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     required String email,
     required String password,
     required String passwordConfirmation,
+    required bool isBlind,
   }) {
     emit(SignUpLoadingState());
     DioHelper.postData(
@@ -93,6 +101,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
         'email': email,
         'password': password,
         'password_confirmation': passwordConfirmation,
+        'isBlind': isBlind,
       },
     ).then((value) {
       debugPrint(value.data.toString());

@@ -26,6 +26,7 @@ class Data {
   String? phoneNumber;
   String? profileImage;
   String? token;
+  bool? isBlind;
 
   Data(
       {this.id,
@@ -38,7 +39,9 @@ class Data {
         this.nationalId,
         this.phoneNumber,
         this.profileImage,
-        this.token});
+        this.token,
+        this.isBlind,
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -52,5 +55,6 @@ class Data {
     phoneNumber = json['Phone_number'];
     profileImage = json['profile_image'];
     token = json['token'];
+    isBlind = json['isBlind'];
   }
 }

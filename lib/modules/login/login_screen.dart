@@ -19,10 +19,8 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   late String phoneNumber;
   TextEditingController passwordController = TextEditingController();
-  GlobalKey<ScaffoldState> scaffoldKey =
-      GlobalKey<ScaffoldState>(debugLabel: "loginScaffoldKey");
-  GlobalKey<FormState> formKey =
-      GlobalKey<FormState>(debugLabel: "loginFormKey");
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: "loginScaffoldKey");
+  GlobalKey<FormState> formKey = GlobalKey<FormState>(debugLabel: "loginFormKey");
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,12 +30,12 @@ class LoginScreen extends StatelessWidget {
                 {
                   if (state.loginModel.status!)
                     {
-                      CacheHelper.saveData(
-                              key: "token", value: state.loginModel.data!.token)
-                          .then((value) {
+                      CacheHelper.saveData(key: "token", value: state.loginModel.data!.token).then((value) {
                         token = state.loginModel.data!.token;
-                        NavigateToReb(
-                            context: context, widget: const SplashScreen());
+                        CacheHelper.saveData(key: "isBlind", value: state.loginModel.data!.isBlind).then((value){
+                          isBlind = state.loginModel.data!.isBlind!;
+                          NavigateToReb(context: context, widget: SplashScreen(isBlind: state.loginModel.data!.isBlind!));
+                        });
                       }),
                     }
                   else
@@ -66,8 +64,7 @@ class LoginScreen extends StatelessWidget {
         });
   }
 
-  Padding buildDesktopLoginScreen(
-      BuildContext context, Size size, LoginCubit cubit, LoginStates state) {
+  Padding buildDesktopLoginScreen(BuildContext context, Size size, LoginCubit cubit, LoginStates state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 60.0),
       child: Center(
@@ -85,10 +82,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       Text(
                         "login_label".tr(context),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1!
-                            .copyWith(fontSize: 30, color: myFavColor),
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 30, color: myFavColor),
                       ),
                       SizedBox(
                         height: size.height * 0.064,
@@ -111,14 +105,8 @@ class LoginScreen extends StatelessWidget {
                         child: InternationalPhoneNumberInput(
                           countries: const ["EG"],
                           spaceBetweenSelectorAndTextField: 20,
-                          selectorTextStyle: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontSize: 18),
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(fontSize: 18),
+                          selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                          textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                           maxLength: 12,
                           validator: (value) {
                             if (value!.length < 12) {
@@ -131,19 +119,15 @@ class LoginScreen extends StatelessWidget {
                           inputDecoration: InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             hintText: "1X-XXXX-XXXX",
-                            hintStyle: Theme.of(context)
-                                .textTheme
-                                .bodyText2!
-                                .copyWith(fontSize: 16, color: myFavColor5),
+                            hintStyle:
+                                Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16, color: myFavColor5),
                           ),
                           selectorConfig: const SelectorConfig(
                             setSelectorButtonAsPrefixIcon: true,
                             leadingPadding: 16,
                           ),
                           onSaved: (phoneNumber) {
-                            this.phoneNumber = phoneNumber.phoneNumber!
-                                .substring(
-                                    phoneNumber.phoneNumber!.length - 10);
+                            this.phoneNumber = phoneNumber.phoneNumber!.substring(phoneNumber.phoneNumber!.length - 10);
                             debugPrint(this.phoneNumber);
                           },
                         ),
@@ -194,9 +178,7 @@ class LoginScreen extends StatelessWidget {
                               context: context,
                               label: "login_forget_password".tr(context),
                               onPressed: () {
-                                NavigateTo(
-                                    context: context,
-                                    widget: ForgetPasswordScreen());
+                                NavigateTo(context: context, widget: ForgetPasswordScreen());
                               })),
                       SizedBox(
                         height: size.height * 0.042,
@@ -208,15 +190,13 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              cubit.userModel(
-                                  phone: phoneNumber,
-                                  password: passwordController.text);
+                              cubit.userLogin(phone: phoneNumber, password: passwordController.text);
                             }
                           },
                           labelWidget: Text(
                             "login_button".tr(context),
-                            style: Theme.of(context).textTheme.button!.copyWith(
-                                fontSize: 20, fontWeight: FontWeight.w600),
+                            style:
+                                Theme.of(context).textTheme.button!.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                           ),
                         ),
                         fallback: (context) => myMaterialButton(
@@ -284,8 +264,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Padding buildMobileLoginScreen(
-      BuildContext context, Size size, LoginCubit cubit, LoginStates state) {
+  Padding buildMobileLoginScreen(BuildContext context, Size size, LoginCubit cubit, LoginStates state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Center(
@@ -299,10 +278,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Text(
                   "login_label".tr(context),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 30, color: myFavColor),
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 30, color: myFavColor),
                 ),
                 SizedBox(
                   height: size.height * 0.064,
@@ -332,14 +308,8 @@ class LoginScreen extends StatelessWidget {
                   child: InternationalPhoneNumberInput(
                     countries: const ["EG"],
                     spaceBetweenSelectorAndTextField: 20,
-                    selectorTextStyle: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 18),
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(fontSize: 18),
+                    selectorTextStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                    textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                     maxLength: 12,
                     validator: (value) {
                       if (value!.length < 12) {
@@ -352,18 +322,14 @@ class LoginScreen extends StatelessWidget {
                     inputDecoration: InputDecoration(
                       contentPadding: EdgeInsets.zero,
                       hintText: "1X-XXXX-XXXX",
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontSize: 16, color: myFavColor5),
+                      hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 16, color: myFavColor5),
                     ),
                     selectorConfig: const SelectorConfig(
                       setSelectorButtonAsPrefixIcon: true,
                       leadingPadding: 16,
                     ),
                     onSaved: (phoneNumber) {
-                      this.phoneNumber = phoneNumber.phoneNumber!
-                          .substring(phoneNumber.phoneNumber!.length - 10);
+                      this.phoneNumber = phoneNumber.phoneNumber!.substring(phoneNumber.phoneNumber!.length - 10);
                       debugPrint(this.phoneNumber);
                     },
                   ),
@@ -414,8 +380,7 @@ class LoginScreen extends StatelessWidget {
                         context: context,
                         label: "login_forget_password".tr(context),
                         onPressed: () {
-                          NavigateTo(
-                              context: context, widget: ForgetPasswordScreen());
+                          NavigateTo(context: context, widget: ForgetPasswordScreen());
                         })),
                 SizedBox(
                   height: size.height * 0.042,
@@ -427,17 +392,12 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        cubit.userModel(
-                            phone: phoneNumber,
-                            password: passwordController.text);
+                        cubit.userLogin(phone: phoneNumber, password: passwordController.text);
                       }
                     },
                     labelWidget: Text(
                       "login_button".tr(context),
-                      style: Theme.of(context)
-                          .textTheme
-                          .button!
-                          .copyWith(fontSize: 20, fontWeight: FontWeight.w600),
+                      style: Theme.of(context).textTheme.button!.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                   ),
                   fallback: (context) => myMaterialButton(

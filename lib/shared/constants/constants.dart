@@ -1,8 +1,10 @@
 String? token;
+String? userId;
 String? otpCodeFromShared;
 String? langCode = '';
 int? langContainerIndex = 0;
 bool isDark = false;
+bool isBlind = false;
 const String googleApiKey = "AIzaSyDUNaxTG6FDCGz51xE-Uc9ZoEAbHsawv8M";
 double? currentLatitude;
 double? currentLongitude;

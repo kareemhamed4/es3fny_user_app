@@ -38,11 +38,12 @@ void main()async{
   currentLongitude = CacheHelper.getData(key: 'currentLongitude');
   langCode = CacheHelper.getData(key: 'lang');
   isDark = CacheHelper.getData(key: "isDark") ?? false;
+  isBlind = CacheHelper.getData(key: "isBlind") ?? false;
   bool? onBoarding = CacheHelper.getData(key: "onBoarding");
   Widget widget;
   if(onBoarding != null){
     if(token != null){
-      widget = const SplashScreen();
+      widget = SplashScreen(isBlind: isBlind);
     }else{
       widget = LoginScreen();
     }
