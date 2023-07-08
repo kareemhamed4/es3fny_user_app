@@ -26,7 +26,7 @@ class Data {
   String? phoneNumber;
   String? profileImage;
   String? token;
-  bool? isBlind;
+  int? isBlind;
 
   Data(
       {this.id,

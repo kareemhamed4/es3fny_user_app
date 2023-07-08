@@ -11,9 +11,9 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
 
   static PhoneAuthCubit get(context) => BlocProvider.of(context);
 
-  bool isBlind = false;
+  int isBlind = 1;
   void changeIsBlind(bool value){
-    isBlind = value;
+    isBlind = value == true ? 0 : 1;
     emit(ChangeIsBlindState());
   }
 
@@ -86,7 +86,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthStates> {
     required String email,
     required String password,
     required String passwordConfirmation,
-    required bool isBlind,
+    required int isBlind,
   }) {
     emit(SignUpLoadingState());
     DioHelper.postData(

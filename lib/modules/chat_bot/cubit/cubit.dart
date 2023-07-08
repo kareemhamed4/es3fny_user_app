@@ -7,7 +7,7 @@ class ChatBotCubit extends Cubit<List<ChatMessage>> {
   static ChatBotCubit get(context) => BlocProvider.of(context);
   final Dio _dio;
   final String chatbotApiUrl =
-      'https://chatbot-production-0858.up.railway.app/chatbotApi';
+      'https://chatbot-production-912c.up.railway.app/chatbotApi';
   final ScrollController scrollController = ScrollController();
 
   ChatBotCubit()

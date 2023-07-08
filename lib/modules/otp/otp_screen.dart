@@ -73,7 +73,7 @@ class _OTPScreenState extends State<OTPScreen> {
               if (state.loginModel.status!) {
                 CacheHelper.saveData(key: "token", value: state.loginModel.data!.token).then((value) {
                   token = state.loginModel.data!.token;
-                  NavigateToReb(context: context, widget: SplashScreen(isBlind: state.loginModel.data!.isBlind!));
+                  NavigateToReb(context: context, widget: SplashScreen(isBlind: state.loginModel.data!.isBlind == 0 ? true : false));
                 });
               } else {
                 displayErrorMotionToast(

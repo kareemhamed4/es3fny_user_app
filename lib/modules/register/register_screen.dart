@@ -430,7 +430,7 @@ class _RegisterState extends State<Register> {
                       'isBlind'.tr(context),
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    value: cubit.isBlind,
+                    value: cubit.isBlind == 0 ? true : false,
                     onChanged: (value) {
                       cubit.changeIsBlind(value!);
                     },
@@ -863,7 +863,7 @@ class _RegisterState extends State<Register> {
                 'isBlind'.tr(context),
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              value: cubit.isBlind,
+              value: cubit.isBlind == 0 ? true : false,
               onChanged: (value) {
                 cubit.changeIsBlind(value!);
               },

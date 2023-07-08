@@ -40,9 +40,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     super.initState();
-    _audioPlayer = AudioPlayer();
-    _initSound();
-    _audioPlayer.play();
+    if(widget.isBlind){
+      _audioPlayer = AudioPlayer();
+      _initSound();
+      _audioPlayer.play();
+    }
   }
 
   Future<void> _initSound() async {
@@ -71,14 +73,15 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   listenMode: ListenMode.confirmation,
                   localeId: "ar_EG")
               .whenComplete(() {
-            Timer(const Duration(seconds: 6), () {
-              debugPrint(soundController.text);
-              LayoutCubit.get(context)
-                  .makeVoicePrediction(
-                    message: soundController.text,
-                    voiceParam: "1",
-                  );
-            });
+            Timer(
+              const Duration(seconds: 6),
+              () {
+                debugPrint(soundController.text);
+                LayoutCubit.get(context).makeVoicePrediction(
+                  message: soundController.text,
+                );
+              },
+            );
           });
         });
       }
@@ -124,10 +127,12 @@ class _LayoutScreenState extends State<LayoutScreen> {
               {
                 _audioPlayer.setAsset("assets/voices/done request and wish.mp3"),
                 _audioPlayer.play(),
-              }else{
-              _audioPlayer.setAsset("assets/voices/no need ems.mp3"),
-              _audioPlayer.play(),
-            }
+              }
+            else
+              {
+                _audioPlayer.setAsset("assets/voices/no need ems.mp3"),
+                _audioPlayer.play(),
+              }
           }
       },
       builder: (context, state) {

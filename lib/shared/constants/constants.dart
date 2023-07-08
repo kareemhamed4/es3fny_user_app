@@ -4,7 +4,7 @@ String? otpCodeFromShared;
 String? langCode = '';
 int? langContainerIndex = 0;
 bool isDark = false;
-bool isBlind = false;
+int isBlind = 1;
 const String googleApiKey = "AIzaSyDUNaxTG6FDCGz51xE-Uc9ZoEAbHsawv8M";
 double? currentLatitude;
 double? currentLongitude;

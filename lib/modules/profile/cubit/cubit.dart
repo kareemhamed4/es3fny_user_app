@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:es3fny_user_app/models/family_model.dart';
 import 'package:es3fny_user_app/models/login_model.dart';
 import 'package:es3fny_user_app/modules/profile/cubit/states.dart';

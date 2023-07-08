@@ -35,7 +35,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
     emit(VoicePredictionLoadingState());
     DioHelper.postData(
         url: VOICEAPI,
-        baseUrl: "https://voice-osqs.onrender.com/",
+        baseUrl: "https://voicegp-production.up.railway.app/",
         query: {
           'message': message,
         }).then((value) {

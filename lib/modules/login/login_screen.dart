@@ -3,6 +3,7 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/modules/forget_password/forget_password_screen.dart';
 import 'package:es3fny_user_app/modules/login/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/login/cubit/states.dart';
+import 'package:es3fny_user_app/modules/profile/cubit/cubit.dart';
 import 'package:es3fny_user_app/modules/register/register_screen.dart';
 import 'package:es3fny_user_app/modules/splash/splash_screen.dart';
 import 'package:es3fny_user_app/network/local/cache_helper.dart';
@@ -34,7 +35,8 @@ class LoginScreen extends StatelessWidget {
                         token = state.loginModel.data!.token;
                         CacheHelper.saveData(key: "isBlind", value: state.loginModel.data!.isBlind).then((value){
                           isBlind = state.loginModel.data!.isBlind!;
-                          NavigateToReb(context: context, widget: SplashScreen(isBlind: state.loginModel.data!.isBlind!));
+                          ProfileCubit.get(context).startLocationUpdates();
+                          NavigateToReb(context: context, widget: SplashScreen(isBlind: state.loginModel.data!.isBlind! == 0 ? true : false));
                         });
                       }),
                     }

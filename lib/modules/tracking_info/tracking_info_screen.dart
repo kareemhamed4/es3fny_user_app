@@ -389,7 +389,7 @@ class _TrackingInfoScreenState extends State<TrackingInfoScreen> {
                                                         onConfirm: () {
                                                           Navigator.of(context).popUntil((route) => route.isFirst);
                                                           NavigateToReb(
-                                                              context: context, widget: LayoutScreen(isBlind: isBlind));
+                                                              context: context, widget: LayoutScreen(isBlind: isBlind == 0 ? true : false));
                                                           displayWarningMotionToast(
                                                             context: context,
                                                             title: langCode == "en" ? "Warning" : "تحذير",
