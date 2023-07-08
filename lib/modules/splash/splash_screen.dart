@@ -7,6 +7,7 @@ import 'package:es3fny_user_app/shared/constants/constants.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashScreen extends StatefulWidget {
   final bool isBlind;
@@ -26,7 +27,26 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     isBiometricsAvailable();
     isAuthenticatedDone();
     listenForAuthentication();
+    requestLocationPermission();
     super.initState();
+  }
+
+  Future<void> requestLocationPermission() async {
+    // Request permission using the `request` method
+    PermissionStatus status = await Permission.location.request();
+
+    // Check the status of the permission request
+    if (status.isGranted) {
+      // Permission granted
+      print('Location permission granted');
+    } else if (status.isDenied) {
+      // Permission denied
+      print('Location permission denied');
+    } else if (status.isPermanentlyDenied) {
+      // Permission permanently denied
+      print('Location permission permanently denied');
+      openAppSettings();
+    }
   }
 
   Future<void> listenForAuthentication() async {

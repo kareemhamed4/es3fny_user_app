@@ -5,6 +5,7 @@ import 'package:es3fny_user_app/app_localization.dart';
 import 'package:es3fny_user_app/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/cubit.dart';
 import 'package:es3fny_user_app/layout/cubit/states.dart';
+import 'package:es3fny_user_app/main_button/cubit/cubit.dart';
 import 'package:es3fny_user_app/shared/components/components.dart';
 import 'package:es3fny_user_app/shared/styles/colors.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -65,8 +66,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
           stt
               .listen(
                   onResult: resultListener,
-                  listenFor: const Duration(seconds: 6),
-                  pauseFor: const Duration(seconds: 2),
+                  listenFor: const Duration(seconds: 8),
+                  pauseFor: const Duration(seconds: 4),
                   partialResults: true,
                   onSoundLevelChange: soundLevelListener,
                   cancelOnError: true,
@@ -74,7 +75,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   localeId: "ar_EG")
               .whenComplete(() {
             Timer(
-              const Duration(seconds: 6),
+              const Duration(seconds: 8),
               () {
                 debugPrint(soundController.text);
                 LayoutCubit.get(context).makeVoicePrediction(
@@ -127,6 +128,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
               {
                 _audioPlayer.setAsset("assets/voices/done request and wish.mp3"),
                 _audioPlayer.play(),
+                SendRequestCubit.get(context).sendRequest(),
               }
             else
               {
